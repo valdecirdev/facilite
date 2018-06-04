@@ -19,7 +19,7 @@
         $donoPerfil = true;
     }
 ?>
-    <input type="text" value="<?php echo $usuario->getIdUsuario(); ?>" id="id_usuario_logado" class="d-none">
+    <input type="text" value="<?php if(isset($loggedUser)){echo $loggedUser->getIdUsuario();} ?>" id="id_usuario_logado" class="d-none">
     <section class="container" style="" id="profile-page">
         <div class="row d-print-none">
             <nav aria-label="breadcrumb">
@@ -81,9 +81,9 @@
                     <div class="row d-print-none" style="margin-top: 15px;">
                         <div class="col-md-12 profile-card">
                             <div class="col-12" style="padding:0px">
-                                <div class="clearfix">
+                                <div class="title-text-card clearfix">
                                     <h6 class="skills-title pull-left" >Contatos</h6>
-                                    <a href="" class="pull-right" style="margin-top:-5px">ver todos</a>
+                                    <a href="" class="pull-right" style="margin-top:-3px">ver todos</a>
                                 </div>
                             </div>
                             <div class="col-12" style="padding:0px">
@@ -121,8 +121,8 @@
                             <div class="col-md-12 profile-card" style="height:180px;">
                                 <!-- SOBRE -->
                                 <div class="col-12">
-                                    <div class="clearfix">
-                                        <h6 class="skills-title pull-left" >SOBRE</h6>
+                                    <div class="clearfix title-text-card" style="margin-bottom:5px;margin-left:-35px;margin-right:-35px;padding-left:30px;">
+                                        <h6 class="skills-title pull-left">SOBRE</h6>
                                         <?php if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
                                             <button type="button" id="btn-editApres" class="pull-left btn btn-link" style="padding: 0px;margin-top:-3px;margin-left:20px">Editar</button>
                                             <button type="button" id="btn-cancelEditApres" class="pull-left btn btn-link d-none text-danger" style="padding: 0px;margin-top:-3px;margin-left:20px">Cancelar</button>                                             
@@ -132,7 +132,7 @@
                                 <div class="col-12" style="max-width:98%;margin-bottom:15px;margin-left:1%;margin-right:1%">
                                     <form id="form-apres">
                                         <input type="text" style="position:absolute; display:none" id="id_usuario" value="<?php echo $usuario->getIdUsuario(); ?>">
-                                        <textarea class="form-control-plaintext" readonly disabled name="des_apresentacao" id="des_apresentacao" cols="30" style="height:auto;resize: none;margin-left:-10px;margin-right:-10px;" spellcheck="false" placeholder="Olá, meu nome é <?php echo $usuario->getNomeSimplesUsuario(); ?> e eu sou novo aqui."><?php echo $usuario->getApresentacaoUsuario(); ?></textarea>
+                                        <textarea class="form-control-plaintext" readonly disabled name="des_apresentacao" id="des_apresentacao" cols="30" style="height:auto;resize: none;margin-left:-10px;margin-right:-10px;font-weight:300" spellcheck="false" placeholder="Olá, meu nome é <?php echo $usuario->getNomeSimplesUsuario(); ?> e eu sou novo aqui."><?php echo $usuario->getApresentacaoUsuario(); ?></textarea>
                                     </form>
                                 </div>
                             </div>
@@ -167,7 +167,7 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="row">
-                                        <?php if(isset($_SESSION['id'])){$ligacoes= new Ligacao(); $ligacoes = $ligacoes->loadById($usuario->getIdUsuario(), $_SESSION['id']); ?>
+                                        <?php if(isset($_SESSION['id'])){$ligacoes= new Ligacao(); $ligacoes = $ligacoes->loadById($loggedUser->getIdUsuario(),$usuario->getIdUsuario()); ?>
                                             <button class="col-9 d-print-none btn btn-<?php if($ligacoes == NULL){echo 'primary';}else{echo 'danger';} ?>" style="margin-top:10px; margin-left:10px;" id="criar-conexao" <?php if(!isset($_SESSION['id'])||($_SESSION['id'] == $usuario->getidUsuario())){ echo 'disabled'; } ?>><?php if($ligacoes == NULL){echo 'Adicionar';}else{echo 'Remover';} ?> Contato</button>
                                         <?php }else{ ?>
                                             <button class="col-9 d-print-none btn btn-primary open-Login" style="margin-top:10px; margin-left:10px;"> Adicionar Contato</button>
@@ -227,12 +227,12 @@
                                                 <div class="col-12" style="margin-top:15px;margin-bottom:15px">
                                                     <div class="clearfix">
                                                         <input type="text" class="id_experiencia" value="<?php echo $experiencias[$key]->getIdExperiencia(); ?>" style="display:none">
-                                                        <input type="text" class="form-control-plaintext des_titulo_experiencia pull-left col-md-8" readonly disabled value="<?php echo $experiencias[$key]->getTituloExperiencia(); ?>" style="height:auto;resize: none;margin-left:-10px;font-weight:bold; padding-bottom:1px;padding-top:1px; padding-left:5px;margin-right:-10px;font-size:15px;">
+                                                        <input type="text" class="form-control-plaintext des_titulo_experiencia pull-left col-md-8" readonly disabled value="<?php echo $experiencias[$key]->getTituloExperiencia(); ?>" style="height:auto;resize: none;margin-left:-10px;font-weight:400; padding-bottom:1px;padding-top:1px; padding-left:5px;margin-right:-10px;font-size:17px;">
                                                         <?php if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
                                                             <button type="button" class="btn pull-left btn-editExperiencia btn-link" style="margin-top:-6px;">Editar</button>
                                                             <button type="button" class="btn pull-left btn-delExperiencia btn-link text-danger" style="margin-top:-6px">Deletar</button>
                                                         <?php }} ?>
-                                                        <textarea class="desc des_descricao_experiencia form-control-plaintext" readonly disabled name="des_apresentacao" id="des_apresentacao" cols="30" rows="2" style="max-height:55px;resize: none;margin-left:-10px;margin-right:-10px; padding-left:5px;padding-bottom:1px;padding-top:1px;" spellcheck="false"><?php echo $experiencias[$key]->getDescricaoExperiencia(); ?></textarea>
+                                                        <textarea class="desc des_descricao_experiencia form-control-plaintext" readonly disabled name="des_apresentacao" id="des_apresentacao" cols="30" rows="2" style="max-height:55px;resize: none;margin-left:-10px;margin-right:-10px; padding-left:5px;padding-bottom:1px;padding-top:1px;font-weight:300;font-size:16px;" spellcheck="false"><?php echo $experiencias[$key]->getDescricaoExperiencia(); ?></textarea>
                                                     </div>
                                                 </div>
                                         <?php }}else{?>
@@ -256,12 +256,12 @@
                                                 <div class="col-12" style="margin-top:15px;margin-bottom:15px">
                                                     <div class="clearfix">
                                                         <input type="text" class="id_formacao" value="<?php echo $formacoes[$key]->getIDFormacao(); ?>" style="display:none">
-                                                        <input type="text" class="form-control-plaintext des_titulo_formacao pull-left col-8" readonly disabled value="<?php echo $formacoes[$key]->getTituloFormacao(); ?>" style="height:auto;resize: none;margin-left:-10px;font-weight:bold;text-transform:uppercase; padding-left:5px;margin-right:-10px;font-size:15px">
+                                                        <input type="text" class="form-control-plaintext des_titulo_formacao pull-left col-8" readonly disabled value="<?php echo $formacoes[$key]->getTituloFormacao(); ?>" style="height:auto;resize: none;margin-left:-10px;font-weight:400; padding-left:5px;margin-right:-10px;font-size:17px">
                                                         <?php if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
                                                             <button type="button" class="btn pull-left btn-editFormacao btn-link" style="margin-top:0px;margin-left:20px">Editar</button>
                                                             <button type="button" class="btn pull-left btn-delFormacao btn-link" style="color: red;margin-top:0px;margin-left:0px">Deletar</button>
                                                         <?php }} ?>
-                                                        <textarea class="desc des_descricao_formacao form-control-plaintext" readonly disabled name="des_apresentacao" id="des_apresentacao" rows="1" cols="30" style="height:auto;resize: none;margin-left:-10px;margin-right:-10px; padding-left:5px; padding-top:0px;" spellcheck="false"><?php echo $formacoes[$key]->getDescricaoFormacao(); ?></textarea>
+                                                        <textarea class="desc des_descricao_formacao form-control-plaintext" readonly disabled name="des_apresentacao" id="des_apresentacao" rows="1" cols="30" style="height:auto;resize: none;margin-left:-10px;margin-right:-10px; padding-left:5px; padding-top:0px;font-weight:300" spellcheck="false"><?php echo $formacoes[$key]->getDescricaoFormacao(); ?></textarea>
                                                     </div>
                                                 </div>
                                         <?php } ?>
