@@ -1,0 +1,15 @@
+
+<IfModule mod_rewrite.c>
+RewriteEngine on
+
+
+
+RewriteRule ^$ view/index.php [L]
+RewriteRule ^home?$ view/index.php [NC,L]
+RewriteRule ^search?$ view/search.php [NC,L]
+RewriteRule ^404?$ view/erro_404.php [NC,L]
+RewriteRule ^([@,a-z,0-9,A-Z,_-]+)?$ view/profile.php [NC,L]
+
+
+
+</IfModule>
