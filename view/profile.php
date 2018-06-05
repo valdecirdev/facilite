@@ -82,7 +82,7 @@
                         <div class="col-md-12 profile-card">
                             <div class="col-12" style="padding:0px">
                                 <div class="title-text-card clearfix">
-                                    <h6 class="skills-title pull-left" >Contatos</h6>
+                                    <h6 class="skills-title pull-left" ><i class="far fa-address-book" style="margin-right:5px;font-size:17px"></i> Contatos</h6>
                                     <a href="" class="pull-right" style="margin-top:-3px">ver todos</a>
                                 </div>
                             </div>
@@ -122,7 +122,7 @@
                                 <!-- SOBRE -->
                                 <div class="col-12">
                                     <div class="clearfix title-text-card" style="margin-bottom:5px;margin-left:-35px;margin-right:-35px;padding-left:30px;">
-                                        <h6 class="skills-title pull-left">SOBRE</h6>
+                                        <h6 class="skills-title pull-left"><i class="far fa-address-card" style="margin-right:5px;font-size:17px;"></i> SOBRE</h6>
                                         <?php if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
                                             <button type="button" id="btn-editApres" class="pull-left btn btn-link" style="padding: 0px;margin-top:-3px;margin-left:20px">Editar</button>
                                             <button type="button" id="btn-cancelEditApres" class="pull-left btn btn-link d-none text-danger" style="padding: 0px;margin-top:-3px;margin-left:20px">Cancelar</button>                                             
@@ -185,14 +185,9 @@
                             <div class="col-md-12  profile-card">
                             <ul class="nav nav-tabs">
                                 <li class="nav-item ">
-                                    <a class="nav-link active" data-toggle="tab" href="#experiencias">Experiências</a>
+                                    <a class="nav-link active" data-toggle="tab" href="#experiencias">Visão Geral</a>
                                 </li>
-                                <?php $formac = new Formacao(); if((count($formac->loadByUser($usuario->getidUsuario()))>0)||((isset($_SESSION['id']))&&($_SESSION['id']==$usuario->getIdUsuario()))){ ?>
-                                    <li class="nav-item ">
-                                        <a class="nav-link" data-toggle="tab" href="#formacoes">Formação</a>
-                                    </li>
-                                <?php } 
-                                $anuncios = new Anuncio(); if((count($anuncios->loadByUser($usuario->getidUsuario()))>0)||((isset($_SESSION['id']))&&($_SESSION['id']==$usuario->getIdUsuario()))){ ?>
+                                <?php $anuncios = new Anuncio(); if((count($anuncios->loadByUser($usuario->getidUsuario()))>0)||((isset($_SESSION['id']))&&($_SESSION['id']==$usuario->getIdUsuario()))){ ?>
                                     <li class="nav-item d-print-none">
                                         <a class="nav-link" data-toggle="tab" href="#servicos">Serviços</a>
                                     </li>
@@ -204,7 +199,7 @@
                                 <?php } ?>
                             </ul>
 
-                            <div class="tab-content">
+                            <div class="tab-content" style="padding-top:20px;">
                                 <div id="experiencias" class="tab-pane fade active show">
                                     <!-- SECAO DE EXPERIENCIAS -->
                                     <?php if($donoPerfil){ ?>
@@ -214,7 +209,8 @@
                                             </div>
                                         </div>
                                     <?php } ?> 
-                                    <div id="experiencias-itens">                                  
+                                    <p style="margin-left:12px;margin-top: 15px;margin-bottom:0px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="fa fa-suitcase" style="margin-left:-5px;font-size:20px;color:#66757f;margin-right:10px"></i> Experiências</p>
+                                    <div id="experiencias-itens" style="margin-left:33px;">                                  
                                         <?php $experiencias = new Experiencia();
                                             $experiencias = $experiencias->loadByUser($usuario->getIdUsuario());
                                             if(count($experiencias)>0){
@@ -222,26 +218,49 @@
                                                 <div class="col-12" style="margin-top:15px;margin-bottom:15px">
                                                     <div class="clearfix">
                                                         <input type="text" class="id_experiencia" value="<?php echo $experiencias[$key]->getIdExperiencia(); ?>" style="display:none">
-                                                        <input type="text" class="form-control-plaintext des_titulo_experiencia pull-left col-md-8" readonly disabled value="<?php echo $experiencias[$key]->getTituloExperiencia(); ?>" style="height:auto;resize: none;margin-left:-10px;font-weight:400; padding-bottom:1px;padding-top:1px; padding-left:5px;margin-right:-10px;font-size:17px;">
+                                                        <!-- <input type="text" class="form-control-plaintext des_titulo_experiencia pull-left col-md-8" readonly disabled value="<?php echo $experiencias[$key]->getTituloExperiencia(); ?>" style="height:auto;resize: none;margin-left:-10px;font-weight:400; padding-bottom:1px;padding-top:1px; padding-left:5px;margin-right:-10px;font-size:17px;"> -->
+                                                        <p class="form-control-plaintext des_titulo_experiencia pull-left col-md-12" style="height:auto;resize: none;margin-left:-10px;font-weight:400; padding-bottom:1px;padding-top:1px; padding-left:5px;margin-right:-10px;font-size:17px;"><?php echo $experiencias[$key]->getTituloExperiencia(); ?></p>
                                                         <?php if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
                                                             <button type="button" class="btn pull-left btn-editExperiencia btn-link" style="margin-top:-6px;">Editar</button>
                                                             <button type="button" class="btn pull-left btn-delExperiencia btn-link text-danger" style="margin-top:-6px">Deletar</button>
                                                         <?php }} ?>
-                                                        <textarea class="desc des_descricao_experiencia form-control-plaintext" readonly disabled name="des_apresentacao" id="des_apresentacao" cols="30" rows="3" style="max-height:80px;resize: none;margin-left:-10px;margin-right:-10px; padding-left:5px;padding-bottom:1px;padding-top:1px;font-weight:300;font-size:16px;" spellcheck="false"><?php echo $experiencias[$key]->getDescricaoExperiencia(); ?></textarea>
+                                                        <!-- <textarea class="desc des_descricao_experiencia form-control-plaintext" readonly disabled name="des_apresentacao" id="des_apresentacao" cols="30" rows="3" style="max-height:80px;resize: none;margin-left:-10px;margin-right:-10px; padding-left:5px;padding-bottom:1px;padding-top:1px;font-weight:300;font-size:16px;" spellcheck="false"><?php echo $experiencias[$key]->getDescricaoExperiencia(); ?></textarea> -->
+                                                        <p class="col-12 desc des_descricao_experiencia form-control-plaintext" id="des_apresentacao" style="max-height:80px;resize: none;margin-left:-10px;margin-right:-10px; padding-left:5px;padding-bottom:1px;padding-top:1px;font-weight:300;font-size:16px;"><?php echo $experiencias[$key]->getDescricaoExperiencia(); ?></p>
                                                     </div>
                                                 </div>
                                         <?php }} ?>
                                     </div>
-                                    <div id="habilidades-itens" style="border-top:1px rgb(216, 216, 216) solid;margin-top:20px">
-                                        <p style="margin-left:12px;margin-top: 20px;margin-bottom:0px;font-weight:400;font-size:18px"><i class="fa fa-lightbulb" style="font-size:20px;color:#66757f;margin-right:5px"></i> Habilidades</p>
-                                        <div class="row" style="padding-left:15px;">
+                                    <p style="margin-left:12px;margin-top: 30px;margin-bottom:0px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="fa fa-trophy" style="margin-left:-5px;font-size:20px;color:#66757f;margin-right:10px"></i> Formação</p>
+                                    <div id="formacoes-itens" class="row" style="margin-top:10px;margin-left:36px;">
+                                        <?php $formacoes = new Formacao();
+                                            $formacoes = $formacoes->loadByUser($usuario->getIdUsuario());
+                                            foreach ($formacoes as $key => $value) { ?>
+                                                <div class="col-12">
+                                                    <div class="clearfix">
+                                                        <input type="text" class="id_formacao" value="<?php echo $formacoes[$key]->getIDFormacao(); ?>" style="display:none">
+                                                        <!-- <input type="text" class="form-control-plaintext des_titulo_formacao pull-left col-8" readonly disabled value="<?php echo $formacoes[$key]->getTituloFormacao(); ?>" style="height:auto;resize: none;margin-left:-10px;font-weight:400; padding-left:5px;margin-right:-10px;font-size:17px"> -->
+                                                        <p class="form-control-plaintext des_titulo_formacao pull-left col-12" style="height:auto;resize: none;margin-left:-10px;font-weight:400; padding-left:5px;margin-right:-10px;font-size:17px"><?php echo $formacoes[$key]->getTituloFormacao(); ?></p>
+                                                        <?php if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
+                                                            <button type="button" class="btn pull-left btn-editFormacao btn-link" style="margin-top:0px;margin-left:20px">Editar</button>
+                                                            <button type="button" class="btn pull-left btn-delFormacao btn-link" style="color: red;margin-top:0px;margin-left:0px">Deletar</button>
+                                                        <?php }} ?>
+                                                        <!-- <textarea class="desc des_descricao_formacao form-control-plaintext" readonly disabled name="des_apresentacao" id="des_apresentacao" rows="1" cols="30" style="height:auto;resize: none;margin-left:-10px;margin-right:-10px; padding-left:5px; padding-top:0px;font-weight:300" spellcheck="false"><?php echo $formacoes[$key]->getDescricaoFormacao(); ?></textarea> -->
+                                                        <p class="desc des_descricao_formacao form-control-plaintext" id="des_apresentacao" style="height:auto;resize: none;margin-left:-10px;margin-right:-10px; padding-left:5px; padding-top:0px;font-weight:300"><?php echo $formacoes[$key]->getDescricaoFormacao(); ?></p>
+                                                    </div>
+                                                </div>
+                                        <?php } ?>
+                                    </div>
+                                    <div id="habilidades-itens" style="margin-top:30px">
+                                        <p style="margin-left:12px;margin-top: 20px;margin-bottom:0px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="fa fa-lightbulb" style="font-size:20px;color:#66757f;margin-right:10px"></i> Habilidades</p>
+                                        <div class="row" style="margin-left:30px;">
                                         <?php $habilidades = new Habilidade();
                                             $habilidades = $habilidades->loadByUser($usuario->getIdUsuario());
                                             foreach ($habilidades as $key => $value) { ?>
                                                 <div class="col-md-4">
                                                     <div class="clearfix">
                                                         <input type="text" class="id_habilidade" value="<?php echo $habilidades[$key]->getIdHabilidade(); ?>" style="display:none">
-                                                        <input type="text" class="habilidade-label form-control-plaintext des_descricao_habilidade pull-left" readonly disabled value="<?php echo $habilidades[$key]->getDescricaoHabilidade(); ?>">
+                                                        <!-- <input type="text" class="habilidade-label form-control-plaintext des_descricao_habilidade pull-left" readonly disabled value="<?php echo $habilidades[$key]->getDescricaoHabilidade(); ?>"> -->
+                                                        <p class="habilidade-label form-control-plaintext des_descricao_habilidade pull-left"><?php echo $habilidades[$key]->getDescricaoHabilidade(); ?></p>
                                                         
                                                         <?php //if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
                                                             <!-- <button type="button" class="btn btn-link pull-left btn-editHabilidade" style="margin-top:2px;">Editar</button>
@@ -251,33 +270,6 @@
                                                 </div>
                                         <?php } ?>
                                         </div>
-                                    </div>
-                                </div>
-                                <div id="formacoes" class="tab-pane fade">
-                                    <!-- SECAO DE FORMAÇÕES -->
-                                    <?php if($donoPerfil){ ?>
-                                        <div class="col-12">
-                                            <div class="clearfix">
-                                                <button type="button" class="btn btn-primary pull-right btn-sm d-print-none" style="margin-top:10px;margin-bottom:-15px;" data-toggle="modal" data-target="#addFormacaoModal"><i class="fa fa-plus-circle" style="margin-right:5px;"></i>Adicionar</button>
-                                            </div>
-                                        </div>
-                                    <?php } ?>
-                                    <div id="formacoes-itens">
-                                        <?php $formacoes = new Formacao();
-                                            $formacoes = $formacoes->loadByUser($usuario->getIdUsuario());
-                                            foreach ($formacoes as $key => $value) { ?>
-                                                <div class="col-12" style="margin-top:15px;margin-bottom:15px">
-                                                    <div class="clearfix">
-                                                        <input type="text" class="id_formacao" value="<?php echo $formacoes[$key]->getIDFormacao(); ?>" style="display:none">
-                                                        <input type="text" class="form-control-plaintext des_titulo_formacao pull-left col-8" readonly disabled value="<?php echo $formacoes[$key]->getTituloFormacao(); ?>" style="height:auto;resize: none;margin-left:-10px;font-weight:400; padding-left:5px;margin-right:-10px;font-size:17px">
-                                                        <?php if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
-                                                            <button type="button" class="btn pull-left btn-editFormacao btn-link" style="margin-top:0px;margin-left:20px">Editar</button>
-                                                            <button type="button" class="btn pull-left btn-delFormacao btn-link" style="color: red;margin-top:0px;margin-left:0px">Deletar</button>
-                                                        <?php }} ?>
-                                                        <textarea class="desc des_descricao_formacao form-control-plaintext" readonly disabled name="des_apresentacao" id="des_apresentacao" rows="1" cols="30" style="height:auto;resize: none;margin-left:-10px;margin-right:-10px; padding-left:5px; padding-top:0px;font-weight:300" spellcheck="false"><?php echo $formacoes[$key]->getDescricaoFormacao(); ?></textarea>
-                                                    </div>
-                                                </div>
-                                        <?php } ?>
                                     </div>
                                 </div>
                                 <div id="servicos" class="tab-pane fade">
