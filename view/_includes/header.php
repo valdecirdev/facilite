@@ -8,7 +8,7 @@
         <link rel="icon" href="view/_img/favicon.ico">
         
         <link rel="stylesheet" href="view/_css/bootstrap.min.css">
-        <link rel="stylesheet" href="view/_css/font-awesome.min.css">
+        <link rel="stylesheet" href="view/_css/fontawesome-all.min.css">
         <link rel="stylesheet" href="view/_css/style.css">
     </head>
     <body>

@@ -32,6 +32,7 @@ a:hover, .btn-link:hover, .btn-link:active{
     background-color: #0594cc;
 }
 
+
 /* HEADER */
 header{
     height: 100vh;
@@ -102,7 +103,12 @@ header .home-header p, header .home-header h5, header .home-header h2{
     border: 0px;
     background-color: var(--bg-navbar-search-input);
 }
-
+.pull-left{
+    float: left !important;
+}
+.pull-right{
+    float: right !important;
+}
 /* BOTOES */
 .btn-header{
     transition: .5s;
@@ -177,6 +183,7 @@ header .home-header p, header .home-header h5, header .home-header h2{
 }
 
 .card .icon-align-center {
+    padding-left: 10px;
     padding-top: 5px;
     font-size: 40px;
     color: rgb(59, 59, 59);
@@ -396,6 +403,20 @@ header .home-header p, header .home-header h5, header .home-header h2{
   }
 }
 
+
+.habilidade-label{
+    margin-top:10px;
+    height:auto;
+    resize: none;
+    margin-left:-10px;
+    font-weight:400;
+    padding-left:8px;
+    margin-right:-10px;
+    font-size:16px;
+    font-weight: 300;
+    /* background-color: rgb(0, 80, 252); */
+    /* width: auto; */
+}
 
 footer{
     padding-top:20px;

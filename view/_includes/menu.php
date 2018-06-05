@@ -10,9 +10,9 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <div class="input-group col-md-4 offset-md-3" style="padding:0px">
             <form action="search" method="GET" style="padding:0px;margin:0px; width:100%">
-                <input type="text" name="q" class="campo-busca form-control pull-left" placeholder="Encontre o que você precisa!" aria-label="Encontre o que você precisa!" value="<?php if(isset($_GET['q'])){echo $_GET['q'];} ?>">
+                <input type="text" name="q" class="pull-left campo-busca form-control" placeholder="Encontre o que você precisa!" aria-label="Encontre o que você precisa!" value="<?php if(isset($_GET['q'])){echo $_GET['q'];} ?>">
                 <div class="input-group-append">
-                    <button class="btn btn-busca" type="submit"><i class="fa fa-search"></i></button>
+                    <button class="btn btn-busca" type="submit"><i class="fas fa-search"></i></button>
                 </div>
             </form>
         </div>
@@ -21,13 +21,13 @@
             if( $pg_title != ''){ echo '<li class="nav-item"><a class="nav-link text-white" href="home">Página Inicial</a></li>'; } ?>
             <li class="nav-item">
                 <a class="nav-link text-white" data-toggle="modal" data-target="#registerModal">
-                    <i class="fa fa-wpforms" style="margin-right:5px;"></i> Cadastrar-se
+                    <i class="fab fa-wpforms" style="margin-right:5px;"></i> Cadastrar-se
                 </a>
             </li>
             <?php if( $pg_title != ''){ ?>
                 <div class="dropdown nav-item">
                     <a class="nav-link dropdown-toggle text-white" href="#" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-user" style="margin-right:5px;"></i> Entrar
+                        <i class="fas fa-user" style="margin-right:5px;"></i> Entrar
                     </a>
                     <div class="dropdown-menu" id="loginDropdown" style="margin-left:-235%; width: 310px;">
                         <div class="dropdown-arrow"></div>
@@ -75,7 +75,7 @@
                     </div>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item text-muted" href="<?php echo $loggedUser->getSlugUsuario(); ?>"><i class="fa fa-user" style="margin-right:10px;"></i> Ver perfil</a>
-                    <button type="button" id="logout-user" class="dropdown-item text-danger" style="cursor:pointer;"><i class="fa fa-sign-out" style="margin-right:6px;"></i> Sair</button>
+                    <button type="button" id="logout-user" class="dropdown-item text-danger" style="cursor:pointer;"><i class="fas fa-sign-out-alt" style="margin-right:6px;"></i> Sair</button>
                 </div>
             </li>
         <?php } ?>

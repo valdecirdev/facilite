@@ -63,7 +63,7 @@
                         <div class="row" style="height:75">
                             <div class="col-2">
                                 <a href="#">
-                                    <i class="fa <?php echo $categoria->getIconeCategoria(); ?> fa-2x icon-align-center" aria-hidden="true"></i>
+                                    <i class="<?php echo $categoria->getIconeCategoria(); ?> icon-align-center" aria-hidden="true"></i>
                                 </a>
                             </div>
                             <div class="col-10">

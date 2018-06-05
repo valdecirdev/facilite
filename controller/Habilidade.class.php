@@ -5,7 +5,7 @@
 
         public function loadByID(int $id):HabilidadeModel{
             $sql = new Sql();
-            $result = $sql->select("SELECT * FROM tb_habilidades WHERE id_habilidade = :ID", array(
+            $result = $sql->select("SELECT * FROM tb_habilidades_usuario WHERE id_habilidade = :ID", array(
                 ":ID"=>$id
             ));
             $habilidade =  new HabilidadeModel();
@@ -17,7 +17,7 @@
 
         public function loadByUser(int $id):array{
             $sql = new Sql();
-            $result = $sql->select("SELECT * FROM tb_habilidades WHERE id_usuario = :ID", array(
+            $result = $sql->select("SELECT * FROM tb_habilidades,tb_habilidades_usuarios WHERE tb_habilidades_usuarios.id_usuario = :ID AND tb_habilidades_usuarios.id_habilidade = tb_habilidades.id_habilidade ", array(
                 ":ID"=>$id
             ));
             $habilidade = array();
@@ -32,10 +32,9 @@
             $descr = filter_var($values['des_descricao'], FILTER_SANITIZE_STRING);
             $nivel = filter_var($values['des_nivel'], FILTER_SANITIZE_NUMBER_INT);
             $sql = new Sql();
-            $results = $sql->select("INSERT INTO tb_habilidades(id_usuario, des_descricao, des_nivel) VALUES(:ID_USUARIO, :DESCR, :NIVEL)", array(
+            $results = $sql->select("INSERT INTO tb_habilidades_usuarios(id_usuario, des_descricao) VALUES(:ID_USUARIO, :DESCR)", array(
                 ':ID_USUARIO'=>$values['id_usuario'],
-                ':DESCR'=>$descr,
-                ':NIVEL'=>$nivel
+                ':DESCR'=>$descr
             ));
         }
         
@@ -43,10 +42,9 @@
             $descr = filter_var($values['des_descricao'], FILTER_SANITIZE_STRING);
             $nivel = filter_var($values['des_nivel'], FILTER_SANITIZE_NUMBER_INT);
             $sql = new Sql();
-            $sql->query("UPDATE tb_habilidades SET id_usuario = :ID_USUARIO, des_descricao = :DESCR, des_nivel = :NIVEL WHERE id_habilidade = :ID", array(
+            $sql->query("UPDATE tb_habilidades_usuarios SET id_usuario = :ID_USUARIO, des_descricao = :DESCR WHERE id_habilidade = :ID", array(
                 ':ID_USUARIO'=>$values['id_usuario'],
                 ':DESCR'=>$descr,
-                ':NIVEL'=>$nivel,
                 ':ID'=>$values['id_habilidade']
             ));
         }
@@ -54,7 +52,7 @@
     
         public function delete(int $id){
             $sql = new Sql();
-            $sql->query("DELETE FROM tb_habilidades WHERE id_habilidade = :ID", array(
+            $sql->query("DELETE FROM tb_habilidades_usuarios WHERE id_habilidade = :ID", array(
                 ":ID"=>$id
             ));            
         }
@@ -63,8 +61,6 @@
             $habilidade->setIdHabilidade($data['id_habilidade']);
             $habilidade->setIdUsuarioHabilidade($data['id_usuario']);
             $habilidade->setDescricaoHabilidade($data['des_descricao']);
-            $habilidade->setNivelHabilidade($data['des_nivel']);
-            $habilidade->setStatusHabilidade($data['des_status']);
         }
 
         

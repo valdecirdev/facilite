@@ -132,7 +132,7 @@
                                 <div class="col-12" style="max-width:98%;margin-bottom:15px;margin-left:1%;margin-right:1%">
                                     <form id="form-apres">
                                         <input type="text" style="position:absolute; display:none" id="id_usuario" value="<?php echo $usuario->getIdUsuario(); ?>">
-                                        <textarea class="form-control-plaintext" readonly disabled name="des_apresentacao" id="des_apresentacao" cols="30" style="height:auto;resize: none;margin-left:-10px;margin-right:-10px;font-weight:300" spellcheck="false" placeholder="Olá, meu nome é <?php echo $usuario->getNomeSimplesUsuario(); ?> e eu sou novo aqui."><?php echo $usuario->getApresentacaoUsuario(); ?></textarea>
+                                        <textarea class="form-control-plaintext" readonly disabled name="des_apresentacao" id="des_apresentacao" rows="4" cols="30" style="height:auto;resize: none;margin-left:-10px;margin-right:-10px;font-weight:300" spellcheck="false" placeholder="Olá, meu nome é <?php echo $usuario->getNomeSimplesUsuario(); ?> e eu sou novo aqui."><?php echo $usuario->getApresentacaoUsuario(); ?></textarea>
                                     </form>
                                 </div>
                             </div>
@@ -148,8 +148,8 @@
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-half-o"></i>
-                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-half"></i>
+                                            <!-- <i class="far fa-star"></i> -->
                                         </a>
                                     </span>
                                 </div>
@@ -191,18 +191,13 @@
                                     <li class="nav-item ">
                                         <a class="nav-link" data-toggle="tab" href="#formacoes">Formação</a>
                                     </li>
-                                <?php } ?>
-                                <?php $habil = new Habilidade(); if((count($habil->loadByUser($usuario->getidUsuario()))>0)||((isset($_SESSION['id']))&&($_SESSION['id']==$usuario->getIdUsuario()))){ ?>
-                                    <li class="nav-item ">
-                                        <a class="nav-link" data-toggle="tab" href="#habilidades">Habilidades</a>
-                                    </li>
-                                <?php } ?>
-                                <?php $anuncios = new Anuncio(); if((count($anuncios->loadByUser($usuario->getidUsuario()))>0)||((isset($_SESSION['id']))&&($_SESSION['id']==$usuario->getIdUsuario()))){ ?>
+                                <?php } 
+                                $anuncios = new Anuncio(); if((count($anuncios->loadByUser($usuario->getidUsuario()))>0)||((isset($_SESSION['id']))&&($_SESSION['id']==$usuario->getIdUsuario()))){ ?>
                                     <li class="nav-item d-print-none">
                                         <a class="nav-link" data-toggle="tab" href="#servicos">Serviços</a>
                                     </li>
-                                <?php } ?>
-                                <?php if($donoPerfil){ ?>
+                                <?php } 
+                                if($donoPerfil){ ?>
                                     <li class="nav-item">
                                         <a class="nav-link" data-toggle="tab" href="#cadastro">Cadastro</a>
                                     </li>
@@ -232,12 +227,30 @@
                                                             <button type="button" class="btn pull-left btn-editExperiencia btn-link" style="margin-top:-6px;">Editar</button>
                                                             <button type="button" class="btn pull-left btn-delExperiencia btn-link text-danger" style="margin-top:-6px">Deletar</button>
                                                         <?php }} ?>
-                                                        <textarea class="desc des_descricao_experiencia form-control-plaintext" readonly disabled name="des_apresentacao" id="des_apresentacao" cols="30" rows="2" style="max-height:55px;resize: none;margin-left:-10px;margin-right:-10px; padding-left:5px;padding-bottom:1px;padding-top:1px;font-weight:300;font-size:16px;" spellcheck="false"><?php echo $experiencias[$key]->getDescricaoExperiencia(); ?></textarea>
+                                                        <textarea class="desc des_descricao_experiencia form-control-plaintext" readonly disabled name="des_apresentacao" id="des_apresentacao" cols="30" rows="3" style="max-height:80px;resize: none;margin-left:-10px;margin-right:-10px; padding-left:5px;padding-bottom:1px;padding-top:1px;font-weight:300;font-size:16px;" spellcheck="false"><?php echo $experiencias[$key]->getDescricaoExperiencia(); ?></textarea>
                                                     </div>
                                                 </div>
-                                        <?php }}else{?>
-                                            <p style="margin-top:15px;color:#777">Ops, o usuário ainda não cadastrou suas Expêriencias Profissionais.</p>
+                                        <?php }} ?>
+                                    </div>
+                                    <div id="habilidades-itens" style="border-top:1px rgb(216, 216, 216) solid;margin-top:20px">
+                                        <p style="margin-left:12px;margin-top: 20px;margin-bottom:0px;font-weight:400;font-size:18px"><i class="fa fa-lightbulb" style="font-size:20px;color:#66757f;margin-right:5px"></i> Habilidades</p>
+                                        <div class="row" style="padding-left:15px;">
+                                        <?php $habilidades = new Habilidade();
+                                            $habilidades = $habilidades->loadByUser($usuario->getIdUsuario());
+                                            foreach ($habilidades as $key => $value) { ?>
+                                                <div class="col-md-4">
+                                                    <div class="clearfix">
+                                                        <input type="text" class="id_habilidade" value="<?php echo $habilidades[$key]->getIdHabilidade(); ?>" style="display:none">
+                                                        <input type="text" class="habilidade-label form-control-plaintext des_descricao_habilidade pull-left" readonly disabled value="<?php echo $habilidades[$key]->getDescricaoHabilidade(); ?>">
+                                                        
+                                                        <?php //if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
+                                                            <!-- <button type="button" class="btn btn-link pull-left btn-editHabilidade" style="margin-top:2px;">Editar</button>
+                                                            <button type="button" class="btn btn-link pull-left btn-editHabilidade text-danger" style="margin-top:2px;">Deletar</button> -->
+                                                        <?php //}} ?>
+                                                    </div>
+                                                </div>
                                         <?php } ?>
+                                        </div>
                                     </div>
                                 </div>
                                 <div id="formacoes" class="tab-pane fade">
@@ -267,37 +280,6 @@
                                         <?php } ?>
                                     </div>
                                 </div>
-                                <div id="habilidades" class="tab-pane fade">
-                                    <!-- SECAO DE Habilidades -->
-                                    <?php //if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
-                                        <!-- <div class="col-12" style="min-height:25px;">
-                                            <div class="pull-right">
-                                                <a href="" style="margin-left: 10px;"><i class="fa fa-plus"></i> Adicionar</a>
-                                            </div>
-                                        </div> -->
-                                    <?php //}} ?>
-                                    <div class="row" style="margin-top: 15px; padding-left:20px">
-                                    <?php $habilidades = new Habilidade();
-                                        $habilidades = $habilidades->loadByUser($usuario->getIdUsuario());
-                                        foreach ($habilidades as $key => $value) { ?>
-                                            <div class="col-md-6">
-                                                <div class="clearfix">
-                                                    <input type="text" class="id_habilidade" value="<?php echo $habilidades[$key]->getIdHabilidade(); ?>" style="display:none">
-                                                    <input type="text" class="form-control-plaintext des_descricao_habilidade pull-left col-6" readonly disabled value="<?php echo $habilidades[$key]->getDescricaoHabilidade(); ?>" style="margin-top:10px;height:auto;resize: none;margin-left:-10px;font-weight:bold;text-transform:uppercase; padding-left:11px;margin-right:-10px;font-size:15px">
-                                                    
-                                                    <?php if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
-                                                        <button type="button" class="btn btn-link pull-left btn-editHabilidade" style="margin-top:2px;">Editar</button>
-                                                        <button type="button" class="btn btn-link pull-left btn-editHabilidade text-danger" style="margin-top:2px;">Deletar</button>
-                                                    <?php }} ?>
-                                                </div>
-                                                <div class="progress">
-                                                    <!-- <input type="range" class="col-12" readonly disabled min="1" max="100" value="<?php //echo $habilidades[$key]->getNivelHabilidade(); ?>" class="slider" id="myRange"> -->
-                                                    <div class="progress-bar bg-primary" role="progressbar" style="width: <?php echo $habilidades[$key]->getNivelHabilidade(); ?>%;" aria-valuenow="<?php echo $habilidades[$key]->getNivelHabilidade(); ?>" aria-valuemin="0" aria-valuemax="100"><?php echo $habilidades[$key]->getNivelHabilidade(); ?>%</div>
-                                                </div>
-                                            </div>
-                                    <?php } ?>
-                                    </div>
-                                </div>
                                 <div id="servicos" class="tab-pane fade">
                                     <?php if($donoPerfil){ ?>
                                         <div class="col-12">
@@ -322,7 +304,7 @@
                                                     <div class="col-2">
                                                         <a href="#">
                                                             <div class="">
-                                                                <i class="fa <?php echo $categoria->getIconeCategoria(); ?> fa-2x icon-align-center" aria-hidden="true"></i>
+                                                                <i class="<?php echo $categoria->getIconeCategoria(); ?> fa-2x icon-align-center" aria-hidden="true"></i>
                                                             </div>
                                                         </a>
                                                     </div>
@@ -610,9 +592,9 @@
 
 <?php include_once('_includes'.DS.'footer.php'); ?>
 <script src="view/_js/profile.js"></script>
-<script src='view/_js/autosize.js'></script>
+<!-- <script src='view/_js/autosize.js'></script> -->
 <script>
-    autosize(document.querySelectorAll('textarea'));
+    // autosize(document.querySelectorAll('textarea'));
 
     $('.open-Login').click(function(e){
         e.stopPropagation();
