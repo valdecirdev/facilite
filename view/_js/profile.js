@@ -94,45 +94,11 @@ $(document).ready(function () {
         var titulo = $('.des_titulo_experiencia', $(btn_action).parent().parent().parent());
         var descricao = $('.des_descricao_experiencia', $(btn_action).parent().parent().parent());
         var id_experiencia = $('.id_experiencia', $(btn_action).parent().parent().parent());
-        // var btn_cancelar = $('.btn-delExperiencia', $(btn_action).parent());
         
-        // alert(id_experiencia);
         $('#id_experiencia_modal').val(id_experiencia.val());
         $('#des_titulo_experiencia').val(titulo.text());
         $('#des_descricao_experiencia').val(descricao.text());
         $('#addExperienciaModal').modal();
-
-        // if($(titulo).hasClass('form-control-plaintext')){
-        //     $(titulo).removeClass('form-control-plaintext');
-        //     $(titulo).addClass('form-control');
-        //     $(titulo).removeAttr('disabled');
-        //     $(titulo).removeAttr('readonly');
-        //     $(descricao).removeClass('form-control-plaintext');
-        //     $(descricao).addClass('form-control');
-        //     $(descricao).removeAttr('disabled');
-        //     $(descricao).removeAttr('readonly');
-        //     $(btn_action).text("Salvar");
-        //     $(btn_cancelar).text('Cancelar');
-        // }else if($(titulo).hasClass('form-control')){
-        //     $(titulo).removeClass('form-control');
-        //     $(titulo).addClass('form-control-plaintext');
-        //     $(titulo).attr('disabled','disabled');
-        //     $(titulo).attr('readonly','readonly');
-        //     $(descricao).removeClass('form-control');
-        //     $(descricao).addClass('form-control-plaintext');
-        //     $(descricao).attr('disabled','disabled');
-        //     $(descricao).attr('readonly','readonly');
-        //     $(btn_action).text("Editar");
-        //     $(btn_cancelar).text('Deletar');
-        //     $.post('controller/json_Usuario.php',
-        //     {
-        //         acao: 'up_experiencia',
-        //         id_usuario: $('#id_usuario').val(),
-        //         des_titulo: $(titulo).val(),
-        //         des_descricao: $(descricao).val(),
-        //         id_experiencia: $(id_experiencia).val()
-        //     });
-        // }
     }
 
     /**
@@ -142,22 +108,7 @@ $(document).ready(function () {
         var titulo = $('.des_titulo_experiencia', $(btn_action).parent().parent().parent());
         var descricao = $('.des_descricao_experiencia', $(btn_action).parent().parent().parent());
         var id_experiencia = $('.id_experiencia', $(btn_action).parent().parent().parent());
-        // var btn_salvar = $('.btn-editExperiencia', $(btn_action).parent().parent().parent());
         
-        // alert(id_experiencia.val());
-
-        // if($(btn_action).text() == 'Cancelar'){
-        //     $(titulo).removeClass('form-control');
-        //     $(titulo).addClass('form-control-plaintext');
-        //     $(titulo).attr('disabled','disabled');
-        //     $(titulo).attr('readonly','readonly');
-        //     $(descricao).removeClass('form-control');
-        //     $(descricao).addClass('form-control-plaintext');
-        //     $(descricao).attr('disabled','disabled');
-        //     $(descricao).attr('readonly','readonly');
-        //     $(btn_salvar).text("Editar");
-        //     $(btn_action).text('Deletar');
-        // }else{
         if (confirm('Realmente deseja deletar esta Experiencia?')){
             $(btn_action).parent().parent().parent().remove();
             $.post('controller/json_Usuario.php',
@@ -166,7 +117,6 @@ $(document).ready(function () {
                 id_experiencia: $(id_experiencia).val()
             });
         }
-    // }
     }
 
     /**
@@ -493,7 +443,7 @@ $(document).ready(function () {
 
 
 
-    
+
 
     // BOTAO DE EDITAR NOME COMPLETO
     $('#btn-editNome').click(function(){

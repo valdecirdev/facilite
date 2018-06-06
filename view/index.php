@@ -25,10 +25,14 @@
                 <?php if(!isset($_SESSION['nome'])){ ?>
                 <div class="col-md-4 pull-right d-none d-lg-block login-box">
                     <h4>Entrar</h4>
-                    <p>O Facilite ajuda você a encontrar o melhor serviço pelo melhor preço.</p>
+                    <p style="margin-top:0px">O Facilite ajuda você a encontrar o melhor serviço pelo melhor preço.</p>
+                    <div id="login-alert" class="d-none col-12" style="padding:0px;margin-bottom:-5px;margin-top:5px;">
+                        <strong style="color:red;font-size:13px;">Email e/ou senha incorreto!</strong>
+                    </div>
                     <form action="" method="POST">
                         <input type="text" name="login_des_email" id="login_des_email" placeholder="email@exemplo.com ">
                         <input type="password" name="des_senha" id="login_des_senha" placeholder="Senha">
+                        
                         <button type="button" id="login-user" class="btn btn-primary col-12">Entrar</button>
                     </form>
                     <div class="modal-bottom-divider" style="margin-bottom:5px;" ></div>

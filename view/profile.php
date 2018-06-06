@@ -199,16 +199,11 @@
                                             <?php } ?> 
                                         </div>
                                         <div id="habilidades-itens" style="margin-top:0px">
-                                            <div class="row" style="margin-left:30px;">
+                                            <div class="row" style="margin-left:43px;margin-top:20px;margin-bottom:30px;">
                                                 <?php $habilidades = new Habilidade();
                                                 $habilidades = $habilidades->loadByUser($usuario->getIdUsuario());
                                                 foreach ($habilidades as $key => $value) { ?>
-                                                <div class="col-md-4">
-                                                    <div class="clearfix">
-                                                        <input type="text" class="id_habilidade" value="<?php echo $habilidades[$key]->getIdHabilidade(); ?>" style="display:none">
-                                                        <p class="habilidade-label form-control-plaintext des_descricao_habilidade pull-left"><?php echo $habilidades[$key]->getDescricaoHabilidade(); ?></p>
-                                                    </div>
-                                                </div>
+                                                    <span id="<?php echo $habilidades[$key]->getIdHabilidade(); ?>" class="skills-label"><?php echo $habilidades[$key]->getDescricaoHabilidade(); ?></span>
                                                 <?php } ?>
                                             </div>
                                         </div>

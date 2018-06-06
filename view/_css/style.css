@@ -6,7 +6,7 @@
 }
 body{
     background-color: var(--bg-page-color);
-    font-family: var(--font-family-sans-serif, "Arial"); /* Font-Family Sans-serif generica, com variavel do bootstrap */
+    /* font-family: var(--font-family-sans-serif, "Arial"); Font-Family Sans-serif generica, com variavel do bootstrap */
     min-height: 100%;
     display: grid;
     grid-template-rows: 1fr auto;
@@ -22,10 +22,6 @@ a:hover, .btn-link:hover, .btn-link:active{
     border-radius: 30px;
 }
 .btn-fc-primary{
-    padding: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    /* background-color: #38b7ea; */
     background-color: transparent;
     border-color: #38b7ea;
     color: #38b7ea;
@@ -34,12 +30,7 @@ a:hover, .btn-link:hover, .btn-link:active{
     background-color: #38b7ea;
     color: #fff;
 }
-
 .btn-fc-danger{
-    padding: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    /* background-color: #38b7ea; */
     background-color: transparent;
     border-color: #f1344e;
     color: #f1344e;
@@ -156,6 +147,7 @@ header .home-header p, header .home-header h5, header .home-header h2{
     max-height: 75px;
     line-clamp: 3;
     box-orient: vertical;
+    color: rgb(68, 68, 68);
 }
 .cards{
     padding-top: 50px;
@@ -304,6 +296,7 @@ header .home-header p, header .home-header h5, header .home-header h2{
 }
 #profile-page .profile-card .infos .list-infos{
     margin-top: 12px;
+    padding-top: 10px;
     margin-left: -20px;
     padding-left: 20px;
     margin-right: -20px;
@@ -312,7 +305,7 @@ header .home-header p, header .home-header h5, header .home-header h2{
 }
 #profile-page .profile-card .infos{
     margin-top: 10px;
-    padding-top: 15px;
+    padding-top: 10px;
 }
 #profile-page .profile-card .infos .sub{
     color: #66757f;
@@ -324,51 +317,22 @@ header .home-header p, header .home-header h5, header .home-header h2{
     margin-right: 5px;
 }
 #profile-page .profile-card .infos .profile-name{
-    /* text-transform: uppercase; */
     font-weight: normal;
-    /* color: #2b98f0; */
 }
-#profile-page .profile-card .infos .profile-slug{
-    margin-bottom: 20px;
+#profile-page .profile-card .skills-label{
+    font-size:13px;
+    font-weight:400;
+    text-transform:uppercase;
+    padding:6px;
+    padding-left:10px;
+    padding-right:10px;
+    background-color:#e7e7ea;
+    color:#666;
+    border-radius:3px;
+    margin-right:5px;
+    margin-top:5px
 }
-#profile-page .profile-card .infos .profile-slug i{
-    color: #9e9e9e;
-    margin-right: 0px;
-    font-size: 16px;
-}
-#profile-page .profile-card .infos .profile-slug span{
-    font-size: 18px;
-    color: #9e9e9e;
-}
-#profile-page .profile-card .infos .btn-contato{
-    color: #fff;
-    margin-top: 15px;
-}
-.profile-card{
-  box-shadow: 0px 0px 0px 0px;
-}
-#profile-page .profile-card .label{
-    margin-bottom: 5px;
-    margin-left: 0px;
-    margin-top: 10px;
-    font-size: .9em;
-    text-transform: uppercase;
-    font-weight: bold;
-}
-#profile-page .profile-card .desc{
-    color: gray;
-}
-#profile-page .profile-card .title-text-card{
-    border-bottom: 1px rgb(216, 216, 216) solid;
-    margin: -20px;
-    padding: 15px 20px 5px 20px;
-    margin-bottom: 10px;
-}
-#profile-page .profile-card .skills-title{
-    font-weight:500;
-    text-transform: uppercase;
-    color: #4f5b83;
-}
+
 .nav-tabs{
     margin-top: -10px;
     margin-left: -20px;
@@ -420,21 +384,6 @@ header .home-header p, header .home-header h5, header .home-header h2{
     margin-bottom: 10px;
     margin-left: -12px;
   }
-}
-
-
-.habilidade-label{
-    margin-top:10px;
-    height:auto;
-    resize: none;
-    margin-left:-10px;
-    font-weight:400;
-    padding-left:8px;
-    margin-right:-10px;
-    font-size:16px;
-    font-weight: 300;
-    /* background-color: rgb(0, 80, 252); */
-    /* width: auto; */
 }
 
 footer{

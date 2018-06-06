@@ -73,7 +73,7 @@
                                             <?php 
                                             $cat = $categorias->loadAll();
                                             foreach ($cat as $key => $value) { ?> 
-                                            <a href=""><?php echo $cat[$key]->getDescricaoCategoria(); ?></a> 
+                                                <a href=""><?php echo $cat[$key]->getDescricaoCategoria(); ?></a> 
                                             <?php } ?>
                                             </div>
                                         </div>
@@ -214,15 +214,16 @@
                         <div class="row">
                             <div class="col-12 text">
                                 <nav aria-label="Page navigation example">
-                                    <ul class="pagination justify-content-center">
-                                        <li class="page-item"><a class="page-link" href="#"><</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">></a></li>
-                                    </ul>
+                                    <?php $cont = count($anuncios)/10;
+                                    if($cont > 0){ ?>
+                                        <ul class="pagination justify-content-center">
+                                            <li class="page-item"><a class="page-link" href="#"><</a></li>
+                                            <?php for($i=0;$i <= $cont;$i++){ ?>
+                                                <li class="page-item <?php if($_GET['pg'] == $i){echo 'active';} ?>"><a class="page-link" href="#?pg=<?php echo $i ?>"><?php echo $i+1; ?></a></li>
+                                            <?php } ?>
+                                            <li class="page-item"><a class="page-link" href="#">></a></li>
+                                        </ul>
+                                    <?php } ?>
                                 </nav>
                             </div>
                         </div>
