@@ -19,17 +19,34 @@ a:hover, .btn-link:hover, .btn-link:active{
 }
 
 .btn-radius{
-    border-radius: 25px;
+    border-radius: 30px;
 }
 .btn-fc-primary{
     padding: 20px;
     padding-top: 10px;
     padding-bottom: 10px;
-    background-color: #38b7ea;
+    /* background-color: #38b7ea; */
+    background-color: transparent;
     border-color: #38b7ea;
-    color: #fff;
+    color: #38b7ea;
+    font-weight: 500;
 }.btn-fc-primary:hover{
-    background-color: #0594cc;
+    background-color: #38b7ea;
+    color: #fff;
+}
+
+.btn-fc-danger{
+    padding: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    /* background-color: #38b7ea; */
+    background-color: transparent;
+    border-color: #f1344e;
+    color: #f1344e;
+    font-weight: 500;
+}.btn-fc-danger:hover{
+    background-color: #f1344e;
+    color: #fff;
 }
 
 
@@ -263,6 +280,8 @@ header .home-header p, header .home-header h5, header .home-header h2{
 /* PERFIL */
 #profile-page{
     padding-top: 70px;
+    padding-left: 40px;
+    padding-right: 40px;
 }
 #profile-page .profile-card{
     min-height: 10px;

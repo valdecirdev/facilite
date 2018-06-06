@@ -63,10 +63,10 @@ $(document).ready(function () {
     });
 
     function btn_criar_conexao_profile(btn_action){
-        if($(btn_action).hasClass('btn-primary')){
+        if($(btn_action).hasClass('btn-fc-primary')){
             $(btn_action).text('Remover Contato');
-            $(btn_action).removeClass('btn-primary');
-            $(btn_action).addClass('btn-danger');
+            $(btn_action).removeClass('btn-fc-primary');
+            $(btn_action).addClass('btn-fc-danger');
 
             $.post('controller/json_Usuario.php',
             {
@@ -76,8 +76,8 @@ $(document).ready(function () {
             });
         }else{
             $(btn_action).text('Adicionar Contato');
-            $(btn_action).removeClass('btn-danger');
-            $(btn_action).addClass('btn-primary');
+            $(btn_action).removeClass('btn-fc-danger');
+            $(btn_action).addClass('btn-fc-primary');
             $.post('controller/json_Usuario.php',
             {
                 acao: 'rem_conexao',
