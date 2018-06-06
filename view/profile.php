@@ -82,7 +82,7 @@
                             <div class="col-md-12  profile-card">
                                 <ul class="nav nav-tabs">
                                     <li class="nav-item ">
-                                        <a class="nav-link active" data-toggle="tab" href="#experiencias">Visão Geral</a>
+                                        <a class="nav-link active" data-toggle="tab" href="#geral">Visão Geral</a>
                                     </li>
                                     <?php $anuncios = new Anuncio(); if((count($anuncios->loadByUser($usuario->getidUsuario()))>0)||((isset($_SESSION['id']))&&($_SESSION['id']==$usuario->getIdUsuario()))){ ?>
                                         <li class="nav-item d-print-none">
@@ -97,12 +97,12 @@
                                 </ul>
 
                                 <div class="tab-content" style="padding-top:20px;">
-                                    <div id="experiencias" class="tab-pane fade active show">
-                                    <!-- SECAO DE EXPERIENCIAS -->
+                                    <div id="geral" class="tab-pane fade active show">
+                                    <!-- SECAO DE APRESENTACAO -->
                                     
 
-                                        <p style="margin-left:12px;margin-top: 15px;margin-bottom:0px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="far fa-address-card" style="margin-left:-5px;font-size:20px;color:#66757f;margin-right:7px"></i> Sobre</p>
-                                        <div id="experiencias-itens" style="margin-left:33px;">                                  
+                                        <p style="margin-left:12px;margin-top: 15px;margin-bottom:0px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="far fa-address-card" style="margin-left:-5px;font-size:20px;color:#60686e;margin-right:7px"></i> Sobre</p>
+                                        <div id="apresentacao" style="margin-left:33px;">                                  
                                             <div class="col-12" style="margin-top:15px;margin-bottom:15px">
                                                 <div class="clearfix">
                                                     <input type="text" style="position:absolute; display:none" id="id_usuario" value="<?php echo $usuario->getIdUsuario(); ?>">
@@ -122,8 +122,8 @@
                                         
 
 
-                                        <div class="clearfix">
-                                            <p class="pull-left" style="width:auto;margin-left:12px;margin-top: 30px;margin-bottom:0px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="fa fa-suitcase" style="margin-left:-5px;font-size:20px;color:#66757f;margin-right:10px"></i> Experiências</p>
+                                        <div class="clearfix" style="margin-bottom:20px;">
+                                            <p class="pull-left" style="width:auto;margin-left:12px;margin-top: 30px;margin-bottom:0px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="fa fa-suitcase" style="margin-left:-5px;font-size:20px;color:#60686e;margin-right:10px"></i> Experiências</p>
                                             <?php if($donoPerfil){ ?>
                                                 <div class="col-12">
                                                     <div class="clearfix">
@@ -140,15 +140,14 @@
                                                 <div class="col-12" style="margin-top:15px;margin-bottom:5px">
                                                     <div class="clearfix">
                                                         <input type="text" class="id_experiencia" value="<?php echo $experiencias[$key]->getIdExperiencia(); ?>" style="display:none">
-                                                        <p class="form-control-plaintext des_titulo_experiencia" style="width:auto; margin-left:-10px;font-weight:400; padding-bottom:1px;padding-top:1px; padding-left:5px;margin-right:-10px;font-size:17px;"><?php echo $experiencias[$key]->getTituloExperiencia(); ?></p>
-                                                        <!-- <textarea class="desc des_descricao_experiencia form-control-plaintext" readonly disabled name="des_apresentacao" id="des_apresentacao" cols="30" rows="3" style="max-height:80px;resize: none;margin-left:-10px;margin-right:-10px; padding-left:5px;padding-bottom:1px;padding-top:1px;font-weight:300;font-size:16px;" spellcheck="false"><?php echo $experiencias[$key]->getDescricaoExperiencia(); ?></textarea> -->
-                                                        <p class="col-12 desc des_descricao_experiencia form-control-plaintext" id="des_apresentacao" style="max-height:80px;resize: none;margin-left:-10px;margin-right:-10px; padding-left:5px;padding-bottom:1px;padding-top:1px;font-weight:300;font-size:16px;"><?php echo $experiencias[$key]->getDescricaoExperiencia(); ?>
+                                                        <p class="des_titulo_experiencia" style="width:auto; margin-left:-5px;font-weight:400; padding-right:25px;font-size:17px;margin-bottom:0px"><?php echo $experiencias[$key]->getTituloExperiencia(); ?></p>
+                                                        <p class="col-12 desc des_descricao_experiencia" style="margin-left:-10px;margin-right:-10px; padding-left:5px;padding-bottom:1px;padding-top:1px;font-weight:300;font-size:16px;"><?php echo $experiencias[$key]->getDescricaoExperiencia(); ?></p>
                                                         <?php if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
-                                                            <span class="clearfix pull-right" style="padding:0px;margin:0px;font-weight:normal">
+                                                            <span class="clearfix pull-right" style="margin-top:-20px;padding:0px;margin:0px;font-weight:normal">
                                                                 <a class="btn-editExperiencia" style="color:blue;cursor:pointer;margin-right:10px">Editar</a>
                                                                 <a class="btn-delExperiencia text-danger" style="cursor:pointer">Deletar</a>
                                                             </span>
-                                                        <?php }} ?></p>
+                                                        <?php }} ?>
                                                     </div>
                                                 </div>
                                         <?php }} ?>
@@ -156,7 +155,7 @@
 
 
                                         <div class="clearfix">
-                                            <p class="pull-left" style="width:auto;margin-left:12px;margin-top: 30px;margin-bottom:0px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="fa fa-trophy" style="margin-left:-5px;font-size:20px;color:#66757f;margin-right:10px"></i> Formação</p>
+                                            <p class="pull-left" style="width:auto;margin-left:12px;margin-top: 30px;margin-bottom:0px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="fa fa-trophy" style="margin-left:-5px;font-size:20px;color:#60686e;margin-right:10px"></i> Formação</p>
                                             <?php if($donoPerfil){ ?>
                                                 <div class="col-12">
                                                     <div class="clearfix">
@@ -190,7 +189,7 @@
 
 
                                         <div class="clearfix">
-                                            <p class="pull-left" style="width:auto;margin-left:17px;margin-top: 30px;margin-bottom:0px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="fa fa-lightbulb" style="margin-left:-5px;font-size:20px;color:#66757f;margin-right:10px"></i> Habilidades</p>
+                                            <p class="pull-left" style="width:auto;margin-left:17px;margin-top: 30px;margin-bottom:0px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="fa fa-lightbulb" style="margin-left:-5px;font-size:20px;color:#60686e;margin-right:10px"></i> Habilidades</p>
                                             <?php if($donoPerfil){ ?>
                                                 <div class="col-12">
                                                     <div class="clearfix">
@@ -513,21 +512,24 @@
 <?php if((isset($_SESSION['id']))&&($_SESSION['id'] == $usuario->getIdUsuario())){ ?>
 <!-- Modal Adicionar Experiência -->
 <div class="modal fade" id="addExperienciaModal" tabindex="-1" role="dialog" aria-labelledby="addExperienciaModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:400px;">
+        <div class="modal-dialog modal-dialog-centered " role="document" style="">
             <div class="modal-content">
                 <form action="" method="POST">
                     <div class="modal-body">
                         <h4>Adicionar Experiência</h4>
-                            <div class="row">
-                                <div class="col-12">
-                                    <label for="des_nome">Titulo:</label>
-                                    <input class="form-control" type="text" name="des_titulo_experiencia" id="des_titulo_experiencia" placeholder="">
-                                </div>
-                                <div class="col-12" style="margin-top:10px">
-                                    <label for="des_email">Descrição:</label>
-                                    <textarea class="form-control" name="des_descricao_experiencia" id="des_descricao_experiencia" cols="30" style="height:auto;resize: none;" spellcheck="false" placeholder=""></textarea>
-                                </div>
+                        <div class="row">
+                            <div class="col-12" style="display:none">
+                                <input type="text" name="id_experiencia_modal" id="id_experiencia_modal" value="">
                             </div>
+                            <div class="col-12">
+                                <label for="des_nome">Titulo:</label>
+                                <input class="form-control" type="text" name="des_titulo_experiencia" id="des_titulo_experiencia" placeholder="">
+                            </div>
+                            <div class="col-12" style="margin-top:10px">
+                                <label for="des_email">Descrição:</label>
+                                <textarea class="form-control" name="des_descricao_experiencia" id="des_descricao_experiencia" cols="30" rows="4" style="height:auto;resize: none;" spellcheck="false" placeholder=""></textarea>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" id="btn-addExperiencia" class="btn btn-success col-12">Salvar</button>
