@@ -171,17 +171,14 @@
                                                 <div class="col-12">
                                                     <div class="clearfix">
                                                         <input type="text" class="id_formacao" value="<?php echo $formacoes[$key]->getIDFormacao(); ?>" style="display:none">
-                                                        <!-- <input type="text" class="form-control-plaintext des_titulo_formacao pull-left col-8" readonly disabled value="<?php echo $formacoes[$key]->getTituloFormacao(); ?>" style="height:auto;resize: none;margin-left:-10px;font-weight:400; padding-left:5px;margin-right:-10px;font-size:17px"> -->
-                                                        <p class="form-control-plaintext des_titulo_formacao pull-left col-12" style="height:auto;resize: none;margin-left:-10px;font-weight:400; padding-left:5px;margin-right:-10px;font-size:17px"><?php echo $formacoes[$key]->getTituloFormacao(); ?></p>
-                                                        
-                                                        <!-- <textarea class="desc des_descricao_formacao form-control-plaintext" readonly disabled name="des_apresentacao" id="des_apresentacao" rows="1" cols="30" style="height:auto;resize: none;margin-left:-10px;margin-right:-10px; padding-left:5px; padding-top:0px;font-weight:300" spellcheck="false"><?php echo $formacoes[$key]->getDescricaoFormacao(); ?></textarea> -->
-                                                        <p class="desc des_descricao_formacao" id="des_apresentacao" style="margin-left:-10px;margin-right:-10px; padding-left:5px; padding-top:0px;font-weight:300"><?php echo $formacoes[$key]->getDescricaoFormacao(); ?>
+                                                        <p class="des_titulo_formacao" style="width:auto;margin-left:-5px;font-weight:400;font-size:17px;margin-bottom:0px;"><?php echo $formacoes[$key]->getTituloFormacao(); ?></p>
+                                                        <p class="desc des_descricao_formacao" id="des_apresentacao" style="margin-left:-5px;margin-right:-10px;margin-top:0px;font-weight:300"><?php echo $formacoes[$key]->getDescricaoFormacao(); ?></p>
                                                         <?php if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
-                                                            <span class="clearfix pull-right" style="padding:0px;margin:0px;font-weight:normal">
+                                                            <span class="clearfix pull-right" style="margin-top:-20px;padding:0px;margin:0px;font-weight:normal">
                                                                 <a class="btn-editFormacao" style="color:blue;cursor:pointer;margin-right:10px">Editar</a>
                                                                 <a class="btn-delFormacao text-danger" style="cursor:pointer">Deletar</a>
                                                             </span>
-                                                        <?php }} ?></p>
+                                                        <?php }} ?>
                                                     </div>
                                                 </div>
                                             <?php } ?>
@@ -542,13 +539,16 @@
                     <div class="modal-body">
                         <h4>Adicionar Formação</h4>
                             <div class="row">
+                                <div class="col-12" style="display:none">
+                                    <input type="text" name="id_formacao_modal" id="id_formacao_modal" value="">
+                                </div>
                                 <div class="col-12">
                                     <label for="des_nome">Titulo:</label>
                                     <input class="form-control" type="text" name="des_titulo_formacao" id="des_titulo_formacao" placeholder="">
                                 </div>
                                 <div class="col-12" style="margin-top:10px">
                                     <label for="des_email">Descrição:</label>
-                                    <textarea class="form-control" name="ades_descricao_formacao" id="des_descricao_formacao" cols="30" style="height:auto;resize: none;" spellcheck="false" placeholder=""></textarea>
+                                    <textarea class="form-control" name="des_descricao_formacao" id="des_descricao_formacao" cols="30" style="height:auto;resize: none;" spellcheck="false" placeholder=""></textarea>
                                 </div>
                             </div>
                     </div>

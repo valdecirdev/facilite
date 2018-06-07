@@ -6,7 +6,6 @@
 }
 body{
     background-color: var(--bg-page-color);
-    /* font-family: var(--font-family-sans-serif, "Arial"); Font-Family Sans-serif generica, com variavel do bootstrap */
     min-height: 100%;
     display: grid;
     grid-template-rows: 1fr auto;
@@ -17,7 +16,6 @@ button:disabled{
 a:hover, .btn-link:hover, .btn-link:active{
     text-decoration: none;
 }
-
 .btn-radius{
     border-radius: 30px;
 }

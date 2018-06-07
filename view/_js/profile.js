@@ -1,32 +1,16 @@
 
 $(document).ready(function () {
-    
-    $("#usrFotoView").click(function (e) {
-        $('#usrFoto').click(); // Open dialog
-        e.preventDefault();
-    });
-    $("#fotoMouseOn").click(function (e) {
-        $('#usrFoto').click(); // Open dialog
-        e.preventDefault();
-    });
+   
 
-    $("#fotoMouseOn").mouseover(function() {
-        $("#fotoMouseOn").css('display','block');
-    });
-    $("#fotoMouseOn").mouseout(function() {
-        $("#fotoMouseOn").css('display','none');
-    });
-
-    $("#usrFotoView").mouseover(function() {
-        $("#fotoMouseOn").css('display','block');
-    });
-    
-    $("#usrFoto").change(function(){
-        $('#form-usrFoto').submit();        
-    });
-
-
-    /**
+/* -------------------------------------------------------------------------------------------------
+ *      FUNÇÕES GERAIS
+ * ------------------------------------------------------------------------------------------------- */ 
+   
+/** @description Calcula a idade do usuario com base na data de nascimento informada ;
+ *  @param {number} nascimento Data de nascimento do usuário
+ *  @return {number} Idade do usuário 
+ */ 
+/**
      * Função Responsável por calcular a idade do usuario com base na data de nascimento informada
      */  
     function calcularIdade(nascimento) {
@@ -39,9 +23,47 @@ $(document).ready(function () {
         return idade;
     }
 
-    /**
-     * Função Responsável por fazer o update da foto do usuário via AJAX
-     */ 
+
+/* -------------------------------------------------------------------------------------------------
+ *      ALTERAR FOTO DE PERFIL
+ * ------------------------------------------------------------------------------------------------- */ 
+ 
+/** @description Abre a caixa de dialogo para seleção de foto após clique na foto de perfil.  
+ */ 
+    $("#usrFotoView").click(function (e) {
+        $('#usrFoto').click(); // Open dialog
+        e.preventDefault();
+    });
+/** @description Abre a caixa de dialogo para seleção de foto após clique no icone de camera da foto de 
+ * perfil. 
+ */  
+    $("#fotoMouseOn").click(function (e) {
+        $('#usrFoto').click(); // Open dialog
+        e.preventDefault();
+    });
+/** @description Exibe imagem da camera sobre a foto de perfil.  
+ */ 
+    $("#fotoMouseOn").mouseover(function() {
+        $("#fotoMouseOn").css('display','block');
+    });
+/** @description Esconde imagem da camera sobre a foto de perfil.  
+ */ 
+    $("#fotoMouseOn").mouseout(function() {
+        $("#fotoMouseOn").css('display','none');
+    });
+/** @description Exibe imagem da camera sobre a foto de perfil.  
+ */ 
+    $("#usrFotoView").mouseover(function() {
+        $("#fotoMouseOn").css('display','block');
+    });
+/** @description Executa a ação do botão Adicionar/Remover Contato.  
+ */ 
+    $("#usrFoto").change(function(){
+        $('#form-usrFoto').submit();        
+    });
+
+/** @description Faz o envio do formulario com a nova imagem de perfil e atualiza automaticamente na pagina. 
+ */ 
     $("#form-usrFoto").submit(function(e) {
         if($("#usrFoto").val() != ''){
             var form;
@@ -62,6 +84,15 @@ $(document).ready(function () {
         e.preventDefault();
     });
 
+
+
+/* -------------------------------------------------------------------------------------------------
+ *      BOTÃO ADICIONAR/REMOVER CONTATO
+ * ------------------------------------------------------------------------------------------------- */ 
+
+/** @description Executa a ação do botão Adicionar/Remover Contato.  
+ *  @param {Element} btn_action Recebe o botão clicado.  
+ */ 
     function btn_criar_conexao_profile(btn_action){
         if($(btn_action).hasClass('btn-fc-primary')){
             $(btn_action).text('Remover Contato');
@@ -87,26 +118,29 @@ $(document).ready(function () {
         }
     }
 
-    /**
-     * Função Responsável pela ação do botão Editar Experiencias
-     */  
+
+/* -------------------------------------------------------------------------------------------------
+ *      SESSÃO EXPERIENCIAS
+ * ------------------------------------------------------------------------------------------------- */ 
+
+/** @description Executa a ação do botão editar experiencia.  
+ *  @param {Element} btn_action Recebe o botão clicado.  
+ */ 
     function btn_editar_experiencia(btn_action) {  
         var titulo = $('.des_titulo_experiencia', $(btn_action).parent().parent().parent());
         var descricao = $('.des_descricao_experiencia', $(btn_action).parent().parent().parent());
         var id_experiencia = $('.id_experiencia', $(btn_action).parent().parent().parent());
         
+        $('#addExperienciaModal').modal();
         $('#id_experiencia_modal').val(id_experiencia.val());
         $('#des_titulo_experiencia').val(titulo.text());
         $('#des_descricao_experiencia').val(descricao.text());
-        $('#addExperienciaModal').modal();
     }
 
-    /**
-     * Função Responsável pela ação do botão Remover Experiencias
-     */ 
+/** @description Executa a ação do botão deletar experiencia.  
+ *  @param {Element} btn_action Recebe o botão clicado.  
+ */ 
     function btn_deletar_experiencia(btn_action) {
-        var titulo = $('.des_titulo_experiencia', $(btn_action).parent().parent().parent());
-        var descricao = $('.des_descricao_experiencia', $(btn_action).parent().parent().parent());
         var id_experiencia = $('.id_experiencia', $(btn_action).parent().parent().parent());
         
         if (confirm('Realmente deseja deletar esta Experiencia?')){
@@ -119,78 +153,209 @@ $(document).ready(function () {
         }
     }
 
-    /**
-     * Função Responsável pela ação do botão Editar Formações
-     */ 
-    function btn_editar_formacao(btn_action) {
-        var titulo = $('.des_titulo_formacao', $(btn_action).parent());
-        var descricao = $('.des_descricao_formacao', $(btn_action).parent());
-        var id_formacao = $('.id_formacao', $(btn_action).parent());
-        var btn_cancelar = $('.btn-delFormacao', $(btn_action).parent());
+/** @description Apaga os valores dos campos do modal de Experiencia antes de exibi-lo.  
+*/ 
+    $('#addExperienciaModal').on('show.bs.modal', function (e) {
+        $('#id_experiencia_modal').val('');
+        $('#des_titulo_experiencia').val('');
+        $('#des_descricao_experiencia').val('');
+    });
 
-        if($(titulo).hasClass('form-control-plaintext')){
-            $(titulo).removeClass('form-control-plaintext');
-            $(titulo).addClass('form-control');
-            $(titulo).removeAttr('disabled');
-            $(titulo).removeAttr('readonly');
-            $(descricao).removeClass('form-control-plaintext');
-            $(descricao).addClass('form-control');
-            $(descricao).removeAttr('disabled');
-            $(descricao).removeAttr('readonly');
-            $(btn_action).text("Salvar");
-            $(btn_cancelar).text('Cancelar');
-        }else if($(titulo).hasClass('form-control')){
-            $(titulo).removeClass('form-control');
-            $(titulo).addClass('form-control-plaintext');
-            $(titulo).attr('disabled','disabled');
-            $(titulo).attr('readonly','readonly');
-            $(descricao).removeClass('form-control');
-            $(descricao).addClass('form-control-plaintext');
-            $(descricao).attr('disabled','disabled');
-            $(descricao).attr('readonly','readonly');
-            $(btn_action).text("Editar");
-            $(btn_cancelar).text('Deletar');
+/** @description Executa ação do botão de Adicionar Experiencia.  
+ */ 
+    $('#btn-addExperiencia').click(function(){
+
+        if($('#id_experiencia_modal').val() != ''){
+            var titulo = $('#des_titulo_experiencia');
+            var descricao = $('#des_descricao_experiencia');
+            var id_experiencia = $('#id_experiencia_modal');
             $.post('controller/json_Usuario.php',
             {
-                acao: 'up_formacao',
+                acao: 'up_experiencia',
                 id_usuario: $('#id_usuario').val(),
                 des_titulo: $(titulo).val(),
                 des_descricao: $(descricao).val(),
+                id_experiencia: $(id_experiencia).val()
+            },
+            function(data){
+                $(".id_experiencia").each(function( index ) {
+                    if($(this).val() == id_experiencia.val()){
+                        var input = $( this );
+                        $('.des_titulo_experiencia',$(input).parent()).text(titulo.val());
+                        $('.des_descricao_experiencia',$(input).parent()).text(descricao.val());
+                    }
+                });
+                $('#addExperienciaModal').modal('hide');
+            });
+        }else{
+            var $id_usuario = $('#id_usuario_logado').val();
+            var $titulo    = $('#des_titulo_experiencia').val();
+            var $descr     = $('#des_descricao_experiencia').val();
+            $.post('controller/json_Usuario.php',
+            {
+                acao        : 'ad_experiencia',
+                id_usuario  : $id_usuario,
+                titulo      : $titulo,
+                descr       : $descr,
+            },
+            function(data){
+                $('#experiencias-itens').prepend('<div class="col-12" style="margin-top:15px;margin-bottom:5px"><div class="clearfix"><input type="text" class="id_experiencia" value="'+data+'" style="display:none"><p class="des_titulo_experiencia" style="width:auto; margin-left:-5px;font-weight:400; padding-right:25px;font-size:17px;margin-bottom:0px">'+$titulo+'</p><p class="col-12 desc des_descricao_experiencia" style="margin-left:-10px;margin-right:-10px; padding-left:5px;padding-bottom:1px;padding-top:1px;font-weight:300;font-size:16px;">'+$descr+'</p><span class="clearfix pull-right" style="margin-top:-20px;padding:0px;margin:0px;font-weight:normal"><a class="btn-editExperiencia" style="color:blue;cursor:pointer;margin-right:10px">Editar</a><a class="btn-delExperiencia text-danger" style="cursor:pointer">Deletar</a></span></div></div>');
+                $('.btn-editExperiencia').click(function(){
+                    btn_editar_experiencia(this);
+                });
+                $('.btn-delExperiencia').click(function(){
+                    btn_deletar_experiencia(this);
+                });
+                $('#addExperienciaModal').modal('hide');
+            })
+        }
+        
+    });
+
+
+/* -------------------------------------------------------------------------------------------------
+ *      SESSÃO FORMAÇÕES
+ * ------------------------------------------------------------------------------------------------- */ 
+
+/** @description Executa a ação do botão editar Formação.  
+ *  @param {Element} btn_action Recebe o botão clicado.  
+ */ 
+    function btn_editar_formacao(btn_action) {  
+        var titulo = $('.des_titulo_formacao', $(btn_action).parent().parent().parent());
+        var descricao = $('.des_descricao_formacao', $(btn_action).parent().parent().parent());
+        var id_formacao = $('.id_formacao', $(btn_action).parent().parent().parent());
+        
+        $('#addFormacaoModal').modal();
+        $('#id_formacao_modal').val(id_formacao.val());
+        $('#des_titulo_formacao').val(titulo.text());
+        $('#des_descricao_formacao').val(descricao.text());
+    }
+
+ /** @description Executa a ação do botão deletar Formação.  
+  *  @param {Element} btn_action Recebe o botão clicado.  
+  */ 
+    function btn_deletar_formacao(btn_action) {
+        var id_formacao = $('.id_formacao', $(btn_action).parent().parent().parent());
+        
+        if (confirm('Realmente deseja deletar esta Formação?')){
+            $(btn_action).parent().parent().parent().remove();
+            $.post('controller/json_Usuario.php',
+            {
+                acao: 'del_formacao',
                 id_formacao: $(id_formacao).val()
             });
         }
     }
 
-    /**
-     * Função Responsável pela ação do botão Remover Formações
-     */ 
-    function btn_deletar_formacao(btn_action) {
-        var titulo = $('.des_titulo_formacao', $(btn_action).parent());
-        var descricao = $('.des_descricao_formacao', $(btn_action).parent());
-        var btn_salvar = $('.btn-editFormacao', $(btn_action).parent());
-        var id_formacao = $('.id_formacao', $(btn_action).parent());
-        if($(btn_action).text() == 'Cancelar'){
-            $(titulo).removeClass('form-control');
-            $(titulo).addClass('form-control-plaintext');
-            $(titulo).attr('disabled','disabled');
-            $(titulo).attr('readonly','readonly');
-            $(descricao).removeClass('form-control');
-            $(descricao).addClass('form-control-plaintext');
-            $(descricao).attr('disabled','disabled');
-            $(descricao).attr('readonly','readonly');
-            $(btn_salvar).text("Editar");
-            $(btn_action).text('Deletar');
-        }else{
-            if (confirm('Realmente deseja deletar esta Formação?')){
-                $(btn_action).parent().parent().remove();
-                $.post('controller/json_Usuario.php',
-                {
-                    acao: 'del_formacao',
-                    id_formacao: $(id_formacao).val()
-                });
-            }
-        }
+/** @description Apaga os valores dos campos do modal de Formação antes de exibi-lo.  
+ */ 
+    $('#addFormacaoModal').on('show.bs.modal', function (e) {
+        $('#id_formacao_modal').val('');
+        $('#des_titulo_formacao').val('');
+        $('#des_descricao_formacao').val('');
+    });
+
+
+    // function btn_deletar_formacao(btn_action) {
+    //     var titulo = $('.des_titulo_formacao', $(btn_action).parent());
+    //     var descricao = $('.des_descricao_formacao', $(btn_action).parent());
+    //     var btn_salvar = $('.btn-editFormacao', $(btn_action).parent());
+    //     var id_formacao = $('.id_formacao', $(btn_action).parent());
+    //     if($(btn_action).text() == 'Cancelar'){
+    //         $(titulo).removeClass('form-control');
+    //         $(titulo).addClass('form-control-plaintext');
+    //         $(titulo).attr('disabled','disabled');
+    //         $(titulo).attr('readonly','readonly');
+    //         $(descricao).removeClass('form-control');
+    //         $(descricao).addClass('form-control-plaintext');
+    //         $(descricao).attr('disabled','disabled');
+    //         $(descricao).attr('readonly','readonly');
+    //         $(btn_salvar).text("Editar");
+    //         $(btn_action).text('Deletar');
+    //     }else{
+    //         if (confirm('Realmente deseja deletar esta Formação?')){
+    //             $(btn_action).parent().parent().remove();
+    //             $.post('controller/json_Usuario.php',
+    //             {
+    //                 acao: 'del_formacao',
+    //                 id_formacao: $(id_formacao).val()
+    //             });
+    //         }
+    //     }
+    // }
+/** @description Executa ação do botão de Adicionar Formação.  
+ */ 
+$('#btn-addFormacao').click(function(){
+    if($('#id_formacao_modal').val() != ''){
+        var titulo = $('#des_titulo_formacao');
+        var descricao = $('#des_descricao_formacao');
+        var id_formacao = $('#id_formacao_modal');
+        $.post('controller/json_Usuario.php',
+        {
+            acao: 'up_formacao',
+            id_usuario: $('#id_usuario').val(),
+            des_titulo: $(titulo).val(),
+            des_descricao: $(descricao).val(),
+            id_formacao: $(id_formacao).val()
+        },
+        function(data){
+            $(".id_formacao").each(function( index ) {
+                if($(this).val() == id_formacao.val()){
+                    var input = $( this );
+                    $('.des_titulo_formacao',$(input).parent()).text(titulo.val());
+                    $('.des_descricao_formacao',$(input).parent()).text(descricao.val());
+                }
+            });
+            $('#addFormacaoModal').modal('hide');
+        });
+    }else{
+        var $id_usuario = $('#id_usuario_logado').val();
+        var $titulo    = $('#des_titulo_formacao').val();
+        var $descr     = $('#des_descricao_formacao').val();
+        $.post('controller/json_Usuario.php',
+        {
+            acao        : 'ad_formacao',
+            id_usuario  : $id_usuario,
+            titulo      : $titulo,
+            descr       : $descr,
+        },
+        function(data){
+            $('#formacoes-itens').prepend('<div class="col-12"><div class="clearfix"><input type="text" class="id_formacao" value="'+data+'" style="display:none"><p class="des_titulo_formacao" style="width:auto;margin-left:-5px;font-weight:400;font-size:17px;margin-bottom:0px;">'+$titulo+'</p><p class="desc des_descricao_formacao" id="des_apresentacao" style="margin-left:-5px;margin-right:-10px;margin-top:0px;font-weight:300">'+$descr+'</p><span class="clearfix pull-right" style="margin-top:-20px;padding:0px;margin:0px;font-weight:normal"><a class="btn-editFormacao" style="color:blue;cursor:pointer;margin-right:10px">Editar</a><a class="btn-delFormacao text-danger" style="cursor:pointer">Deletar</a></span></div></div>');
+            $('.btn-editFormacao').click(function(){
+                btn_editar_formacao(this);
+            });
+            $('.btn-delFormacao').click(function(){
+                btn_deletar_formacao(this);
+            });
+            $('#addFormacaoModal').modal('hide');
+        })
     }
+    
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+ 
 
 
 
@@ -342,29 +507,6 @@ $(document).ready(function () {
     });
 
 
-    // BOTÃO DE ADICIONAR FORMAÇÃO
-    $('#btn-addFormacao').click(function(){
-        var $id_usuario = $('#id_usuario_logado').val();
-        var $titulo    = $('#des_titulo_formacao').val();
-        var $descr     = $('#des_descricao_formacao').val();
-        $.post('controller/json_Usuario.php',
-        {
-            acao        : 'ad_formacao',
-            id_usuario  : $id_usuario,
-            titulo      : $titulo,
-            descr       : $descr,
-        },
-        function(data){
-            $('#addFormacaoModal').modal('hide');
-            $('#formacoes-itens').before('<div class="col-12" style="margin-top:15px;margin-bottom:15px"><div class="clearfix"><input type="text" class="id_formacao" value="'+data+'" style="display:none"><input type="text" class="form-control-plaintext des_titulo_formacao pull-left col-8" readonly disabled value="'+$titulo+'" style="height:auto;resize: none;margin-left:-10px;font-weight:bold;text-transform:uppercase; padding-left:5px;margin-right:-10px;font-size:15px"><button type="button" class="btn pull-left btn-editFormacao btn-link" style="margin-top:0px;margin-left:20px">Editar</button><button type="button" class="btn pull-left btn-delFormacao btn-link" style="color: red;margin-top:0px;margin-left:0px">Deletar</button><textarea class="desc des_descricao_formacao form-control-plaintext" readonly disabled name="des_apresentacao" id="des_apresentacao" rows="1" cols="30" style="height:auto;resize: none;margin-left:-10px;margin-right:-10px; padding-left:5px; padding-top:0px;" spellcheck="false">'+$descr+'</textarea></div></div>');
-            $('.btn-editFormacao').click(function(){
-                btn_editar_formacao(this);
-            });
-            $('.btn-delFormacao').click(function(){
-                btn_deletar_formacao(this);
-            });
-        })
-    });
 
 
 
@@ -389,55 +531,7 @@ $(document).ready(function () {
 
 
 
-    // BOTÃO DE ADICIONAR EXPERIÊNCIA
-    $('#btn-addExperiencia').click(function(){
 
-        if($('#id_experiencia_modal').val() != ''){
-            var titulo = $('#des_titulo_experiencia');
-            var descricao = $('#des_descricao_experiencia');
-            var id_experiencia = $('#id_experiencia_modal');
-            $.post('controller/json_Usuario.php',
-            {
-                acao: 'up_experiencia',
-                id_usuario: $('#id_usuario').val(),
-                des_titulo: $(titulo).val(),
-                des_descricao: $(descricao).val(),
-                id_experiencia: $(id_experiencia).val()
-            },
-            function(data){
-                $(".id_experiencia").each(function( index ) {
-                    if($(this).val() == id_experiencia.val()){
-                        var input = $( this );
-                        $('.des_titulo_experiencia',$(input).parent()).text(titulo.val());
-                        $('.des_descricao_experiencia',$(input).parent()).text(descricao.val());
-                    }
-                });
-                $('#addExperienciaModal').modal('hide');
-            });
-        }else{
-            var $id_usuario = $('#id_usuario_logado').val();
-            var $titulo    = $('#des_titulo_experiencia').val();
-            var $descr     = $('#des_descricao_experiencia').val();
-            $.post('controller/json_Usuario.php',
-            {
-                acao        : 'ad_experiencia',
-                id_usuario  : $id_usuario,
-                titulo      : $titulo,
-                descr       : $descr,
-            },
-            function(data){
-                $('#experiencias-itens').prepend('<div class="col-12" style="margin-top:15px;margin-bottom:5px"><div class="clearfix"><input type="text" class="id_experiencia" value="'+data+'" style="display:none"><p class="des_titulo_experiencia" style="width:auto; margin-left:-5px;font-weight:400; padding-right:25px;font-size:17px;margin-bottom:0px">'+$titulo+'</p><p class="col-12 desc des_descricao_experiencia" style="margin-left:-10px;margin-right:-10px; padding-left:5px;padding-bottom:1px;padding-top:1px;font-weight:300;font-size:16px;">'+$descr+'</p><span class="clearfix pull-right" style="margin-top:-20px;padding:0px;margin:0px;font-weight:normal"><a class="btn-editExperiencia" style="color:blue;cursor:pointer;margin-right:10px">Editar</a><a class="btn-delExperiencia text-danger" style="cursor:pointer">Deletar</a></span></div></div>');
-                $('.btn-editExperiencia').click(function(){
-                    btn_editar_experiencia(this);
-                });
-                $('.btn-delExperiencia').click(function(){
-                    btn_deletar_experiencia(this);
-                });
-                $('#addExperienciaModal').modal('hide');
-            })
-        }
-        
-    });
 
 
 
