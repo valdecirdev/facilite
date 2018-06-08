@@ -16,7 +16,7 @@
     
 ?>
 
-    <section id="profile-page" class="container">
+    <section id="profile-page" class="container-fluid">
         <div class="row d-print-none">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">

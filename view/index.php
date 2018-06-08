@@ -20,7 +20,7 @@
                     <br>
                     <p>Encontre prestadores de serviços e conecte-se a novos clientes em poucos cliques.</p>
                     <br>
-                    <button type="button" class="btn btn-header btn-outline-primary">SAIBA MAIS</button>
+                    <button type="button" class="btn btn-header btn-fc-primary btn-radius">SAIBA MAIS</button>
                 </div>
                 <?php if(!isset($_SESSION['nome'])){ ?>
                 <div class="col-md-4 pull-right d-none d-lg-block login-box">
@@ -32,8 +32,7 @@
                     <form action="" method="POST">
                         <input type="text" name="login_des_email" id="login_des_email" placeholder="email@exemplo.com ">
                         <input type="password" name="des_senha" id="login_des_senha" placeholder="Senha">
-                        
-                        <button type="button" id="login-user" class="btn btn-primary col-12">Entrar</button>
+                        <button type="button" id="login-user" class="btn btn-fc-primary col-12 btn-radius">Conectar</button>
                     </form>
                     <div class="modal-bottom-divider" style="margin-bottom:5px;" ></div>
                     <a data-toggle="modal" style="cursor:pointer" data-target="#registerModal">Ainda não tem uma conta? <span style="color:#0074b7">Cadastrar-se</span></a>

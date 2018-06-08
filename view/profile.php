@@ -278,10 +278,10 @@
                                     <div class="col-12" style="margin-left:0px; max-width:96%;margin-top:15px;">
                                             <div class="form-group">
                                                 <div class="row" style="margin-top: 10px;">
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-4">
                                                         <label for="slugUsr" style="margin-top: 5px;">Nome de Usuário</label>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-5">
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text" id="inputGroupPrepend2">facilite.com.br/</span>
@@ -289,16 +289,16 @@
                                                             <input type="text" class="form-control block-plaintext" name="des_slug" readonly disabled id="slugUsr" value="<?php if($usuario != NULL){echo $usuario->getSlugUsuario();} ?>">
                                                         </div>
                                                     </div>
-                                                    <div class="pull-left" style="margin-top:0px;">    
-                                                        <button type="button" id="btn-cancelEditSlug" class="btn btn-link d-none text-danger">Cancelar</button>
-                                                        <button type="button" id="btn-editSlug" class="btn btn-link" style="">Editar</button>
+                                                    <div class="pull-left" style="margin-top:0px;">
+                                                        <a class="btn-link d-none text-danger" id="btn-cancelEditSlug" style="cursor:pointer;margin-right:10px">Cancelar</a>
+                                                        <a class="btn-link" id="btn-editSlug" style="color:blue;cursor:pointer;margin-right:10px">Editar</a>
                                                     </div>
                                                 </div>
                                                 <div class="row" style="margin-top: 10px;">
-                                                    <div class="col-md-3" style="margin-top: 5px;">
+                                                    <div class="col-md-4" style="margin-top: 5px;">
                                                         <label for="nomeUsr">Nome Completo:</label>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-5">
                                                         <input type="text" class="form-control-plaintext" readonly disabled name="des_nome" id="nomeUsr" value="<?php if($usuario != NULL){echo $usuario->getNomeUsuario();} ?>">
                                                     </div>
                                                     <div class="pull-left" style="margin-top:0px;">    
@@ -505,7 +505,7 @@
 <!-- Modal Adicionar Experiência -->
 <div class="modal fade" id="addExperienciaModal" tabindex="-1" role="dialog" aria-labelledby="addExperienciaModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered " role="document" style="">
-            <div class="modal-content">
+            <div class="modal-content" style="padding:10px 10px 0px 10px">
                 <form action="" method="POST">
                     <div class="modal-body">
                         <h4>Adicionar Experiência</h4>
@@ -534,7 +534,7 @@
     <!-- Modal Adicionar Formação -->
     <div class="modal fade" id="addFormacaoModal" tabindex="-1" role="dialog" aria-labelledby="addFormacaoModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:400px;">
-            <div class="modal-content">
+            <div class="modal-content" style="padding:10px 10px 0px 10px">
                 <form action="" method="POST">
                     <div class="modal-body">
                         <h4>Adicionar Formação</h4>
@@ -563,7 +563,7 @@
     <!-- Modal Adicionar Serviço -->
     <div class="modal fade" id="addServicoModal" tabindex="-1" role="dialog" aria-labelledby="addServicoModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
+            <div class="modal-content" style="padding:10px 10px 0px 10px">
                 <form action="" method="POST">
                     <div class="modal-body">
                         <h4>Adicionar Serviço</h4>

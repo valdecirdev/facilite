@@ -44,7 +44,7 @@
                                     <strong style="color:red;font-size:13px;">Email e/ou senha incorreto!</strong>
                                 </div>
                                 <div class="clearfix" style="margin-bottom: -15px">
-                                    <button type="button" id="login-user" class="btn btn-primary col-12">Entrar</button>
+                                    <button type="button" id="login-user" class="btn btn-fc-primary col-12 btn-radius">Conectar</button>
                                 </div>
                             </form>
                         <div class="dropdown-divider"></div>
