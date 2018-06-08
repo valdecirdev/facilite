@@ -16,7 +16,7 @@
     
 ?>
 
-    <section id="profile-page" class="container-fluid">
+    <section id="profile-page" class="container">
         <div class="row d-print-none">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
@@ -107,7 +107,20 @@
                                         <div class="form-group text-secondary">
                                         <label for="exampleFormControlSelect1" class="font-weight-bold">Preço</label>
                                             <div class="form-group">
-                                            
+                                            <div class="row" style="margin-top: 10px;">
+                                                    <div class="col-md-6" style="margin-top: 5px;">
+                                                        <label for="nomeUsr">De</label>
+                                                        <form style="margin:0px">
+                                                            <input type="text" class="form-control" name="" id="" value="">
+                                                        </form>
+                                                    </div>
+                                                    <div class="col-md-6" style="margin-top: 5px;">
+                                                        <label for="nomeUsr">Até</label>
+                                                        <form style="margin:0px">
+                                                            <input type="text" class="form-control" name="" id="" value="">
+                                                        </form>
+                                                    </div>
+                                                    </div>
                                             </div>
                                         </div>
                                         <!-- </form> -->

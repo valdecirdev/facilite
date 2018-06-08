@@ -30,7 +30,7 @@
             </nav>
         </div>
         <div class="row" style="margin-top:-30px;">
-            <div class="col-md-3" style="padding:20px;padding-right:25px">
+            <div class="col-md-3" style="padding:20px;">
                 <div class="row">
                     <div class="col-md-12 profile-card text-center text-md-left">
                         <div class="img-profile">
@@ -269,45 +269,45 @@
                                     </div>
                                 </div>
                                 <?php if($donoPerfil){ ?>
-                                <div id="cadastro" class="tab-pane fade" style="margin-top: 20px;">
-                                    <div class="col-12" style="min-height:25px; margin-top:20px" >
+                                <div id="cadastro" class="tab-pane fade">
+                                    <div class="col-12" style="min-height:25px; margin-top:20px;" >
                                         <div class="pull-left">
                                             <h6 class="skills-title">Suas Informações</h6>
                                         </div>
                                     </div>
                                     <div class="col-12" style="margin-left:0px; max-width:96%;margin-top:15px;">
-                                            <div class="form-group">
+                                            <div class="form-group" style="margin:0px;">
                                                 <div class="row" style="margin-top: 10px;">
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-3" style="padding-left:15px;padding-right:0px;">
                                                         <label for="slugUsr" style="margin-top: 5px;">Nome de Usuário</label>
                                                     </div>
-                                                    <div class="col-md-5">
+                                                    <div class="col-md-6">
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text" id="inputGroupPrepend2">facilite.com.br/</span>
+                                                                <span class="input-group-text" id="inputGroupPrepend2">faciliteserv.com/</span>
                                                             </div>
                                                             <input type="text" class="form-control block-plaintext" name="des_slug" readonly disabled id="slugUsr" value="<?php if($usuario != NULL){echo $usuario->getSlugUsuario();} ?>">
                                                         </div>
                                                     </div>
-                                                    <div class="pull-left" style="margin-top:0px;">
+                                                    <div class="pull-left" style="margin-left:15px;margin-top:10px;">
                                                         <a class="btn-link d-none text-danger" id="btn-cancelEditSlug" style="cursor:pointer;margin-right:10px">Cancelar</a>
-                                                        <a class="btn-link" id="btn-editSlug" style="color:blue;cursor:pointer;margin-right:10px">Editar</a>
+                                                        <a class="btn-link" id="btn-editSlug" style="color:#007bff;cursor:pointer;margin-right:10px">Editar</a>
                                                     </div>
                                                 </div>
-                                                <div class="row" style="margin-top: 10px;">
-                                                    <div class="col-md-4" style="margin-top: 5px;">
-                                                        <label for="nomeUsr">Nome Completo:</label>
+                                                <div class="row" style="margin-top: 20px;">
+                                                    <div class="col-md-3" style="padding-left:15px;padding-right:5px;margin-top:5px">
+                                                        <label for="nomeUsr">Nome Completo</label>
                                                     </div>
-                                                    <div class="col-md-5">
+                                                    <div class="col-md-6">
                                                         <input type="text" class="form-control-plaintext" readonly disabled name="des_nome" id="nomeUsr" value="<?php if($usuario != NULL){echo $usuario->getNomeUsuario();} ?>">
                                                     </div>
-                                                    <div class="pull-left" style="margin-top:0px;">    
-                                                        <button type="button" id="btn-cancelEditNome" class="btn btn-link d-none text-danger">Cancelar</button>    
-                                                        <button type="button" id="btn-editNome" class="btn btn-link" style="">Editar</button>
+                                                    <div class="pull-left" style="margin-left:15px;margin-top:10px;">
+                                                        <a class="btn-link d-none text-danger" id="btn-cancelEditNome" style="cursor:pointer;margin-right:10px">Cancelar</a>
+                                                        <a class="btn-link" id="btn-editNome" style="color:#007bff;cursor:pointer;margin-right:10px">Editar</a>
                                                     </div>
                                                 </div>
                                                 <div class="row" style="margin-top: 10px;">
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-3" style="padding-left:15px;padding-right:5px;">
                                                         <label style="text-align: left;margin-top: 5px;" for="emailUsr">Email</label>
                                                     </div>
                                                     <div class="col-md-6">
@@ -315,57 +315,57 @@
                                                             <input type="email" class="form-control-plaintext" readonly disabled name="des_email" id="emailUsr" value="<?php if($usuario != NULL){echo $usuario->getEmailUsuario();} ?>">
                                                         </form>
                                                     </div>
-                                                    <div class="pull-left" style="margin-top:0px;">    
-                                                        <button type="button" id="btn-cancelEditEmail" class="btn btn-link d-none text-danger">Cancelar</button>                                                                
-                                                        <button type="button" id="btn-editEmail" class="btn btn-link" style="">Editar</button>
+                                                    <div class="pull-left" style="margin-left:15px;margin-top:10px;">   
+                                                        <a class="btn-link d-none text-danger" id="btn-cancelEditEmail" style="cursor:pointer;margin-right:10px">Cancelar</a>
+                                                        <a class="btn-link" id="btn-editEmail" style="color:#007bff;cursor:pointer;margin-right:10px">Editar</a>
                                                     </div>
                                                 </div>
                                                 <div class="row" style="margin-top: 10px;">
-                                                    <div class="col-md-3" style="margin-top: 5px;">
-                                                        <label for="ocupUsr">Ocupação:</label>
+                                                    <div class="col-md-3" style="padding-left:15px;padding-right:5px;">
+                                                        <label for="ocupUsr" style="margin-top: 5px;">Ocupação</label>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <input type="text" class="form-control-plaintext" readonly disabled name="des_ocupacao" id="ocupUsr" value="<?php if($usuario != NULL){echo $usuario->getOcupacaoUsuario();} ?>">
                                                     </div>
-                                                    <div class="pull-left" style="margin-top:0px;">    
-                                                        <button type="button" id="btn-cancelEditOcupacao" class="btn btn-link d-none text-danger">Cancelar</button>    
-                                                        <button type="button" id="btn-editOcupacao" class="btn btn-link" style="">Editar</button>
+                                                    <div class="pull-left" style="margin-left:15px;margin-top:10px;">     
+                                                        <a class="btn-link d-none text-danger" id="btn-cancelEditOcupacao" style="cursor:pointer;margin-right:10px">Cancelar</a>
+                                                        <a class="btn-link" id="btn-editOcupacao" style="color:#007bff;cursor:pointer;margin-right:10px">Editar</a>
                                                     </div>
                                                 </div>
                                                 <div class="row" style="margin-top: 10px;">
-                                                    <div class="col-md-3" style="margin-top: 5px;">
-                                                        <label for="telUsr">Celular</label>
+                                                    <div class="col-md-3" style="padding-left:15px;padding-right:5px;">
+                                                        <label for="telUsr" style="margin-top: 5px;">Celular</label>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <input type="text" class="form-control-plaintext" readonly disabled name="des_telefone" id="telUsr" value="<?php if($usuario != NULL){echo $usuario->getTelefoneUsuario();} ?>">
                                                     </div>
-                                                    <div class="pull-left" style="margin-top:0px;">    
-                                                        <button type="button" id="btn-cancelEditTel" class="btn btn-link d-none text-danger">Cancelar</button>    
-                                                        <button type="button" id="btn-editTel" class="btn btn-link" style="">Editar</button>
+                                                    <div class="pull-left" style="margin-left:15px;margin-top:10px;">     
+                                                        <a class="btn-link d-none text-danger" id="btn-cancelEditTel" style="cursor:pointer;margin-right:10px">Cancelar</a>
+                                                        <a class="btn-link" id="btn-editTel" style="color:#007bff;cursor:pointer;margin-right:10px">Editar</a>
                                                     </div>
                                                 </div>
                                                 <div class="row" style="margin-top: 10px;">
-                                                    <div class="col-md-3" style="margin-top: 5px;">
-                                                        <label for="cpfUsr">CPF</label>
+                                                    <div class="col-md-3" style="padding-left:15px;padding-right:5px;">
+                                                        <label for="cpfUsr" style="margin-top: 5px;">CPF</label>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <input type="text" class="form-control-plaintext" readonly disabled name="des_cpf" id="cpfUsr" value="<?php if($usuario != NULL){echo $usuario->getCpfUsuario();} ?>">
                                                     </div>
-                                                    <div class="pull-left" style="margin-top:0px;">    
-                                                        <button type="button" id="btn-cancelEditCpf" class="btn btn-link d-none text-danger">Cancelar</button>
-                                                        <button type="button" id="btn-editCpf" class="btn btn-link" style="">Editar</button>
+                                                    <div class="pull-left" style="margin-left:15px;margin-top:10px;">     
+                                                        <a class="btn-link d-none text-danger" id="btn-cancelEditCpf" style="cursor:pointer;margin-right:10px">Cancelar</a>
+                                                        <a class="btn-link" id="btn-editCpf" style="color:#007bff;cursor:pointer;margin-right:10px">Editar</a> 
                                                     </div>
                                                 </div>
                                                 <div class="row" style="margin-top: 10px;">
                                                     <div class="col-md-3">
-                                                        <label style="text-align: left;margin-top: 5px;" for="dtNascUsr">Data Nascimento</label>
+                                                        <label style="text-align: left;margin-top: 5px;" for="dtNascUsr">Aniversário</label>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <input type="date" class="form-control-plaintext" readonly disabled name="dt_nasc" id="dtNascUsr" value="<?php if($usuario != NULL){echo $usuario->getDtNascUsuario();} ?>">
                                                     </div>
-                                                    <div class="pull-left" style="margin-top:0px;">    
-                                                        <button type="button" id="btn-cancelEditDtNasc" class="btn btn-link d-none text-danger">Cancelar</button>                                                                
-                                                        <button type="button" id="btn-editDtNasc" class="btn btn-link" style="">Editar</button>
+                                                    <div class="pull-left" style="margin-left:15px;margin-top:10px;">     
+                                                        <a class="btn-link d-none text-danger" id="btn-cancelEditDtNasc" style="cursor:pointer;margin-right:10px">Cancelar</a>
+                                                        <a class="btn-link" id="btn-editDtNasc" style="color:#007bff;cursor:pointer;margin-right:10px">Editar</a>
                                                     </div>
                                                 </div>
                                                 <div class="row" style="margin-top: 10px;">
@@ -380,9 +380,9 @@
                                                             <?php if($usuario->getSexoUsuario() != ""){ ?> <option value="P">Prefiro não informar </option> <?php } ?>
                                                         </select>
                                                     </div>
-                                                    <div class="pull-left" style="margin-top:0px;">    
-                                                        <button type="button" id="btn-cancelEditSexo" class="btn btn-link d-none text-danger">Cancelar</button>    
-                                                        <button type="button" id="btn-editSexo" class="btn btn-link" style="">Editar</button>
+                                                    <div class="pull-left" style="margin-left:15px;margin-top:10px;">     
+                                                        <a class="btn-link d-none text-danger" id="btn-cancelEditSexo" style="cursor:pointer;margin-right:10px">Cancelar</a>
+                                                        <a class="btn-link" id="btn-editSexo" style="color:#007bff;cursor:pointer;margin-right:10px">Editar</a>  
                                                     </div>
                                                 </div>
                                                 <div class="row" style="margin-top: 10px;">
@@ -392,9 +392,9 @@
                                                     <div class="col-md-6">
                                                         <input type="text" class="form-control-plaintext" readonly disabled name="des_cidade" id="cidadeUsr" value="<?php if($usuario != NULL){echo $usuario->getCidadeUsuario();} ?>">
                                                     </div>
-                                                    <div class="pull-left" style="margin-top:0px;">    
-                                                        <button type="button" id="btn-cancelEditCidade" class="btn btn-link d-none text-danger">Cancelar</button>    
-                                                        <button type="button" id="btn-editCidade" class="btn btn-link" style="">Editar</button>
+                                                    <div class="pull-left" style="margin-left:15px;margin-top:10px;">     
+                                                        <a class="btn-link d-none text-danger" id="btn-cancelEditCidade" style="cursor:pointer;margin-right:10px">Cancelar</a>
+                                                        <a class="btn-link" id="btn-editCidade" style="color:#007bff;cursor:pointer;margin-right:10px">Editar</a>  
                                                     </div>
                                                 </div>
                                             </div>

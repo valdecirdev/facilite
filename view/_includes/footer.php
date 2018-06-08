@@ -46,7 +46,7 @@
 <?php } ?>
 
 <footer class="page-footer text-white d-print-none">
-    <div class=" text-center container text-md-left">
+    <div class="text-center container text-md-left">
         <div class="row">
             <div class="col-md-8 col-lg-8">
                 <p class="text-center text-md-left grey-text">© 2018 Copyright - Facilite Servicos</p>

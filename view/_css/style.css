@@ -130,11 +130,15 @@ header .home-header p, header .home-header h5, header .home-header h2{
 
 /* CARDS */
 .title-page{
-    background-color: rgba(255,255,255,1);
+    background-color: rgba(255, 255, 255, 0.473);
     min-height: 50px;
     padding: 20px 0px 10px 0px;
-    color: #019699;
-    border-bottom: 2px #019699 solid;
+    /* color: #019699; */
+    color: #0074b7;
+    /* border-bottom: 2px #019699 solid; */
+    border-bottom: 2PX #0074b7 solid;
+    /* width: 900px; */
+
     text-transform:  uppercase;
 }
 .card .desc-card p{
@@ -207,10 +211,9 @@ header .home-header p, header .home-header h5, header .home-header h2{
 /* LOGIN BOX */
 .login-box{
     margin-top:-50px;
-    height:350px; 
     background-color:#fff;
     color:#000;
-    padding:30px;
+    padding: 20px 30px 20px 30px;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
 }
@@ -382,10 +385,14 @@ header .home-header p, header .home-header h5, header .home-header h2{
     margin-bottom: 10px;
     margin-left: -12px;
   }
+  #profile-page{
+    padding-left: 25px;
+    padding-right: 25px;
+  }
 }
 
 footer{
     padding-top:20px;
-    margin-top:40px;
+    /* margin-top:40px; */
     background-color:var(--bg-navbar-color) !important; 
 }
