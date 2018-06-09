@@ -8,7 +8,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <div class="input-group col-md-4 offset-md-3" style="padding:0px">
+        <div class="input-group col-md-4 offset-md-3">
             <form action="search" method="GET" style="padding:0px;margin:0px; width:100%">
                 <input type="text" name="q" class="pull-left campo-busca form-control" placeholder="Encontre o que você precisa!" aria-label="Encontre o que você precisa!" value="<?php if(isset($_GET['q'])){echo $_GET['q'];} ?>">
                 <div class="input-group-append">
@@ -29,8 +29,8 @@
                     <a class="nav-link dropdown-toggle text-white" href="#" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-user" style="margin-right:5px;"></i> Entrar
                     </a>
-                    <div class="dropdown-menu" id="loginDropdown" style="margin-left:-235%; width: 310px;">
-                        <div class="dropdown-arrow"></div>
+                    <div class="dropdown-menu" id="loginDropdown">
+                        <!-- <div class="dropdown-arrow"></div> -->
                             <form action="" method="POST" class="px-4 py-3">
                                 <div class="form-group">
                                     <label for="exampleDropdownFormEmail1">Email</label>
@@ -48,7 +48,9 @@
                                 </div>
                             </form>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item text-muted" data-toggle="modal" data-target="#registerModal" >Ainda não tem uma conta? Cadastre-se</a>
+                        <div style="margin-top:-20px;" class="d-lg-block">
+                            <a class="dropdown-item text-muted" data-toggle="modal" data-target="#registerModal" >Ainda não tem uma conta? Cadastre-se</a>
+                        </div>
                     </div>
                 </div>
             <?php } 

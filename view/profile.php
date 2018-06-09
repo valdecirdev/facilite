@@ -22,12 +22,14 @@
     <input type="text" value="<?php if(isset($loggedUser)){echo $loggedUser->getIdUsuario();} ?>" id="id_usuario_logado" class="d-none">
     <section class="container-fluid" style="" id="profile-page">
         <div class="row d-print-none">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="home">Início</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><?php if($usuario != NULL){echo $usuario->getNomeSimplesUsuario();} ?></li>
-                </ol>
-            </nav>
+            <div class="col-md-12 " style="padding:5px;margin:0px;">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb" style="background-color:#fff;">
+                        <li class="breadcrumb-item"><a href="home">Início</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><?php if($usuario != NULL){echo $usuario->getNomeSimplesUsuario();} ?></li>
+                    </ol>
+                </nav>
+            </div>
         </div>
         <div class="row" style="margin-top:-30px;">
             <div class="col-md-3" style="padding:20px;">
@@ -60,14 +62,16 @@
                             </div>
 
                             <div class="list-infos">
-                                <p class="sub"><i class="fa fa-at"></i> <span><?php if($usuario != NULL){echo $usuario->getSlugUsuario();} ?></span></p>
-                                <?php if(($usuario->getSexoUsuario() != NULL)&&($usuario->getIdadeUsuario() != NULL)){ ?>
-                                    <p class="sub"><i class="fa fa-users"></i><span id="sideSexo"><?php echo $usuario->getSexoUsuario() .', '; ?></span><span id="sideIdade"><?php echo $usuario->getIdadeUsuario().' anos'; ?></span></p>
-                                <?php }else if($usuario->getIdadeUsuario() != NULL){ ?>
-                                    <p class="sub"><i class="fa fa-users"></i><span id="sideIdade"><?php echo $usuario->getIdadeUsuario().' anos'; ?></span></p>
-                                <?php } if($usuario->getCidadeUsuario() != NULL){ ?>
-                                    <p class="sub"><i class="fa fa-map-marker" style="margin-left: 3px;margin-right: 8px;"></i><?php echo $usuario->getCidadeUsuario(); ?></p>
-                                <?php } ?>
+                                <div class="row">
+                                    <p class="sub"><i class="fa fa-at"></i> <span><?php if($usuario != NULL){echo $usuario->getSlugUsuario();} ?></span></p>
+                                    <?php if(($usuario->getSexoUsuario() != NULL)&&($usuario->getIdadeUsuario() != NULL)){ ?>
+                                        <p class="sub"><i class="fa fa-users"></i><span id="sideSexo"><?php echo $usuario->getSexoUsuario() .', '; ?></span><span id="sideIdade"><?php echo $usuario->getIdadeUsuario().' anos'; ?></span></p>
+                                    <?php }else if($usuario->getIdadeUsuario() != NULL){ ?>
+                                        <p class="sub"><i class="fa fa-users"></i><span id="sideIdade"><?php echo $usuario->getIdadeUsuario().' anos'; ?></span></p>
+                                    <?php } if($usuario->getCidadeUsuario() != NULL){ ?>
+                                        <p class="sub"><i class="fa fa-map-marker" style="margin-left: 3px;margin-right: 8px;"></i><?php echo $usuario->getCidadeUsuario(); ?></p>
+                                    <?php } ?>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -77,7 +81,7 @@
 
             <div class="col-md-6">
                 <div class="row" style="margin-top:0px">
-                    <div class="col-md-12" style="padding:20px;">
+                    <div class="col-md-12" id="visao-geral">
                         <div class="row">
                             <div class="col-md-12  profile-card">
                                 <ul class="nav nav-tabs">
@@ -109,7 +113,7 @@
                                                     <p class="form-control-plaintext" id="des_apresentacao" style="margin-top:-10px;height:auto;resize: none;margin-left:-7px;margin-right:-10px;font-weight:300"><?php echo $usuario->getApresentacaoUsuario(); ?>
                                                     <?php if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
                                                         <span class="clearfix pull-right" style="padding:0px;margin:0px;font-weight:normal">
-                                                            <a class="btn-editApres" style="color:blue;cursor:pointer;margin-right:10px">Editar</a>
+                                                            <a class="btn-editApres" style="color:#007bff;cursor:pointer;margin-right:10px;">Editar</a>
                                                         </span>
                                                     <?php }} ?></p>
                                                 </div>
@@ -127,7 +131,7 @@
                                             <?php if($donoPerfil){ ?>
                                                 <div class="col-12">
                                                     <div class="clearfix">
-                                                        <button type="button" class="btn btn-primary pull-right btn-sm d-print-none" style="margin-top:25px;margin-bottom:-15px;" data-toggle="modal" data-target="#addExperienciaModal"><i class="fa fa-plus-circle" style="margin-right:5px;"></i>Adicionar</button>
+                                                        <button type="button" class="btn btn-fc-primary btn-radius pull-right btn-sm d-print-none" style="margin-top:28px;margin-bottom:-15px;" data-toggle="modal" data-target="#addExperienciaModal"><i class="fa fa-plus-circle" style="margin-right:5px;"></i>Adicionar</button>
                                                     </div>
                                                 </div>
                                             <?php } ?> 
@@ -144,7 +148,7 @@
                                                         <p class="col-12 desc des_descricao_experiencia" style="margin-left:-10px;margin-right:-10px; padding-left:5px;padding-bottom:1px;padding-top:1px;font-weight:300;font-size:16px;"><?php echo $experiencias[$key]->getDescricaoExperiencia(); ?></p>
                                                         <?php if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
                                                             <span class="clearfix pull-right" style="margin-top:-20px;padding:0px;margin:0px;font-weight:normal">
-                                                                <a class="btn-editExperiencia" style="color:blue;cursor:pointer;margin-right:10px">Editar</a>
+                                                                <a class="btn-editExperiencia" style="color:#007bff;cursor:pointer;margin-right:10px">Editar</a>
                                                                 <a class="btn-delExperiencia text-danger" style="cursor:pointer">Deletar</a>
                                                             </span>
                                                         <?php }} ?>
@@ -159,7 +163,7 @@
                                             <?php if($donoPerfil){ ?>
                                                 <div class="col-12">
                                                     <div class="clearfix">
-                                                        <button type="button" class="btn btn-primary pull-right btn-sm d-print-none" style="margin-top:25px;margin-bottom:-15px;" data-toggle="modal" data-target="#addFormacaoModal"><i class="fa fa-plus-circle" style="margin-right:5px;"></i>Adicionar</button>
+                                                        <button type="button" class="btn btn-fc-primary btn-radius pull-right btn-sm d-print-none" style="margin-top:28px;margin-bottom:-15px;" data-toggle="modal" data-target="#addFormacaoModal"><i class="fa fa-plus-circle" style="margin-right:5px;"></i>Adicionar</button>
                                                     </div>
                                                 </div>
                                             <?php } ?> 
@@ -209,7 +213,7 @@
                                     <?php if($donoPerfil){ ?>
                                         <div class="col-12">
                                             <div class="clearfix">
-                                                <button type="button" class="btn btn-primary pull-right btn-sm d-print-none" style="margin-top:10px;margin-bottom:-15px;" data-toggle="modal" data-target="#addServicoModal"><i class="fa fa-plus-circle" style="margin-right:5px;"></i>Adicionar</button>
+                                                <button type="button" class="btn btn-fc-primary btn-radius pull-right btn-sm d-print-none" style="margin-bottom:-15px;margin-right:-15px;" data-toggle="modal" data-target="#addServicoModal"><i class="fa fa-plus-circle" style="margin-right:5px;"></i>Adicionar</button>
                                             </div>
                                         </div>
                                     <?php } ?>
@@ -223,48 +227,35 @@
                                                 $categoria = $categorias->loadById($anuncio[$key]->getIdCategoriaAnuncio());
                                                 $modalidade = $modalidades->loadById($anuncio[$key]->getIdModalidadeAnuncio());
                                             ?>
-                                            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
-                                                <div class="card profile-card card-body">
-                                                    <div class="row">
-                                                        <div class="col-2">
-                                                            <a href="#">
-                                                                <div class="">
-                                                                    <i class="<?php echo $categoria->getIconeCategoria(); ?> fa-2x icon-align-center" aria-hidden="true"></i>
-                                                                </div>
-                                                            </a>
+
+                                            <div class="col-12" style="margin-bottom:5px">
+                                                <div class="clearfix">
+                                                    <p class="des_categoria" style="width:auto; margin-left:-5px;font-weight:400; padding-right:25px;font-size:17px;margin-bottom:0px"><?php echo $categoria->getDescricaoCategoria(); ?></p>
+                                                    <p class="col-12 desc des_anuncio" style="margin-left:-10px;margin-right:-10px; padding-left:5px;padding-bottom:1px;padding-top:10px;font-weight:300;font-size:16px;"><?php echo $anuncio[$key]->getDescricaoAnuncio(); ?></p>
+                                                    <div class="row" style="font-weight:300;font-size:16px;margin-top:-15px;">
+                                                        <div class="pull-left" style="margin-left:10px;">
+                                                        <label>Preço</label>
                                                         </div>
-                                                        <div class="col-10 title-card">
-                                                            <a href="">
-                                                                <h4 class="job-title font-weight-bold">
-                                                                    <?php echo $categoria->getDescricaoCategoria(); ?>
-                                                                </h4>
-                                                            </a>
+                                                        <div class="pull-left">
+                                                        <p class="col-12 desc des_anuncio" style=""><?php echo $anuncio[$key]->getPrecoAnuncio(); ?></p>
                                                         </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-12 numbers-card">
-                                                            <div class="row text-center" style="padding-top:10px;">
-                                                                <div style="width: 30%">
-                                                                    <span style="font-size: 22px;font-weight:bold;">25</span>
-                                                                        <p style="margin-top: -5px">Concluídos</p>
-                                                                    </div>
-                                                            <div style="width: 40%">
-                                                                <span style="font-size: 13px">R$</span>
-                                                                <span style="font-size:22px;font-weight:bold;"><?php echo $anuncio[$key]->getPrecoAnuncio(); ?></span>
-                                                                <p style="margin-top: -5px"><?php echo $modalidade->getDescricaoModalidade(); ?></p>
-                                                            </div>
-                                                            <div style="width: 30%">
-                                                                <span style="font-size:22px;font-weight:bold;">20</span>
-                                                                <p style="margin-top: -5px">Avaliações</p>
-                                                            </div>
+                                                        <div class="pull-left">
+                                                        <label for="">Disponibilidade</label>
+                                                        </div>
+                                                        <div class="pull-left">
+                                                        <p class="col-12 desc des_anuncio" style=""><?php echo $anuncio[$key]->getDisponibilidadeAnuncio(); ?></p>                                                        
                                                         </div>
                                                     </div>
-                                                    <div class="col-12 desc-card">
-                                                        <p><?php echo $anuncio[$key]->getDescricaoAnuncio(); ?></p>
-                                                    </div>
+                                                    <?php if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
+                                                        <span class="clearfix pull-right" style="margin-top:-20px;padding:0px;margin:0px;font-weight:normal">
+                                                            <a class="btn-editServico" style="color:#007bff;cursor:pointer;margin-right:10px">Editar</a>
+                                                            <a class="btn-delServico text-danger" style="cursor:pointer">Deletar</a>
+                                                        </span>
+                                                    <?php }} ?>
                                                 </div>
                                             </div>
-                                        </div>
+
+                                            
                                         <?php } ?>
                                     </div>
                                 </div>

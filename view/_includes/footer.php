@@ -3,10 +3,15 @@
     <!-- Modal Cadastro -->
     <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
+            <div class="modal-content" style="padding:10px 10px 0px 10px">
+                <div class="pull-left clearfix" style="padding:10px;" tabindex="1">
+                    <button type="button btn-lg" class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
                 <form action="" method="POST">
                 <div class="modal-body">
-                    <h4>Abra uma conta</h4>
+                    <h4 style="margin-top:-30px;">Abra uma conta</h4>
                     <p>Encontre o melhor serviço pelo melhor preço!</p>
 
                         <div class="row">

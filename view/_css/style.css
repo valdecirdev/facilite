@@ -100,7 +100,7 @@ header .home-header p, header .home-header h5, header .home-header h2{
     border-radius: 20px 0px 0px 20px;
     border: 0px;
     height: 40px;
-    padding-left: 15px;
+    /* padding-left: 15px; */
     padding-top: 5px;
 }
 .btn-busca{
@@ -248,6 +248,7 @@ header .home-header p, header .home-header h5, header .home-header h2{
 #registerModal .modal-dialog .modal-content{
   padding: 10px;
   border-radius: 3px;
+  /* margin-right: 10px; */
 }
 #registerModal .modal-dialog .modal-content .modal-body p{
   color: #a6a9ac;
@@ -299,7 +300,7 @@ header .home-header p, header .home-header h5, header .home-header h2{
     margin-top: 12px;
     padding-top: 10px;
     margin-left: -20px;
-    padding-left: 20px;
+    padding-left: 30px;
     margin-right: -20px;
     padding-right: 20px;
     border-top: 1px rgb(223,223,223) solid;
@@ -311,8 +312,7 @@ header .home-header p, header .home-header h5, header .home-header h2{
 #profile-page .profile-card .infos .sub{
     color: #66757f;
     font-size: 13px;
-    margin-top: 10px;
-    margin-bottom: 5px;
+    margin: 10px 10px 5px 10px;
 }
 #profile-page .profile-card .infos .sub i{
     margin-right: 5px;
@@ -389,6 +389,22 @@ header .home-header p, header .home-header h5, header .home-header h2{
     padding-left: 25px;
     padding-right: 25px;
   }
+  #loginDropdown{
+    width: auto;
+  }
+  #visao-geral{
+    padding:0px 20px 0px 20px;
+  }
+}
+
+@media (min-width: 720px){
+    #loginDropdown{
+        margin-left:-235%; 
+        width: 310px;
+    }
+    #visao-geral{
+        padding:20px;
+    }
 }
 
 footer{

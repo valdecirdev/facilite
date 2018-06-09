@@ -16,19 +16,22 @@
     
 ?>
 
-    <section id="profile-page" class="container">
+    <section id="profile-page" class="container-fluid">
         <div class="row d-print-none">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="home">Início</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Pesquisa: <?php echo $_GET['q']; ?></li>
-                </ol>
-            </nav>
+            <div class="col-md-12 " style="padding:5px;margin:0px;">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb" style="background-color:#fff;">
+                        <li class="breadcrumb-item"><a href="home">Início</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Pesquisa: <?php echo $_GET['q']; ?></li>
+                    </ol>
+                </nav>
+            </div>
         </div>
+
         <div class="row" style="margin-top:-10px;">
-            <div class="col-md-3" style="padding-left:30px;padding-right:30px;">
+            <div class="col-md-3" style="padding-left:20px;padding-right:20px;margin-bottom:20px;">
                 <div class="row">
-                    <div id="" class="profile-card col-md-12 card clearfix">
+                    <div id="" class="profile-card col-md-12 clearfix">
                         <div class="tab-content">
                             <div class="col-12" style="margin-bottom:20px">
                                 <div class="row">
@@ -108,13 +111,13 @@
                                         <label for="exampleFormControlSelect1" class="font-weight-bold">Preço</label>
                                             <div class="form-group">
                                             <div class="row" style="margin-top: 10px;">
-                                                    <div class="col-md-6" style="margin-top: 5px;">
+                                                    <div class="col-6" style="margin-top: 5px;">
                                                         <label for="nomeUsr">De</label>
                                                         <form style="margin:0px">
                                                             <input type="text" class="form-control" name="" id="" value="">
                                                         </form>
                                                     </div>
-                                                    <div class="col-md-6" style="margin-top: 5px;">
+                                                    <div class="col-6" style="margin-top: 5px;">
                                                         <label for="nomeUsr">Até</label>
                                                         <form style="margin:0px">
                                                             <input type="text" class="form-control" name="" id="" value="">
