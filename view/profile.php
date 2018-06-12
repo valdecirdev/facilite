@@ -103,19 +103,18 @@
                                 <div class="tab-content" style="padding-top:20px;">
                                     <div id="geral" class="tab-pane fade active show">
                                     <!-- SECAO DE APRESENTACAO -->
-                                    
-
                                         <p style="margin-left:12px;margin-top: 15px;margin-bottom:0px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="far fa-address-card" style="margin-left:-5px;font-size:20px;color:#60686e;margin-right:7px"></i> Sobre</p>
                                         <div id="apresentacao" style="margin-left:33px;">                                  
                                             <div class="col-12" style="margin-top:15px;margin-bottom:15px">
                                                 <div class="clearfix">
                                                     <input type="text" style="position:absolute; display:none" id="id_usuario" value="<?php echo $usuario->getIdUsuario(); ?>">
-                                                    <p class="form-control-plaintext" id="des_apresentacao" style="margin-top:-10px;height:auto;resize: none;margin-left:-7px;margin-right:-10px;font-weight:300"><?php echo $usuario->getApresentacaoUsuario(); ?>
+                                                    <textarea class="form-control-plaintext" name="des_apresentacao" id="des_apresentacao" style="margin-top:-10px;height:auto;resize: none;margin-left:-7px;margin-right:-10px;font-weight:300" readonly disabled="disabled" rows="4" spellcheck="false"><?php echo $usuario->getApresentacaoUsuario(); ?></textarea>
                                                     <?php if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
                                                         <span class="clearfix pull-right" style="padding:0px;margin:0px;font-weight:normal">
-                                                            <a class="btn-editApres" style="color:#007bff;cursor:pointer;margin-right:10px;">Editar</a>
+                                                            <a id="btn-editApres" style="color:#007bff;cursor:pointer;margin-right:10px;">Editar</a>
+                                                            <a id="btn-cancelEditApres" class="d-none text-danger" style="color:#007bff;cursor:pointer;margin-right:10px;">Deletar</a>
                                                         </span>
-                                                    <?php }} ?></p>
+                                                    <?php }} ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -561,7 +560,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <label for="">Categoria:</label>
-                                    <select class="form-control" readonly name="" id="">
+                                    <select class="form-control" readonly name="des_categoria_servico" id="des_categoria_servico">
                                         <?php 
                                         $cat = $categorias->loadAll();
                                         foreach ($cat as $key => $value) { ?> 
@@ -571,24 +570,24 @@
                                 </div>
                                 <div class="col-12" style="margin-top:10px">
                                     <label for="des_email">Descrição:</label>
-                                    <textarea class="form-control" name="ades_descricao_formacao" id="des_descricao_formacao" cols="30" style="height:auto;resize: none;" spellcheck="false" placeholder=""></textarea>
+                                    <textarea class="form-control" name="des_descricao_servico" id="des_descricao_servico" cols="30" style="height:auto;resize: none;" spellcheck="false" placeholder=""></textarea>
                                 </div>
                                 <div class="col-4" style="margin-top:10px">
                                     <label for="des_email">Preço:</label>
-                                    <input class="form-control" type="text" name="des_titulo_formacao" id="des_titulo_formacao" placeholder="">
+                                    <input class="form-control" type="text" name="des_preco_servico" id="des_preco_servico" placeholder="">
                                 </div>
                                 <div class="col-4" style="margin-top:10px">
                                     <label for="des_email">Modalidade:</label>
-                                    <input class="form-control" type="text" name="des_titulo_formacao" id="des_titulo_formacao" placeholder="">
+                                    <input class="form-control" type="text" name="des_modalidade_servico" id="des_modalidade_servico" placeholder="">
                                 </div>
                                 <div class="col-4" style="margin-top:10px">
                                     <label for="des_email">Disponibilidade:</label>
-                                    <input class="form-control" type="text" name="des_titulo_formacao" id="des_titulo_formacao" placeholder="">                                    
+                                    <input class="form-control" type="text" name="des_disponibilidade_servico" id="des_disponibilidade_servico" placeholder="">                                    
                                 </div>
                             </div>
                     </div>
                     <div class="modal-footer">
-                        <button id="btn-addFormacao" class="btn btn-success col-12">Salvar</button>
+                        <button type="button" id="btn-addServico" class="btn btn-success col-12">Salvar</button>
                     </div>
                 </form>
             </div>

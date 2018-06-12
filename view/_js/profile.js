@@ -255,34 +255,6 @@ $(document).ready(function () {
         $('#des_descricao_formacao').val('');
     });
 
-
-    // function btn_deletar_formacao(btn_action) {
-    //     var titulo = $('.des_titulo_formacao', $(btn_action).parent());
-    //     var descricao = $('.des_descricao_formacao', $(btn_action).parent());
-    //     var btn_salvar = $('.btn-editFormacao', $(btn_action).parent());
-    //     var id_formacao = $('.id_formacao', $(btn_action).parent());
-    //     if($(btn_action).text() == 'Cancelar'){
-    //         $(titulo).removeClass('form-control');
-    //         $(titulo).addClass('form-control-plaintext');
-    //         $(titulo).attr('disabled','disabled');
-    //         $(titulo).attr('readonly','readonly');
-    //         $(descricao).removeClass('form-control');
-    //         $(descricao).addClass('form-control-plaintext');
-    //         $(descricao).attr('disabled','disabled');
-    //         $(descricao).attr('readonly','readonly');
-    //         $(btn_salvar).text("Editar");
-    //         $(btn_action).text('Deletar');
-    //     }else{
-    //         if (confirm('Realmente deseja deletar esta Formação?')){
-    //             $(btn_action).parent().parent().remove();
-    //             $.post('controller/json_Usuario.php',
-    //             {
-    //                 acao: 'del_formacao',
-    //                 id_formacao: $(id_formacao).val()
-    //             });
-    //         }
-    //     }
-    // }
 /** @description Executa ação do botão de Adicionar Formação.  
  */ 
 $('#btn-addFormacao').click(function(){
@@ -981,3 +953,23 @@ $('#btn-addFormacao').click(function(){
         };
     });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
