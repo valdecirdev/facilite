@@ -27,16 +27,35 @@
             return false;
         }
 
-        public function email_update(string $email,int $id){
-            $result = self::verifyUniqueEmail($email, $id);
-            if(count($result)==0){
+        public function slug_update(string $slug, int $id){
+            $slug = str_replace(' ', '', $slug);
+            $slug = filter_var($slug, FILTER_SANITIZE_STRING);
+            if(self::verifyUniqueSlug($slug)){
                 $sql = new Sql();
-                $sql->query("UPDATE tb_usuarios SET des_email = :EMAIL WHERE id_usuario = :ID", array(
-                    ":EMAIL"=>$email,
+                $sql->query("UPDATE tb_usuarios SET des_slug = :SLUG WHERE id_usuario = :ID", array(
+                    ":SLUG"=>$slug,
                     ":ID"=>$id
                 ));
                 return 1;
             }
+            return 0;
+        }
+
+        public function email_update(string $email,int $id){
+            $result = self::verifyUniqueEmail($email, $id);
+            if(count($result)==0){
+                $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+                if(filter_var($email, FILTER_VALIDATE_EMAIL)){
+                    $sql = new Sql();
+                    $sql->query("UPDATE tb_usuarios SET des_email = :EMAIL WHERE id_usuario = :ID", array(
+                        ":EMAIL"=>$email,
+                        ":ID"=>$id
+                    ));
+                    return 1;
+                }
+                return 0;
+            }
+            return 0;
         }
 
         public static function logout(){

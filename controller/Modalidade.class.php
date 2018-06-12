@@ -3,6 +3,17 @@
 
     class Modalidade {
 
+        public function loadAll():array{
+            $sql = new Sql();
+            $result = $sql->select("SELECT * FROM tb_modalidades");
+            $modalidade =  array();
+            foreach ($result as $key => $value) {
+                $modalidade[$key] =  new ModalidadeModel();
+                self::setData($modalidade[$key],$result[$key]);
+            }
+            return $modalidade; 
+        }
+
         public function loadByID(int $id):ModalidadeModel{
             $sql = new Sql();
             $result = $sql->select("SELECT * FROM tb_modalidades WHERE id_modalidade = :ID", array(

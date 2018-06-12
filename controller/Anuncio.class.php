@@ -49,8 +49,7 @@
             $preco = filter_var($values['des_preco'], FILTER_SANITIZE_STRING);
             $dispon = filter_var($values['des_disponibilidade'], FILTER_SANITIZE_STRING);
             $sql = new Sql();
-            $results = $sql->query("UPDATE tb_anuncios SET id_usuario = :ID_USER, id_categoria = :ID_CAT, des_descricao = :DES_DESCR, des_preco = :DESC_PREC, id_modalidade = :ID_MODAL, des_disponibilidade = :DES_DISPON WHERE id_anuncio = :ID", array(
-                ':ID_USER'=>$values['id_usuario'],
+            $results = $sql->query("UPDATE tb_anuncios SET id_categoria = :ID_CAT, des_descricao = :DES_DESCR, des_preco = :DESC_PREC, id_modalidade = :ID_MODAL, des_disponibilidade = :DES_DISPON WHERE id_anuncio = :ID", array(
                 ':ID_CAT'=>$values['id_categoria'],
                 ':DES_DESCR'=>$descr,
                 ':DESC_PREC'=>$preco,

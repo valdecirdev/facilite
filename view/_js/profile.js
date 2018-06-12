@@ -325,6 +325,147 @@ $('#btn-addFormacao').click(function(){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* -------------------------------------------------------------------------------------------------
+ *      SESSÃO SERVIÇOS
+ * ------------------------------------------------------------------------------------------------- */ 
+
+/** @description Executa a ação do botão editar Serviço.  
+ *  @param {Element} btn_action Recebe o botão clicado.  
+ */ 
+function btn_editar_servico(btn_action) {  
+    var categoria = $('.des_categoria_servico', $(btn_action).parent().parent().parent());
+    var descricao = $('.des_descricao_servico', $(btn_action).parent().parent().parent());
+    var preco = $('.des_preco_servico', $(btn_action).parent().parent().parent());
+    var modalidade = $('.des_modalidade_servico', $(btn_action).parent().parent().parent());
+    var disponibilidade = $('.des_disponibilidade_servico', $(btn_action).parent().parent().parent());
+    var id_servico = $('.id_servico', $(btn_action).parent().parent().parent());
+    
+    $('#addServicoModal').modal();
+    $('#des_categoria_servico').val(categoria.text());
+    $('#des_descricao_servico').val(descricao.text());
+    $('#des_preco_servico').val(preco.text());
+    $('#des_modalidade_servico').val(modalidade.text());
+    $('#des_disponibilidade_servico').val(disponibilidade.text());
+    $('#id_servico_modal').val(id_servico.val());
+}
+
+/** @description Executa a ação do botão deletar Formação.  
+*  @param {Element} btn_action Recebe o botão clicado.  
+*/ 
+function btn_deletar_formacao(btn_action) {
+    // var id_formacao = $('.id_formacao', $(btn_action).parent().parent().parent());
+    
+    // if (confirm('Realmente deseja deletar esta Formação?')){
+    //     $(btn_action).parent().parent().parent().remove();
+    //     $.post('controller/json_Usuario.php',
+    //     {
+    //         acao: 'del_formacao',
+    //         id_formacao: $(id_formacao).val()
+    //     });
+    // }
+}
+
+/** @description Apaga os valores dos campos do modal de Formação antes de exibi-lo.  
+*/ 
+$('#addServicoModal').on('show.bs.modal', function (e) {
+    // $('#des_categoria_servico').val('');
+    $('#des_descricao_servico').val('');
+    $('#des_preco_servico').val('');
+    // $('#des_modalidade_servico').val('');
+    $('#des_disponibilidade_servico').val('');
+    $('#id_servico_modal').val('');
+});
+
+/** @description Executa ação do botão de Adicionar Serviço.  
+*/ 
+$('#btn-addServico').click(function(){
+if($('#id_servico_modal').val() != ''){
+    var categoria = $('#des_categoria_servico');
+    var descricao = $('#des_descricao_servico');
+    var preco = $('#des_preco_servico');
+    var modalidade = $('#des_modalidade_servico');
+    var disponibilidade = $('#des_disponibilidade_servico');
+    var id_servico = $('#id_servico_modal');
+    $.post('controller/json_Usuario.php',
+    {
+        acao: 'up_servico',
+        id_anuncio: $(id_servico).val(),
+        id_categoria: $(categoria).val(),
+        des_descricao: $(descricao).val(),
+        des_preco: $(preco).val(),
+        id_modalidade: $(modalidade).val(),
+        des_disponibilidade: $(disponibilidade).val()
+    },
+    function(data){
+        // alert(data);
+        $(".id_servico").each(function( index ) {
+            if($(this).val() == id_servico.val()){
+                var input = $( this ); 
+                $('.des_categoria_servico',$(input).parent()).text(categoria.val());
+                $('.des_descricao_servico',$(input).parent()).text(descricao.val());
+                $('.des_preco_servico',$(input).parent()).text(preco.val());
+                $('.des_modalidade_servico',$(input).parent()).text(modalidade.val());
+                $('.des_disponibilidade_servico',$(input).parent()).text(disponibilidade.val());
+            }
+        });
+        $('#addServicoModal').modal('hide');
+    });
+}else{
+    var categoria = $('#des_categoria_servico');
+    var descricao = $('#des_descricao_servico');
+    var preco = $('#des_preco_servico');
+    var modalidade = $('#des_modalidade_servico');
+    var disponibilidade = $('#des_disponibilidade_servico');
+    var id_servico = $('#id_servico_modal');
+    // $.post('controller/json_Usuario.php',
+    // {
+    //     acao        : 'ad_formacao',
+    //     id_usuario  : $id_usuario,
+    //     titulo      : $titulo,
+    //     descr       : $descr,
+    // },
+    // function(data){
+    //     $('#formacoes-itens').prepend('<div class="col-12"><div class="clearfix"><input type="text" class="id_formacao" value="'+data+'" style="display:none"><p class="des_titulo_formacao" style="width:auto;margin-left:-5px;font-weight:400;font-size:17px;margin-bottom:0px;">'+$titulo+'</p><p class="desc des_descricao_formacao" id="des_apresentacao" style="margin-left:-5px;margin-right:-10px;margin-top:0px;font-weight:300">'+$descr+'</p><span class="clearfix pull-right" style="margin-top:-20px;padding:0px;margin:0px;font-weight:normal"><a class="btn-editFormacao" style="color:blue;cursor:pointer;margin-right:10px">Editar</a><a class="btn-delFormacao text-danger" style="cursor:pointer">Deletar</a></span></div></div>');
+    //     $('.btn-editFormacao').click(function(){
+    //         btn_editar_formacao(this);
+    //     });
+    //     $('.btn-delFormacao').click(function(){
+    //         btn_deletar_formacao(this);
+    //     });
+    //     $('#addFormacaoModal').modal('hide');
+    // })
+}
+
+});
+
+
+
+
+
+
+
+
  
 
  
@@ -428,6 +569,11 @@ $('#btn-addFormacao').click(function(){
         btn_deletar_formacao(this);
     });
 
+    // BOTAO DE EDITAR SERVIÇO
+    $('.btn-editServico').click(function(){
+        btn_editar_servico(this);
+    });
+    
 
 
     /**
@@ -624,7 +770,7 @@ $('#btn-addFormacao').click(function(){
                 if(data == 0){
                     $(input).css('border-color','red');
                     if(!$('#float-alert').length){
-                        $('body').append('<div id="float-alert" class="alert alert-danger alert-dismissible fade" role="alert"><strong id="text-float-alert">You should check in on some of those fields below.</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                        $('body').append('<div style="position:fixed;margin-top:75px;right:30px" id="float-alert" class="alert alert-danger alert-dismissible fade" role="alert"><strong id="text-float-alert">You should check in on some of those fields below.</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                     }
                     $('#text-float-alert').text('Email inválido ou já cadastrado!');
                     if($('#float-alert').hasClass('alert-success')){
@@ -637,7 +783,7 @@ $('#btn-addFormacao').click(function(){
                     $(input).focus();
                 }else{
                     if(!$('#float-alert').length){
-                        $('body').append('<div id="float-alert" class="alert alert-success alert-dismissible fade" role="alert"><strong id="text-float-alert">You should check in on some of those fields below.</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                        $('body').append('<div style="position:fixed;margin-top:75px;right:30px" id="float-alert" class="alert alert-success alert-dismissible fade" role="alert"><strong id="text-float-alert">You should check in on some of those fields below.</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                     }
                     $('#text-float-alert').text('Email alterado com sucesso!');
                     if($('#float-alert').hasClass('alert-danger')){
@@ -869,8 +1015,9 @@ $('#btn-addFormacao').click(function(){
     // BOTAO DE EDITAR SLUG
     $('#btn-editSlug').click(function(){
         var input = $('#slugUsr');
-        var cancel = $('#btn-cancelEditSlug');        
-        if($(input).hasClass('block-plaintext')){
+        var cancel = $('#btn-cancelEditSlug');    
+        if($(input).hasClass('block-plaintext')){  
+            atual_slug = $(input).val();  
             $(input).removeClass('block-plaintext');
             $(input).removeAttr('disabled');
             $(input).removeAttr('readonly');
@@ -884,12 +1031,17 @@ $('#btn-addFormacao').click(function(){
             $(this).text("Editar");
             $.post('controller/json_Usuario.php',
             {
-                acao: 'up_generico',
-                campo: 'des_slug',
-                valor: $(input).val(),
+                acao: 'up_slug',
+                slug: $(input).val(),
                 id: $('#id_usuario').val(),
-                success: function(data){
+            },
+            function(data){
+                if(data == 1){
+                    alert('Usuário atualizado com sucesso!');
                     setTimeout(function(){window.location.href = $(input).val();} , 500);
+                }else{
+                    $(input).val(atual_slug);
+                    alert('Usuário já existe!');
                 }
             });
         }

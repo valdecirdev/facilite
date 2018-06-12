@@ -112,7 +112,7 @@
                                                     <?php if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
                                                         <span class="clearfix pull-right" style="padding:0px;margin:0px;font-weight:normal">
                                                             <a id="btn-editApres" style="color:#007bff;cursor:pointer;margin-right:10px;">Editar</a>
-                                                            <a id="btn-cancelEditApres" class="d-none text-danger" style="color:#007bff;cursor:pointer;margin-right:10px;">Deletar</a>
+                                                            <a id="btn-cancelEditApres" class="d-none text-danger" style="color:#007bff;cursor:pointer;margin-right:10px;">Cancelar</a>
                                                         </span>
                                                     <?php }} ?>
                                                 </div>
@@ -167,7 +167,7 @@
                                                 </div>
                                             <?php } ?> 
                                         </div>
-                                        <div id="formacoes-itens" class="row" style="margin-top:10px;margin-left:36px;padding-right:50px;">
+                                        <div id="formacoes-itens" class="row" style="margin-top:10px;margin-left:36px;padding-right:15px;">
                                             <?php $formacoes = new Formacao();
                                             $formacoes = $formacoes->loadByUser($usuario->getIdUsuario());
                                             foreach ($formacoes as $key => $value) { ?>
@@ -227,32 +227,25 @@
                                                 $modalidade = $modalidades->loadById($anuncio[$key]->getIdModalidadeAnuncio());
                                             ?>
 
-                                            <div class="col-12" style="margin-bottom:5px">
-                                                <div class="clearfix">
-                                                    <p class="des_categoria" style="width:auto; margin-left:-5px;font-weight:400; padding-right:25px;font-size:17px;margin-bottom:0px"><?php echo $categoria->getDescricaoCategoria(); ?></p>
-                                                    <p class="col-12 desc des_anuncio" style="margin-left:-10px;margin-right:-10px; padding-left:5px;padding-bottom:1px;padding-top:10px;font-weight:300;font-size:16px;"><?php echo $anuncio[$key]->getDescricaoAnuncio(); ?></p>
-                                                    <div class="row" style="font-weight:300;font-size:16px;margin-top:-15px;">
-                                                        <div class="pull-left" style="margin-left:10px;">
-                                                        <label>Preço</label>
-                                                        </div>
-                                                        <div class="pull-left">
-                                                        <p class="col-12 desc des_anuncio" style=""><?php echo $anuncio[$key]->getPrecoAnuncio(); ?></p>
-                                                        </div>
-                                                        <div class="pull-left">
-                                                        <label for="">Disponibilidade</label>
-                                                        </div>
-                                                        <div class="pull-left">
-                                                        <p class="col-12 desc des_anuncio" style=""><?php echo $anuncio[$key]->getDisponibilidadeAnuncio(); ?></p>                                                        
-                                                        </div>
-                                                    </div>
-                                                    <?php if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
-                                                        <span class="clearfix pull-right" style="margin-top:-20px;padding:0px;margin:0px;font-weight:normal">
-                                                            <a class="btn-editServico" style="color:#007bff;cursor:pointer;margin-right:10px">Editar</a>
-                                                            <a class="btn-delServico text-danger" style="cursor:pointer">Deletar</a>
-                                                        </span>
-                                                    <?php }} ?>
-                                                </div>
+                                            <div class="col-12 clearfix" style="margin-bottom:5px">
+                                                <input type="text" class="d-none id_servico" value="<?php echo $anuncio[$key]->getIdAnuncio(); ?>">
+                                                <p class="des_categoria_servico" style="width:auto; margin-left:-5px;font-weight:400; padding-right:25px;font-size:17px;margin-bottom:0px"><?php echo $categoria->getDescricaoCategoria(); ?></p>
+                                                <p class="col-12 desc des_descricao_servico" style="margin-left:-10px;margin-right:-10px; padding-left:5px;padding-bottom:1px;padding-top:10px;font-weight:300;font-size:16px;"><?php echo $anuncio[$key]->getDescricaoAnuncio(); ?></p>
+                                                <label>Preço: R$</label>
+                                                <p class="desc des_preco_servico" style=""><?php echo $anuncio[$key]->getPrecoAnuncio(); ?></p>
+                                                <p class="desc des_modalidade_servico" style=""><?php echo $modalidade->getDescricaoModalidade(); ?></p>
+                                                   
+                                                <label for="">Disponibilidade</label>
+                                                <p class="col-12 desc des_disponibilidade_servico" style=""><?php echo $anuncio[$key]->getDisponibilidadeAnuncio(); ?></p>                                                        
+                                                    
+                                                <?php if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
+                                                    <span class="clearfix pull-right" style="margin-top:-20px;padding:0px;margin:0px;font-weight:normal">
+                                                        <a class="btn-editServico" style="color:#007bff;cursor:pointer;margin-right:10px">Editar</a>
+                                                        <a class="btn-delServico text-danger" style="cursor:pointer">Deletar</a>
+                                                    </span>
+                                                <?php }} ?>
                                             </div>
+                                        </div>
 
                                             
                                         <?php } ?>
@@ -558,13 +551,16 @@
                     <div class="modal-body">
                         <h4>Adicionar Serviço</h4>
                             <div class="row">
+                            <div class="col-12" style="display:none">
+                                    <input type="text" name="id_servico_modal" id="id_servico_modal" value="">
+                                </div>
                                 <div class="col-12">
                                     <label for="">Categoria:</label>
                                     <select class="form-control" readonly name="des_categoria_servico" id="des_categoria_servico">
                                         <?php 
                                         $cat = $categorias->loadAll();
                                         foreach ($cat as $key => $value) { ?> 
-                                        <option><?php echo $cat[$key]->getDescricaoCategoria(); ?></option> 
+                                        <option value="<?php echo $cat[$key]->getIdCategoria(); ?>"><?php echo $cat[$key]->getDescricaoCategoria(); ?></option> 
                                         <?php } ?>
                                     </select>
                                 </div>
@@ -577,8 +573,14 @@
                                     <input class="form-control" type="text" name="des_preco_servico" id="des_preco_servico" placeholder="">
                                 </div>
                                 <div class="col-4" style="margin-top:10px">
-                                    <label for="des_email">Modalidade:</label>
-                                    <input class="form-control" type="text" name="des_modalidade_servico" id="des_modalidade_servico" placeholder="">
+                                    <label for="">Modalidade:</label>
+                                    <select class="form-control" readonly name="des_modalidade_servico" id="des_modalidade_servico">
+                                        <?php 
+                                        $mod = $modalidades->loadAll();
+                                        foreach ($mod as $key => $value) { ?> 
+                                        <option value="<?php echo $cat[$key]->getIdCategoria(); ?>"><?php echo $mod[$key]->getDescricaoModalidade(); ?></option> 
+                                        <?php } ?>
+                                    </select>
                                 </div>
                                 <div class="col-4" style="margin-top:10px">
                                     <label for="des_email">Disponibilidade:</label>

@@ -9,6 +9,11 @@ if(isset($_POST['acao'])){
         echo Usuario::login($_POST);
     }else if($_POST['acao'] == 'register'){
         Usuario::register($_POST);
+    }else if($_POST['acao'] == 'up_slug'){
+        $usuario = new Usuario();
+        $slug = $_POST['slug'];
+        $id = $_POST['id'];
+        echo $usuario::slug_update($slug, $id);
     }else if($_POST['acao'] == 'up_generico'){
         $usuario = new Usuario();
         $campo = $_POST['campo'];
@@ -26,7 +31,17 @@ if(isset($_POST['acao'])){
     }else if($_POST['acao'] == 'del_experiencia'){
         $experiencia = new Experiencia();
         $experiencia::delete($_POST['id_experiencia']);
-    }else if($_POST['acao'] == 'up_formacao'){
+    }
+    
+    
+    
+    else if($_POST['acao'] == 'up_servico'){
+        $anuncio = new Anuncio();
+        echo $anuncio::update($_POST);
+    }
+    
+    
+    else if($_POST['acao'] == 'up_formacao'){
         $formacao = new Formacao();
         $formacao::update($_POST);
     }else if($_POST['acao'] == 'del_formacao'){
