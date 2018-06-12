@@ -395,6 +395,16 @@ header .home-header p, header .home-header h5, header .home-header h2{
   #visao-geral{
     padding:0px 20px 0px 20px;
   }
+  .dropdown-menu:after{
+    position: absolute;
+    top: 6px;
+    right: 35px;
+    display: none;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid #ffffff;
+    border-left: 6px solid transparent;
+    content: '';
+  }
 }
 
 @media (min-width: 720px){
