@@ -209,14 +209,16 @@
                                         </div>
                                     </div>
                                     <div id="servicos" class="tab-pane fade">
-                                    <?php if($donoPerfil){ ?>
-                                        <div class="col-12">
-                                            <div class="clearfix">
-                                                <button type="button" class="btn btn-fc-primary btn-radius pull-right btn-sm d-print-none" style="margin-bottom:-15px;margin-right:-15px;" data-toggle="modal" data-target="#addServicoModal"><i class="fa fa-plus-circle" style="margin-right:5px;"></i>Adicionar</button>
+                                        <?php if($donoPerfil){ ?>
+                                        <!-- <div class="row" style="margin-left:5px; margin-top:30px"> -->
+                                            <div class="col-12">
+                                                <div class="clearfix">
+                                                    <button type="button" class="btn btn-fc-primary btn-radius pull-right btn-sm d-print-none" style="margin-bottom:-15px;margin-right:-15px;" data-toggle="modal" data-target="#addServicoModal"><i class="fa fa-plus-circle" style="margin-right:5px;"></i>Adicionar</button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    <?php } ?>
-                                        <div class="row" style="margin-left:5px; margin-top:30px">
+                                        <!-- </div> -->
+                                        <?php } ?>
+                                        <div id="servicos-itens" style="margin-top:0px">
                                             <?php $categorias = new Categoria();
                                             $modalidades = new Modalidade();
                                             //   $servicos = new Servicos();
@@ -231,12 +233,9 @@
                                                 <input type="text" class="d-none id_servico" value="<?php echo $anuncio[$key]->getIdAnuncio(); ?>">
                                                 <p class="des_categoria_servico" style="width:auto; margin-left:-5px;font-weight:400; padding-right:25px;font-size:17px;margin-bottom:0px"><?php echo $categoria->getDescricaoCategoria(); ?></p>
                                                 <p class="col-12 desc des_descricao_servico" style="margin-left:-10px;margin-right:-10px; padding-left:5px;padding-bottom:1px;padding-top:10px;font-weight:300;font-size:16px;"><?php echo $anuncio[$key]->getDescricaoAnuncio(); ?></p>
-                                                <label>Preço: R$</label>
-                                                <p class="desc des_preco_servico" style=""><?php echo $anuncio[$key]->getPrecoAnuncio(); ?></p>
-                                                <p class="desc des_modalidade_servico" style=""><?php echo $modalidade->getDescricaoModalidade(); ?></p>
-                                                   
-                                                <label for="">Disponibilidade</label>
-                                                <p class="col-12 desc des_disponibilidade_servico" style=""><?php echo $anuncio[$key]->getDisponibilidadeAnuncio(); ?></p>                                                        
+                                                <p class="desc" style="margin-left:-5px">Preço: R$ <span class="des_preco_servico"><?php echo $anuncio[$key]->getPrecoAnuncio(); ?></span><span class="des_modalidade_servico" style="margin-right:15px"> <?php echo $modalidade->getDescricaoModalidade(); ?></span>
+                                                
+                                                Disponibilidade: <span class="des_disponibilidade_servico"><?php echo $anuncio[$key]->getDisponibilidadeAnuncio(); ?></span></p>                                                        
                                                     
                                                 <?php if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
                                                     <span class="clearfix pull-right" style="margin-top:-20px;padding:0px;margin:0px;font-weight:normal">
@@ -245,12 +244,9 @@
                                                     </span>
                                                 <?php }} ?>
                                             </div>
+                                            <?php } ?>
                                         </div>
-
-                                            
-                                        <?php } ?>
                                     </div>
-                                </div>
                                 <?php if($donoPerfil){ ?>
                                 <div id="cadastro" class="tab-pane fade">
                                     <div class="col-12" style="min-height:25px; margin-top:20px;padding-left:5px;" >

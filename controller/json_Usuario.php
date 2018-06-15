@@ -38,6 +38,12 @@ if(isset($_POST['acao'])){
     else if($_POST['acao'] == 'up_servico'){
         $anuncio = new Anuncio();
         echo $anuncio::update($_POST);
+    }else if($_POST['acao'] == 'add_servico'){
+        $anuncio = new Anuncio();
+        echo $anuncio::insert($_POST);
+    }else if($_POST['acao'] == 'del_servico'){
+        $anuncio = new Anuncio();
+        $anuncio::delete($_POST['id_servico']);
     }
     
     

@@ -354,14 +354,15 @@ $('#btn-addFormacao').click(function(){
  *  @param {Element} btn_action Recebe o botão clicado.  
  */ 
 function btn_editar_servico(btn_action) {  
-    var categoria = $('.des_categoria_servico', $(btn_action).parent().parent().parent());
-    var descricao = $('.des_descricao_servico', $(btn_action).parent().parent().parent());
-    var preco = $('.des_preco_servico', $(btn_action).parent().parent().parent());
-    var modalidade = $('.des_modalidade_servico', $(btn_action).parent().parent().parent());
-    var disponibilidade = $('.des_disponibilidade_servico', $(btn_action).parent().parent().parent());
-    var id_servico = $('.id_servico', $(btn_action).parent().parent().parent());
+    var categoria = $('.des_categoria_servico', $(btn_action).parent().parent());
+    var descricao = $('.des_descricao_servico', $(btn_action).parent().parent());
+    var preco = $('.des_preco_servico', $(btn_action).parent().parent());
+    var modalidade = $('.des_modalidade_servico', $(btn_action).parent().parent());
+    var disponibilidade = $('.des_disponibilidade_servico', $(btn_action).parent().parent());
+    var id_servico = $('.id_servico', $(btn_action).parent().parent());
     
     $('#addServicoModal').modal();
+
     $('#des_categoria_servico').val(categoria.text());
     $('#des_descricao_servico').val(descricao.text());
     $('#des_preco_servico').val(preco.text());
@@ -373,34 +374,32 @@ function btn_editar_servico(btn_action) {
 /** @description Executa a ação do botão deletar Formação.  
 *  @param {Element} btn_action Recebe o botão clicado.  
 */ 
-function btn_deletar_formacao(btn_action) {
-    // var id_formacao = $('.id_formacao', $(btn_action).parent().parent().parent());
+function btn_deletar_servico(btn_action) {
+    var id_servico = $('.id_servico', $(btn_action).parent().parent());
     
-    // if (confirm('Realmente deseja deletar esta Formação?')){
-    //     $(btn_action).parent().parent().parent().remove();
-    //     $.post('controller/json_Usuario.php',
-    //     {
-    //         acao: 'del_formacao',
-    //         id_formacao: $(id_formacao).val()
-    //     });
-    // }
+    if (confirm('Realmente deseja deletar este Serviço?')){
+        $(btn_action).parent().parent().remove();
+        $.post('controller/json_Usuario.php',
+        {
+            acao: 'del_servico',
+            id_servico: id_servico.val()
+        });
+    }
 }
 
 /** @description Apaga os valores dos campos do modal de Formação antes de exibi-lo.  
 */ 
 $('#addServicoModal').on('show.bs.modal', function (e) {
-    // $('#des_categoria_servico').val('');
     $('#des_descricao_servico').val('');
     $('#des_preco_servico').val('');
-    // $('#des_modalidade_servico').val('');
     $('#des_disponibilidade_servico').val('');
     $('#id_servico_modal').val('');
 });
 
 /** @description Executa ação do botão de Adicionar Serviço.  
-*/ 
+*/
 $('#btn-addServico').click(function(){
-if($('#id_servico_modal').val() != ''){
+if(($('#id_servico_modal').val() != '')&&($('#id_servico_modal').val() != undefined)){
     var categoria = $('#des_categoria_servico');
     var descricao = $('#des_descricao_servico');
     var preco = $('#des_preco_servico');
@@ -418,14 +417,15 @@ if($('#id_servico_modal').val() != ''){
         des_disponibilidade: $(disponibilidade).val()
     },
     function(data){
-        // alert(data);
+        var categoria = $('#des_categoria_servico option:selected');
+        var modalidade = $('#des_modalidade_servico option:selected');
         $(".id_servico").each(function( index ) {
             if($(this).val() == id_servico.val()){
                 var input = $( this ); 
-                $('.des_categoria_servico',$(input).parent()).text(categoria.val());
+                $('.des_categoria_servico',$(input).parent()).text(categoria.text());
                 $('.des_descricao_servico',$(input).parent()).text(descricao.val());
                 $('.des_preco_servico',$(input).parent()).text(preco.val());
-                $('.des_modalidade_servico',$(input).parent()).text(modalidade.val());
+                $('.des_modalidade_servico',$(input).parent()).text(' '+modalidade.text());
                 $('.des_disponibilidade_servico',$(input).parent()).text(disponibilidade.val());
             }
         });
@@ -437,24 +437,31 @@ if($('#id_servico_modal').val() != ''){
     var preco = $('#des_preco_servico');
     var modalidade = $('#des_modalidade_servico');
     var disponibilidade = $('#des_disponibilidade_servico');
-    var id_servico = $('#id_servico_modal');
-    // $.post('controller/json_Usuario.php',
-    // {
-    //     acao        : 'ad_formacao',
-    //     id_usuario  : $id_usuario,
-    //     titulo      : $titulo,
-    //     descr       : $descr,
-    // },
-    // function(data){
-    //     $('#formacoes-itens').prepend('<div class="col-12"><div class="clearfix"><input type="text" class="id_formacao" value="'+data+'" style="display:none"><p class="des_titulo_formacao" style="width:auto;margin-left:-5px;font-weight:400;font-size:17px;margin-bottom:0px;">'+$titulo+'</p><p class="desc des_descricao_formacao" id="des_apresentacao" style="margin-left:-5px;margin-right:-10px;margin-top:0px;font-weight:300">'+$descr+'</p><span class="clearfix pull-right" style="margin-top:-20px;padding:0px;margin:0px;font-weight:normal"><a class="btn-editFormacao" style="color:blue;cursor:pointer;margin-right:10px">Editar</a><a class="btn-delFormacao text-danger" style="cursor:pointer">Deletar</a></span></div></div>');
-    //     $('.btn-editFormacao').click(function(){
-    //         btn_editar_formacao(this);
-    //     });
-    //     $('.btn-delFormacao').click(function(){
-    //         btn_deletar_formacao(this);
-    //     });
-    //     $('#addFormacaoModal').modal('hide');
-    // })
+    var id_usuario = $('#id_usuario');
+
+    $.post('controller/json_Usuario.php',
+    {
+        acao: 'add_servico',
+        id_usuario: $(id_usuario).val(),
+        id_categoria: $(categoria).val(),
+        des_descricao: $(descricao).val(),
+        des_preco: $(preco).val(),
+        id_modalidade: $(modalidade).val(),
+        des_disponibilidade: $(disponibilidade).val()
+    },
+    function(data){
+        var categoria = $('#des_categoria_servico option:selected');
+        var modalidade = $('#des_modalidade_servico option:selected');
+        $('#servicos-itens').append('<div class="col-12 clearfix" style="margin-bottom:5px"><input type="text" class="d-none id_servico" value="'+data+'"><p class="des_categoria_servico" style="width:auto; margin-left:-5px;font-weight:400; padding-right:25px;font-size:17px;margin-bottom:0px">'+categoria.text()+'</p><p class="col-12 desc des_descricao_servico" style="margin-left:-10px;margin-right:-10px; padding-left:5px;padding-bottom:1px;padding-top:10px;font-weight:300;font-size:16px;">'+descricao.val()+'</p><p class="desc" style="margin-left:-5px">Preço: R$ <span class="des_preco_servico">'+preco.val()+'</span><span class="des_modalidade_servico" style="margin-right:15px"> '+modalidade.text()+'</span>Disponibilidade: <span class="des_disponibilidade_servico">'+disponibilidade.val()+'</span></p><span class="clearfix pull-right" style="margin-top:-20px;padding:0px;margin:0px;font-weight:normal"><a class="btn-editServico" style="color:#007bff;cursor:pointer;margin-right:10px">Editar</a><a class="btn-delServico text-danger" style="cursor:pointer">Deletar</a></span></div>');
+        
+        $('.btn-editServico').click(function(){
+            btn_editar_servico(this);
+        });
+        $('.btn-delServico').click(function(){
+            btn_deletar_servico(this);
+        });
+        $('#addServicoModal').modal('hide');
+    })
 }
 
 });
@@ -572,6 +579,11 @@ if($('#id_servico_modal').val() != ''){
     // BOTAO DE EDITAR SERVIÇO
     $('.btn-editServico').click(function(){
         btn_editar_servico(this);
+    });
+
+    // BOTAO DE DELETAR SERVIÇO
+    $('.btn-delServico').click(function(){
+        btn_deletar_servico(this);
     });
     
 
