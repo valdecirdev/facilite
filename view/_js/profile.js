@@ -127,9 +127,9 @@ $(document).ready(function () {
  *  @param {Element} btn_action Recebe o botão clicado.  
  */ 
     function btn_editar_experiencia(btn_action) {  
-        var titulo = $('.des_titulo_experiencia', $(btn_action).parent().parent().parent());
-        var descricao = $('.des_descricao_experiencia', $(btn_action).parent().parent().parent());
-        var id_experiencia = $('.id_experiencia', $(btn_action).parent().parent().parent());
+        var titulo = $('.des_titulo_experiencia', $(btn_action).parent().parent().parent().parent());
+        var descricao = $('.des_descricao_experiencia', $(btn_action).parent().parent().parent().parent());
+        var id_experiencia = $('.id_experiencia', $(btn_action).parent().parent().parent().parent());
         
         $('#addExperienciaModal').modal();
         $('#id_experiencia_modal').val(id_experiencia.val());
@@ -141,10 +141,10 @@ $(document).ready(function () {
  *  @param {Element} btn_action Recebe o botão clicado.  
  */ 
     function btn_deletar_experiencia(btn_action) {
-        var id_experiencia = $('.id_experiencia', $(btn_action).parent().parent().parent());
+        var id_experiencia = $('.id_experiencia', $(btn_action).parent().parent().parent().parent());
         
         if (confirm('Realmente deseja deletar esta Experiencia?')){
-            $(btn_action).parent().parent().parent().remove();
+            $(btn_action).parent().parent().parent().parent().parent().remove();
             $.post('controller/json_Usuario.php',
             {
                 acao: 'del_experiencia',
@@ -199,7 +199,7 @@ $(document).ready(function () {
                 descr       : $descr,
             },
             function(data){
-                $('#experiencias-itens').prepend('<div class="col-12" style="margin-top:15px;margin-bottom:5px"><div class="clearfix"><input type="text" class="id_experiencia" value="'+data+'" style="display:none"><p class="des_titulo_experiencia" style="width:auto; margin-left:-5px;font-weight:400; padding-right:25px;font-size:17px;margin-bottom:0px">'+$titulo+'</p><p class="col-12 desc des_descricao_experiencia" style="margin-left:-10px;margin-right:-10px; padding-left:5px;padding-bottom:1px;padding-top:1px;font-weight:300;font-size:16px;">'+$descr+'</p><span class="clearfix pull-right" style="margin-top:-20px;padding:0px;margin:0px;font-weight:normal"><a class="btn-editExperiencia" style="color:blue;cursor:pointer;margin-right:10px">Editar</a><a class="btn-delExperiencia text-danger" style="cursor:pointer">Deletar</a></span></div></div>');
+                $('#experiencias-itens').prepend('<div class="col-12" style="margin-top:15px;margin-bottom:5px"><div class="clearfix"><input type="text" class="id_experiencia" value="'+data+'" style="display:none"><div class="row clearfix"><p class="des_titulo_experiencia col-11" style="width:auto; margin-left:-5px;font-weight:400; padding-right:25px;font-size:17px;margin-bottom:0px">'+$titulo+'</p><div class="btn-group col-1"><button type="button" class="btn btn-link dropdown-toggle" style="color:#5b5656" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button><div class="dropdown-menu dropdown-menu-right"><button class="btn-editExperiencia dropdown-item" type="button" style="cursor:pointer">Editar</button><button class="btn-delExperiencia text-danger dropdown-item" type="button" style="cursor:pointer">Deletar</button></div></div></div><p class="col-12 desc des_descricao_experiencia" style="margin-left:-10px;margin-right:-10px; padding-left:5px;padding-bottom:1px;padding-top:1px;font-weight:300;font-size:16px;color:#a0a5b5">'+$descr+'</p></div><hr style="margin-left:-15px;margin-right:-15px"></div>');
                 $('.btn-editExperiencia').click(function(){
                     btn_editar_experiencia(this);
                 });
@@ -221,9 +221,9 @@ $(document).ready(function () {
  *  @param {Element} btn_action Recebe o botão clicado.  
  */ 
     function btn_editar_formacao(btn_action) {  
-        var titulo = $('.des_titulo_formacao', $(btn_action).parent().parent().parent());
-        var descricao = $('.des_descricao_formacao', $(btn_action).parent().parent().parent());
-        var id_formacao = $('.id_formacao', $(btn_action).parent().parent().parent());
+        var titulo = $('.des_titulo_formacao', $(btn_action).parent().parent().parent().parent());
+        var descricao = $('.des_descricao_formacao', $(btn_action).parent().parent().parent().parent());
+        var id_formacao = $('.id_formacao', $(btn_action).parent().parent().parent().parent());
         
         $('#addFormacaoModal').modal();
         $('#id_formacao_modal').val(id_formacao.val());
@@ -235,10 +235,10 @@ $(document).ready(function () {
   *  @param {Element} btn_action Recebe o botão clicado.  
   */ 
     function btn_deletar_formacao(btn_action) {
-        var id_formacao = $('.id_formacao', $(btn_action).parent().parent().parent());
+        var id_formacao = $('.id_formacao', $(btn_action).parent().parent().parent().parent());
         
         if (confirm('Realmente deseja deletar esta Formação?')){
-            $(btn_action).parent().parent().parent().remove();
+            $(btn_action).parent().parent().parent().parent().parent().remove();
             $.post('controller/json_Usuario.php',
             {
                 acao: 'del_formacao',
@@ -292,7 +292,7 @@ $('#btn-addFormacao').click(function(){
             descr       : $descr,
         },
         function(data){
-            $('#formacoes-itens').prepend('<div class="col-12"><div class="clearfix"><input type="text" class="id_formacao" value="'+data+'" style="display:none"><p class="des_titulo_formacao" style="width:auto;margin-left:-5px;font-weight:400;font-size:17px;margin-bottom:0px;">'+$titulo+'</p><p class="desc des_descricao_formacao" id="des_apresentacao" style="margin-left:-5px;margin-right:-10px;margin-top:0px;font-weight:300">'+$descr+'</p><span class="clearfix pull-right" style="margin-top:-20px;padding:0px;margin:0px;font-weight:normal"><a class="btn-editFormacao" style="color:blue;cursor:pointer;margin-right:10px">Editar</a><a class="btn-delFormacao text-danger" style="cursor:pointer">Deletar</a></span></div></div>');
+            $('#formacoes-itens').prepend('<div class="col-12"><div class="clearfix"><input type="text" class="id_formacao" value="'+data+'" style="display:none"><div class="row clearfix"><p class="des_titulo_formacao col-11" style="width:auto;margin-left:-5px;font-weight:400;font-size:17px;margin-bottom:0px;">'+$titulo+'</p><div class="btn-group col-1"><button type="button" class="btn btn-link dropdown-toggle" style="color:#5b5656" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button><div class="dropdown-menu dropdown-menu-right"><button class="btn-editFormacao dropdown-item" type="button" style="cursor:pointer">Editar</button><button class="btn-delFormacao text-danger dropdown-item" type="button" style="cursor:pointer">Deletar</button></div></div></div><p class="desc des_descricao_formacao" id="des_apresentacao" style="margin-left:-5px;margin-right:-10px;margin-top:0px;font-weight:300;color:#a0a5b5">'+$descr+'</p></div><hr style="margin-left:-15px;margin-right:-15px"></div>');
             $('.btn-editFormacao').click(function(){
                 btn_editar_formacao(this);
             });

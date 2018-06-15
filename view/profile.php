@@ -48,7 +48,7 @@
                             <?php } ?>
                         </div>
                         <div class="infos">
-                            <h5 class="profile-name text-center"><?php if($usuario != NULL){echo $usuario->getNomeSimplesUsuario();} ?></h5>
+                            <h5 class="profile-name text-center"><?php if($usuario != NULL){echo $usuario->getNomeSimplesUsuario();} ?> -<i class="fa fa-star" style="margin-left:5px;font-size: 18px;color:rgb(255, 208, 0)"></i> 9,2</h5>
 
                             <div class="text-center">
                                 <?php if($usuario->getOcupacaoUsuario() != NULL){ ?>
@@ -72,6 +72,39 @@
                                         <p class="sub"><i class="fa fa-map-marker" style="margin-left: 3px;margin-right: 8px;"></i><?php echo $usuario->getCidadeUsuario(); ?></p>
                                     <?php } ?>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:10px">
+                    <div class="col-md-12  profile-card" style="padding:25px;">
+                    <!-- SOBRE -->
+                        <div class="col-12 numbers-card" style="margin-top:0px;">
+                            <div class="row text-center">
+                                <div class="col-4">
+                                    <span style="font-size: 22px;font-weight:500;color:#3d4347">25</span>
+                                    <p style="margin-top:-5px;margin-bottom:0px;color:#a6a9ac;font-weight:200">Concluídos</p>
+                                </div>
+                                <div class="col-4">
+                                    <span style="font-size:22px;font-weight:500;color:#3d4347">20</span>
+                                    <p style="margin-top:-5px;margin-bottom:0px;color:#a6a9ac;font-weight:200">Avaliações</p>
+                                </div>
+                                <div class="col-4">
+                                    <button class="btn d-print-none btn-fc-primary btn-radius" style="padding:0px;margin-top:5px; height:40px; width:40px; margin-left:5px;" data-toggle="tooltip" data-placement="top" title="Compartilhar"><i class="fa fa-share"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="row text-center">
+                                <?php if(isset($_SESSION['id'])){
+                                if($loggedUser->getIdUsuario() != $usuario->getIdUsuario()){
+                                    $ligacoes= new Ligacao(); 
+                                    $ligacoes = $ligacoes->loadById($loggedUser->getIdUsuario(),$usuario->getIdUsuario()); 
+                                    ?>
+                                    <button class="col-12 d-print-none btn btn-fc-<?php if($ligacoes == NULL){echo 'primary';}else{echo 'danger';} ?> open-Login btn-radius" id="criar-conexao" style="padding:7px;margin-top:10px;"<?php if(!isset($_SESSION['id'])||($_SESSION['id'] == $usuario->getidUsuario())){ echo 'disabled'; } ?>><?php if($ligacoes == NULL){echo ' Adicionar';}else{echo ' Remover';} ?>  Contato</button>
+                                <?php }}else{ ?>
+                                    <button class="col-12 d-print-none btn btn-fc-primary open-Login btn-radius" style="padding:7px;margin-top:10px;"> Adicionar Contato</button>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
@@ -126,7 +159,7 @@
 
 
                                         <div class="clearfix" style="margin-bottom:20px;">
-                                            <p class="pull-left" style="width:auto;margin-left:12px;margin-top: 30px;margin-bottom:0px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="fa fa-suitcase" style="margin-left:-5px;font-size:20px;color:#60686e;margin-right:10px"></i> Experiências</p>
+                                            <p class="pull-left" style="width:auto;margin-left:12px;margin-top: 30px;margin-bottom:10px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="fa fa-suitcase" style="margin-left:-5px;font-size:20px;color:#60686e;margin-right:10px"></i> Experiências</p>
                                             <?php if($donoPerfil){ ?>
                                                 <div class="col-12">
                                                     <div class="clearfix">
@@ -143,15 +176,21 @@
                                                 <div class="col-12" style="margin-top:15px;margin-bottom:5px">
                                                     <div class="clearfix">
                                                         <input type="text" class="id_experiencia" value="<?php echo $experiencias[$key]->getIdExperiencia(); ?>" style="display:none">
-                                                        <p class="des_titulo_experiencia" style="width:auto; margin-left:-5px;font-weight:400; padding-right:25px;font-size:17px;margin-bottom:0px"><?php echo $experiencias[$key]->getTituloExperiencia(); ?></p>
-                                                        <p class="col-12 desc des_descricao_experiencia" style="margin-left:-10px;margin-right:-10px; padding-left:5px;padding-bottom:1px;padding-top:1px;font-weight:300;font-size:16px;"><?php echo $experiencias[$key]->getDescricaoExperiencia(); ?></p>
-                                                        <?php if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
-                                                            <span class="clearfix pull-right" style="margin-top:-20px;padding:0px;margin:0px;font-weight:normal">
-                                                                <a class="btn-editExperiencia" style="color:#007bff;cursor:pointer;margin-right:10px">Editar</a>
-                                                                <a class="btn-delExperiencia text-danger" style="cursor:pointer">Deletar</a>
-                                                            </span>
-                                                        <?php }} ?>
+                                                        <div class="row clearfix">
+                                                            <p class="des_titulo_experiencia col-11" style="width:auto; margin-left:-5px;font-weight:400; padding-right:25px;font-size:17px;margin-bottom:0px"><?php echo $experiencias[$key]->getTituloExperiencia(); ?></p>
+                                                            <?php if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
+                                                            <div class="btn-group col-1">
+                                                                <button type="button" class="btn btn-link dropdown-toggle" style="color:#5b5656" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                                                <div class="dropdown-menu dropdown-menu-right">
+                                                                    <button class="btn-editExperiencia dropdown-item" type="button" style="cursor:pointer">Editar</button>
+                                                                    <button class="btn-delExperiencia text-danger dropdown-item" type="button" style="cursor:pointer">Deletar</button>
+                                                                </div>
+                                                            </div>
+                                                            <?php }} ?>
+                                                        </div>
+                                                        <p class="col-12 desc des_descricao_experiencia" style="margin-left:-10px;margin-right:-10px; padding-left:5px;padding-bottom:1px;padding-top:1px;font-weight:300;font-size:16px;color:#a0a5b5"><?php echo $experiencias[$key]->getDescricaoExperiencia(); ?></p>
                                                     </div>
+                                                    <hr style="margin-left:-15px;margin-right:-15px">
                                                 </div>
                                         <?php }} ?>
                                         </div>
@@ -167,22 +206,28 @@
                                                 </div>
                                             <?php } ?> 
                                         </div>
-                                        <div id="formacoes-itens" class="row" style="margin-top:10px;margin-left:36px;padding-right:15px;">
+                                        <div id="formacoes-itens" class="row" style="margin-top:30px;margin-left:36px;padding-right:15px;">
                                             <?php $formacoes = new Formacao();
                                             $formacoes = $formacoes->loadByUser($usuario->getIdUsuario());
                                             foreach ($formacoes as $key => $value) { ?>
                                                 <div class="col-12">
                                                     <div class="clearfix">
                                                         <input type="text" class="id_formacao" value="<?php echo $formacoes[$key]->getIDFormacao(); ?>" style="display:none">
-                                                        <p class="des_titulo_formacao" style="width:auto;margin-left:-5px;font-weight:400;font-size:17px;margin-bottom:0px;"><?php echo $formacoes[$key]->getTituloFormacao(); ?></p>
-                                                        <p class="desc des_descricao_formacao" id="des_apresentacao" style="margin-left:-5px;margin-right:-10px;margin-top:0px;font-weight:300"><?php echo $formacoes[$key]->getDescricaoFormacao(); ?></p>
-                                                        <?php if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
-                                                            <span class="clearfix pull-right" style="margin-top:-20px;padding:0px;margin:0px;font-weight:normal">
-                                                                <a class="btn-editFormacao" style="color:blue;cursor:pointer;margin-right:10px">Editar</a>
-                                                                <a class="btn-delFormacao text-danger" style="cursor:pointer">Deletar</a>
-                                                            </span>
-                                                        <?php }} ?>
+                                                        <div class="row clearfix">
+                                                            <p class="des_titulo_formacao col-11" style="width:auto;margin-left:-5px;font-weight:400;font-size:17px;margin-bottom:0px;"><?php echo $formacoes[$key]->getTituloFormacao(); ?></p>
+                                                            <?php if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
+                                                            <div class="btn-group col-1">
+                                                                <button type="button" class="btn btn-link dropdown-toggle" style="color:#5b5656" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                                                <div class="dropdown-menu dropdown-menu-right">
+                                                                    <button class="btn-editFormacao dropdown-item" type="button" style="cursor:pointer">Editar</button>
+                                                                    <button class="btn-delFormacao text-danger dropdown-item" type="button" style="cursor:pointer">Deletar</button>
+                                                                </div>
+                                                            </div>
+                                                            <?php }} ?>
+                                                        </div>
+                                                        <p class="desc des_descricao_formacao" id="des_apresentacao" style="margin-left:-5px;margin-right:-10px;margin-top:0px;font-weight:300;color:#a0a5b5"><?php echo $formacoes[$key]->getDescricaoFormacao(); ?></p>
                                                     </div>
+                                                    <hr style="margin-left:-15px;margin-right:-15px">
                                                 </div>
                                             <?php } ?>
                                         </div>
@@ -193,7 +238,7 @@
                                             <?php if($donoPerfil){ ?>
                                                 <div class="col-12">
                                                     <div class="clearfix">
-                                                        <button type="button" class="btn btn-primary pull-right btn-sm d-print-none" style="margin-top:25px;margin-bottom:-15px;" data-toggle="modal" data-target="#addHabilidadeModal"><i class="fa fa-edit" style="margin-right:5px;"></i>Editar</button>
+                                                        <button type="button" class="btn btn-fc-primary btn-radius pull-right btn-sm d-print-none" style="margin-top:25px;margin-bottom:-15px;padding-left:10px;padding-right:10px" data-toggle="modal" data-target="#addHabilidadeModal"><i class="fa fa-plus-circle" style="margin-right:5px;"></i>Adicionar</button>
                                                     </div>
                                                 </div>
                                             <?php } ?> 
@@ -203,7 +248,7 @@
                                                 <?php $habilidades = new Habilidade();
                                                 $habilidades = $habilidades->loadByUser($usuario->getIdUsuario());
                                                 foreach ($habilidades as $key => $value) { ?>
-                                                    <span id="<?php echo $habilidades[$key]->getIdHabilidade(); ?>" class="skills-label"><?php echo $habilidades[$key]->getDescricaoHabilidade(); ?></span>
+                                                    <span id="<?php echo $habilidades[$key]->getIdHabilidade(); ?>" class="skills-label"><?php echo $habilidades[$key]->getDescricaoHabilidade(); ?><?php if($donoPerfil){ ?><i class="fa fa-times-circle" style="margin-left:10px;cursor:pointer"></i><?php } ?></span>
                                                 <?php } ?>
                                             </div>
                                         </div>
@@ -385,60 +430,11 @@
                 </div>
             </div>
                     </div></div>
-                    <div class="col-md-3" style="padding:20px;">
-                        <div class="row">
-                            <div class="col-md-12  profile-card" style="padding:25px;">
-                                <!-- SOBRE -->
-                                <div class="col-12 clearfix text-center" style="margin-top:0px">
-                                    <span class="stars-profile">
-                                        <a>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-half"></i>
-                                        </a>
-                                    </span>
-                                </div>
-                                <div class="col-12 numbers-card" style="margin-top:20px;">
-                                    <div class="row text-center">
-                                        <div class="col-4">
-                                            <span style="font-size: 22px;font-weight:500;color:#3d4347">25</span>
-                                            <p style="margin-top:-5px;margin-bottom:0px;color:#a6a9ac;font-weight:200">Concluídos</p>
-                                        </div>
-                                        <div class="col-4">
-                                            <span style="font-size:22px;font-weight:500;color:#3d4347">20</span>
-                                            <p style="margin-top:-5px;margin-bottom:0px;color:#a6a9ac;font-weight:200">Avaliações</p>
-                                        </div>
-                                        <div class="col-4">
-                                            <button class="btn d-print-none btn-fc-primary btn-radius" style="padding:0px;margin-top:5px; height:40px; width:40px; margin-left:5px;" data-toggle="tooltip" data-placement="top" title="Compartilhar"><i class="fa fa-share"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="row text-center">
-                                        <?php if(isset($_SESSION['id'])){
-                                        if($loggedUser->getIdUsuario() != $usuario->getIdUsuario()){
-                                            $ligacoes= new Ligacao(); 
-                                            $ligacoes = $ligacoes->loadById($loggedUser->getIdUsuario(),$usuario->getIdUsuario()); 
-                                            ?>
-                                            <button class="col-12 d-print-none btn btn-fc-<?php if($ligacoes == NULL){echo 'primary';}else{echo 'danger';} ?> open-Login btn-radius" id="criar-conexao" style="padding:7px;margin-top:10px;"<?php if(!isset($_SESSION['id'])||($_SESSION['id'] == $usuario->getidUsuario())){ echo 'disabled'; } ?>><?php if($ligacoes == NULL){echo ' Adicionar';}else{echo ' Remover';} ?>  Contato</button>
-                                        <?php }}else{ ?>
-                                            <button class="col-12 d-print-none btn btn-fc-primary open-Login btn-radius" style="padding:7px;margin-top:10px;"> Adicionar Contato</button>
-                                        <?php } ?>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-
-
-
-                    <?php $ligacoes = new Ligacao();
+            <div class="col-md-3" style="padding:20px;">
+                <?php $ligacoes = new Ligacao();
                 $ligacoes = $ligacoes->loadByUser($usuario->getIdUsuario(), 3); 
                 if(count($ligacoes)>0){ ?>
-                    <div class="row d-print-none" style="margin-top: 25px;">
+                    <div class="row d-print-none" style="margin-top: 15px;">
                         <div class="col-md-12">
                             <div class="col-12" style="padding:0px">
                                 <div class="title-text-card clearfix">
