@@ -231,9 +231,9 @@
 
                                             <div class="col-12 clearfix" style="margin-bottom:5px">
                                                 <input type="text" class="d-none id_servico" value="<?php echo $anuncio[$key]->getIdAnuncio(); ?>">
-                                                <p class="des_categoria_servico" style="width:auto; margin-left:-5px;font-weight:400; padding-right:25px;font-size:17px;margin-bottom:0px"><?php echo $categoria->getDescricaoCategoria(); ?></p>
+                                                <p class="des_categoria_servico" id="<?php echo $categoria->getIdCategoria(); ?>" style="width:auto; margin-left:-5px;font-weight:400; padding-right:25px;font-size:17px;margin-bottom:0px"><?php echo $categoria->getDescricaoCategoria(); ?></p>
                                                 <p class="col-12 desc des_descricao_servico" style="margin-left:-10px;margin-right:-10px; padding-left:5px;padding-bottom:1px;padding-top:10px;font-weight:300;font-size:16px;"><?php echo $anuncio[$key]->getDescricaoAnuncio(); ?></p>
-                                                <p class="desc" style="margin-left:-5px">Preço: R$ <span class="des_preco_servico"><?php echo $anuncio[$key]->getPrecoAnuncio(); ?></span><span class="des_modalidade_servico" style="margin-right:15px"> <?php echo $modalidade->getDescricaoModalidade(); ?></span>
+                                                <p class="desc" style="margin-left:-5px">Preço: R$ <span class="des_preco_servico"><?php echo $anuncio[$key]->getPrecoAnuncio(); ?></span><span class="des_modalidade_servico" id="<?php echo $modalidade->getIdModalidade(); ?>" style="margin-right:15px"> <?php echo $modalidade->getDescricaoModalidade(); ?></span>
                                                 
                                                 Disponibilidade: <span class="des_disponibilidade_servico"><?php echo $anuncio[$key]->getDisponibilidadeAnuncio(); ?></span></p>                                                        
                                                     

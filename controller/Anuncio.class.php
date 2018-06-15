@@ -42,6 +42,8 @@
                 ':ID_MODAL'=>$values['id_modalidade'],
                 ':DES_DISPON'=>$dispon
             ));
+            $result = $sql->select("SELECT LAST_INSERT_ID()");
+            return $result[0]['LAST_INSERT_ID()'];
         }
 
         public function update(array $values){

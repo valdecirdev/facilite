@@ -362,11 +362,10 @@ function btn_editar_servico(btn_action) {
     var id_servico = $('.id_servico', $(btn_action).parent().parent());
     
     $('#addServicoModal').modal();
-
-    $('#des_categoria_servico').val(categoria.text());
+    $('#des_categoria_servico').val(categoria.attr('id'));
     $('#des_descricao_servico').val(descricao.text());
     $('#des_preco_servico').val(preco.text());
-    $('#des_modalidade_servico').val(modalidade.text());
+    $('#des_modalidade_servico').val(modalidade.attr('id'));
     $('#des_disponibilidade_servico').val(disponibilidade.text());
     $('#id_servico_modal').val(id_servico.val());
 }
@@ -376,7 +375,6 @@ function btn_editar_servico(btn_action) {
 */ 
 function btn_deletar_servico(btn_action) {
     var id_servico = $('.id_servico', $(btn_action).parent().parent());
-    
     if (confirm('Realmente deseja deletar este Serviço?')){
         $(btn_action).parent().parent().remove();
         $.post('controller/json_Usuario.php',
@@ -423,9 +421,11 @@ if(($('#id_servico_modal').val() != '')&&($('#id_servico_modal').val() != undefi
             if($(this).val() == id_servico.val()){
                 var input = $( this ); 
                 $('.des_categoria_servico',$(input).parent()).text(categoria.text());
+                $('.des_categoria_servico',$(input).parent()).attr('id',categoria.val());
                 $('.des_descricao_servico',$(input).parent()).text(descricao.val());
                 $('.des_preco_servico',$(input).parent()).text(preco.val());
                 $('.des_modalidade_servico',$(input).parent()).text(' '+modalidade.text());
+                $('.des_modalidade_servico',$(input).parent()).attr('id',modalidade.val());
                 $('.des_disponibilidade_servico',$(input).parent()).text(disponibilidade.val());
             }
         });
