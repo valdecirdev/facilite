@@ -76,7 +76,7 @@
                         </div>
                     </div>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item text-muted" href="<?php echo $loggedUser->getSlugUsuario(); ?>"><i class="fa fa-user" style="margin-right:10px;"></i> Visualizar perfil</a>
+                    <a class="dropdown-item text-muted" href="<?php echo $loggedUser->getSlugUsuario(); ?>"><i class="fa fa-user" style="margin-right:10px;"></i> Visualizar perfil <span style="padding:0px;margin-bottom:5px;font-size:13px;color:#8b8b8b">- 50% Completo</span></a>
                     <button type="button" id="logout-user" class="dropdown-item text-danger" style="cursor:pointer;"><i class="fas fa-sign-out-alt" style="margin-right:6px;"></i> Sair</button>
                 </div>
             </li>

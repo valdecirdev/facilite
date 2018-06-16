@@ -354,12 +354,12 @@ $('#btn-addFormacao').click(function(){
  *  @param {Element} btn_action Recebe o botão clicado.  
  */ 
 function btn_editar_servico(btn_action) {  
-    var categoria = $('.des_categoria_servico', $(btn_action).parent().parent());
-    var descricao = $('.des_descricao_servico', $(btn_action).parent().parent());
-    var preco = $('.des_preco_servico', $(btn_action).parent().parent());
-    var modalidade = $('.des_modalidade_servico', $(btn_action).parent().parent());
-    var disponibilidade = $('.des_disponibilidade_servico', $(btn_action).parent().parent());
-    var id_servico = $('.id_servico', $(btn_action).parent().parent());
+    var categoria = $('.des_categoria_servico', $(btn_action).parent().parent().parent().parent());
+    var descricao = $('.des_descricao_servico', $(btn_action).parent().parent().parent().parent());
+    var preco = $('.des_preco_servico', $(btn_action).parent().parent().parent().parent());
+    var modalidade = $('.des_modalidade_servico', $(btn_action).parent().parent().parent().parent());
+    var disponibilidade = $('.des_disponibilidade_servico', $(btn_action).parent().parent().parent().parent());
+    var id_servico = $('.id_servico', $(btn_action).parent().parent().parent().parent());
     
     $('#addServicoModal').modal();
     $('#des_categoria_servico').val(categoria.attr('id'));
@@ -374,9 +374,9 @@ function btn_editar_servico(btn_action) {
 *  @param {Element} btn_action Recebe o botão clicado.  
 */ 
 function btn_deletar_servico(btn_action) {
-    var id_servico = $('.id_servico', $(btn_action).parent().parent());
+    var id_servico = $('.id_servico', $(btn_action).parent().parent().parent().parent());
     if (confirm('Realmente deseja deletar este Serviço?')){
-        $(btn_action).parent().parent().remove();
+        $(btn_action).parent().parent().parent().parent().remove();
         $.post('controller/json_Usuario.php',
         {
             acao: 'del_servico',
@@ -433,6 +433,7 @@ if(($('#id_servico_modal').val() != '')&&($('#id_servico_modal').val() != undefi
     });
 }else{
     var categoria = $('#des_categoria_servico');
+    // var categ =  $('#des_categoria_servico optionoption:selected').text();
     var descricao = $('#des_descricao_servico');
     var preco = $('#des_preco_servico');
     var modalidade = $('#des_modalidade_servico');
@@ -452,8 +453,7 @@ if(($('#id_servico_modal').val() != '')&&($('#id_servico_modal').val() != undefi
     function(data){
         var categoria = $('#des_categoria_servico option:selected');
         var modalidade = $('#des_modalidade_servico option:selected');
-        $('#servicos-itens').append('<div class="col-12 clearfix" style="margin-bottom:5px"><input type="text" class="d-none id_servico" value="'+data+'"><p class="des_categoria_servico" style="width:auto; margin-left:-5px;font-weight:400; padding-right:25px;font-size:17px;margin-bottom:0px">'+categoria.text()+'</p><p class="col-12 desc des_descricao_servico" style="margin-left:-10px;margin-right:-10px; padding-left:5px;padding-bottom:1px;padding-top:10px;font-weight:300;font-size:16px;">'+descricao.val()+'</p><p class="desc" style="margin-left:-5px">Preço: R$ <span class="des_preco_servico">'+preco.val()+'</span><span class="des_modalidade_servico" style="margin-right:15px"> '+modalidade.text()+'</span>Disponibilidade: <span class="des_disponibilidade_servico">'+disponibilidade.val()+'</span></p><span class="clearfix pull-right" style="margin-top:-20px;padding:0px;margin:0px;font-weight:normal"><a class="btn-editServico" style="color:#007bff;cursor:pointer;margin-right:10px">Editar</a><a class="btn-delServico text-danger" style="cursor:pointer">Deletar</a></span></div>');
-        
+        $('#servicos-itens').append('<div class="col-12 clearfix" style="margin-bottom:5px"><input type="text" class="d-none id_servico" value="'+data+'"><div class="row clearfix"><p class="des_categoria_servico col-11" id="'+categoria.val()+'" style="width:auto; margin-left:-5px;font-weight:400; padding-right:25px;font-size:17px;margin-bottom:0px">'+categoria.text()+'</p><div class="btn-group col-1"><button type="button" class="btn btn-link dropdown-toggle" style="color:#5b5656" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button><div class="dropdown-menu dropdown-menu-right"><button class="btn-editServico dropdown-item" type="button" style="cursor:pointer">Editar</button><button class="btn-delServico text-danger dropdown-item" type="button" style="cursor:pointer">Deletar</button></div></div></div><p class="col-12 desc des_descricao_servico" style="margin-left:-10px;margin-right:-10px; padding-left:5px;padding-bottom:1px;padding-top:10px;font-weight:300;font-size:16px;">'+descricao.val()+'</p><p class="desc" style="margin-left:-5px">Preço: R$ <span class="des_preco_servico">'+preco.val()+'</span><span class="des_modalidade_servico" id="<?php echo $modalidade->getIdModalidade(); ?>" style="margin-right:15px">'+' '+modalidade.text()+'</span>Disponibilidade: <span class="des_disponibilidade_servico">'+disponibilidade.val()+'</span></p><hr style="margin-left:-15px;margin-right:-15px"></div>');
         $('.btn-editServico').click(function(){
             btn_editar_servico(this);
         });
@@ -467,35 +467,6 @@ if(($('#id_servico_modal').val() != '')&&($('#id_servico_modal').val() != undefi
 });
 
 
-
-
-
-
-
-
- 
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-    
 
 /* -------------------------------------------------------------------------------------------------
  *      SESSÃO HABILIDADES

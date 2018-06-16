@@ -141,7 +141,7 @@
                                             <div class="col-12" style="margin-top:15px;margin-bottom:15px">
                                                 <div class="clearfix">
                                                     <input type="text" style="position:absolute; display:none" id="id_usuario" value="<?php echo $usuario->getIdUsuario(); ?>">
-                                                    <textarea class="form-control-plaintext" name="des_apresentacao" id="des_apresentacao" style="margin-top:-10px;height:auto;resize: none;margin-left:-7px;margin-right:-10px;font-weight:300" readonly disabled="disabled" rows="4" spellcheck="false"><?php echo $usuario->getApresentacaoUsuario(); ?></textarea>
+                                                    <textarea class="form-control-plaintext" name="des_apresentacao" id="des_apresentacao" style="margin-top:-10px;height:auto;resize: none;margin-left:-7px;margin-right:-10px;font-weight:300" readonly disabled="disabled" rows="4" spellcheck="false" placeholder="Olá, meu nome é <?php echo $usuario->getNomeSimplesUsuario(); ?> e eu sou novo aqui."><?php echo $usuario->getApresentacaoUsuario(); ?></textarea>
                                                     <?php if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
                                                         <span class="clearfix pull-right" style="padding:0px;margin:0px;font-weight:normal">
                                                             <a id="btn-editApres" style="color:#007bff;cursor:pointer;margin-right:10px;">Editar</a>
@@ -253,17 +253,26 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    
                                     <div id="servicos" class="tab-pane fade">
+                                        <div class="clearfix">
+                                            <p class="pull-left" style="width:auto;margin-left:12px;margin-top: 15px;margin-bottom:0px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="fa fa-globe" style="margin-left:-5px;font-size:20px;color:#60686e;margin-right:10px"></i> Serviços</p>
+                                            <?php if($donoPerfil){ ?>
+                                                <div class="pull-right">
+                                                    <div class="clearfix">
+                                                        <button type="button" class="btn btn-fc-primary btn-radius pull-right btn-sm d-print-none" style="margin-bottom:-15px;margin-right:15px;margin-top:10px" data-toggle="modal" data-target="#addServicoModal"><i class="fa fa-plus-circle" style="margin-right:5px;"></i>Adicionar</button>
+                                                    </div>
+                                                </div>
+                                            <?php } ?> 
+                                        </div>
+                                        
                                         <?php if($donoPerfil){ ?>
                                         <!-- <div class="row" style="margin-left:5px; margin-top:30px"> -->
-                                            <div class="col-12">
-                                                <div class="clearfix">
-                                                    <button type="button" class="btn btn-fc-primary btn-radius pull-right btn-sm d-print-none" style="margin-bottom:-15px;margin-right:-15px;" data-toggle="modal" data-target="#addServicoModal"><i class="fa fa-plus-circle" style="margin-right:5px;"></i>Adicionar</button>
-                                                </div>
-                                            </div>
+                                            
                                         <!-- </div> -->
                                         <?php } ?>
-                                        <div id="servicos-itens" style="margin-top:0px">
+                                        <div id="servicos-itens" style="margin-top:35px">
                                             <?php $categorias = new Categoria();
                                             $modalidades = new Modalidade();
                                             //   $servicos = new Servicos();
@@ -276,18 +285,24 @@
 
                                             <div class="col-12 clearfix" style="margin-bottom:5px">
                                                 <input type="text" class="d-none id_servico" value="<?php echo $anuncio[$key]->getIdAnuncio(); ?>">
-                                                <p class="des_categoria_servico" id="<?php echo $categoria->getIdCategoria(); ?>" style="width:auto; margin-left:-5px;font-weight:400; padding-right:25px;font-size:17px;margin-bottom:0px"><?php echo $categoria->getDescricaoCategoria(); ?></p>
+                                                <div class="row clearfix">
+                                                    <p class="des_categoria_servico col-11" id="<?php echo $categoria->getIdCategoria(); ?>" style="width:auto; margin-left:-5px;font-weight:400; padding-right:25px;font-size:17px;margin-bottom:0px"><?php echo $categoria->getDescricaoCategoria(); ?></p>
+                                                    <?php if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
+                                                    <div class="btn-group col-1">
+                                                        <button type="button" class="btn btn-link dropdown-toggle" style="color:#5b5656" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                                        <div class="dropdown-menu dropdown-menu-right">
+                                                            <button class="btn-editServico dropdown-item" type="button" style="cursor:pointer">Editar</button>
+                                                            <button class="btn-delServico text-danger dropdown-item" type="button" style="cursor:pointer">Deletar</button>
+                                                        </div>
+                                                    </div>
+                                                    <?php }} ?>
+                                                </div>
+                                                
                                                 <p class="col-12 desc des_descricao_servico" style="margin-left:-10px;margin-right:-10px; padding-left:5px;padding-bottom:1px;padding-top:10px;font-weight:300;font-size:16px;"><?php echo $anuncio[$key]->getDescricaoAnuncio(); ?></p>
                                                 <p class="desc" style="margin-left:-5px">Preço: R$ <span class="des_preco_servico"><?php echo $anuncio[$key]->getPrecoAnuncio(); ?></span><span class="des_modalidade_servico" id="<?php echo $modalidade->getIdModalidade(); ?>" style="margin-right:15px"> <?php echo $modalidade->getDescricaoModalidade(); ?></span>
                                                 
                                                 Disponibilidade: <span class="des_disponibilidade_servico"><?php echo $anuncio[$key]->getDisponibilidadeAnuncio(); ?></span></p>                                                        
-                                                    
-                                                <?php if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
-                                                    <span class="clearfix pull-right" style="margin-top:-20px;padding:0px;margin:0px;font-weight:normal">
-                                                        <a class="btn-editServico" style="color:#007bff;cursor:pointer;margin-right:10px">Editar</a>
-                                                        <a class="btn-delServico text-danger" style="cursor:pointer">Deletar</a>
-                                                    </span>
-                                                <?php }} ?>
+                                                <hr style="margin-left:-15px;margin-right:-15px">
                                             </div>
                                             <?php } ?>
                                         </div>
@@ -430,41 +445,45 @@
                 </div>
             </div>
                     </div></div>
-            <div class="col-md-3" style="padding:20px;">
+                    <div class="col-md-3" style="padding:20px;">
                 <?php $ligacoes = new Ligacao();
-                $ligacoes = $ligacoes->loadByUser($usuario->getIdUsuario(), 3); 
-                if(count($ligacoes)>0){ ?>
-                    <div class="row d-print-none" style="margin-top: 15px;">
-                        <div class="col-md-12">
-                            <div class="col-12" style="padding:0px">
-                                <div class="title-text-card clearfix">
-                                    <h5 class="skills-title pull-left" style="font-weight:400;text-transform:uppercase">Contatos</h5>
-                                </div>
+                $ligacoes = $ligacoes->loadByUser($usuario->getIdUsuario(), 3); ?>
+                <div class="row d-print-none" style="margin-top: 15px;">
+                    <div class="col-md-12">
+                        <div class="col-12" style="padding:0px">
+                            <div class="title-text-card clearfix">
+                                <h5 class="skills-title pull-left" style="font-weight:400;text-transform:uppercase">Contatos</h5>
                             </div>
-                            <div class="col-12" style="padding:0px">
-                                <div class="row">
-                                    <?php $contatos = new Usuario();
-                                    foreach ($ligacoes as $key => $value) { 
-                                    $contato = $contatos->loadById($ligacoes[$key]->getIdContatoLigacao());?>
-                                        <div class="col-md-12" style="margin-top: 5px;margin-bottom: 10px;">
-                                            <div class="row clearfix">
-                                                <div class="col-2">
-                                                    <img src="view/_img/profile/<?php echo $contato->getFotoUsuario(); ?>" alt="" class="rounded-circle" height="50">
-                                                </div>
-                                                <div class="col-10" style="padding-left:30px;">
-                                                    <a href="<?php echo $contato->getSlugUsuario(); ?>" class="nome-contato"><h6 style="font-weight:400;margin-bottom:3px;margin-top:3px"><?php echo $contato->getNomeSimplesusuario(); ?> -<i class="fa fa-star" style="margin-left:5px;font-size: 15px;color:rgb(255, 208, 0)"></i> 9,2</h6></a>
-                                                    <span class="pull-left stars">
-                                                        <a style="font-size:14px;color:#8b8b8b"><?php echo substr($contato->getOcupacaoUsuario(),0,100); ?></a>
-                                                    </span>
-                                                </div>
+                        </div>
+                        <div class="col-12" style="padding:0px">
+                            <div class="row">
+                                <?php if(count($ligacoes)>0){
+                                $contatos = new Usuario();
+                                foreach ($ligacoes as $key => $value) { 
+                                $contato = $contatos->loadById($ligacoes[$key]->getIdContatoLigacao());?>
+                                    <div class="col-md-12" style="margin-top: 5px;margin-bottom: 10px;">
+                                        <div class="row clearfix">
+                                            <div class="col-2">
+                                                <img src="view/_img/profile/<?php echo $contato->getFotoUsuario(); ?>" alt="" class="rounded-circle" height="50">
+                                            </div>
+                                            <div class="col-10" style="padding-left:30px;">
+                                                <a href="<?php echo $contato->getSlugUsuario(); ?>" class="nome-contato"><h6 style="font-weight:400;margin-bottom:3px;margin-top:3px"><?php echo $contato->getNomeSimplesusuario(); ?> -<i class="fa fa-star" style="margin-left:5px;font-size: 15px;color:rgb(255, 208, 0)"></i> 9,2</h6></a>
+                                                <span class="pull-left stars">
+                                                    <a style="font-size:14px;color:#8b8b8b"><?php echo substr($contato->getOcupacaoUsuario(),0,100); ?></a>
+                                                </span>
                                             </div>
                                         </div>
-                                    <?php } ?>
-                                </div>
+                                    </div>
+                                <?php }
+                                }else{ ?>   
+                                    <div class="col-md-12" style="margin-top: 5px;margin-bottom: 10px;color:#8b8b8b">
+                                        Nenhum Contato
+                                    </div>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
-                <?php } ?>
+                </div>
             </div>        
         </div>
     </section>
@@ -590,11 +609,11 @@
                                     <label for="des_email">Descrição:</label>
                                     <textarea class="form-control" name="des_descricao_servico" id="des_descricao_servico" cols="30" style="height:auto;resize: none;" spellcheck="false" placeholder=""></textarea>
                                 </div>
-                                <div class="col-4" style="margin-top:10px">
+                                <div class="col-6 col-md-4" style="margin-top:10px">
                                     <label for="des_email">Preço:</label>
                                     <input class="form-control" type="text" name="des_preco_servico" id="des_preco_servico" placeholder="">
                                 </div>
-                                <div class="col-4" style="margin-top:10px">
+                                <div class="col-6 col-md-4" style="margin-top:10px">
                                     <label for="">Modalidade:</label>
                                     <select class="form-control" readonly name="des_modalidade_servico" id="des_modalidade_servico">
                                         <?php 
