@@ -497,7 +497,9 @@ if(($('#id_servico_modal').val() != '')&&($('#id_servico_modal').val() != undefi
 
     
 
-
+/* -------------------------------------------------------------------------------------------------
+ *      SESSÃO HABILIDADES
+ * ------------------------------------------------------------------------------------------------- */ 
     //LIMPA MODAL ADD HABILIDADE
     $('#addHabilidadeModal').on('show.bs.modal', function (e) {
         $('#des_habilidade_modal').val(1);
@@ -521,19 +523,6 @@ if(($('#id_servico_modal').val() != '')&&($('#id_servico_modal').val() != undefi
             }
         });
         $('#addHabilidadeModal').modal('hide');
-        // if($(descricao).hasClass('form-control-plaintext')){
-        //     $(descricao).removeClass('form-control-plaintext');
-        //     $(descricao).addClass('form-control');
-        //     $(descricao).removeAttr('disabled');
-        //     $(descricao).removeAttr('readonly');
-        //     $(this).text("Salvar");
-        // }else if($(descricao).hasClass('form-control')){
-        //     $(descricao).removeClass('form-control');
-        //     $(descricao).addClass('form-control-plaintext');
-        //     $(descricao).attr('disabled','disabled');
-        //     $(descricao).attr('readonly','readonly');
-        //     $(this).text("Editar");
-        //   }
     });
 
     // BOTAO DE DELETAR HABILIDADE

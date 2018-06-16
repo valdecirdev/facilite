@@ -48,7 +48,7 @@
                             <?php } ?>
                         </div>
                         <div class="infos">
-                            <h5 class="profile-name text-center"><?php if($usuario != NULL){echo $usuario->getNomeSimplesUsuario();} ?> -<i class="fa fa-star" style="margin-left:5px;font-size: 18px;color:rgb(255, 208, 0)"></i> 9,2</h5>
+                            <h5 class="text-center"><span class="profile-name"><?php if($usuario != NULL){echo $usuario->getNomeSimplesUsuario();} ?></span> <span style="font-size:15px;font-weight:normal">-<i class="fa fa-star" style="margin-left:5px;font-size: 18px;color:rgb(255, 208, 0)"></i> 9,2</span></h5>
 
                             <div class="text-center">
                                 <?php if($usuario->getOcupacaoUsuario() != NULL){ ?>
