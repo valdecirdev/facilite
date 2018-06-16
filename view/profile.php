@@ -243,12 +243,12 @@
                                                 </div>
                                             <?php } ?> 
                                         </div>
-                                        <div id="habilidades-itens" style="margin-top:0px">
-                                            <div class="row" style="margin-left:43px;margin-top:20px;margin-bottom:30px;">
+                                        <div style="margin-top:0px">
+                                            <div id="habilidades-itens" class="row" style="margin-left:43px;margin-top:20px;margin-bottom:30px;">
                                                 <?php $habilidades = new Habilidade();
                                                 $habilidades = $habilidades->loadByUser($usuario->getIdUsuario());
                                                 foreach ($habilidades as $key => $value) { ?>
-                                                    <span id="<?php echo $habilidades[$key]->getIdHabilidade(); ?>" class="skills-label"><?php echo $habilidades[$key]->getDescricaoHabilidade(); ?><?php if($donoPerfil){ ?><i class="fa fa-times-circle" style="margin-left:10px;cursor:pointer"></i><?php } ?></span>
+                                                    <span id="<?php echo $habilidades[$key]->getIdHabilidade(); ?>" class="skills-label"><?php echo $habilidades[$key]->getDescricaoHabilidade(); ?><?php if($donoPerfil){ ?><i class="fa fa-times-circle btn-delHabilidade" style="margin-left:10px;cursor:pointer"></i><?php } ?></span>
                                                 <?php } ?>
                                             </div>
                                         </div>
@@ -477,8 +477,38 @@
 
 
 <?php if((isset($_SESSION['id']))&&($_SESSION['id'] == $usuario->getIdUsuario())){ ?>
-<!-- Modal Adicionar Experiência -->
-<div class="modal fade" id="addExperienciaModal" tabindex="-1" role="dialog" aria-labelledby="addExperienciaModalLabel" aria-hidden="true">
+    <!-- Modal Adicionar Experiência -->
+    <div class="modal fade" id="addHabilidadeModal" tabindex="-1" role="dialog" aria-labelledby="addHabilidadeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered " role="document" style="">
+            <div class="modal-content" style="padding:10px 10px 0px 10px">
+                <form action="" method="POST">
+                    <div class="modal-body">
+                        <h4>Adicionar Habilidade</h4>
+                        <div class="row">
+                            <div class="col-12">
+                                <label for="des_nome">Habilidade:</label>
+                                <select class="form-control" readonly name="des_habilidade_modal" id="des_habilidade_modal">
+                                        <?php 
+                                        $hab = new Habilidade();
+                                        $hab = $hab->loadAll();
+                                        foreach ($hab as $key => $value) { ?> 
+                                        <option value="<?php echo $hab[$key]->getIdHabilidade(); ?>"><?php echo $hab[$key]->getDescricaoHabilidade(); ?></option> 
+                                        <?php } ?>
+                                    </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="btn-addHabilidade" class="btn btn-success col-12">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Adicionar Experiência -->
+    <div class="modal fade" id="addExperienciaModal" tabindex="-1" role="dialog" aria-labelledby="addExperienciaModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered " role="document" style="">
             <div class="modal-content" style="padding:10px 10px 0px 10px">
                 <form action="" method="POST">

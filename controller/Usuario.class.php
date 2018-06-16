@@ -89,7 +89,6 @@
                 $cont++;
             } while (!self::verifyUniqueSlug($slug));
             $usuario = new UsuarioModel($_POST['des_email'], strtolower($slug), password_hash($_POST['des_senha'], PASSWORD_DEFAULT), $_POST['des_nome'], $_POST['des_sexo'], $_POST['dt_nasc']);
-            
             if(count(self::verifyUniqueEmail($_POST['des_email'],0))==0){
                 self::insert($usuario);
                 $values = array(

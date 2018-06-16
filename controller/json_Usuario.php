@@ -33,7 +33,13 @@ if(isset($_POST['acao'])){
         $experiencia::delete($_POST['id_experiencia']);
     }
     
-    
+    else if($_POST['acao'] == 'add_habilidade'){
+        $habilidade = new Habilidade();
+        echo $habilidade::insert($_POST['id_habilidade'], $_POST['id_usuario']);
+    }else if($_POST['acao'] == 'del_habilidade'){
+        $habilidade = new Habilidade();
+        $habilidade::delete($_POST['id_habilidade'], $_POST['id_usuario']);
+    }
     
     else if($_POST['acao'] == 'up_servico'){
         $anuncio = new Anuncio();

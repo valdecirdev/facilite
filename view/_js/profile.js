@@ -498,13 +498,29 @@ if(($('#id_servico_modal').val() != '')&&($('#id_servico_modal').val() != undefi
     
 
 
-    
-
-    // BOTAO DE EDITAR HABILIDADE
-    // $('.btn-editHabilidade').click(function(){
-        // var descricao = $('.des_descricao_habilidade', $(this).parent());
-        // var id_habilidade = $('.id_habilidade', $(this).parent());
-
+    //LIMPA MODAL ADD HABILIDADE
+    $('#addHabilidadeModal').on('show.bs.modal', function (e) {
+        $('#des_habilidade_modal').val(1);
+    });
+    // BOTAO DE SALVAR HABILIDADE
+    $('#btn-addHabilidade').click(function(){
+        var descricao = $('#des_habilidade_modal option:selected').text();
+        var id_habilidade = $('#des_habilidade_modal').val();
+        var id_usuario = $('#id_usuario').val();
+        
+        $.post('controller/json_Usuario.php',
+        {
+            acao: 'add_habilidade',
+            id_usuario: id_usuario,
+            id_habilidade: id_habilidade
+        },function(data){
+            if(data == 1){
+                $('#habilidades-itens').append('<span id="'+id_habilidade+'" class="skills-label">'+descricao+'<i class="fa fa-times-circle btn-delHabilidade" style="margin-left:10px;cursor:pointer"></i></span>');
+            }else{
+                alert('Você já possui esta Habilidade!');
+            }
+        });
+        $('#addHabilidadeModal').modal('hide');
         // if($(descricao).hasClass('form-control-plaintext')){
         //     $(descricao).removeClass('form-control-plaintext');
         //     $(descricao).addClass('form-control');
@@ -518,21 +534,23 @@ if(($('#id_servico_modal').val() != '')&&($('#id_servico_modal').val() != undefi
         //     $(descricao).attr('readonly','readonly');
         //     $(this).text("Editar");
         //   }
-    // });
+    });
 
     // BOTAO DE DELETAR HABILIDADE
-    // $('.btn-delExperiencia').click(function(){
-    //     var id_experiencia = $('.id_experiencia', $(this).parent());
-
-    //     if (confirm('Realmente deseja deletar esta Experiencia?')){
-    //         $(this).parent().parent().remove();
-    //         $.post('controller/json_Usuario.php',
-    //         {
-    //             acao: 'del_experiencia',
-    //             id_experiencia: $(id_experiencia).val()
-    //         });
-    //     }
-    // });
+    $('.btn-delHabilidade').click(function(){
+        var id_usuario = $('#id_usuario').val();
+        var id_habilidade = $(this).parent().attr('id');
+        
+        if (confirm('Realmente deseja deletar esta Habilidade?')){
+            $(this).parent().remove();
+            $.post('controller/json_Usuario.php',
+            {
+                acao: 'del_habilidade',
+                id_usuario: id_usuario,
+                id_habilidade: id_habilidade
+            });
+        }
+    });
 
 
    
