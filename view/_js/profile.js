@@ -306,46 +306,6 @@ $('#btn-addFormacao').click(function(){
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* -------------------------------------------------------------------------------------------------
  *      SESSÃO SERVIÇOS
  * ------------------------------------------------------------------------------------------------- */ 
@@ -489,6 +449,20 @@ if(($('#id_servico_modal').val() != '')&&($('#id_servico_modal').val() != undefi
         },function(data){
             if(data == 1){
                 $('#habilidades-itens').append('<span id="'+id_habilidade+'" class="skills-label">'+descricao+'<i class="fa fa-times-circle btn-delHabilidade" style="margin-left:10px;cursor:pointer"></i></span>');
+                $('.btn-delHabilidade').click(function(){
+                    var id_usuario = $('#id_usuario').val();
+                    var id_habilidade = $(this).parent().attr('id');
+                    
+                    if (confirm('Realmente deseja deletar esta Habilidade?')){
+                        $(this).parent().remove();
+                        $.post('controller/json_Usuario.php',
+                        {
+                            acao: 'del_habilidade',
+                            id_usuario: id_usuario,
+                            id_habilidade: id_habilidade
+                        });
+                    }
+                });
             }else{
                 alert('Você já possui esta Habilidade!');
             }
@@ -513,7 +487,35 @@ if(($('#id_servico_modal').val() != '')&&($('#id_servico_modal').val() != undefi
     });
 
 
-   
+
+/* -------------------------------------------------------------------------------------------------
+ *      SESSÃO SOBRE
+ * ------------------------------------------------------------------------------------------------- */ 
+    //CARREGA MODAL SOBRE
+    $('#editApresentacaoModal').on('show.bs.modal', function (e) {
+        $('#des_apresentacao_modal').val($('#des_apresentacao').text());
+    });
+    // BOTAO DE SALVAR HABILIDADE
+    $('#btn-editApresentacao').click(function(){
+        var apresentacao = $('#des_apresentacao_modal').val();
+        
+        $.post('controller/json_Usuario.php',
+        {
+            acao:   'up_generico',
+            campo:  'des_apresentacao',
+            valor:  apresentacao,
+            id:     $('#id_usuario').val(),
+        },function(data){
+            if(apresentacao != ''){
+                $('#des_apresentacao').text(apresentacao);
+            }else{
+                $('#des_apresentacao').text('Olá, eu sou novo aqui. :)');
+            }
+            $('#editApresentacaoModal').modal('hide');
+        });
+    });
+
+
 
 
 
@@ -563,89 +565,6 @@ if(($('#id_servico_modal').val() != '')&&($('#id_servico_modal').val() != undefi
     $('.btn-delServico').click(function(){
         btn_deletar_servico(this);
     });
-    
-
-
-    /**
-     * Função Responsável pela ação do botão Editar Apresentação
-     */ 
-    $('#btn-editApres').click(function(){
-        var input = $('#des_apresentacao');
-        var cancel = $('#btn-cancelEditApres');
-        if($(input).hasClass('form-control-plaintext')){
-            $(input).removeClass('form-control-plaintext');
-            $(input).addClass('form-control');
-            $(input).removeAttr('disabled');
-            $(input).removeAttr('readonly');
-            $(cancel).removeClass('d-none');
-            $(this).text("Salvar");
-        }else if($(input).hasClass('form-control')){
-            $(input).removeClass('form-control');
-            $(input).addClass('form-control-plaintext');
-            $(input).attr('disabled','disabled');
-            $(input).attr('readonly','readonly');
-            $(cancel).addClass('d-none');
-            $(this).text("Editar");
-            $.post('controller/json_Usuario.php',
-            {
-                acao: 'up_generico',
-                campo: 'des_apresentacao',
-                valor: $(input).val(),
-                id: $('#id_usuario').val(),
-            });
-          }
-    });
-    /**
-     * Função Responsável pela ação do botão Cancelar Edição Apresentação
-     */ 
-    $('#btn-cancelEditApres').click(function(){
-        var input = $('#des_apresentacao');
-        var edit = $('#btn-editApres');
-        var cancel = $('#btn-cancelEditApres');
-        if(!$(cancel).hasClass('d-none')){
-            $(cancel).addClass('d-none');
-            $(input).removeClass('form-control');
-            $(input).addClass('form-control-plaintext');
-            $(input).attr('disabled','disabled');
-            $(input).attr('readonly','readonly');
-            $(edit).text("Editar");
-            $('#form-apres')[0].reset();
-            $(input).css('height','110px');            
-        };
-    });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     // BOTAO DE EDITAR NOME COMPLETO
     $('#btn-editNome').click(function(){
@@ -1052,6 +971,11 @@ if(($('#id_servico_modal').val() != '')&&($('#id_servico_modal').val() != undefi
     });
 
 
+
+
+
+
+
     // BOTAO DE EDITAR CIDADE
     $('#btn-editCidade').click(function(){
         var input = $('#cidadeUsr');
@@ -1095,23 +1019,3 @@ if(($('#id_servico_modal').val() != '')&&($('#id_servico_modal').val() != undefi
         };
     });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -135,19 +135,27 @@
 
                                 <div class="tab-content" style="padding-top:20px;">
                                     <div id="geral" class="tab-pane fade active show">
-                                    <!-- SECAO DE APRESENTACAO -->
-                                        <p style="margin-left:12px;margin-top: 15px;margin-bottom:0px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="far fa-address-card" style="margin-left:-5px;font-size:20px;color:#60686e;margin-right:7px"></i> Sobre</p>
-                                        <div id="apresentacao" style="margin-left:33px;">                                  
-                                            <div class="col-12" style="margin-top:15px;margin-bottom:15px">
-                                                <div class="clearfix">
-                                                    <input type="text" style="position:absolute; display:none" id="id_usuario" value="<?php echo $usuario->getIdUsuario(); ?>">
-                                                    <textarea class="form-control-plaintext" name="des_apresentacao" id="des_apresentacao" style="margin-top:-10px;height:auto;resize: none;margin-left:-7px;margin-right:-10px;font-weight:300" readonly disabled="disabled" rows="4" spellcheck="false" placeholder="Olá, meu nome é <?php echo $usuario->getNomeSimplesUsuario(); ?> e eu sou novo aqui."><?php echo $usuario->getApresentacaoUsuario(); ?></textarea>
-                                                    <?php if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
-                                                        <span class="clearfix pull-right" style="padding:0px;margin:0px;font-weight:normal">
-                                                            <a id="btn-editApres" style="color:#007bff;cursor:pointer;margin-right:10px;">Editar</a>
-                                                            <a id="btn-cancelEditApres" class="d-none text-danger" style="color:#007bff;cursor:pointer;margin-right:10px;">Cancelar</a>
-                                                        </span>
-                                                    <?php }} ?>
+                                        <div class="clearfix">
+                                            <div class="col-12">
+                                                <p class="pull-left" style="width:auto;margin-top: 15px;margin-bottom:0px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="far fa-address-card" style="margin-left:-5px;font-size:20px;color:#60686e;margin-right:10px"></i> Sobre</p>
+                                                <?php if($donoPerfil){ ?>
+                                                    <div class="clearfix">
+                                                        <button type="button" class="btn btn-fc-primary btn-radius pull-right btn-sm d-print-none" style="margin-top:13px;margin-bottom:-15px;" data-toggle="modal" data-target="#editApresentacaoModal"><i class="fa fa-edit" style="margin-right:5px;"></i>Editar</button>
+                                                    </div>
+                                                <?php } ?>
+                                            </div>
+                                        </div>
+                                        <div id="apresentacao">  
+                                            <div class="col-12">
+                                                <div style="margin-top:25px;margin-bottom:15px">
+                                                    <div class="clearfix">
+                                                        <input type="text" style="position:absolute; display:none" id="id_usuario" value="<?php echo $usuario->getIdUsuario(); ?>">
+                                                        <?php if(($usuario->getApresentacaoUsuario() != '')&&($usuario->getApresentacaoUsuario() != NULL)){ ?>
+                                                            <p id="des_apresentacao" style="margin-top:5px;margin-left:-7px;margin-right:-10px;font-weight:300"><?php echo $usuario->getApresentacaoUsuario(); ?></p>
+                                                        <?php }else{ ?>
+                                                            <p id="des_apresentacao" style="margin-top:5px;margin-left:-7px;margin-right:-10px;font-weight:300">Olá, eu sou novo aqui. :)</p>
+                                                        <?php } ?>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -157,27 +165,27 @@
                                         
                                         
 
-
+                                        <?php $experiencias = new Experiencia();
+                                        $experiencias = $experiencias->loadByUser($usuario->getIdUsuario());
+                                        if(($donoPerfil)||(count($experiencias)>0)){ ?>
                                         <div class="clearfix" style="margin-bottom:20px;">
-                                            <p class="pull-left" style="width:auto;margin-left:12px;margin-top: 30px;margin-bottom:10px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="fa fa-suitcase" style="margin-left:-5px;font-size:20px;color:#60686e;margin-right:10px"></i> Experiências</p>
-                                            <?php if($donoPerfil){ ?>
-                                                <div class="col-12">
+                                            <div class="col-12">
+                                                <p class="pull-left" style="width:auto;margin-top: 30px;margin-bottom:10px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="fa fa-suitcase" style="margin-left:-5px;font-size:20px;color:#60686e;margin-right:10px"></i> Experiências</p>
+                                                <?php if($donoPerfil){ ?>
                                                     <div class="clearfix">
                                                         <button type="button" class="btn btn-fc-primary btn-radius pull-right btn-sm d-print-none" style="margin-top:28px;margin-bottom:-15px;" data-toggle="modal" data-target="#addExperienciaModal"><i class="fa fa-plus-circle" style="margin-right:5px;"></i>Adicionar</button>
                                                     </div>
-                                                </div>
-                                            <?php } ?> 
+                                                <?php } ?> 
+                                            </div>
                                         </div>
-                                        <div id="experiencias-itens" style="margin-left:33px;">                                  
-                                        <?php $experiencias = new Experiencia();
-                                            $experiencias = $experiencias->loadByUser($usuario->getIdUsuario());
-                                            if(count($experiencias)>0){
-                                            foreach ($experiencias as $key => $value) { ?>
-                                                <div class="col-12" style="margin-top:15px;margin-bottom:5px">
+                                        <div id="experiencias-itens">
+                                            
+                                            <?php foreach ($experiencias as $key => $value) { ?>
+                                                <div class="col-12">
                                                     <div class="clearfix">
-                                                        <input type="text" class="id_experiencia" value="<?php echo $experiencias[$key]->getIdExperiencia(); ?>" style="display:none">
+                                                        <input type="text" class="id_experiencia d-none" value="<?php echo $experiencias[$key]->getIdExperiencia(); ?>">
                                                         <div class="row clearfix">
-                                                            <p class="des_titulo_experiencia col-11" style="width:auto; margin-left:-5px;font-weight:400; padding-right:25px;font-size:17px;margin-bottom:0px"><?php echo $experiencias[$key]->getTituloExperiencia(); ?></p>
+                                                            <p class="des_titulo_experiencia col-11" style="width:auto; margin-left:-5px;font-weight:400; font-size:17px;margin-bottom:0px"><?php echo $experiencias[$key]->getTituloExperiencia(); ?></p>
                                                             <?php if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
                                                             <div class="btn-group col-1">
                                                                 <button type="button" class="btn btn-link dropdown-toggle" style="color:#5b5656" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
@@ -188,28 +196,29 @@
                                                             </div>
                                                             <?php }} ?>
                                                         </div>
-                                                        <p class="col-12 desc des_descricao_experiencia" style="margin-left:-10px;margin-right:-10px; padding-left:5px;padding-bottom:1px;padding-top:1px;font-weight:300;font-size:16px;color:#a0a5b5"><?php echo $experiencias[$key]->getDescricaoExperiencia(); ?></p>
+                                                        <p class="col-12 desc des_descricao_experiencia" style="margin-left:-10px;margin-right:-10px; padding-left:5px;font-weight:300;font-size:16px;color:#a0a5b5"><?php echo $experiencias[$key]->getDescricaoExperiencia(); ?></p>
                                                     </div>
-                                                    <hr style="margin-left:-15px;margin-right:-15px">
+                                                    <hr style="margin-left:-5px;margin-right:-5px">
                                                 </div>
-                                        <?php }} ?>
+                                            <?php } ?>
                                         </div>
+                                        <?php } ?>
 
-
+                                        <?php $formacoes = new Formacao();
+                                        $formacoes = $formacoes->loadByUser($usuario->getIdUsuario());
+                                        if(($donoPerfil)||(count($formacoes)>0)){ ?>
                                         <div class="clearfix">
-                                            <p class="pull-left" style="width:auto;margin-left:12px;margin-top: 30px;margin-bottom:0px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="fa fa-trophy" style="margin-left:-5px;font-size:20px;color:#60686e;margin-right:10px"></i> Formação</p>
-                                            <?php if($donoPerfil){ ?>
-                                                <div class="col-12">
+                                            <div class="col-12">
+                                                <p class="pull-left" style="width:auto;margin-top: 30px;margin-bottom:0px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="fa fa-trophy" style="margin-left:-5px;font-size:20px;color:#60686e;margin-right:10px"></i> Formação</p>
+                                                <?php if($donoPerfil){ ?>
                                                     <div class="clearfix">
                                                         <button type="button" class="btn btn-fc-primary btn-radius pull-right btn-sm d-print-none" style="margin-top:28px;margin-bottom:-15px;" data-toggle="modal" data-target="#addFormacaoModal"><i class="fa fa-plus-circle" style="margin-right:5px;"></i>Adicionar</button>
                                                     </div>
-                                                </div>
-                                            <?php } ?> 
+                                                <?php } ?>
+                                            </div>
                                         </div>
-                                        <div id="formacoes-itens" class="row" style="margin-top:30px;margin-left:36px;padding-right:15px;">
-                                            <?php $formacoes = new Formacao();
-                                            $formacoes = $formacoes->loadByUser($usuario->getIdUsuario());
-                                            foreach ($formacoes as $key => $value) { ?>
+                                        <div id="formacoes-itens" class="row" style="margin-top:30px;margin-left:0px;padding-right:15px;">
+                                            <?php foreach ($formacoes as $key => $value) { ?>
                                                 <div class="col-12">
                                                     <div class="clearfix">
                                                         <input type="text" class="id_formacao" value="<?php echo $formacoes[$key]->getIDFormacao(); ?>" style="display:none">
@@ -227,31 +236,34 @@
                                                         </div>
                                                         <p class="desc des_descricao_formacao" id="des_apresentacao" style="margin-left:-5px;margin-right:-10px;margin-top:0px;font-weight:300;color:#a0a5b5"><?php echo $formacoes[$key]->getDescricaoFormacao(); ?></p>
                                                     </div>
-                                                    <hr style="margin-left:-15px;margin-right:-15px">
+                                                    <hr style="margin-left:-5px;margin-right:-5px">
                                                 </div>
                                             <?php } ?>
                                         </div>
+                                        <?php } ?>
+                                        
 
-
+                                        <?php $habilidades = new Habilidade();
+                                        $habilidades = $habilidades->loadByUser($usuario->getIdUsuario());
+                                        if(($donoPerfil)||(count($habilidades)>0)){ ?>
                                         <div class="clearfix">
-                                            <p class="pull-left" style="width:auto;margin-left:17px;margin-top: 30px;margin-bottom:0px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="fa fa-lightbulb" style="margin-left:-5px;font-size:20px;color:#60686e;margin-right:10px"></i> Habilidades</p>
-                                            <?php if($donoPerfil){ ?>
-                                                <div class="col-12">
+                                            <div class="col-12">
+                                                <p class="pull-left" style="width:auto;margin-left:17px;margin-top: 30px;margin-bottom:0px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="fa fa-lightbulb" style="margin-left:-20px;font-size:20px;color:#60686e;margin-right:10px"></i> Habilidades</p>
+                                                <?php if($donoPerfil){ ?>
                                                     <div class="clearfix">
                                                         <button type="button" class="btn btn-fc-primary btn-radius pull-right btn-sm d-print-none" style="margin-top:25px;margin-bottom:-15px;padding-left:10px;padding-right:10px" data-toggle="modal" data-target="#addHabilidadeModal"><i class="fa fa-plus-circle" style="margin-right:5px;"></i>Adicionar</button>
                                                     </div>
-                                                </div>
-                                            <?php } ?> 
+                                                <?php } ?> 
+                                            </div>
                                         </div>
                                         <div style="margin-top:0px">
-                                            <div id="habilidades-itens" class="row" style="margin-left:43px;margin-top:20px;margin-bottom:30px;">
-                                                <?php $habilidades = new Habilidade();
-                                                $habilidades = $habilidades->loadByUser($usuario->getIdUsuario());
-                                                foreach ($habilidades as $key => $value) { ?>
+                                            <div id="habilidades-itens" class="row" style="margin-left:10px;margin-top:20px;margin-bottom:30px;">
+                                                <?php foreach ($habilidades as $key => $value) { ?>
                                                     <span id="<?php echo $habilidades[$key]->getIdHabilidade(); ?>" class="skills-label"><?php echo $habilidades[$key]->getDescricaoHabilidade(); ?><?php if($donoPerfil){ ?><i class="fa fa-times-circle btn-delHabilidade" style="margin-left:10px;cursor:pointer"></i><?php } ?></span>
                                                 <?php } ?>
                                             </div>
                                         </div>
+                                        <?php } ?>
                                     </div>
 
                                     
@@ -495,7 +507,37 @@
 
 
 
+
+
+
+
+
+
+
+
 <?php if((isset($_SESSION['id']))&&($_SESSION['id'] == $usuario->getIdUsuario())){ ?>
+    <!-- Modal Editar Apresnetacao -->
+    <div class="modal fade" id="editApresentacaoModal" tabindex="-1" role="dialog" aria-labelledby="editApresentacaoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:400px;">
+            <div class="modal-content" style="padding:10px 10px 0px 10px">
+                <form action="" method="POST">
+                    <div class="modal-body">
+                        <h4>Apresentação</h4>
+                            <div class="row">
+                                <div class="col-12" style="margin-top:10px">
+                                    <label for="des_email">Sobre você:</label>
+                                    <textarea class="form-control" name="des_apresentacao_modal" id="des_apresentacao_modal" cols="30" rows="5" style="height:auto;resize: none;" spellcheck="false" placeholder=""></textarea>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="btn-editApresentacao" class="btn btn-success col-12">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
     <!-- Modal Adicionar Experiência -->
     <div class="modal fade" id="addHabilidadeModal" tabindex="-1" role="dialog" aria-labelledby="addHabilidadeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered " role="document" style="">
