@@ -9,7 +9,13 @@ if(isset($_POST['acao'])){
         echo Usuario::login($_POST);
     }else if($_POST['acao'] == 'register'){
         Usuario::register($_POST);
-    }else if($_POST['acao'] == 'up_slug'){
+    }else if($_POST['acao'] == 'delete_user'){
+        $usuario = new Usuario();
+        $id = $_POST['id_usuario'];
+        echo $usuario::delete($id);
+    }
+    
+    else if($_POST['acao'] == 'up_slug'){
         $usuario = new Usuario();
         $slug = $_POST['slug'];
         $id = $_POST['id'];

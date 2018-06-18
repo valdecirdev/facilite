@@ -107,27 +107,41 @@
             return $result[0];
         }
 
-        public function loadState(int $id):array{
+        public function loadState(int $id = null):array{
             $sql = new Sql();
-            $result = $sql->select("SELECT des_uf, id_pais FROM tb_estados WHERE id_estado = :ID", array(
-                ":ID"=>$id
-            ));
-            return $result[0]; 
+            if($id != null){
+                $where = ' WHERE id_estado = :ID';
+                $array = array(
+                    ":ID"=>$id
+                );
+            }else{
+                $where = '';
+                $array = array();
+            }
+            $result = $sql->select("SELECT id_estado, des_uf, id_pais FROM tb_estados".$where, $array);
+            return $result; 
         }
 
-        public function loadCity(int $id):array{
+        public function loadCity(int $id = null):array{
             $sql = new Sql();
-            $result = $sql->select("SELECT des_nome,id_estado FROM tb_cidades WHERE id_cidade = :ID", array(
-                ":ID"=>$id
-            ));
-            return $result[0];
+            if($id != null){
+                $where = ' WHERE id_cidade = :ID';
+                $array = array(
+                    ":ID"=>$id
+                );
+            }else{
+                $where = '';
+                $array = array();
+            }
+            $result = $sql->select("SELECT id_cidade, des_nome,id_estado FROM tb_cidades".$where." ORDER BY des_nome", $array);
+            return $result;
         }
 
         public function loadFullCity($id){
             if(!is_null($id)){
                 $cidade = self::loadCity($id);
-                $estado = self::loadState($cidade['id_estado']);
-                return $cidade['des_nome'].' - '.$estado['des_uf'];
+                $estado = self::loadState($cidade[0]['id_estado']);
+                return $cidade[0]['des_nome'].' - '.$estado[0]['des_uf'];
             }
             return NULL;
         }
@@ -177,11 +191,57 @@
             ));
         }
 
+
+
+
+
+
+        public function delete(int $id){
+            self::logout();
+            $sql = new Sql();
+            $sql->query("DELETE FROM tb_anuncios WHERE id_usuario = :ID", array(
+                ":ID"=>$id
+            ));
+            $sql->query("DELETE FROM tb_experiencias WHERE id_usuario = :ID", array(
+                ":ID"=>$id
+            ));
+            $sql->query("DELETE FROM tb_formacoes WHERE id_usuario = :ID", array(
+                ":ID"=>$id
+            ));
+            $sql->query("DELETE FROM tb_habilidades_usuarios WHERE id_usuario = :ID", array(
+                ":ID"=>$id
+            ));
+            $sql->query("DELETE FROM tb_ligacoes WHERE id_usuario = :ID OR id_contato = :ID", array(
+                ":ID"=>$id
+            ));
+
+            $result = $sql->select("SELECT des_foto FROM tb_usuarios WHERE id_usuario = :ID", array(
+                ":ID"=>$id
+            ));
+            $foto = $result[0]['des_foto'];
+            if($foto != 'default.jpg'){
+                unlink('../view/_img/profile/'.$foto);
+            }
+            $result = $sql->query("DELETE FROM tb_usuarios WHERE id_usuario = :ID", array(
+                ":ID"=>$id
+            ));
+        }
+
+
+
+
+
+
+
+
+
         public function update_image(UsuarioModel $usuario, array $files = array()):string{
             if((isset($files['usrFoto']))&&(!is_null($files['usrFoto']))){
                 $foto = $usuario->getFotoUsuario();
                 $diretorio = "../view/_img/profile/";
-                unlink($diretorio . $foto);
+                if($foto != 'default.jpg'){
+                    unlink($diretorio . $foto);
+                }
                 $foto = md5(time()).'.jpg';
 
                 move_uploaded_file($files['usrFoto']['tmp_name'], $diretorio.$foto);

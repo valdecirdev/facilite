@@ -530,7 +530,21 @@ if(($('#id_servico_modal').val() != '')&&($('#id_servico_modal').val() != undefi
 
 
 
-
+    // BOTAO DE DELETAR HABILIDADE
+    $('#delete-account').click(function(){
+        var id_usuario = $('#id_usuario').val();
+        
+        if (confirm('Realmente deseja deletar sua conta?')){
+            $.post('controller/json_Usuario.php',
+            {
+                acao: 'delete_user',
+                id_usuario: id_usuario
+            },function(data){
+                // alert(data);
+                window.location.href = 'home';
+            });
+        }
+    });
 
     // BOTÃO DE CRIAR NOVA CONEXAO
     $('#criar-conexao').click(function(){
@@ -994,13 +1008,13 @@ if(($('#id_servico_modal').val() != '')&&($('#id_servico_modal').val() != undefi
             $(input).attr('readonly','readonly');
             $(cancel).addClass('d-none');            
             $(this).text("Editar");
-            // $.post('controller/json_Usuario.php',
-            // {
-            //     acao: 'up_generico',
-            //     campo: 'dt_nasc',
-            //     valor: $(input).val(),
-            //     id: $('#id_usuario').val(),
-            // });
+            $.post('controller/json_Usuario.php',
+            {
+                acao: 'up_generico',
+                campo: 'id_cidade',
+                valor: $(input).val(),
+                id: $('#id_usuario').val(),
+            });
           }
     });
 

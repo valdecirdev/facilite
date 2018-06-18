@@ -279,11 +279,7 @@
                                             <?php } ?> 
                                         </div>
                                         
-                                        <?php if($donoPerfil){ ?>
-                                        <!-- <div class="row" style="margin-left:5px; margin-top:30px"> -->
-                                            
-                                        <!-- </div> -->
-                                        <?php } ?>
+                                        
                                         <div id="servicos-itens" style="margin-top:35px">
                                             <?php $categorias = new Categoria();
                                             $modalidades = new Modalidade();
@@ -314,7 +310,7 @@
                                                 <p class="desc" style="margin-left:-5px">Preço: R$ <span class="des_preco_servico"><?php echo $anuncio[$key]->getPrecoAnuncio(); ?></span><span class="des_modalidade_servico" id="<?php echo $modalidade->getIdModalidade(); ?>" style="margin-right:15px"> <?php echo $modalidade->getDescricaoModalidade(); ?></span>
                                                 
                                                 Disponibilidade: <span class="des_disponibilidade_servico"><?php echo $anuncio[$key]->getDisponibilidadeAnuncio(); ?></span></p>                                                        
-                                                <hr style="margin-left:-15px;margin-right:-15px">
+                                                <hr style="margin-left:-5px;margin-right:-5px">
                                             </div>
                                             <?php } ?>
                                         </div>
@@ -440,14 +436,22 @@
                                                     <div class="col-md-3" style="padding-left:5px;">
                                                         <label for="cidadeUser" style="margin-top:5px">Cidade</label>
                                                     </div>
-                                                    <div class="col-md-6" style="padding-left:5px;">
-                                                        <input type="text" class="form-control-plaintext" readonly disabled name="des_cidade" id="cidadeUsr" value="<?php if($usuario != NULL){echo $usuario->getCidadeUsuario();} ?>">
+                                                    <div class="col-md-6">
+                                                        <select class="form-control-plaintext" readonly disabled name="des_cidade" id="cidadeUsr">
+                                                            <?php $infos = new Usuario(); 
+                                                            $cidades = $infos->loadCity(); 
+                                                            foreach ($cidades as $key => $value) { ?>
+                                                                <option value="<?php echo $cidades[$key]['id_cidade']; ?>"><?php echo $cidades[$key]['des_nome']; ?></option>
+                                                            <?php } ?>
+                                                        </select>
                                                     </div>
                                                     <div class="pull-left" style="margin-left:5px;margin-top:10px;">     
                                                         <a class="btn-link d-none text-danger" id="btn-cancelEditCidade" style="cursor:pointer;margin-right:10px">Cancelar</a>
                                                         <a class="btn-link" id="btn-editCidade" style="color:#007bff;cursor:pointer;margin-right:10px">Editar</a>  
                                                     </div>
                                                 </div>
+                                                <hr style="margin-left:-10px; margiin-right:-10px">
+                                                <a id="delete-account" class="text-danger btn-link" style="cursor:pointer; margin-left:-10px;">Deletar minha conta</a>
                                             </div>
                                         </div>
                                     </div>
