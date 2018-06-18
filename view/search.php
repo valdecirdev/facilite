@@ -8,6 +8,7 @@
     
     if((!isset($_GET['q']))||($_GET['q'] == NULL)){
         $pg_title = "Pesquisa - ";
+        $_GET['q'] = '';
     }else{
         $pg_title = $_GET['q'].' - ';
     }
@@ -37,7 +38,12 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="text-secondary" style="font-size:17px;">
-                                        <?php if(isset($_SESSION['id'])){ echo count($search->search($_GET['q'],$_SESSION['id']));}else{echo count($search->search($_GET['q'],"*"));} ?> Resultados
+                                        <?php if(isset($_SESSION['id'])){ 
+                                            $total_results = $search->searchCount($_GET['q'],$_SESSION['id']);
+                                        }else{
+                                            $total_results = $search->searchCount($_GET['q'],"*");
+                                        } 
+                                        echo $total_results; ?> Resultados
                                         </div>
                                         <div class="pull-right align-middle" style="margin-top:-22px;">
                                             <a href="">
@@ -145,12 +151,22 @@
                     <div id="" class="col-md-12">                            
                         <div class="tab-content">
                             <div class="row">
+ 
 
-
-                                <?php if(isset($_SESSION['id'])){
-                                        $anuncios = $search->search($_GET['q'],$_SESSION['id']);
+                                <?php 
+                                    if((isset($_GET['pg']))&&($_GET['pg'] > 1)){
+                                        $pg = $_GET['pg'];
+                                        $min = (($pg-1)*10);
+                                        $max = $pg*10;
                                     }else{
-                                        $anuncios = $search->search($_GET['q'],"*");
+                                        $pg = 1;
+                                        $min = 0;
+                                        $max = 10;
+                                    }
+                                    if(isset($_SESSION['id'])){
+                                        $anuncios = $search->search($_GET['q'],$_SESSION['id'],$min,$max);
+                                    }else{
+                                        $anuncios = $search->search($_GET['q'],"*",$min,$max);
                                     }
                                    foreach ($anuncios as $key => $value) { 
                                        $usuario = $usuarios->loadById($anuncios[$key]->getIdUsuarioAnuncio()); 
@@ -230,12 +246,12 @@
                         <div class="row">
                             <div class="col-12 text">
                                 <nav aria-label="Page navigation example">
-                                    <?php $cont = count($anuncios)/10;
+                                    <?php $cont = $total_results/10;
                                     if($cont > 0){ ?>
                                         <ul class="pagination justify-content-center">
                                             <li class="page-item"><a class="page-link" href="#"><</a></li>
-                                            <?php for($i=0;$i <= $cont;$i++){ ?>
-                                                <li class="page-item <?php if($_GET['pg'] == $i){echo 'active';} ?>"><a class="page-link" href="#?pg=<?php echo $i ?>"><?php echo $i+1; ?></a></li>
+                                            <?php for($i=0;$i <= $cont;$i++){  ?>
+                                                <li class="page-item <?php if($pg == $i+1){echo 'active';} ?>"><a class="page-link" href="?q=<?php echo $_GET['q']; ?>&pg=<?php echo $i+1 ?>"><?php echo $i+1; ?></a></li>
                                             <?php } ?>
                                             <li class="page-item"><a class="page-link" href="#">></a></li>
                                         </ul>

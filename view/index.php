@@ -53,9 +53,9 @@
         <div class="row">
             <?php 
             if(isset($_SESSION['id'])){
-                $anuncios = $search->search("",$_SESSION['id']);
+                $anuncios = $search->search("",$_SESSION['id'],0,12);
             }else{
-                $anuncios = $search->search("","*");
+                $anuncios = $search->search("","*",0, 12);
             }
             foreach ($anuncios as $key => $value) {
                 $usuario = $usuarios->loadById($anuncios[$key]->getIdUsuarioAnuncio()); 
@@ -118,6 +118,11 @@
                     </div>
                 </div>
             <?php } ?>
+        </div>
+
+
+        <div class="row">
+            <a href="search" class="col-12 btn btn-fc-primary" style="padding-top:15px;padding-bottom:15px;text-transform:uppercase">Mais opções...</a>
         </div>
     </section>
 
