@@ -1,0 +1,13 @@
+{
+    "name": "Facilite Serviços",
+    "description": "Buscador Web de Freelancers.",
+    "authors": [
+        {
+            "name":  "Valdecir Junior, Leandro Pompélia",
+            "email": "contato@faciliteserv.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.4"
+    }
+}

@@ -1,6 +1,5 @@
 <?php
-    require_once('../view/config.php');
-
+    
     class Formacao {
 
         public function loadByID(int $id):FormacaoModel{

@@ -1,6 +1,5 @@
 <?php
-    require_once('../view/config.php');
-
+    
     class Usuario {
 
         public function verifyUniqueEmail(string $email, int $id){

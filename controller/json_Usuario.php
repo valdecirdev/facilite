@@ -1,6 +1,6 @@
 <?php
 header('Access-Control-Allow-Origin: *');
-require_once('../view/config.php'); 
+require_once('../autoload.php'); 
 
 if(isset($_POST['acao'])){
     if($_POST['acao'] == 'logout'){

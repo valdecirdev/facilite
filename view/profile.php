@@ -1,7 +1,6 @@
 <?php
-    require_once('config.php');
-    $url = $_SERVER["REQUEST_URI"];
-    $uri = explode('/', $url);
+    require_once('../autoload.php');
+    $uri = explode('/', $_SERVER["REQUEST_URI"]);
     $slug = str_replace("@","",$uri[count($uri)-1]);
 
     $infoUsuario = new Usuario();
@@ -10,7 +9,6 @@
         header('location:404');
     }
     
-    $includes = true;
     $pg_title = $usuario->getNomeSimplesUsuario() . ' - ';
     include_once('_includes'.DS.'header.php');
 

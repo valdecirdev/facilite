@@ -1,6 +1,5 @@
 <?php
-    require_once('../view/config.php');
-
+    
     class Experiencia {
 
         public function loadByID(int $id):ExperienciaModel{

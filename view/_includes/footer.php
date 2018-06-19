@@ -58,9 +58,9 @@
             </div>
 
             <div class="col-md-4 col-lg-4 ml-lg-0 text-center text-md-right" style="padding-bottom:10px;">
-                <a class="fb-ic ml-0"><i class="fa fa-facebook white-text mr-lg-4"> </i></a>
-                <a class="tw-ic"><i class="fa fa-twitter white-text mr-lg-4"> </i></a>
-                <a class="ins-ic"><i class="fa fa-instagram white-text mr-lg-4"> </i></a>
+                <a class="fb-ic ml-0"><i class="fab fa-facebook white-text mr-lg-4"> </i></a>
+                <a class="tw-ic"><i class="fab fa-twitter white-text mr-lg-4"> </i></a>
+                <a class="ins-ic"><i class="fab fa-instagram white-text mr-lg-4"> </i></a>
             </div>
         </div>
     </div>

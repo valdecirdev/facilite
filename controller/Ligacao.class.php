@@ -1,6 +1,5 @@
 <?php
-    require_once('../view/config.php');
-
+    
     class Ligacao {
 
         public function loadById(int $id_usuario,int $id_contato){

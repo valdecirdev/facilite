@@ -1,6 +1,5 @@
 <?php
-    require_once('../view/config.php');
-
+    
     class Busca {
        
         public function searchCount(string $q, $id){

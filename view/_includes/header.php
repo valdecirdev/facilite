@@ -13,7 +13,6 @@
     </head>
     <body>
     <?php 
-        require_once('config.php');
         session_start();
         include_once 'menu.php'; 
     ?>

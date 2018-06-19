@@ -1,6 +1,5 @@
 <?php
-    require_once('../view/config.php');
-
+    
     class Modalidade {
 
         public function loadAll():array{

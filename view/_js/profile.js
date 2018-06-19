@@ -1,7 +1,6 @@
 
 $(document).ready(function () {
    
-
 /* -------------------------------------------------------------------------------------------------
  *      FUNÇÕES GERAIS
  * ------------------------------------------------------------------------------------------------- */ 
@@ -10,9 +9,6 @@ $(document).ready(function () {
  *  @param {number} nascimento Data de nascimento do usuário
  *  @return {number} Idade do usuário 
  */ 
-/**
-     * Função Responsável por calcular a idade do usuario com base na data de nascimento informada
-     */  
     function calcularIdade(nascimento) {
         hoje = new Date;
         nascimento = new Date(nascimento);
@@ -986,10 +982,6 @@ if(($('#id_servico_modal').val() != '')&&($('#id_servico_modal').val() != undefi
 
 
 
-
-
-
-
     // BOTAO DE EDITAR CIDADE
     $('#btn-editCidade').click(function(){
         var input = $('#cidadeUsr');
@@ -1015,7 +1007,7 @@ if(($('#id_servico_modal').val() != '')&&($('#id_servico_modal').val() != undefi
                 valor: $(input).val(),
                 id: $('#id_usuario').val(),
             });
-          }
+        }
     });
 
     // BOTAO DE CANCELAR EDIÇÃO DE CIDADE

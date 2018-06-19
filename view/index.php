@@ -1,5 +1,5 @@
 <?php 
-    require_once('config.php');
+    require_once('../autoload.php');
 
     $search = new Busca();
     $usuarios = new Usuario();
