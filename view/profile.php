@@ -3,8 +3,10 @@
     $uri = explode('/', $_SERVER["REQUEST_URI"]);
     $slug = str_replace("@","",$uri[count($uri)-1]);
 
-    $infoUsuario = new Usuario();
-    $usuario = $infoUsuario->loadBySlug($slug) ?? header('location:404');
+    $anuncio = new Anuncio();
+    $ligacao = new Ligacao();
+    $user = new Usuario();
+    $usuario = $user->loadBySlug($slug) ?? header('location:404');
     
     $pg_title = $usuario->getNomeSimplesUsuario() . ' - ';
     include_once('_includes'.DS.'header.php');
@@ -13,6 +15,8 @@
     if(isset($_SESSION['id'])&&($_SESSION['id'] == $usuario->getIdUsuario())){
         $donoPerfil = true;
     }
+
+     
 ?>
     <input type="text" value="<?php if(isset($loggedUser)){echo $loggedUser->getIdUsuario();} ?>" id="id_usuario_logado" class="d-none">
     <section class="container-fluid" style="" id="profile-page">
@@ -92,11 +96,10 @@
                         <div class="col-12">
                             <div class="row text-center">
                                 <?php if(isset($_SESSION['id'])){
-                                if($loggedUser->getIdUsuario() != $usuario->getIdUsuario()){
-                                    $ligacoes= new Ligacao(); 
-                                    $ligacoes = $ligacoes->loadById($loggedUser->getIdUsuario(),$usuario->getIdUsuario()); 
+                                if(!$donoPerfil){
+                                    $ligacoes = $ligacao->loadById($loggedUser->getIdUsuario(),$usuario->getIdUsuario()); 
                                 ?>
-                                    <button class="col-12 d-print-none btn btn-fc-<?php if($ligacoes == NULL){echo 'primary';}else{echo 'danger';} ?> open-Login btn-radius" id="criar-conexao" style="padding:7px;margin-top:10px;"<?php if(!isset($_SESSION['id'])||($_SESSION['id'] == $usuario->getidUsuario())){ echo 'disabled'; } ?>><?php if($ligacoes == NULL){echo ' Adicionar';}else{echo ' Remover';} ?>  Contato</button>
+                                    <button class="col-12 d-print-none btn btn-fc-<?php if(is_null($ligacoes)){echo 'primary';}else{echo 'danger';} ?> open-Login btn-radius" id="criar-conexao" style="padding:7px;margin-top:10px;"<?php if(!isset($_SESSION['id'])||($_SESSION['id'] == $usuario->getidUsuario())){ echo 'disabled'; } ?>><?php if(is_null($ligacoes)){echo ' Adicionar';}else{echo ' Remover';} ?>  Contato</button>
                                 <?php }}else{ ?>
                                     <button class="col-12 d-print-none btn btn-fc-primary open-Login btn-radius" style="padding:7px;margin-top:10px;"> Adicionar Contato</button>
                                 <?php } ?>
@@ -116,7 +119,7 @@
                                     <li class="nav-item ">
                                         <a class="nav-link active" data-toggle="tab" href="#geral">Visão Geral</a>
                                     </li>
-                                    <?php $anuncios = new Anuncio(); if((count($anuncios->loadByUser($usuario->getidUsuario()))>0)||((isset($_SESSION['id']))&&($_SESSION['id']==$usuario->getIdUsuario()))){ ?>
+                                    <?php if((count($anuncio->loadByUser($usuario->getidUsuario()))>0)||((isset($_SESSION['id']))&&($_SESSION['id']==$usuario->getIdUsuario()))){ ?>
                                         <li class="nav-item d-print-none">
                                             <a class="nav-link" data-toggle="tab" href="#servicos">Serviços</a>
                                         </li>
@@ -279,8 +282,7 @@
                                             <?php $categorias = new Categoria();
                                             $modalidades = new Modalidade();
                                             //   $servicos = new Servicos();
-                                            $anuncios = new Anuncio();
-                                            $anuncio = $anuncios->loadByUser($usuario->getidUsuario()); 
+                                            $anuncio = $anuncio->loadByUser($usuario->getidUsuario()); 
                                             foreach ($anuncio as $key => $value) { 
                                                 $categoria = $categorias->loadById($anuncio[$key]->getIdCategoriaAnuncio());
                                                 $modalidade = $modalidades->loadById($anuncio[$key]->getIdModalidadeAnuncio());
@@ -433,8 +435,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <select class="form-control-plaintext" readonly disabled name="des_cidade" id="cidadeUsr">
-                                                            <?php $infos = new Usuario(); 
-                                                            $cidades = $infos->loadCity(); 
+                                                            <?php $cidades = $user->loadCity(); 
                                                             foreach ($cidades as $key => $value) { ?>
                                                                 <option value="<?php echo $cidades[$key]['id_cidade']; ?>"><?php echo $cidades[$key]['des_nome']; ?></option>
                                                             <?php } ?>
@@ -457,8 +458,7 @@
             </div>
                     </div></div>
                     <div class="col-md-3" style="padding:20px;">
-                <?php $ligacoes = new Ligacao();
-                $ligacoes = $ligacoes->loadByUser($usuario->getIdUsuario(), 3); ?>
+                <?php $ligacoes = $ligacao->loadByUser($usuario->getIdUsuario(), 3); ?>
                 <div class="row d-print-none" style="margin-top: 15px;">
                     <div class="col-md-12">
                         <div class="col-12" style="padding:0px">
@@ -469,9 +469,8 @@
                         <div class="col-12" style="padding:0px">
                             <div class="row">
                                 <?php if(count($ligacoes)>0){
-                                $contatos = new Usuario();
                                 foreach ($ligacoes as $key => $value) { 
-                                $contato = $contatos->loadById($ligacoes[$key]->getIdContatoLigacao());?>
+                                $contato = $user->loadById($ligacoes[$key]->getIdContatoLigacao());?>
                                     <div class="col-md-12" style="margin-top: 5px;margin-bottom: 10px;">
                                         <div class="row clearfix">
                                             <div class="col-2">
