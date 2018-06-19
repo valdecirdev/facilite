@@ -10,7 +10,6 @@
                 $habilidade[$key] =  new HabilidadeModel();
                 $habilidade[$key]->setIdHabilidade($result[$key]['id_habilidade']);
                 $habilidade[$key]->setDescricaoHabilidade($result[$key]['des_descricao']);
-                // self::setData($habilidade[$key],$result[$key]);
             }
             return $habilidade;
         }
@@ -51,23 +50,11 @@
                     ':ID_USUARIO'=>$id_usuario,
                     ':ID_HABILIDADE'=>$id_habilidade
                 ));
-                return true;
+                return TRUE;
             }
-            return false;
+            return FALSE;
         }
-        
-        // public function update(array $values){
-        //     $descr = filter_var($values['des_descricao'], FILTER_SANITIZE_STRING);
-        //     $nivel = filter_var($values['des_nivel'], FILTER_SANITIZE_NUMBER_INT);
-        //     $sql = new Sql();
-        //     $sql->query("UPDATE tb_habilidades_usuarios SET id_usuario = :ID_USUARIO, des_descricao = :DESCR WHERE id_habilidade = :ID", array(
-        //         ':ID_USUARIO'=>$values['id_usuario'],
-        //         ':DESCR'=>$descr,
-        //         ':ID'=>$values['id_habilidade']
-        //     ));
-        // }
-    
-    
+            
         public function delete(int $id_habilidade, int $id_usuario){
             $sql = new Sql();
             $sql->query("DELETE FROM tb_habilidades_usuarios WHERE (id_habilidade = :IDH AND id_usuario = :IDU)", array(

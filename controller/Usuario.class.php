@@ -1,5 +1,5 @@
 <?php
-    
+
     class Usuario {
 
         public function verifyUniqueEmail(string $email, int $id){
@@ -12,7 +12,7 @@
                 ));
                 return $result;
             }
-            return null;
+            return NULL;
         }
 
         public function verifyUniqueSlug(string $slug){
@@ -21,9 +21,9 @@
                 ":SLUG"=>$slug,
             ));
             if(count($result)==0){
-                return true;
+                return TRUE;
             }
-            return false;
+            return FALSE;
         }
 
         public function slug_update(string $slug, int $id){
@@ -35,9 +35,9 @@
                     ":SLUG"=>$slug,
                     ":ID"=>$id
                 ));
-                return 1;
+                return TRUE;
             }
-            return 0;
+            return FALSE;
         }
 
         public function email_update(string $email,int $id){
@@ -50,10 +50,10 @@
                         ":EMAIL"=>$email,
                         ":ID"=>$id
                     ));
-                    return 1;
+                    return TRUE;
                 }
             }
-            return 0;
+            return FALSE;
         }
 
         public static function logout(){
@@ -70,10 +70,10 @@
                     $_SESSION['nome'] = $result[0]['des_nome'];
                     $_SESSION['slug'] = $result[0]['des_slug'];
                     $_SESSION['sexo'] = $result[0]['des_sexo'];
-                    return true;
+                    return TRUE;
                 }
             }
-            return false;
+            return FALSE;
         }
 
         public static function register(array $values = array()){
@@ -174,7 +174,7 @@
                 self::setInfosUsuario($usuario, $result);
                 return $usuario;
             }
-            return null;
+            return NULL;
         }
 
         public function insert(UsuarioModel $usuario){
