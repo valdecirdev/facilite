@@ -1,4 +1,5 @@
 <?php $pg_title = 'Pagina Não Encontrada - ';
+include_once('../autoload.php');
 include_once('_includes/header.php'); ?>
 <style>
     body{

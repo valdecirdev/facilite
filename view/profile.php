@@ -4,16 +4,13 @@
     $slug = str_replace("@","",$uri[count($uri)-1]);
 
     $infoUsuario = new Usuario();
-    $usuario = $infoUsuario->loadBySlug($slug);
-    if(is_null($usuario)){
-        header('location:404');
-    }
+    $usuario = $infoUsuario->loadBySlug($slug) ?? header('location:404');
     
     $pg_title = $usuario->getNomeSimplesUsuario() . ' - ';
     include_once('_includes'.DS.'header.php');
 
     $donoPerfil = false;
-    if(isset($_SESSION['id'])&&($_SESSION['id'] == $usuario->getidUsuario())){
+    if(isset($_SESSION['id'])&&($_SESSION['id'] == $usuario->getIdUsuario())){
         $donoPerfil = true;
     }
 ?>
@@ -24,7 +21,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb" style="background-color:#fff;">
                         <li class="breadcrumb-item"><a href="home">Início</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"><?php if($usuario != NULL){echo $usuario->getNomeSimplesUsuario();} ?></li>
+                        <li class="breadcrumb-item active" aria-current="page"><?php echo $usuario->getNomeSimplesUsuario(); ?></li>
                     </ol>
                 </nav>
             </div>
@@ -46,13 +43,11 @@
                             <?php } ?>
                         </div>
                         <div class="infos">
-                            <h5 class="text-center"><span class="profile-name"><?php if($usuario != NULL){echo $usuario->getNomeSimplesUsuario();} ?></span> <span style="font-size:15px;font-weight:normal">-<i class="fa fa-star" style="margin-left:5px;font-size: 18px;color:rgb(255, 208, 0)"></i> 9,2</span></h5>
+                            <h5 class="text-center"><span class="profile-name"><?php echo $usuario->getNomeSimplesUsuario(); ?></span> <span style="font-size:15px;font-weight:normal">-<i class="fa fa-star" style="margin-left:5px;font-size: 18px;color:rgb(255, 208, 0)"></i> 4,2</span></h5>
 
                             <div class="text-center">
-                                <?php if($usuario->getOcupacaoUsuario() != NULL){ ?>
-                                    <p style="margin-top:-5px;font-size:14px;"><span id="sideOcupacao"><?php echo $usuario->getOcupacaoUsuario(); ?></span></p>
-                                <?php }
-                                 if((isset($_SESSION['id']))&&($_SESSION['id'] != $usuario->getidUsuario())){ ?>
+                                <p style="margin-top:-5px;font-size:14px;"><span id="sideOcupacao"><?php echo $usuario->getOcupacaoUsuario(); ?></span></p>
+                                <?php if((isset($_SESSION['id']))&&($_SESSION['id'] != $usuario->getidUsuario())){ ?>
                                     <button class="btn btn-fc-primary btn-radius btn-rounded d-print-none" style="margin-bottom:10px;">Entrar em Contato</button>
                                 <?php }else if(!isset($_SESSION['id'])){ ?>
                                     <button class="btn btn-fc-primary btn-radius d-print-none open-Login" style="margin-bottom:10px;">Entrar em Contato</button>
@@ -62,11 +57,13 @@
                             <div class="list-infos">
                                 <div class="row">
                                     <p class="sub"><i class="fa fa-at"></i> <span><?php if($usuario != NULL){echo $usuario->getSlugUsuario();} ?></span></p>
-                                    <?php if(($usuario->getSexoUsuario() != NULL)&&($usuario->getIdadeUsuario() != NULL)){ ?>
-                                        <p class="sub"><i class="fa fa-users"></i><span id="sideSexo"><?php echo $usuario->getSexoUsuario() .', '; ?></span><span id="sideIdade"><?php echo $usuario->getIdadeUsuario().' anos'; ?></span></p>
-                                    <?php }else if($usuario->getIdadeUsuario() != NULL){ ?>
-                                        <p class="sub"><i class="fa fa-users"></i><span id="sideIdade"><?php echo $usuario->getIdadeUsuario().' anos'; ?></span></p>
-                                    <?php } if($usuario->getCidadeUsuario() != NULL){ ?>
+                                    <p class="sub"><i class="fa fa-users"></i><span id="sideSexo">
+                                        <?php if(!is_null($usuario->getSexoUsuario())){ 
+                                            echo $usuario->getSexoUsuario().', ';  
+                                        } ?>
+                                        </span> <span id="sideIdade"><?php echo $usuario->getIdadeUsuario().' anos'; ?></span>
+                                    </p>
+                                    <?php if(!is_null($usuario->getCidadeUsuario())){ ?>
                                         <p class="sub"><i class="fa fa-map-marker" style="margin-left: 3px;margin-right: 8px;"></i><?php echo $usuario->getCidadeUsuario(); ?></p>
                                     <?php } ?>
                                 </div>
@@ -98,7 +95,7 @@
                                 if($loggedUser->getIdUsuario() != $usuario->getIdUsuario()){
                                     $ligacoes= new Ligacao(); 
                                     $ligacoes = $ligacoes->loadById($loggedUser->getIdUsuario(),$usuario->getIdUsuario()); 
-                                    ?>
+                                ?>
                                     <button class="col-12 d-print-none btn btn-fc-<?php if($ligacoes == NULL){echo 'primary';}else{echo 'danger';} ?> open-Login btn-radius" id="criar-conexao" style="padding:7px;margin-top:10px;"<?php if(!isset($_SESSION['id'])||($_SESSION['id'] == $usuario->getidUsuario())){ echo 'disabled'; } ?>><?php if($ligacoes == NULL){echo ' Adicionar';}else{echo ' Remover';} ?>  Contato</button>
                                 <?php }}else{ ?>
                                     <button class="col-12 d-print-none btn btn-fc-primary open-Login btn-radius" style="padding:7px;margin-top:10px;"> Adicionar Contato</button>
