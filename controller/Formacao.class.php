@@ -2,12 +2,12 @@
     
     class Formacao {
 
-        public function loadByID(int $id):FormacaoModel{
+        public function loadByID(int $id):ObjFormacao{
             $sql = new Sql();
             $result = $sql->select("SELECT * FROM tb_formacoes WHERE id_formacao = :ID", array(
                 ":ID"=>$id
             ));
-            $formacao =  new FormacaoModel();
+            $formacao =  new ObjFormacao();
             if(count($result)>0){
                 self::setData($formacao,$result[0]);
             }
@@ -21,7 +21,7 @@
             ));
             $formacao = array();
             foreach ($result as $key => $value) {
-                $formacao[$key] = new FormacaoModel();
+                $formacao[$key] = new ObjFormacao();
                 self::setData($formacao[$key],$result[$key]);
             }
             return $formacao;
@@ -59,7 +59,7 @@
             ));            
         }
 
-        public function setData(FormacaoModel $formacao,array $data){
+        public function setData(ObjFormacao $formacao,array $data){
             $formacao->setIdFormacao($data['id_formacao']);
             $formacao->setIdUsuarioFormacao($data['id_usuario']);
             $formacao->setTituloFormacao($data['des_titulo']);

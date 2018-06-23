@@ -443,7 +443,7 @@ if(($('#id_servico_modal').val() != '')&&($('#id_servico_modal').val() != undefi
             id_usuario: id_usuario,
             id_habilidade: id_habilidade
         },function(data){
-            if(data == 1){
+            if((data == 1)||(data == true)){
                 $('#habilidades-itens').append('<span id="'+id_habilidade+'" class="skills-label">'+descricao+'<i class="fa fa-times-circle btn-delHabilidade" style="margin-left:10px;cursor:pointer"></i></span>');
                 $('.btn-delHabilidade').click(function(){
                     var id_usuario = $('#id_usuario').val();

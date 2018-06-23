@@ -7,19 +7,19 @@
             $result = $sql->select("SELECT * FROM tb_habilidades");
             $habilidade = array();
             foreach ($result as $key => $value) {
-                $habilidade[$key] =  new HabilidadeModel();
+                $habilidade[$key] =  new ObjHabilidade();
                 $habilidade[$key]->setIdHabilidade($result[$key]['id_habilidade']);
                 $habilidade[$key]->setDescricaoHabilidade($result[$key]['des_descricao']);
             }
             return $habilidade;
         }
 
-        public function loadByID(int $id):HabilidadeModel{
+        public function loadByID(int $id):ObjHabilidade{
             $sql = new Sql();
             $result = $sql->select("SELECT * FROM tb_habilidades_usuario WHERE id_habilidade = :ID", array(
                 ":ID"=>$id
             ));
-            $habilidade =  new HabilidadeModel();
+            $habilidade =  new ObjHabilidade();
             if(count($result)>0){
                 self::setData($habilidade,$result[0]);
             }
@@ -33,7 +33,7 @@
             ));
             $habilidade = array();
             foreach ($result as $key => $value) {
-                $habilidade[$key] = new HabilidadeModel();
+                $habilidade[$key] = new ObjHabilidade();
                 self::setData($habilidade[$key],$result[$key]);
             }
             return $habilidade;
@@ -63,7 +63,7 @@
             ));     
         }
 
-        public function setData(HabilidadeModel $habilidade, array $data){
+        public function setData(ObjHabilidade $habilidade, array $data){
             $habilidade->setIdHabilidade($data['id_habilidade']);
             $habilidade->setIdUsuarioHabilidade($data['id_usuario']);
             $habilidade->setDescricaoHabilidade($data['des_descricao']);

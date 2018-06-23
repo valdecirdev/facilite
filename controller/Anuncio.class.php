@@ -1,33 +1,37 @@
 <?php
     
-    class Anuncio {
-       
-        public function loadByID(int $id):AnuncioModel{
+    class Anuncio
+    {
+
+        public function loadByID (int $id):ObjAnuncio
+        {
             $sql = new Sql();
             $result = $sql->select("SELECT * FROM tb_anuncios WHERE id_anuncio = :ID", array(
                 ":ID"=>$id
             ));
-            $anuncio = new AnuncioModel();
-            if(count($result)>0){    
+            $anuncio = new ObjAnuncio();
+            if (count($result)>0) {
                 $this->setData($anuncio,$result[0]);
             }
             return $anuncio;
         }
 
-        public function loadByUser(int $id):array{
+        public function loadByUser (int $id):array
+        {
             $sql = new Sql();
             $result = $sql->select("SELECT * FROM tb_anuncios WHERE id_usuario = :ID", array(
                 ":ID"=>$id
             ));
             $anuncio = array();
             foreach ($result as $key => $value) {
-                $anuncio[$key] = new AnuncioModel();
+                $anuncio[$key] = new ObjAnuncio();
                 $this->setData($anuncio[$key],$result[$key]);
             }
             return $anuncio;
         }
 
-        public function insert(array $values){
+        public function insert (array $values)
+        {
             $descr = filter_var($values['des_descricao'], FILTER_SANITIZE_STRING);
             $preco = filter_var($values['des_preco'], FILTER_SANITIZE_STRING);
             $dispon = filter_var($values['des_disponibilidade'], FILTER_SANITIZE_STRING);
@@ -45,7 +49,8 @@
             return $result[0]['LAST_INSERT_ID()'];
         }
 
-        public function update(array $values){
+        public function update (array $values)
+        {
             $descr = filter_var($values['des_descricao'], FILTER_SANITIZE_STRING);
             $preco = filter_var($values['des_preco'], FILTER_SANITIZE_STRING);
             $dispon = filter_var($values['des_disponibilidade'], FILTER_SANITIZE_STRING);
@@ -60,14 +65,16 @@
             ));
         }
 
-        public function delete(int $id){
+        public function delete (int $id)
+        {
             $sql = new Sql();
             $sql->query("DELETE FROM tb_anuncios WHERE id_anuncio = :ID", array(
                 ":ID"=>$id
-            ));            
+            ));
         }
 
-        public function setData(AnuncioModel $anuncio,array $data){
+        public function setData (ObjAnuncio $anuncio,array $data)
+        {
             $anuncio->setIdAnuncio($data['id_anuncio']);
             $anuncio->setIdUsuarioAnuncio($data['id_usuario']);
             $anuncio->setIdCategoriaAnuncio($data['id_categoria']);

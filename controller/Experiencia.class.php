@@ -2,12 +2,12 @@
     
     class Experiencia {
 
-        public function loadByID(int $id):ExperienciaModel{
+        public function loadByID(int $id):ObjExperiencia{
             $sql = new Sql();
             $result = $sql->select("SELECT * FROM tb_experiencias WHERE id_experiencia = :ID", array(
                 ":ID"=>$id
             ));
-            $experiencia =  new ExperienciaModel();
+            $experiencia =  new ObjExperiencia();
             if(count($result)>0){
                 self::setData($experiencia,$result[0]);
             }
@@ -21,7 +21,7 @@
             ));
             $experiencia = array();
             foreach ($result as $key => $value) {
-                $experiencia[$key] = new ExperienciaModel();
+                $experiencia[$key] = new ObjExperiencia();
                 self::setData($experiencia[$key],$result[$key]);
             }
             return $experiencia;
@@ -59,7 +59,7 @@
             ));            
         }
 
-        public function setData(ExperienciaModel $experiencia,array $data){
+        public function setData(ObjExperiencia $experiencia,array $data){
             $experiencia->setIdExperiencia($data['id_experiencia']);
             $experiencia->setIdUsuarioExperiencia($data['id_usuario']);
             $experiencia->setTituloExperiencia($data['des_titulo']);

@@ -8,7 +8,7 @@
                 ":ID_USUARIO"=>$id_usuario,
                 ":ID_CONTATO"=>$id_contato
             ));
-            $ligacao = new LigacaoModel();
+            $ligacao = new ObjLigacao();
             if(count($result)>0){
                 self::setData($ligacao,$result[0]);
                 return $ligacao;
@@ -23,7 +23,7 @@
             ));
             $ligacao = array();
             foreach ($result as $key => $value) {
-                $ligacao[$key] = new LigacaoModel();
+                $ligacao[$key] = new ObjLigacao();
                 self::setData($ligacao[$key],$result[$key]);
             }
             return $ligacao;
@@ -49,7 +49,7 @@
             }
         }
 
-        public function setData(LigacaoModel $ligacao,array $data){
+        public function setData(ObjLigacao $ligacao,array $data){
             $ligacao->setIdLigacao($data['id_ligacao']);
             $ligacao->setIdUsuarioLigacao($data['id_usuario']);
             $ligacao->setIdContatoLigacao($data['id_contato']);

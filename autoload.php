@@ -6,6 +6,7 @@
 
         $dirs = array(
             "..".DS."model".DS."DAO".DS.$class_name.".class.php",
+            "..".DS."model".DS."objects".DS.$class_name.".class.php",
             "..".DS."model".DS.$class_name.".class.php",
             "..".DS."controller".DS.$class_name.".class.php"
         );

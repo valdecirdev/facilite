@@ -19,14 +19,14 @@
             ));
             $anuncio = array();
             foreach ($result as $key => $value) {
-                $anuncio[$key] = new AnuncioModel();
+                $anuncio[$key] = new ObjAnuncio();
                 self::setData($anuncio[$key],$result[$key]);
             }
             return $anuncio;
         }
 
 
-        public function setData(AnuncioModel $anuncio,array $data){
+        public function setData(ObjAnuncio $anuncio,array $data){
             $anuncio->setIdAnuncio($data['id_anuncio']);
             $anuncio->setIdUsuarioAnuncio($data['id_usuario']);
             $anuncio->setIdCategoriaAnuncio($data['id_categoria']);
