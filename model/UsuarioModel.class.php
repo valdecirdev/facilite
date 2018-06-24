@@ -254,7 +254,7 @@
         {
             if ((isset($files['usrFoto']))&&(!is_null($files['usrFoto']))) {
                 $foto = $usuario->getFotoUsuario();
-                $diretorio = "../view/_img/profile/";
+                $diretorio = "../../view/_img/profile/";
                 if ($foto != 'default.jpg') {
                     unlink($diretorio . $foto);
                 }
