@@ -1,20 +1,23 @@
 <?php
     
-    class Formacao {
+    class Formacao
+    {
 
-        public function loadByID(int $id):ObjFormacao{
+        public function loadByID(int $id):ObjFormacao
+        {
             $sql = new Sql();
             $result = $sql->select("SELECT * FROM tb_formacoes WHERE id_formacao = :ID", array(
                 ":ID"=>$id
             ));
             $formacao =  new ObjFormacao();
-            if(count($result)>0){
+            if (count($result)>0) {
                 self::setData($formacao,$result[0]);
             }
             return $formacao;
         }
 
-        public function loadByUser(int $id):array{
+        public function loadByUser(int $id):array
+        {
             $sql = new Sql();
             $result = $sql->select("SELECT * FROM tb_formacoes WHERE id_usuario = :ID ORDER BY id_formacao desc", array(
                 ":ID"=>$id
@@ -27,7 +30,8 @@
             return $formacao;
         }
 
-        public function insert(int $id_usuario,string $titulo,string $descr):int{
+        public function insert(int $id_usuario,string $titulo,string $descr):int
+        {
             $titulo = filter_var($titulo, FILTER_SANITIZE_STRING);
             $descr = filter_var($descr, FILTER_SANITIZE_STRING);
             $sql = new Sql();
@@ -40,7 +44,8 @@
             return $result[0]['LAST_INSERT_ID()'];
         }
         
-        public function update(array $values){
+        public function update(array $values)
+        {
             $titulo = filter_var($values['des_titulo'], FILTER_SANITIZE_STRING);
             $descr = filter_var($values['des_descricao'], FILTER_SANITIZE_STRING);
             $sql = new Sql();
@@ -52,14 +57,16 @@
             ));
         }
     
-        public function delete(int $id){
+        public function delete(int $id)
+        {
             $sql = new Sql();
             $sql->query("DELETE FROM tb_formacoes WHERE id_formacao = :ID", array(
                 ":ID"=>$id
             ));            
         }
 
-        public function setData(ObjFormacao $formacao,array $data){
+        public function setData(ObjFormacao $formacao,array $data)
+        {
             $formacao->setIdFormacao($data['id_formacao']);
             $formacao->setIdUsuarioFormacao($data['id_usuario']);
             $formacao->setTituloFormacao($data['des_titulo']);

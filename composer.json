@@ -3,8 +3,11 @@
     "description": "Buscador Web de Freelancers.",
     "authors": [
         {
-            "name":  "Valdecir Junior, Leandro Pompélia",
-            "email": "contato@faciliteserv.com"
+            "name":  "Valdecir Junior",
+            "email": "valdecir.silva9@fatec.sp.gov.br"
+        }, {
+            "name":  "Leandro Pompélia",
+            "email": "leandro.pompelia@fatec.sp.gov.br"
         }
     ],
     "require": {

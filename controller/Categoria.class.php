@@ -2,19 +2,21 @@
     
     class Categoria {
 
-        public function loadByID(int $id):ObjCategoria{
+        public function loadByID($id):ObjCategoria
+        {
             $sql = new Sql();
             $result = $sql->select("SELECT * FROM tb_categorias WHERE id_categoria = :ID", array(
                 ":ID"=>$id
             ));
             $categoria =  new ObjCategoria();
-            if(count($result)>0){
+            if (count($result)>0) {
                 self::setData($categoria,$result[0]);
             }
             return $categoria;
         }
 
-        public function loadAll():array{
+        public function loadAll():array
+        {
             $sql = new Sql();
             $result = $sql->select("SELECT * FROM tb_categorias");
             
@@ -26,7 +28,8 @@
             return $categoria;  
         }
 
-        public function setData(ObjCategoria $categoria,array $data){
+        public function setData(ObjCategoria $categoria,array $data)
+        {
             $categoria->setIdCategoria($data['id_categoria']);
             $categoria->setDescricaoCategoria($data['des_descricao']);
             $categoria->setIconeCategoria($data['des_icone']);

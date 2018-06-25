@@ -1,20 +1,23 @@
 <?php
     
-    class Experiencia {
+    class Experiencia
+    {
 
-        public function loadByID(int $id):ObjExperiencia{
+        public function loadByID(int $id):ObjExperiencia
+        {
             $sql = new Sql();
             $result = $sql->select("SELECT * FROM tb_experiencias WHERE id_experiencia = :ID", array(
                 ":ID"=>$id
             ));
             $experiencia =  new ObjExperiencia();
-            if(count($result)>0){
+            if (count($result)>0) {
                 self::setData($experiencia,$result[0]);
             }
             return $experiencia;
         }
 
-        public function loadByUser(int $id):array{
+        public function loadByUser(int $id):array
+        {
             $sql = new Sql();
             $result = $sql->select("SELECT * FROM tb_experiencias WHERE id_usuario = :ID ORDER BY id_experiencia desc", array(
                 ":ID"=>$id
@@ -27,7 +30,8 @@
             return $experiencia;
         }
 
-        public function insert(int $id_usuario,string $titulo,string $descr):int{
+        public function insert(int $id_usuario,string $titulo,string $descr):int
+        {
             $titulo = filter_var($titulo, FILTER_SANITIZE_STRING);
             $descr = filter_var($descr, FILTER_SANITIZE_STRING);
             $sql = new Sql();
@@ -40,7 +44,8 @@
             return $result[0]['LAST_INSERT_ID()'];
         }
         
-        public function update(array $values){
+        public function update(array $values)
+        {
             $titulo = filter_var($values['des_titulo'], FILTER_SANITIZE_STRING);
             $descr = filter_var($values['des_descricao'], FILTER_SANITIZE_STRING);
             $sql = new Sql();
@@ -52,14 +57,16 @@
             ));
         }
     
-        public function delete(int $id){
+        public function delete(int $id)
+        {
             $sql = new Sql();
             $sql->query("DELETE FROM tb_experiencias WHERE id_experiencia = :ID", array(
                 ":ID"=>$id
             ));            
         }
 
-        public function setData(ObjExperiencia $experiencia,array $data){
+        public function setData(ObjExperiencia $experiencia,array $data)
+        {
             $experiencia->setIdExperiencia($data['id_experiencia']);
             $experiencia->setIdUsuarioExperiencia($data['id_usuario']);
             $experiencia->setTituloExperiencia($data['des_titulo']);

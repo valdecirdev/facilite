@@ -8,7 +8,7 @@ $(document).ready(function () {
      * Função Responsável pela ação do botão de logout e por chamar a função
      */ 
     $('#logout-user').click(function(){
-        $.post('view/_utils/ajax_usuario.php',
+        $.post('view/_utils/ajax_perfil.php',
         {
             acao: 'logout'
         },
@@ -26,7 +26,7 @@ $(document).ready(function () {
             $('#login_des_email').focus();
             $('#login-alert').removeClass('d-none');
         }else{        
-            $.post('view/_utils/ajax_usuario.php',
+            $.post('view/_utils/ajax_perfil.php',
             {
                 acao            : 'login',
                 login_des_email : $email,
@@ -47,7 +47,7 @@ $(document).ready(function () {
      * Função Responsável pela ação do botão de registro e por chamar a função
      */
     $('#register-user').click(function(){
-        $.post('view/_utils/ajax_usuario.php',
+        $.post('view/_utils/ajax_perfil.php',
         {
             acao        : 'register',
             des_nome    : $('#des_nome').val(),
