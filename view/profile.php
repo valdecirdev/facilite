@@ -6,9 +6,10 @@
     $anuncio = new Anuncio();
     $ligacao = new Ligacao();
     $user = new Usuario();
-    $usuario = $user->loadBySlug($slug) ?? header('location:404');
+    $usuario = $user->loadBySlug($slug) ?? header('location:erro');
     
     $pg_title = $usuario->getNomeSimplesUsuario() . ' - ';
+    $description = $usuario->getApresentacaoUsuario();
     include_once('_includes'.DS.'header.php');
 
     $donoPerfil = false;
@@ -24,7 +25,7 @@
             <div class="col-md-12 " style="padding:5px;margin:0px;">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb" style="background-color:#fff;">
-                        <li class="breadcrumb-item"><a href="home">Início</a></li>
+                        <li class="breadcrumb-item"><a aria-label="inicio" href="home">Início</a></li>
                         <li class="breadcrumb-item active" aria-current="page"><?php echo $usuario->getNomeSimplesUsuario(); ?></li>
                     </ol>
                 </nav>
@@ -52,9 +53,9 @@
                             <div class="text-center">
                                 <p style="margin-top:-5px;font-size:14px;"><span id="sideOcupacao"><?php echo $usuario->getOcupacaoUsuario(); ?></span></p>
                                 <?php if((isset($_SESSION['id']))&&($_SESSION['id'] != $usuario->getidUsuario())){ ?>
-                                    <button class="btn btn-fc-primary btn-radius btn-rounded d-print-none" style="margin-bottom:10px;">Entrar em Contato</button>
+                                    <button aria-label="Entrar em contato" class="btn btn-fc-primary btn-radius btn-rounded d-print-none" style="margin-bottom:10px;">Entrar em Contato</button>
                                 <?php }else if(!isset($_SESSION['id'])){ ?>
-                                    <button class="btn btn-fc-primary btn-radius d-print-none open-Login" style="margin-bottom:10px;">Entrar em Contato</button>
+                                    <button aria-label="Entrar em contato" class="btn btn-fc-primary btn-radius d-print-none open-Login" style="margin-bottom:10px;">Entrar em Contato</button>
                                 <?php } ?>
                             </div>
 
@@ -89,7 +90,7 @@
                                     <p style="margin-top:-5px;margin-bottom:0px;color:#a6a9ac;font-weight:200">Avaliações</p>
                                 </div>
                                 <div class="col-4">
-                                    <button class="btn d-print-none btn-fc-primary btn-radius" style="padding:0px;margin-top:5px; height:40px; width:40px; margin-left:5px;" data-toggle="tooltip" data-placement="top" title="Compartilhar"><i class="fa fa-share"></i></button>
+                                    <button aria-label="Compartilhar perfil de <?php echo $usuario->getNomeSimplesUsuario(); ?>" class="btn d-print-none btn-fc-primary btn-radius"  style="padding:0px;margin-top:5px; height:40px; width:40px; margin-left:5px;" data-toggle="tooltip" data-placement="top" title="Compartilhar"><i class="fa fa-share"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -99,9 +100,9 @@
                                 if(!$donoPerfil){
                                     $ligacoes = $ligacao->loadById($loggedUser->getIdUsuario(),$usuario->getIdUsuario()); 
                                 ?>
-                                    <button class="col-12 d-print-none btn btn-fc-<?php if(is_null($ligacoes)){echo 'primary';}else{echo 'danger';} ?> open-Login btn-radius" id="criar-conexao" style="padding:7px;margin-top:10px;"<?php if(!isset($_SESSION['id'])||($_SESSION['id'] == $usuario->getidUsuario())){ echo 'disabled'; } ?>><?php if(is_null($ligacoes)){echo ' Adicionar';}else{echo ' Remover';} ?>  Contato</button>
+                                    <button aria-label="Adicionar <?php echo $usuario->getNomeSimplesUsuario(); ?> como contato" class="col-12 d-print-none btn btn-fc-<?php if(is_null($ligacoes)){echo 'primary';}else{echo 'danger';} ?> open-Login btn-radius" id="criar-conexao" style="padding:7px;margin-top:10px;"<?php if(!isset($_SESSION['id'])||($_SESSION['id'] == $usuario->getidUsuario())){ echo 'disabled'; } ?>><?php if(is_null($ligacoes)){echo ' Adicionar';}else{echo ' Remover';} ?>  Contato</button>
                                 <?php }}else{ ?>
-                                    <button class="col-12 d-print-none btn btn-fc-primary open-Login btn-radius" style="padding:7px;margin-top:10px;"> Adicionar Contato</button>
+                                    <button class="col-12 d-print-none btn btn-fc-primary open-Login btn-radius" aria-label="Adicionar <?php echo $usuario->getNomeSimplesUsuario(); ?> como contato" style="padding:7px;margin-top:10px;"> Adicionar Contato</button>
                                 <?php } ?>
                             </div>
                         </div>
@@ -117,16 +118,16 @@
                             <div class="col-md-12  profile-card">
                                 <ul class="nav nav-tabs">
                                     <li class="nav-item ">
-                                        <a class="nav-link active" data-toggle="tab" href="#geral">Visão Geral</a>
+                                        <a aria-label="Visao geral" class="nav-link active" data-toggle="tab" href="#geral">Visão Geral</a>
                                     </li>
                                     <?php if((count($anuncio->loadByUser($usuario->getidUsuario()))>0)||((isset($_SESSION['id']))&&($_SESSION['id']==$usuario->getIdUsuario()))){ ?>
                                         <li class="nav-item d-print-none">
-                                            <a class="nav-link" data-toggle="tab" href="#servicos">Serviços</a>
+                                            <a aria-label="Serviços" class="nav-link" data-toggle="tab" href="#servicos">Serviços</a>
                                         </li>
                                     <?php } 
                                     if($donoPerfil){ ?>
                                         <li class="nav-item">
-                                            <a class="nav-link" data-toggle="tab" href="#cadastro">Cadastro</a>
+                                            <a aria-label="Cadastro" class="nav-link" data-toggle="tab" href="#cadastro">Cadastro</a>
                                         </li>
                                     <?php } ?>
                                 </ul>
@@ -138,7 +139,7 @@
                                                 <p class="pull-left" style="width:auto;margin-top: 15px;margin-bottom:0px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="far fa-address-card" style="margin-left:-5px;font-size:20px;color:#60686e;margin-right:10px"></i> Sobre</p>
                                                 <?php if($donoPerfil){ ?>
                                                     <div class="clearfix">
-                                                        <button type="button" class="btn btn-fc-primary btn-radius pull-right btn-sm d-print-none" style="margin-top:13px;margin-bottom:-15px;" data-toggle="modal" data-target="#editApresentacaoModal"><i class="fa fa-edit" style="margin-right:5px;"></i>Editar</button>
+                                                        <button type="button" aria-label="Editar apresentação" class="btn btn-fc-primary btn-radius pull-right btn-sm d-print-none" style="margin-top:13px;margin-bottom:-15px;" data-toggle="modal" data-target="#editApresentacaoModal"><i class="fa fa-edit" style="margin-right:5px;"></i>Editar</button>
                                                     </div>
                                                 <?php } ?>
                                             </div>
@@ -171,7 +172,7 @@
                                                 <p class="pull-left" style="width:auto;margin-top: 30px;margin-bottom:10px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="fa fa-suitcase" style="margin-left:-5px;font-size:20px;color:#60686e;margin-right:10px"></i> Experiências</p>
                                                 <?php if($donoPerfil){ ?>
                                                     <div class="clearfix">
-                                                        <button type="button" class="btn btn-fc-primary btn-radius pull-right btn-sm d-print-none" style="margin-top:28px;margin-bottom:-15px;" data-toggle="modal" data-target="#addExperienciaModal"><i class="fa fa-plus-circle" style="margin-right:5px;"></i>Adicionar</button>
+                                                        <button type="button" aria-label="Adicionar Experiência" class="btn btn-fc-primary btn-radius pull-right btn-sm d-print-none" style="margin-top:28px;margin-bottom:-15px;" data-toggle="modal" data-target="#addExperienciaModal"><i class="fa fa-plus-circle" style="margin-right:5px;"></i>Adicionar</button>
                                                     </div>
                                                 <?php } ?> 
                                             </div>
@@ -186,10 +187,10 @@
                                                             <p class="des_titulo_experiencia col-11" style="width:auto; margin-left:-5px;font-weight:400; font-size:17px;margin-bottom:0px"><?php echo $experiencias[$key]->getTituloExperiencia(); ?></p>
                                                             <?php if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
                                                             <div class="btn-group col-1">
-                                                                <button type="button" class="btn btn-link dropdown-toggle" style="color:#5b5656" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                                                <button type="button" aria-label="Opções da experiência" class="btn btn-link dropdown-toggle" style="color:#5b5656" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                                    <button class="btn-editExperiencia dropdown-item" type="button" style="cursor:pointer">Editar</button>
-                                                                    <button class="btn-delExperiencia text-danger dropdown-item" type="button" style="cursor:pointer">Deletar</button>
+                                                                    <button aria-label="Editar experiência" class="btn-editExperiencia dropdown-item" type="button" style="cursor:pointer">Editar</button>
+                                                                    <button aria-label="Deletar experiência" class="btn-delExperiencia text-danger dropdown-item" type="button" style="cursor:pointer">Deletar</button>
                                                                 </div>
                                                             </div>
                                                             <?php }} ?>
@@ -210,7 +211,7 @@
                                                 <p class="pull-left" style="width:auto;margin-top: 30px;margin-bottom:0px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="fa fa-trophy" style="margin-left:-5px;font-size:20px;color:#60686e;margin-right:10px"></i> Formação</p>
                                                 <?php if($donoPerfil){ ?>
                                                     <div class="clearfix">
-                                                        <button type="button" class="btn btn-fc-primary btn-radius pull-right btn-sm d-print-none" style="margin-top:28px;margin-bottom:-15px;" data-toggle="modal" data-target="#addFormacaoModal"><i class="fa fa-plus-circle" style="margin-right:5px;"></i>Adicionar</button>
+                                                        <button type="button" aria-label="Adicionar nova formação" class="btn btn-fc-primary btn-radius pull-right btn-sm d-print-none" style="margin-top:28px;margin-bottom:-15px;" data-toggle="modal" data-target="#addFormacaoModal"><i class="fa fa-plus-circle" style="margin-right:5px;"></i>Adicionar</button>
                                                     </div>
                                                 <?php } ?>
                                             </div>
@@ -224,15 +225,15 @@
                                                             <p class="des_titulo_formacao col-11" style="width:auto;margin-left:-5px;font-weight:400;font-size:17px;margin-bottom:0px;"><?php echo $formacoes[$key]->getTituloFormacao(); ?></p>
                                                             <?php if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
                                                             <div class="btn-group col-1">
-                                                                <button type="button" class="btn btn-link dropdown-toggle" style="color:#5b5656" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                                                <button aria-label="opções da formação" type="button" class="btn btn-link dropdown-toggle" style="color:#5b5656" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                                    <button class="btn-editFormacao dropdown-item" type="button" style="cursor:pointer">Editar</button>
-                                                                    <button class="btn-delFormacao text-danger dropdown-item" type="button" style="cursor:pointer">Deletar</button>
+                                                                    <button aria-label="Editar formação" class="btn-editFormacao dropdown-item" type="button" style="cursor:pointer">Editar</button>
+                                                                    <button aria-label="Deletar formação" class="btn-delFormacao text-danger dropdown-item" type="button" style="cursor:pointer">Deletar</button>
                                                                 </div>
                                                             </div>
                                                             <?php }} ?>
                                                         </div>
-                                                        <p class="desc des_descricao_formacao" id="des_apresentacao" style="margin-left:-5px;margin-right:-10px;margin-top:0px;font-weight:300;color:#a0a5b5"><?php echo $formacoes[$key]->getDescricaoFormacao(); ?></p>
+                                                        <p class="desc des_descricao_formacao" id="des_descricao_formacao" style="margin-left:-5px;margin-right:-10px;margin-top:0px;font-weight:300;color:#a0a5b5"><?php echo $formacoes[$key]->getDescricaoFormacao(); ?></p>
                                                     </div>
                                                     <hr style="margin-left:-5px;margin-right:-5px">
                                                 </div>
@@ -249,7 +250,7 @@
                                                 <p class="pull-left" style="width:auto;margin-left:17px;margin-top: 30px;margin-bottom:0px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="fa fa-lightbulb" style="margin-left:-20px;font-size:20px;color:#60686e;margin-right:10px"></i> Habilidades</p>
                                                 <?php if($donoPerfil){ ?>
                                                     <div class="clearfix">
-                                                        <button type="button" class="btn btn-fc-primary btn-radius pull-right btn-sm d-print-none" style="margin-top:25px;margin-bottom:-15px;padding-left:10px;padding-right:10px" data-toggle="modal" data-target="#addHabilidadeModal"><i class="fa fa-plus-circle" style="margin-right:5px;"></i>Adicionar</button>
+                                                        <button type="button" aria-label="Adicionar nova Habilidade" class="btn btn-fc-primary btn-radius pull-right btn-sm d-print-none" style="margin-top:25px;margin-bottom:-15px;padding-left:10px;padding-right:10px" data-toggle="modal" data-target="#addHabilidadeModal"><i class="fa fa-plus-circle" style="margin-right:5px;"></i>Adicionar</button>
                                                     </div>
                                                 <?php } ?> 
                                             </div>
@@ -257,7 +258,7 @@
                                         <div style="margin-top:0px">
                                             <div id="habilidades-itens" class="row" style="margin-left:10px;margin-top:20px;margin-bottom:30px;">
                                                 <?php foreach ($habilidades as $key => $value) { ?>
-                                                    <span id="<?php echo $habilidades[$key]->getIdHabilidade(); ?>" class="skills-label"><?php echo $habilidades[$key]->getDescricaoHabilidade(); ?><?php if($donoPerfil){ ?><i class="fa fa-times-circle btn-delHabilidade" style="margin-left:10px;cursor:pointer"></i><?php } ?></span>
+                                                    <span id="<?php echo $habilidades[$key]->getIdHabilidade(); ?>" class="skills-label"><?php echo $habilidades[$key]->getDescricaoHabilidade(); ?><?php if($donoPerfil){ ?><i class="fa fa-times-circle btn-delHabilidade" style="margin-left:10px;cursor:pointer" aria-label="Deletar habilidade"></i><?php } ?></span>
                                                 <?php } ?>
                                             </div>
                                         </div>
@@ -271,7 +272,7 @@
                                             <?php if($donoPerfil){ ?>
                                                 <div class="pull-right">
                                                     <div class="clearfix">
-                                                        <button type="button" class="btn btn-fc-primary btn-radius pull-right btn-sm d-print-none" style="margin-bottom:-15px;margin-right:15px;margin-top:10px" data-toggle="modal" data-target="#addServicoModal"><i class="fa fa-plus-circle" style="margin-right:5px;"></i>Adicionar</button>
+                                                        <button type="button" aria-label="Adicionar novo serviço" class="btn btn-fc-primary btn-radius pull-right btn-sm d-print-none" style="margin-bottom:-15px;margin-right:15px;margin-top:10px" data-toggle="modal" data-target="#addServicoModal"><i class="fa fa-plus-circle" style="margin-right:5px;"></i>Adicionar</button>
                                                     </div>
                                                 </div>
                                             <?php } ?> 
@@ -288,10 +289,10 @@
                                                         <p class="des_categoria_servico col-11" id="<?php echo $anuncio[$key]->getIdCategoriaAnuncio(); ?>" style="width:auto; margin-left:-5px;font-weight:400; padding-right:25px;font-size:17px;margin-bottom:0px"><?php echo $anuncio[$key]->getCategoriaAnuncio(); ?></p>
                                                         <?php if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
                                                         <div class="btn-group col-1">
-                                                            <button type="button" class="btn btn-link dropdown-toggle" style="color:#5b5656" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                                            <button type="button" aria-label="Opções do serviço" class="btn btn-link dropdown-toggle" style="color:#5b5656" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                                                             <div class="dropdown-menu dropdown-menu-right">
-                                                                <button class="btn-editServico dropdown-item" type="button" style="cursor:pointer">Editar</button>
-                                                                <button class="btn-delServico text-danger dropdown-item" type="button" style="cursor:pointer">Deletar</button>
+                                                                <button aria-label="Editar serviço" class="btn-editServico dropdown-item" type="button" style="cursor:pointer">Editar</button>
+                                                                <button aria-label="Deletar serviço" class="btn-delServico text-danger dropdown-item" type="button" style="cursor:pointer">Deletar</button>
                                                             </div>
                                                         </div>
                                                         <?php }} ?>
@@ -328,8 +329,8 @@
                                                         </div>
                                                     </div>
                                                     <div class="pull-left" style="margin-left:5px;margin-top:10px;">
-                                                        <a class="btn-link d-none text-danger" id="btn-cancelEditSlug" style="cursor:pointer;margin-right:10px">Cancelar</a>
-                                                        <a class="btn-link" id="btn-editSlug" style="color:#007bff;cursor:pointer;margin-right:10px">Editar</a>
+                                                        <a aria-label="Cancelar edição do nome de usuário" class="btn-link d-none text-danger" id="btn-cancelEditSlug" style="cursor:pointer;margin-right:10px">Cancelar</a>
+                                                        <a aria-label="Editar nome de usuario" class="btn-link" id="btn-editSlug" style="color:#007bff;cursor:pointer;margin-right:10px">Editar</a>
                                                     </div>
                                                 </div>
                                                 <div class="row" style="margin-top: 20px;">
@@ -340,8 +341,8 @@
                                                         <input type="text" class="form-control-plaintext" readonly disabled name="des_nome" id="nomeUsr" value="<?php if($usuario != NULL){echo $usuario->getNomeUsuario();} ?>">
                                                     </div>
                                                     <div class="pull-left" style="margin-left:5px;margin-top:10px;">
-                                                        <a class="btn-link d-none text-danger" id="btn-cancelEditNome" style="cursor:pointer;margin-right:10px">Cancelar</a>
-                                                        <a class="btn-link" id="btn-editNome" style="color:#007bff;cursor:pointer;margin-right:10px">Editar</a>
+                                                        <a aria-label="Cancelar edição do nome completo" class="btn-link d-none text-danger" id="btn-cancelEditNome" style="cursor:pointer;margin-right:10px">Cancelar</a>
+                                                        <a aria-label="Editar nome completo" class="btn-link" id="btn-editNome" style="color:#007bff;cursor:pointer;margin-right:10px">Editar</a>
                                                     </div>
                                                 </div>
                                                 <div class="row" style="margin-top: 10px;">
@@ -354,8 +355,8 @@
                                                         </form>
                                                     </div>
                                                     <div class="pull-left" style="margin-left:5px;margin-top:10px;">   
-                                                        <a class="btn-link d-none text-danger" id="btn-cancelEditEmail" style="cursor:pointer;margin-right:10px">Cancelar</a>
-                                                        <a class="btn-link" id="btn-editEmail" style="color:#007bff;cursor:pointer;margin-right:10px">Editar</a>
+                                                        <a aria-label="Cancelar edição do email" class="btn-link d-none text-danger" id="btn-cancelEditEmail" style="cursor:pointer;margin-right:10px">Cancelar</a>
+                                                        <a aria-label="Editar email" class="btn-link" id="btn-editEmail" style="color:#007bff;cursor:pointer;margin-right:10px">Editar</a>
                                                     </div>
                                                 </div>
                                                 <div class="row" style="margin-top: 10px;">
@@ -366,8 +367,8 @@
                                                         <input type="text" class="form-control-plaintext" readonly disabled name="des_ocupacao" id="ocupUsr" value="<?php if($usuario != NULL){echo $usuario->getOcupacaoUsuario();} ?>">
                                                     </div>
                                                     <div class="pull-left" style="margin-left:5px;margin-top:10px;">     
-                                                        <a class="btn-link d-none text-danger" id="btn-cancelEditOcupacao" style="cursor:pointer;margin-right:10px">Cancelar</a>
-                                                        <a class="btn-link" id="btn-editOcupacao" style="color:#007bff;cursor:pointer;margin-right:10px">Editar</a>
+                                                        <a aria-label="Cancelar edição da ocupação" class="btn-link d-none text-danger" id="btn-cancelEditOcupacao" style="cursor:pointer;margin-right:10px">Cancelar</a>
+                                                        <a aria-label="Editar Ocupação" class="btn-link" id="btn-editOcupacao" style="color:#007bff;cursor:pointer;margin-right:10px">Editar</a>
                                                     </div>
                                                 </div>
                                                 <div class="row" style="margin-top: 10px;">
@@ -378,8 +379,8 @@
                                                         <input type="text" class="form-control-plaintext" readonly disabled name="des_telefone" id="telUsr" value="<?php if($usuario != NULL){echo $usuario->getTelefoneUsuario();} ?>">
                                                     </div>
                                                     <div class="pull-left" style="margin-left:5px;margin-top:10px;">     
-                                                        <a class="btn-link d-none text-danger" id="btn-cancelEditTel" style="cursor:pointer;margin-right:10px">Cancelar</a>
-                                                        <a class="btn-link" id="btn-editTel" style="color:#007bff;cursor:pointer;margin-right:10px">Editar</a>
+                                                        <a aria-label="Cancelar edição do telefone" class="btn-link d-none text-danger" id="btn-cancelEditTel" style="cursor:pointer;margin-right:10px">Cancelar</a>
+                                                        <a aria-label="Editar Telefone" class="btn-link" id="btn-editTel" style="color:#007bff;cursor:pointer;margin-right:10px">Editar</a>
                                                     </div>
                                                 </div>
                                                 <div class="row" style="margin-top: 10px;">
@@ -390,8 +391,8 @@
                                                         <input type="text" class="form-control-plaintext" readonly disabled name="des_cpf" id="cpfUsr" value="<?php if($usuario != NULL){echo $usuario->getCpfUsuario();} ?>">
                                                     </div>
                                                     <div class="pull-left" style="margin-left:5px;margin-top:10px;">     
-                                                        <a class="btn-link d-none text-danger" id="btn-cancelEditCpf" style="cursor:pointer;margin-right:10px">Cancelar</a>
-                                                        <a class="btn-link" id="btn-editCpf" style="color:#007bff;cursor:pointer;margin-right:10px">Editar</a> 
+                                                        <a aria-label="Cancelar edição do CPF" class="btn-link d-none text-danger" id="btn-cancelEditCpf" style="cursor:pointer;margin-right:10px">Cancelar</a>
+                                                        <a aria-label="Editar CPF" class="btn-link" id="btn-editCpf" style="color:#007bff;cursor:pointer;margin-right:10px">Editar</a> 
                                                     </div>
                                                 </div>
                                                 <div class="row" style="margin-top: 10px;">
@@ -402,8 +403,8 @@
                                                         <input type="date" class="form-control-plaintext" readonly disabled name="dt_nasc" id="dtNascUsr" value="<?php if($usuario != NULL){echo $usuario->getDtNascUsuario();} ?>">
                                                     </div>
                                                     <div class="pull-left" style="margin-left:5px;margin-top:10px;">     
-                                                        <a class="btn-link d-none text-danger" id="btn-cancelEditDtNasc" style="cursor:pointer;margin-right:10px">Cancelar</a>
-                                                        <a class="btn-link" id="btn-editDtNasc" style="color:#007bff;cursor:pointer;margin-right:10px">Editar</a>
+                                                        <a aria-label="Cancelar edição da data de nascimento" class="btn-link d-none text-danger" id="btn-cancelEditDtNasc" style="cursor:pointer;margin-right:10px">Cancelar</a>
+                                                        <a aria-label="Editar data de nascimento" class="btn-link" id="btn-editDtNasc" style="color:#007bff;cursor:pointer;margin-right:10px">Editar</a>
                                                     </div>
                                                 </div>
                                                 <div class="row" style="margin-top: 10px;">
@@ -419,8 +420,8 @@
                                                         </select>
                                                     </div>
                                                     <div class="pull-left" style="margin-left:5px;margin-top:10px;">     
-                                                        <a class="btn-link d-none text-danger" id="btn-cancelEditSexo" style="cursor:pointer;margin-right:10px">Cancelar</a>
-                                                        <a class="btn-link" id="btn-editSexo" style="color:#007bff;cursor:pointer;margin-right:10px">Editar</a>  
+                                                        <a aria-label="Cancelar edição do sexo" class="btn-link d-none text-danger" id="btn-cancelEditSexo" style="cursor:pointer;margin-right:10px">Cancelar</a>
+                                                        <a aria-label="Editar sexo" class="btn-link" id="btn-editSexo" style="color:#007bff;cursor:pointer;margin-right:10px">Editar</a>  
                                                     </div>
                                                 </div>
                                                 <div class="row" style="margin-top: 10px;">
@@ -436,8 +437,8 @@
                                                         </select>
                                                     </div>
                                                     <div class="pull-left" style="margin-left:5px;margin-top:10px;">     
-                                                        <a class="btn-link d-none text-danger" id="btn-cancelEditCidade" style="cursor:pointer;margin-right:10px">Cancelar</a>
-                                                        <a class="btn-link" id="btn-editCidade" style="color:#007bff;cursor:pointer;margin-right:10px">Editar</a>  
+                                                        <a aria-label="Cancelar edição da cidade" class="btn-link d-none text-danger" id="btn-cancelEditCidade" style="cursor:pointer;margin-right:10px">Cancelar</a>
+                                                        <a aria-label="Editar cidade" class="btn-link" id="btn-editCidade" style="color:#007bff;cursor:pointer;margin-right:10px">Editar</a>  
                                                     </div>
                                                 </div>
                                                 <hr style="margin-left:-10px; margiin-right:-10px">
@@ -471,9 +472,9 @@
                                                 <img src="view/_img/profile/<?php echo $contato->getFotoUsuario(); ?>" alt="" class="rounded-circle" height="50">
                                             </div>
                                             <div class="col-10" style="padding-left:30px;">
-                                                <a href="<?php echo $contato->getSlugUsuario(); ?>" class="nome-contato"><h6 style="font-weight:400;margin-bottom:3px;margin-top:3px"><?php echo $contato->getNomeSimplesusuario(); ?> -<i class="fa fa-star" style="margin-left:5px;font-size: 15px;color:rgb(255, 208, 0)"></i> 9,2</h6></a>
+                                                <a aria-label="<?php echo $usuario->getNomeSimplesusuario(); ?>" href="<?php echo $contato->getSlugUsuario(); ?>" class="nome-contato"><h6 style="font-weight:400;margin-bottom:3px;margin-top:3px"><?php echo $contato->getNomeSimplesusuario(); ?> -<i class="fa fa-star" style="margin-left:5px;font-size: 15px;color:rgb(255, 208, 0)"></i> 9,2</h6></a>
                                                 <span class="pull-left stars">
-                                                    <a style="font-size:14px;color:#8b8b8b"><?php echo substr($contato->getOcupacaoUsuario(),0,100); ?></a>
+                                                    <a aria-label="<?php echo substr($contato->getOcupacaoUsuario(),0,100); ?>" style="font-size:14px;color:#8b8b8b"><?php echo substr($contato->getOcupacaoUsuario(),0,100); ?></a>
                                                 </span>
                                             </div>
                                         </div>
@@ -509,7 +510,7 @@
 
 <?php if((isset($_SESSION['id']))&&($_SESSION['id'] == $usuario->getIdUsuario())){ ?>
     <!-- Modal Editar Apresnetacao -->
-    <div class="modal fade" id="editApresentacaoModal" tabindex="-1" role="dialog" aria-labelledby="editApresentacaoModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editApresentacaoModal" tabindex="-1" role="dialog" aria-label="editApresentacaoModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:400px;">
             <div class="modal-content" style="padding:10px 10px 0px 10px">
                 <form action="" method="POST">
@@ -523,7 +524,7 @@
                             </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="btn-editApresentacao" class="btn btn-success col-12">Salvar</button>
+                        <button type="button" aria-label="Salvar texto de apresentação." id="btn-editApresentacao" class="btn btn-success col-12">Salvar</button>
                     </div>
                 </form>
             </div>
@@ -531,7 +532,7 @@
     </div>
     
     <!-- Modal Adicionar Experiência -->
-    <div class="modal fade" id="addHabilidadeModal" tabindex="-1" role="dialog" aria-labelledby="addHabilidadeModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addHabilidadeModal" tabindex="-1" role="dialog" aria-label="addHabilidadeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered " role="document" style="">
             <div class="modal-content" style="padding:10px 10px 0px 10px">
                 <form action="" method="POST">
@@ -552,7 +553,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="btn-addHabilidade" class="btn btn-success col-12">Salvar</button>
+                        <button type="button" aria-label="Salvar habilidade" id="btn-addHabilidade" class="btn btn-success col-12">Salvar</button>
                     </div>
                 </form>
             </div>
@@ -561,7 +562,7 @@
 
 
     <!-- Modal Adicionar Experiência -->
-    <div class="modal fade" id="addExperienciaModal" tabindex="-1" role="dialog" aria-labelledby="addExperienciaModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addExperienciaModal" tabindex="-1" role="dialog" aria-label="addExperienciaModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered " role="document" style="">
             <div class="modal-content" style="padding:10px 10px 0px 10px">
                 <form action="" method="POST">
@@ -582,7 +583,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="btn-addExperiencia" class="btn btn-success col-12">Salvar</button>
+                        <button type="button" aria-label="Salvar experiência" id="btn-addExperiencia" class="btn btn-success col-12">Salvar</button>
                     </div>
                 </form>
             </div>
@@ -590,7 +591,7 @@
     </div>
 
     <!-- Modal Adicionar Formação -->
-    <div class="modal fade" id="addFormacaoModal" tabindex="-1" role="dialog" aria-labelledby="addFormacaoModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addFormacaoModal" tabindex="-1" role="dialog" aria-label="addFormacaoModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:400px;">
             <div class="modal-content" style="padding:10px 10px 0px 10px">
                 <form action="" method="POST">
@@ -611,7 +612,7 @@
                             </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="btn-addFormacao" class="btn btn-success col-12">Salvar</button>
+                        <button type="button" aria-label="Slavar formação" id="btn-addFormacao" class="btn btn-success col-12">Salvar</button>
                     </div>
                 </form>
             </div>
@@ -619,7 +620,7 @@
     </div>
 
     <!-- Modal Adicionar Serviço -->
-    <div class="modal fade" id="addServicoModal" tabindex="-1" role="dialog" aria-labelledby="addServicoModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addServicoModal" tabindex="-1" role="dialog" aria-label="addServicoModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content" style="padding:10px 10px 0px 10px">
             <?php $categorias = new Categoria();
@@ -666,7 +667,7 @@
                             </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="btn-addServico" class="btn btn-success col-12">Salvar</button>
+                        <button type="button" aria-label="Salvar serviço" id="btn-addServico" class="btn btn-success col-12">Salvar</button>
                     </div>
                 </form>
             </div>

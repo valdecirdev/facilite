@@ -1,0 +1,52 @@
+{
+    "lang": "pt-BR",
+    "dir": "ltr",
+    "name": "Facilite Serviços",
+    "short_name": "Facilite",
+    "description": "Buscador Web de Freelancers.",
+    "keywords": [
+        "Trabalho", "Freelancer", "Buscador", "Serviços", "Emprego", "Autônomo"
+    ],
+    "authors": [
+        {
+            "name":  "Valdecir Junior",
+            "email": "valdecir.silva9@fatec.sp.gov.br",
+            "homepage": "https://valdecirjunior.com",
+            "role": "co-fundador, desenvolvedor"
+        }, {
+            "name":  "Leandro Pompélia",
+            "email": "leandro.pompelia@fatec.sp.gov.br",
+            "role": "fundador, desenvolvedor"
+        }
+    ],
+    "background_color": "#ebedf0",
+    "theme_color": "#29344d",
+    "orientation": "portrait",
+    "display": "standalone",
+    "serviceworker": {
+        "src": "view/_js/sw.js",
+        "update_via_cache": "none"
+    },
+    "icons": [{
+        "src": "view/_img/icon.png",
+        "sizes": "200x200",
+        "type": "image/webp"
+    },{
+        "src": "view/_img/icon.png",
+        "sizes": "512x512",
+        "type": "image/webp"
+    }],
+    "screenshots": [{
+        "src": "screenshots/facilite-1x.jpg",
+        "sizes": "640x480",
+        "type": "image/jpeg"
+    },{
+        "src": "screenshots/facilite-2x.jpg",
+        "sizes": "1280x920",
+        "type": "image/jpeg"
+    }],
+    "start_url": "home",
+    "require": {
+        "php": ">=7.1.4"
+    }
+  }

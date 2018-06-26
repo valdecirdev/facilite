@@ -79,17 +79,17 @@ class ObjAnuncio {
         $this->id_anuncio = $id_anuncio;
     }
     
-    public function __toString(){
-        return json_encode(array(
-            "id_anuncio"=>$this->getIdAnuncio(),
-            "id_usuario"=>$this->getIdUsuarioAnuncio(),
-            "id_categoria"=>$this->getIdCategoriaAnuncio(),,
-            "des_categoria"=>$this->getCategoriaAnuncio(),
-            "des_descricao"=>$this->getDescricaoAnuncio(),
-            "des_preco"=>$this->getPrecoAnuncio(),
-            "id_modalidade"=>$this->getIdModalidadeAnuncio(),,
-            "des_modalidade"=>$this->getModalidadeAnuncio(),
-            "des_disponibilidade"=>$this->getDisponibilidadeAnuncio()
-        ));
-    }
+    // public function __toString(){
+    //     return json_encode(array(
+    //         "id_anuncio"=>$this->getIdAnuncio(),
+    //         "id_usuario"=>$this->getIdUsuarioAnuncio(),
+    //         "id_categoria"=>$this->getIdCategoriaAnuncio(),,
+    //         "des_categoria"=>$this->getCategoriaAnuncio(),
+    //         "des_descricao"=>$this->getDescricaoAnuncio(),
+    //         "des_preco"=>$this->getPrecoAnuncio(),
+    //         "id_modalidade"=>$this->getIdModalidadeAnuncio(),,
+    //         "des_modalidade"=>$this->getModalidadeAnuncio(),
+    //         "des_disponibilidade"=>$this->getDisponibilidadeAnuncio()
+    //     ));
+    // }
 } 

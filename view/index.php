@@ -121,7 +121,7 @@
         </div>
 
 
-        <div class="row">
+        <div class="row" style="padding:15px">
             <a href="search" class="col-12 btn btn-fc-primary" style="padding-top:15px;padding-bottom:15px;text-transform:uppercase">Mais opções...</a>
         </div>
     </section>

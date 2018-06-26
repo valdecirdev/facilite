@@ -70,4 +70,11 @@
 <script src="view/_js/popper.min.js"></script>
 <script src="view/_js/bootstrap.min.js"></script>
 <script src="view/_js/app.js"></script>
+<script>
+if('serviceWorker' in navigator) {
+    navigator.serviceWorker
+    .register('view/_js/sw.js')
+    .then(function() { console.log("Service Worker Registered"); });
+}
+</script>
 </body>
