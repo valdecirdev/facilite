@@ -20,41 +20,11 @@
         <?php if($_SESSION == NULL){
             if( $pg_title != ''){ echo '<li class="nav-item"><a aria-label="Pagina inicial" class="nav-link text-white" href="home">Página Inicial</a></li>'; } ?>
             <li class="nav-item">
-                <a aria-label="Cadastrar-se" class="nav-link text-white" data-toggle="modal" data-target="#registerModal">
-                    <i class="fab fa-wpforms" style="margin-right:5px;"></i> Cadastrar-se
+                <a href="identifique-se" aria-label="Fazer Login" class="nav-link text-white">
+                    <i class="fas fa-user" style="margin-right:5px;"></i> entrar
                 </a>
             </li>
-            <?php if( $pg_title != ''){ ?>
-                <div class="dropdown nav-item">
-                    <a aria-label="Fazer Login" class="nav-link dropdown-toggle text-white" href="#" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-user" style="margin-right:5px;"></i> Entrar
-                    </a>
-                    <div class="dropdown-menu" id="loginDropdown">
-                        <!-- <div class="dropdown-arrow"></div> -->
-                            <form action="" method="POST" class="px-4 py-3">
-                                <div class="form-group">
-                                    <label for="exampleDropdownFormEmail1">Email</label>
-                                    <input type="email" class="form-control" id="login_des_email" name="login_des_email" placeholder="email@examplo.com">
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleDropdownFormPassword1">Senha</label>
-                                    <input type="password" class="form-control" name="des_senha" id="login_des_senha" placeholder="Senha">
-                                </div>
-                                <div id="login-alert" class="d-none col-12" style="padding:0px;margin-bottom:10px;margin-top:-5px;">
-                                    <strong style="color:red;font-size:13px;">Email e/ou senha incorreto!</strong>
-                                </div>
-                                <div class="clearfix" style="margin-bottom: -15px">
-                                    <button type="button" aria-label="Fazer Login" id="login-user" class="btn btn-fc-primary col-12 btn-radius">Conectar</button>
-                                </div>
-                            </form>
-                        <div class="dropdown-divider"></div>
-                        <div style="margin-top:-20px;" class="d-lg-block">
-                            <a aria-label="Cadastrar-se" class="dropdown-item text-muted" data-toggle="modal" data-target="#registerModal" >Ainda não tem uma conta? Cadastre-se</a>
-                        </div>
-                    </div>
-                </div>
-            <?php } 
-        }else{ 
+        <?php }else{ 
             if( $pg_title != ''){ echo '<li class="nav-item"><a aria-label="Página inicial" class="nav-link text-white" href="home">Página Inicial</a></li>'; } ?>
             <li class="nav-item dropdown">
                 <a aria-label="Meu perfil" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

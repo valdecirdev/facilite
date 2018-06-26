@@ -53,9 +53,9 @@
                             <div class="text-center">
                                 <p style="margin-top:-5px;font-size:14px;"><span id="sideOcupacao"><?php echo $usuario->getOcupacaoUsuario(); ?></span></p>
                                 <?php if((isset($_SESSION['id']))&&($_SESSION['id'] != $usuario->getidUsuario())){ ?>
-                                    <button aria-label="Entrar em contato" class="btn btn-fc-primary btn-radius btn-rounded d-print-none" style="margin-bottom:10px;">Entrar em Contato</button>
+                                    <button aria-label="Entrar em contato" class="btn btn-fc-primary btn-radius d-print-none" style="margin-bottom:10px;">Entrar em Contato</button>
                                 <?php }else if(!isset($_SESSION['id'])){ ?>
-                                    <button aria-label="Entrar em contato" class="btn btn-fc-primary btn-radius d-print-none open-Login" style="margin-bottom:10px;">Entrar em Contato</button>
+                                    <a href="identifique-se" aria-label="Entrar em contato" class="btn btn-fc-primary btn-radius d-print-none" style="margin-bottom:10px;">Entrar em Contato</a>
                                 <?php } ?>
                             </div>
 

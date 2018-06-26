@@ -28,7 +28,7 @@ class Usuario {
     public static function login(array $values = array())
     {
         $UsuarioModel = new UsuarioModel();
-        $UsuarioModel->login($values);
+        return $UsuarioModel->login($values);
     }
 
     public static function register(array $values = array())

@@ -12,7 +12,7 @@
                 echo Usuario::login($_POST);
                 break;
             case 'register':
-                Usuario::register($_POST);
+                echo Usuario::register($_POST);
                 break;
             case 'delete_user':
                 $usuario = new Usuario();

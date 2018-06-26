@@ -22,21 +22,6 @@
                     <br>
                     <button type="button" class="btn btn-header btn-fc-primary btn-radius">SAIBA MAIS</button>
                 </div>
-                <?php if(!isset($_SESSION['nome'])){ ?>
-                <div class="col-md-4 pull-right d-none d-lg-block login-box">
-                    <h4>Entrar</h4>
-                    <p style="margin-top:0px">O Facilite ajuda você a encontrar o melhor serviço pelo melhor preço.</p>
-                    <div id="login-alert" class="d-none col-12" style="padding:0px;margin-bottom:-5px;margin-top:5px;">
-                        <strong style="color:red;font-size:13px;">Email e/ou senha incorreto!</strong>
-                    </div>
-                    <form action="" method="POST">
-                        <input type="text" name="login_des_email" id="login_des_email" placeholder="email@exemplo.com ">
-                        <input type="password" name="des_senha" id="login_des_senha" placeholder="Senha">
-                        <button type="button" id="login-user" class="btn btn-fc-primary col-12 btn-radius">Conectar</button>
-                    </form>
-                    <div class="modal-bottom-divider" style="margin-bottom:5px;" ></div>
-                    <a data-toggle="modal" style="cursor:pointer" data-target="#registerModal">Ainda não tem uma conta? <span style="color:#0074b7">Cadastrar-se</span></a>
-                </div> <?php } ?>
             </div>
         </div>
     </header>

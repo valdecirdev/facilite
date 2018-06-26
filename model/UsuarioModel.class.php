@@ -6,6 +6,7 @@
         public function verifyUniqueEmail(string $email, int $id = NULL)
         {
             $array = array(":EMAIL"=>$email);
+            $aux_where = '';
             if (!is_null($id)) {
                 $aux_where = " AND id_usuario != :ID";
                 $array = array(":EMAIL"=>$email,
@@ -96,7 +97,7 @@
                 $slug = $fullName[0].$lastName.$cont;
                 $cont++;
             } while (!self::verifyUniqueSlug($slug));
-            $usuario = new ObjUsuario($_POST['des_email'], strtolower($slug), password_hash($_POST['des_senha'], PASSWORD_DEFAULT), $_POST['des_nome'], $_POST['des_sexo'], $_POST['dt_nasc']);
+            $usuario = new ObjUsuario($_POST['des_email'], strtolower($slug), password_hash($_POST['des_senha'], PASSWORD_DEFAULT), mb_convert_case($_POST['des_nome'], MB_CASE_TITLE, 'UTF-8'), $_POST['des_sexo'], $_POST['dt_nasc']);
             if (count(self::verifyUniqueEmail($_POST['des_email']))==0) {
                 self::insert($usuario);
                 $values = array(
@@ -104,7 +105,9 @@
                     'des_senha'=>$_POST['des_senha']
                 );
                 self::login($values);
+                return TRUE;
             }
+            return FALSE;
         }
         
         public function loadCountry(int $id):array
@@ -279,6 +282,9 @@
         public function gen_update(string $campo, $valor, int $id)
         {
             $valor = filter_var($valor, FILTER_SANITIZE_STRING);
+            if($campo == 'des_nome'){
+                $valor = mb_convert_case($valor, MB_CASE_TITLE, 'UTF-8');
+            }
             $sql = new Sql();
             $sql->query("UPDATE tb_usuarios SET $campo = :VALOR WHERE id_usuario = :ID", array(
                 ":VALOR"=>$valor,
