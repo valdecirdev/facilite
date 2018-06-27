@@ -4,7 +4,7 @@
     include_once('_includes'.DIRECTORY_SEPARATOR.'header.php'); 
 ?>
     <script>
-        var logado = <?php echo !is_null($_SESSION['id']); ?>;
+        var logado = <?php if(isset($_SESSION['id'])){echo !is_null($_SESSION['id']);}else{echo 0;} ?>;
         if(logado){
             window.location.href="home";
         }
@@ -54,7 +54,11 @@
         </form>
     </section>
 
+
+
 <?php
     include_once('_includes'.DIRECTORY_SEPARATOR.'footer.php');
 ?>
 <script src="view/_js/register_vue.js"></script>
+</body>
+<html>

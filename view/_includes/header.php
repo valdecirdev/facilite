@@ -11,7 +11,8 @@
         <link rel="icon" href="view/_img/icon.png">
 
         <link rel="manifest" href="manifest.json">
-        <link rel="stylesheet" href="view/_css/bootstrap.min.css">
+        <!-- <link rel="stylesheet" href="view/_css/bootstrap.min.css"> -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" href="view/_css/fontawesome-all.min.css">
         <link rel="stylesheet" href="view/_css/style.css">
     </head>

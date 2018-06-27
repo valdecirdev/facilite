@@ -21,18 +21,21 @@
 ?>
     <input type="text" value="<?php if(isset($loggedUser)){echo $loggedUser->getIdUsuario();} ?>" id="id_usuario_logado" class="d-none">
     <section class="container-fluid" style="" id="profile-page">
-        <div class="row d-print-none">
-            <div class="col-md-12 " style="padding:5px;margin:0px;">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb" style="background-color:#fff;">
-                        <li class="breadcrumb-item"><a aria-label="inicio" href="home">Início</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"><?php echo $usuario->getNomeSimplesUsuario(); ?></li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
-        <div class="row" style="margin-top:-30px;">
+        
+        <div class="row">
             <div class="col-md-3" style="padding:20px;">
+                <div class="row d-print-none">
+                    <div class="col-md-12 " style="padding:0px;margin:0px;margin-bottom:-5px">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb" style="background-color:#fff;border-radius:0px">
+                                <li class="breadcrumb-item"><a aria-label="inicio" href="home">Início</a></li>
+                                <li class="breadcrumb-item active" aria-current="page"><?php echo $usuario->getNomeSimplesUsuario(); ?></li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+
+
                 <div class="row">
                     <div class="col-md-12 profile-card text-center text-md-left">
                         <div class="img-profile">
@@ -53,12 +56,13 @@
                             <div class="text-center">
                                 <p style="margin-top:-5px;font-size:14px;"><span id="sideOcupacao"><?php echo $usuario->getOcupacaoUsuario(); ?></span></p>
                                 <?php if((isset($_SESSION['id']))&&($_SESSION['id'] != $usuario->getidUsuario())){ ?>
-                                    <button aria-label="Entrar em contato" class="btn btn-fc-primary btn-radius d-print-none" style="margin-bottom:10px;">Entrar em Contato</button>
+                                    <button aria-label="entrar em contato" class="btn btn-fc-primary btn-radius d-print-none" style="margin-bottom:10px;">entrar em Contato</button>
                                 <?php }else if(!isset($_SESSION['id'])){ ?>
-                                    <a href="identifique-se" aria-label="Entrar em contato" class="btn btn-fc-primary btn-radius d-print-none" style="margin-bottom:10px;">Entrar em Contato</a>
+                                    <a href="identifique-se" aria-label="entrar em contato" class="btn btn-fc-primary btn-radius d-print-none" style="margin-bottom:10px;">entrar em Contato</a>
                                 <?php } ?>
                             </div>
-
+                            
+                            <hr style="margin-left:-20px;margin-right:-20px">
                             <div class="list-infos">
                                 <div class="row">
                                     <p class="sub"><i class="fa fa-at"></i> <span><?php if($usuario != NULL){echo $usuario->getSlugUsuario();} ?></span></p>
@@ -74,12 +78,13 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="row" style="margin-top:10px">
-                    <div class="col-md-12  profile-card" style="padding:25px;">
+                    <!-- </div> -->
+                <!-- </div> -->
+                <!-- <div class="row" style="margin-top:10px"> -->
+                    <!-- <div class="col-md-12  profile-card" style="padding:25px;"> -->
                     <!-- SOBRE -->
-                        <div class="col-12 numbers-card" style="margin-top:0px;">
+                    <hr style="margin-left:-20px;margin-right:-20px">
+                        <div class="col-12 numbers-card">
                             <div class="row text-center">
                                 <div class="col-4">
                                     <span style="font-size: 22px;font-weight:500;color:#3d4347">25</span>
@@ -102,7 +107,7 @@
                                 ?>
                                     <button aria-label="Adicionar <?php echo $usuario->getNomeSimplesUsuario(); ?> como contato" class="col-12 d-print-none btn btn-fc-<?php if(is_null($ligacoes)){echo 'primary';}else{echo 'danger';} ?> open-Login btn-radius" id="criar-conexao" style="padding:7px;margin-top:10px;"<?php if(!isset($_SESSION['id'])||($_SESSION['id'] == $usuario->getidUsuario())){ echo 'disabled'; } ?>><?php if(is_null($ligacoes)){echo ' Adicionar';}else{echo ' Remover';} ?>  Contato</button>
                                 <?php }}else{ ?>
-                                    <button class="col-12 d-print-none btn btn-fc-primary open-Login btn-radius" aria-label="Adicionar <?php echo $usuario->getNomeSimplesUsuario(); ?> como contato" style="padding:7px;margin-top:10px;"> Adicionar Contato</button>
+                                    <a href="identifique-se" class="col-12 d-print-none btn btn-fc-primary btn-radius" aria-label="Adicionar <?php echo $usuario->getNomeSimplesUsuario(); ?> como contato" style="padding:7px;margin-top:10px;"> Adicionar Contato</a>
                                 <?php } ?>
                             </div>
                         </div>

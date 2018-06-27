@@ -45,7 +45,10 @@
         
     
 
+
 <?php
     include_once('_includes'.DIRECTORY_SEPARATOR.'footer.php');
 ?>
 <script src="view/_js/login_vue.js"></script>
+</body>
+<html>
