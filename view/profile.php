@@ -78,11 +78,7 @@
                                 </div>
                             </div>
                         </div>
-                    <!-- </div> -->
-                <!-- </div> -->
-                <!-- <div class="row" style="margin-top:10px"> -->
-                    <!-- <div class="col-md-12  profile-card" style="padding:25px;"> -->
-                    <!-- SOBRE -->
+                        
                     <hr style="margin-left:-20px;margin-right:-20px">
                         <div class="col-12 numbers-card">
                             <div class="row text-center">
