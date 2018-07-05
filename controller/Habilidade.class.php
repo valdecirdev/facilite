@@ -4,31 +4,31 @@
 
         public function loadAll()
         {
-            $habilidade = new Habilidademodel();
+            $habilidade = new HabilidadeModel();
             return $habilidade->loadAll();
         }
 
         public function loadByID(int $id):ObjHabilidade
         {
-            $habilidade = new Habilidademodel();
+            $habilidade = new HabilidadeModel();
             return $habilidade->loadByID($id);
         }
 
         public function loadByUser(int $id):array
         {
-            $habilidade = new Habilidademodel();
+            $habilidade = new HabilidadeModel();
             return $habilidade->loadByUser($id);
         }
 
         public function insert(int $id_habilidade, int $id_usuario)
         {
-            $habilidade = new Habilidademodel();
+            $habilidade = new HabilidadeModel();
             return $habilidade->insert($id_habilidade, $id_usuario);
         }
             
         public function delete(int $id_habilidade, int $id_usuario)
         {
-            $habilidade = new Habilidademodel();
+            $habilidade = new HabilidadeModel();
             $habilidade->delete($id_habilidade, $id_usuario);  
         }
         

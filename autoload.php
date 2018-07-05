@@ -16,7 +16,7 @@
         );
         foreach ($dirs as $key => $value) {
             if(file_exists($dirs[$key])){
-                require_once($dirs[$key]);
+                require($dirs[$key]);
                 break;
             }
         }

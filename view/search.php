@@ -1,5 +1,5 @@
 <?php
-    require_once('../autoload.php');
+    require('../autoload.php');
     
     $search = new Busca();
     $usuarios = new Usuario();
@@ -12,7 +12,7 @@
     }else{
         $pg_title = $_GET['q'].' - ';
     }
-    include_once('_includes'.DIRECTORY_SEPARATOR.'header.php');
+    include('_includes'.DIRECTORY_SEPARATOR.'header.php');
     
     
 ?>
@@ -217,7 +217,7 @@
                                                 <div class="row">
                                                     <div class="col-12"><hr></div>
                                                     <div class="col-2">
-                                                        <img src="view/_img/profile/<?php echo $usuario->getFotoUsuario(); ?>" alt="" class="profile-face-footer rounded-circle">
+                                                        <img src="view/_img/profile/<?php echo $usuario->getFotoUsuario(); ?>" alt="" height="55px" width="55px" class="profile-face-footer rounded-circle">
                                                     </div>
                                                     <div class="col-10 footer-card">
                                                         <a href="<?php echo $usuario->getSlugUsuario(); ?>" class="username"><h5><?php echo $usuario->getNomeSimplesUsuario(); ?></h5></a>
@@ -267,6 +267,5 @@
     </section>
 
 
-    
 
-<?php include_once('_includes'.DS.'footer.php'); ?>
+<?php include('_includes'.DS.'footer.php'); ?>

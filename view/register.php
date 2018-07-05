@@ -1,7 +1,7 @@
 <?php
-    require_once('../autoload.php');
+    require('../autoload.php');
     $pg_title = "Cadastre-se - ";
-    include_once('_includes'.DIRECTORY_SEPARATOR.'header.php'); 
+    include('_includes'.DIRECTORY_SEPARATOR.'header.php'); 
 ?>
     <script>
         var logado = <?php if(isset($_SESSION['id'])){echo !is_null($_SESSION['id']);}else{echo 0;} ?>;
@@ -9,53 +9,6 @@
             window.location.href="home";
         }
     </script>
-    <style>
-        html, body{
-            background-color:#f4f4ef;
-        }
-        input{
-            height: 45px;
-            border-radius: 3px !important;
-        }
-        .auth-box{
-            color:#5b5855;
-            margin-top:100px;
-            margin-bottom:100px;
-            min-height:50px;
-            margin-left:auto;
-            margin-right:auto;
-            background-color:#fff;
-            padding:0px;
-            border: 1px #dbe2e8 solid;
-        }
-        .head-menu{
-            list-style:none;
-            margin:0px;
-            padding:0px;
-        }
-        .head-menu li{
-            float: left;
-            background-color:#fafbfc;
-            margin:0px;
-            padding-top: 15px;
-            padding-bottom: 15px;
-            width:50%;
-            text-align:center;
-            text-transform: uppercase;
-            border-bottom: 1px #dbe2e8 solid;
-            margin-bottom:30px
-        }
-        .head-menu li{
-            color: #7d97b6;
-            font-size:16px;
-            font-weight:500;
-        }
-        .head-menu .active{
-            background-color:#fff;
-            border-bottom: 1px transparent solid;
-            color: #000;
-        }
-    </style>
     <section id="app" class="auth-box col-md-5">
         <ul class="head-menu">
             <li class="active">Registrar-se</li>
@@ -93,7 +46,7 @@
                     <input type="date" class="form-control" id="dt_nasc" name="dt_nasc" v-model="dt_nasc" placeholder="">
                 </div>
                 <div class="form-group col-md-12">
-                <p style="margin-top:30px">Ao clicar em 'Registrar-se', você concorda com nossos <a href="">Termos de Uso</a> e nossa <a href="">Política de Privacidade</a>.</p>
+                <p style="margin-top:10px">Ao clicar em 'Registrar-se', você concorda com nossos <a href="">Termos de Uso</a> e nossa <a href="">Política de Privacidade</a>.</p>
                     <button type="submit" aria-label="Cadastrar-se" class="btn btn-primary col-12" style="margin-top:10px;padding-top:15px;padding-bottom:15px;background-color:#02b3e4;border-color:#02b3e4">REGISTRAR-SE</button>
                 </div>
             </form>
@@ -103,7 +56,7 @@
 
 
 <?php
-    include_once('_includes'.DIRECTORY_SEPARATOR.'footer.php');
+    include('_includes'.DIRECTORY_SEPARATOR.'footer.php');
 ?>
 <script src="view/_js/register_vue.js"></script>
 </body>

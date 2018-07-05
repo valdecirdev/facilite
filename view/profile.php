@@ -1,5 +1,5 @@
 <?php
-    require_once('../autoload.php');
+    require('../autoload.php');
     $uri = explode('/', $_SERVER["REQUEST_URI"]);
     $slug = str_replace("@","",$uri[count($uri)-1]);
 
@@ -10,7 +10,7 @@
     
     $pg_title = $usuario->getNomeSimplesUsuario() . ' - ';
     $description = $usuario->getApresentacaoUsuario();
-    include_once('_includes'.DS.'header.php');
+    include('_includes'.DS.'header.php');
 
     $donoPerfil = false;
     if(isset($_SESSION['id'])&&($_SESSION['id'] == $usuario->getIdUsuario())){
@@ -234,7 +234,7 @@
                                                             </div>
                                                             <?php }} ?>
                                                         </div>
-                                                        <p class="desc des_descricao_formacao" id="des_descricao_formacao" style="margin-left:-5px;margin-right:-10px;margin-top:0px;font-weight:300;color:#a0a5b5"><?php echo $formacoes[$key]->getDescricaoFormacao(); ?></p>
+                                                        <p class="desc des_descricao_formacao" style="margin-left:-5px;margin-right:-10px;margin-top:0px;font-weight:300;color:#a0a5b5"><?php echo $formacoes[$key]->getDescricaoFormacao(); ?></p>
                                                     </div>
                                                     <hr style="margin-left:-5px;margin-right:-5px">
                                                 </div>
@@ -676,7 +676,7 @@
     </div>
 <?php } ?>
 
-<?php include_once('_includes'.DS.'footer.php'); ?>
+<?php include('_includes'.DS.'footer.php'); ?>
 <script src="view/_js/profile.js"></script>
 <script>
     $('.open-Login').click(function(e){

@@ -16,7 +16,9 @@
         public function search(string $q, $id, $limit, $to):array
         {
             $sql = new Sql();
-            $result = $sql->select("SELECT * FROM tb_categorias,tb_anuncios, tb_usuarios WHERE ((tb_categorias.des_descricao LIKE :Q OR tb_usuarios.des_nome LIKE :Q OR tb_anuncios.des_descricao LIKE :Q) AND tb_categorias.id_categoria = tb_anuncios.id_categoria) AND tb_anuncios.id_usuario = tb_usuarios.id_usuario AND tb_anuncios.id_usuario != :ID ORDER BY tb_anuncios.id_anuncio DESC LIMIT $limit, $to", array(
+            // $where = '';
+            // $q = explode(" ", $q);
+            $result = $sql->select("SELECT * FROM tb_categorias, tb_anuncios, tb_usuarios WHERE ((tb_categorias.des_descricao LIKE :Q OR tb_usuarios.des_nome LIKE :Q OR tb_anuncios.des_descricao LIKE :Q) AND tb_categorias.id_categoria = tb_anuncios.id_categoria) AND tb_anuncios.id_usuario = tb_usuarios.id_usuario AND tb_anuncios.id_usuario != :ID ORDER BY tb_anuncios.id_anuncio DESC LIMIT $limit, $to", array(
                 ":Q"=>'%'.$q.'%',
                 ":ID"=>$id
             ));

@@ -2,7 +2,7 @@
     --bg-page-color: #ebedf0; /* Cor de fundo de todo o site */
     --bg-header-home-image: url('../_img/bg.jpg'); /* Imagem de fundo da Header da pagina inicial */
     --bg-navbar-color: #29344d; /* Cor de fundo da navbar */
-    --bg-navbar-search-input: #f7f8f9; /* Cor de fundo do campo de busca */
+    --bg-navbar-search-input: #fff; /* Cor de fundo do campo de busca */
 }
 body{
     background-color: var(--bg-page-color);
@@ -49,13 +49,16 @@ header{
 header .home-header{
     height: 100vh;
     padding-top: 35vh;
-    padding-left: 5%;
+    padding-left: 9%;
     padding-right: 7%;
+    border-bottom: 3px #0074b7 solid;
 }
 header .home-header p, header .home-header h5, header .home-header h2{
     padding: 5px;
+    padding-left: 0px;
+    font-weight: 300;
     display: inline-block;
-    text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.9);
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.9);
 }
 .opacity-dark{
     height: 100vh;
@@ -73,7 +76,9 @@ header .home-header p, header .home-header h5, header .home-header h2{
     width: 100%;
     z-index: 9999;
     padding-left: 35px;
-    padding-right: 30px;
+    padding-right: 50px;
+    /* -webkit-box-shadow: 0px 3px 0px 5px rgba(0,0,0,0.05); 
+    box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.05); */
 }
 .navbar .navbar-collapse .navbar-nav{
     padding-top: 5px;
@@ -85,20 +90,34 @@ header .home-header p, header .home-header h5, header .home-header h2{
 .navbar .navbar-brand{
     padding-top: 5px;
 }
+.navbar-toggler{
+    margin-right: -30px;
+    border: 0px;
+}
+.navbar-toggler-icon{
+    color: #000 !important;
+}
+
+
 
 .campo-busca{
     background-color: var(--bg-navbar-search-input);
     border-radius: 3px 0px 0px 3px;
     border: 0px;
-    height: 40px;
+    height: 45px;
     /* padding-left: 15px; */
     padding-top: 5px;
+    font-size: 14px;
+    padding-left: 20px;
 }
 .btn-busca{
-    height: 40px;
+    height: 45px;
     border-radius: 0px 3px 3px 0px;
     border: 0px;
     background-color: var(--bg-navbar-search-input);
+    color: #333;
+    /* color: #ec5252; */
+    font-size: 14px;
 }
 .pull-left{
     float: left !important;
@@ -109,12 +128,12 @@ header .home-header p, header .home-header h5, header .home-header h2{
 /* BOTOES */
 .btn-header{
     transition: .5s;
-    border-radius: 30px;
-    padding: 12px 35px 12px 35px;
+    border-radius: 3px;
+    padding: 10px 30px 10px 30px;
     color: #fff;
-    font-size: .9em;
+    font-size: .8em;
+    font-weight: 400;
     background-color: transparent;
-    border: 2px #ccc solid;
     text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.8);
     box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
 }
@@ -126,9 +145,7 @@ header .home-header p, header .home-header h5, header .home-header h2{
     padding: 20px 0px 10px 0px;
     /* color: #019699; */
     color: #0074b7;
-    /* border-bottom: 2px #019699 solid; */
     border-bottom: 2PX #0074b7 solid;
-    /* width: 900px; */
 
     text-transform:  uppercase;
 }
@@ -139,6 +156,7 @@ header .home-header p, header .home-header h5, header .home-header h2{
     line-height: 25px;
     max-height: 75px;
     line-clamp: 3;
+    margin-left: 5px;
     box-orient: vertical;
     color: rgb(68, 68, 68);
 }
@@ -148,12 +166,11 @@ header .home-header p, header .home-header h5, header .home-header h2{
 }
 .card{
     margin-bottom: 30px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
-}
-.card .profile-face-footer{
-    height: 60px;
-    width: 60px;
+    border-radius: 3px;
+    border: 1px #dbe2e8 solid;
+    -webkit-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.05); 
+    box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.05);
+    /* box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2); */
 }
 .card .footer-card{
     padding-left: 35px;
@@ -188,7 +205,7 @@ header .home-header p, header .home-header h5, header .home-header h2{
 .card .icon-align-center {
     padding-left: 10px;
     padding-top: 5px;
-    font-size: 40px;
+    font-size: 30px;
     color: rgb(59, 59, 59);
 }
 .card .job-title {
@@ -198,70 +215,63 @@ header .home-header p, header .home-header h5, header .home-header h2{
     position: left;
     min-height: 48px;
     margin-bottom: 0px;
+    font-weight: 500 !important;
 }
 
-/* LOGIN BOX */
-.login-box{
-    margin-top:-50px;
+/* AUTH BOX */
+.auth-box{
+    color:#5b5855;
+    margin-top:90px;
+    margin-bottom:100px;
+    min-height:50px;
+    margin-left:auto;
+    margin-right:auto;
     background-color:#fff;
-    color:#000;
-    padding: 20px 30px 20px 30px;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
+    padding:0px;
+    border: 1px #dbe2e8 solid;
+    -webkit-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.05); 
+    box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.05);
 }
-.login-box p{
-    text-shadow: 0px 0px 0px !important;
-    color: #575757;
-    margin-left: 0px;
-    margin-top: 10px;
-    margin-bottom: 0px;
+.auth-box input{
+    height: 45px;
+    border-radius: 0px;
 }
-.login-box input{
-    border-radius: 3px;
-    margin-top: 15px;
-    background-color: #f7f8f9;
-    border: 1px #c5c5c5 solid;
-    padding: 5px;
-    padding-left: 15px;
-    width: 100%;
+.auth-box .head-menu{
+    list-style:none;
+    margin:0px;
+    padding:0px;
 }
-.login-box button{
-    margin-top: 15px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+.auth-box .head-menu li{
+    float: left;
+    background-color:#fafbfc;
+    margin:0px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    width:50%;
+    text-align:center;
+    text-transform: uppercase;
+    border-bottom: 1px #dbe2e8 solid;
+    margin-bottom:30px
 }
+.auth-box .head-menu li{
+    color: #7d97b6;
+    font-size:16px;
+    font-weight:500;
+}
+.auth-box .head-menu .active{
+    background-color:#fff;
+    border-bottom: 1px transparent solid;
+    color: #000;
+}
+
+
+
 .modal-bottom-divider{
     width: 100%;
     height: 1px;
     background-color: rgb(199, 199, 199);
 }
 
-/* REGISTER MODAL */
-#registerModal .modal-dialog .modal-content{
-  padding: 10px;
-  border-radius: 3px;
-  /* margin-right: 10px; */
-}
-#registerModal .modal-dialog .modal-content .modal-body p{
-  color: #a6a9ac;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-#registerModal label{
-  text-transform: uppercase;
-  font-size: 13px;
-  font-weight: bold;
-}
-#registerModal input, #registerModal select{
-  margin-bottom: 15px;
-  background-color: #f7f8f9;
-  border: 1px #ebebeb solid;
-}
-#registerModal .modal-dialog .modal-content .modal-footer{
-  border: 0px;
-  padding-top: 0px;
-  margin-top: 0px;
-}
 
 /* PERFIL */
 #profile-page{
@@ -367,7 +377,8 @@ header .home-header p, header .home-header h5, header .home-header h2{
     margin-left: -25px !important;
 }
 
-@media (max-width: 720px){
+@media (max-width: 767px){
+  
   .campo-busca, .btn-busca{
     margin-top: 20px;
     margin-bottom: 10px;
@@ -385,7 +396,7 @@ header .home-header p, header .home-header h5, header .home-header h2{
   }
   .dropdown-menu:after{
     position: absolute;
-    top: 6px;
+    top: 4px;
     right: 35px;
     display: none;
     border-right: 6px solid transparent;
@@ -395,7 +406,10 @@ header .home-header p, header .home-header h5, header .home-header h2{
   }
 }
 
-@media (min-width: 720px){
+@media (min-width: 768px){
+    .search-box{
+        margin-left:25px !important;
+    }
     #loginDropdown{
         margin-left:-235%; 
         width: 310px;
@@ -409,4 +423,25 @@ footer{
     padding-top:20px;
     /* margin-top:40px; */
     background-color:var(--bg-navbar-color) !important; 
+}
+
+/* .nav-tabs-confgs{
+ */
+/* } */
+.nav-tabs-confgs li{
+    float: left;
+    min-width: 100%;
+}
+.nav-tabs-confgs li a{
+    color: #333;
+    font-weight: 500;
+}
+.nav-tabs-confgs li .active{
+    background-color: #38b7ea;
+    color: #fff;
+}
+
+input{
+    height: 45px;
+    border-radius: 0px !important;
 }

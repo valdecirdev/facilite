@@ -1,7 +1,7 @@
 <?php
-    require_once('../autoload.php');
+    require('../autoload.php');
     $pg_title = "Identifique-se - ";
-    include_once('_includes'.DIRECTORY_SEPARATOR.'header.php');
+    include('_includes'.DIRECTORY_SEPARATOR.'header.php');
     ?>
     <script>
         var logado = <?php if(isset($_SESSION['id'])){echo !is_null($_SESSION['id']);}else{echo 0;} ?>;
@@ -9,53 +9,6 @@
             window.location.href="home";
         }
     </script>
-    <style>
-        html, body{
-            background-color:#f4f4ef;
-        }
-        input{
-            height: 45px;
-            border-radius: 3px !important;
-        }
-        .auth-box{
-            color:#5b5855;
-            margin-top:100px;
-            margin-bottom:100px;
-            min-height:50px;
-            margin-left:auto;
-            margin-right:auto;
-            background-color:#fff;
-            padding:0px;
-            border: 1px #dbe2e8 solid;
-        }
-        .head-menu{
-            list-style:none;
-            margin:0px;
-            padding:0px;
-        }
-        .head-menu li{
-            float: left;
-            background-color:#fafbfc;
-            margin:0px;
-            padding-top: 15px;
-            padding-bottom: 15px;
-            width:50%;
-            text-align:center;
-            text-transform: uppercase;
-            border-bottom: 1px #dbe2e8 solid;
-            margin-bottom:30px
-        }
-        .head-menu li{
-            color: #7d97b6;
-            font-size:16px;
-            font-weight:500;
-        }
-        .head-menu .active{
-            background-color:#fff;
-            border-bottom: 1px transparent solid;
-            color: #000;
-        }
-    </style>
 
     <section id="app" class="auth-box col-md-5">
         <ul class="head-menu">
@@ -92,7 +45,7 @@
 
 
 <?php
-    include_once('_includes'.DIRECTORY_SEPARATOR.'footer.php');
+    include('_includes'.DIRECTORY_SEPARATOR.'footer.php');
 ?>
 <script src="view/_js/login_vue.js"></script>
 </body>

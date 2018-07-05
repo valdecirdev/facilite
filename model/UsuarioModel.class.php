@@ -2,7 +2,6 @@
 
     class UsuarioModel {
 
-
         public function verifyUniqueEmail(string $email, int $id = NULL)
         {
             $array = array(":EMAIL"=>$email);
@@ -35,6 +34,7 @@
 
         public function slug_update(string $slug, int $id)
         {
+            // $slug = preg_replace( '/[`^~\'"]/', null, iconv( 'UTF-8', 'ASCII//TRANSLIT', $slug ) );
             $slug = str_replace(' ', '', $slug);
             $slug = filter_var($slug, FILTER_SANITIZE_STRING);
             if (self::verifyUniqueSlug($slug)) {
@@ -88,7 +88,8 @@
 
         public static function register(array $values = array())
         {
-            $fullName = explode(' ', $_POST['des_nome']);
+            $fullName = preg_replace( '/[`^~\'"]/', null, iconv( 'UTF-8', 'ASCII//TRANSLIT', $_POST['des_nome'] ) );
+            $fullName = explode(' ', $fullName);
             $cont=null; $lastName = "";
             if (count($fullName) > 1) {
                 $lastName = $fullName[count($fullName)-1];
@@ -97,7 +98,7 @@
                 $slug = $fullName[0].$lastName.$cont;
                 $cont++;
             } while (!self::verifyUniqueSlug($slug));
-            $usuario = new ObjUsuario($_POST['des_email'], strtolower($slug), password_hash($_POST['des_senha'], PASSWORD_DEFAULT), mb_convert_case($_POST['des_nome'], MB_CASE_TITLE, 'UTF-8'), $_POST['des_sexo'], $_POST['dt_nasc']);
+            $usuario = new ObjUsuario(strtolower($_POST['des_email']), strtolower($slug), password_hash($_POST['des_senha'], PASSWORD_DEFAULT), mb_convert_case($_POST['des_nome'], MB_CASE_TITLE, 'UTF-8'), $_POST['des_sexo'], $_POST['dt_nasc']);
             if (count(self::verifyUniqueEmail($_POST['des_email']))==0) {
                 self::insert($usuario);
                 $values = array(

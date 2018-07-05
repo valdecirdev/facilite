@@ -18,7 +18,7 @@
         public function insert (array $values)
         {
             $anuncioModel = new AnuncioModel();
-            return $anuncioModel->update($values);
+            return $anuncioModel->insert($values);
         }
 
         public function update (array $values)
