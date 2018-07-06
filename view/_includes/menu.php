@@ -19,12 +19,12 @@
         <ul class="nav navbar-nav ml-auto">
         <?php if($_SESSION == NULL){
             //if( $pg_title != ''){ echo '<li class="nav-item"><a aria-label="Pagina inicial" class="nav-link text-white" href="home">Página INICIAL</a></li>'; } ?>
-            <li class="nav-item">
+            <li class="nav-item" style="margin-right:15px">
                 <a href="identifique-se" aria-label="Fazer Login" class="nav-link text-white" style="margin-top:-2px">
                     <i class="fas fa-user" style="margin-right:5px;"></i> Entrar
                 </a>
             </li>
-            <li class="nav-item" style="margin-left:15px">
+            <li class="nav-item">
                 <a href="cadastre-se" aria-label="Fazer Cadastro" class="btn btn-primary col-12" style="padding-top:5px;padding-bottom:5px;background-color:#02b3e4;border-color:#02b3e4;color:#fff !important;border-radius:3px !important;box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.05)">
                     Cadastrar-se
                 </a>
@@ -51,6 +51,7 @@
                         </div>
                     </div>
                     <div class="dropdown-divider"></div>
+                    <a class="dropdown-item text-muted" href="home"><i class="fa fa-home" style="margin-right:10px;"></i> Página inicial</a>
                     <a class="dropdown-item text-muted" href="<?php echo $loggedUser->getSlugUsuario(); ?>"><i class="fa fa-user" style="margin-right:10px;"></i> Visualizar perfil <span style="padding:0px;margin-bottom:5px;font-size:13px;color:#8b8b8b">- 50% Completo</span></a>
                     <a class="dropdown-item text-muted" href="configuracoes"><i class="fa fa-cog" style="margin-right:10px;"></i> Configurações <span style="padding:0px;margin-bottom:5px;font-size:13px;color:#8b8b8b"></span></a>
                     <button type="button"  aria-label="Fazer Logout" id="logout-user" class="dropdown-item text-danger" style="cursor:pointer;"><i class="fas fa-sign-out-alt" style="margin-right:6px;"></i> Sair</button>

@@ -127,7 +127,9 @@
                                                 <a aria-label="Serviços" class="nav-link" data-toggle="tab" href="#servicos">Serviços</a>
                                             </li>
                                         <?php } ?>
-                                        <a href="configuracoes" class="pull-right" style="margin-top:7px;margin-left:20px">Configurações</a>
+                                        <?php if($donoPerfil){ ?>
+                                            <a href="configuracoes" class="pull-right" style="margin-top:7px;margin-left:20px">Configurações</a>
+                                        <?php } ?>
                                     </ul>
 
                                     <div class="tab-content" style="padding-top:20px;">
