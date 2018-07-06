@@ -285,6 +285,8 @@
             $valor = filter_var($valor, FILTER_SANITIZE_STRING);
             if($campo == 'des_nome'){
                 $valor = mb_convert_case($valor, MB_CASE_TITLE, 'UTF-8');
+            }else if($campo == 'des_senha'){
+                $valor = password_hash($valor, PASSWORD_DEFAULT);
             }
             $sql = new Sql();
             $sql->query("UPDATE tb_usuarios SET $campo = :VALOR WHERE id_usuario = :ID", array(

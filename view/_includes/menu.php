@@ -46,8 +46,8 @@
                             <img class="img-nav-profile rounded-circle" src="view/_img/profile/<?php echo $loggedUser->getFotoUsuario(); ?>" height="40" width="40">
                         </div>
                         <div class="col-10" style="padding-left:20px;">
-                            <p style="padding:0px;margin-top:-7px;font-size: 15px;font-weight:bold;"><?php echo $loggedUser->getNomeSimplesUsuario();?></p>
-                            <p style="padding:0px;margin-top:-17px;font-size:14px"><?php echo $loggedUser->getEmailUsuario();?></p>
+                            <p id="nomeSimplesLogged" style="padding:0px;margin-top:-7px;font-size: 15px;font-weight:bold;"><?php echo $loggedUser->getNomeSimplesUsuario();?></p>
+                            <p id="emailLogged" style="padding:0px;margin-top:-17px;font-size:14px"><?php echo $loggedUser->getEmailUsuario();?></p>
                         </div>
                     </div>
                     <div class="dropdown-divider"></div>

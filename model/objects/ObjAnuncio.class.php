@@ -7,17 +7,19 @@ class ObjAnuncio {
     private $id_usuario;
     private $id_categoria;
     private $des_categoria;
+    private $des_icone_categoria;
     private $des_descricao;
     private $des_preco;
     private $id_modalidade;
     private $des_modalidade;
     private $des_disponibilidade;
 
-    function __construct($id_anuncio=null, $id_usuario=null, $id_categoria=null, $des_categoria=null, $des_descricao=null, $des_preco=null, $id_modalidade=null, $des_modalidade=null, $des_disponibilidade=null) {
+    function __construct($id_anuncio=null, $id_usuario=null, $id_categoria=null, $des_categoria=null, $des_icone_categoria=null, $des_descricao=null, $des_preco=null, $id_modalidade=null, $des_modalidade=null, $des_disponibilidade=null) {
         $this->id_anuncio          = $id_anuncio;
         $this->id_usuario          = $id_usuario;
         $this->id_categoria        = $id_categoria;
         $this->des_categoria       = $des_categoria;
+        $this->des_icone_categoria = $des_icone_categoria;
         $this->des_descricao       = $des_descricao;
         $this->des_preco           = $des_preco;
         $this->id_modalidade       = $id_modalidade;
@@ -65,6 +67,12 @@ class ObjAnuncio {
     }
     function setCategoriaAnuncio($des_categoria) {
         $this->des_categoria = $des_categoria;
+    }
+    function getIconeCategoriaAnuncio() {
+        return $this->des_icone_categoria;
+    }
+    function setIconeCategoriaAnuncio($des_icone_categoria) {
+        $this->des_icone_categoria = $des_icone_categoria;
     }
     function getIdUsuarioAnuncio() {
         return $this->id_usuario;

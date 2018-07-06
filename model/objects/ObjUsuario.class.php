@@ -136,6 +136,7 @@ class ObjUsuario {
             "id_usuario"=>$this::getIdUsuario(),
             "email_usuario"=>$this::getEmailUsuario(),
             "nome_usuario"=>$this::getNomeUsuario(),
+            "slug_usuario"=>$this::getSlugUsuario(),
             "nome_simples_usuario"=>$this::getNomeSimplesUsuario(),
             "sexo_usuario"=>$this::getSexoUsuario(),
             "dtnasc_usuario"=>$this::getDtNascUsuario(),
