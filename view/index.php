@@ -18,7 +18,7 @@
                         <h2><span style="color:rgb(230, 54, 107);margin-right:10px;font-weight:bold">#</span>Facilite Serviços</h2><br>
                         <h5>Ótimos serviços com preços justos e total transparência.</h5><br>
                         <p>Encontre prestadores de serviços e conecte-se a novos clientes em poucos cliques.</p><br>
-                        <button type="button" class="btn btn-header btn-fc-primary">SAIBA MAIS</button>
+                        <button type="button" class="btn btn-header btn-fc-primary" style="border-radius:0px">SAIBA MAIS</button>
                     </div>
                 </div>
             </div>

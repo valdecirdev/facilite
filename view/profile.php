@@ -193,7 +193,7 @@
                                                                 </div>
                                                                 <?php }} ?>
                                                             </div>
-                                                            <p class="col-12 desc des_descricao_experiencia" style="margin-left:-10px;margin-right:-10px; padding-left:5px;font-weight:300;font-size:16px;color:#a0a5b5"><?php echo $experiencias[$key]->getDescricaoExperiencia(); ?></p>
+                                                            <p class="col-12 desc des_descricao_experiencia" style="margin-left:-10px;margin-right:-10px; padding-left:5px;font-weight:300;font-size:16px"><?php echo $experiencias[$key]->getDescricaoExperiencia(); ?></p>
                                                         </div>
                                                         <hr style="margin-left:-5px;margin-right:-5px">
                                                     </div>
