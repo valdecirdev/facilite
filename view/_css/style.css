@@ -54,7 +54,7 @@ header{
 }
 header .home-header{
     height: 65vh;
-    padding-top: 22vh;
+    padding-top: 21vh;
     padding-left: 9%;
     padding-right: 7%;
     /* border-bottom: 3px #0074b7 solid; */
@@ -427,7 +427,10 @@ header  .opacity-dark{
 
 footer{
     padding-top:20px;
-    background-color:var(--bg-navbar-color) !important; 
+    color: #868686;
+    padding-left: 20px;
+    font-size: 13px;
+    /* background-color:var(--bg-navbar-color) !important;  */
 }
 
 

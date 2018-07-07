@@ -29,8 +29,7 @@
                     Cadastrar-se
                 </a>
             </li>
-        <?php }else{ 
-            //if( $pg_title != ''){ echo '<li class="nav-item"><a aria-label="Página inicial" class="nav-link text-white" href="home">Página Inicial</a></li>'; } ?>
+        <?php }else{ ?>
             <li class="nav-item dropdown">
                 <a aria-label="Meu perfil" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <?php 

@@ -1,3 +1,5 @@
+// import VueTheMask from 'vue-the-mask.js'
+
 var app = new Vue({
     el: '#content',
     data: {
@@ -12,7 +14,11 @@ var app = new Vue({
         
         salvarUsuario: function(e){
             if(!this.user.nome_usuario){
-                alert('O campo "Nome de usuário" não pode estar vazio!');
+                $('.basic-msg').text('O campo "Nome de usuário" não pode estar vazio!');
+                if($('.basic-msg').hasClass('d-none')){
+                    $('.basic-msg').addClass('text-danger');
+                    $('.basic-msg').removeClass('d-none');
+                }
             }else{
                 $.post('view/_utils/ajax_perfil.php',
                 {
@@ -140,7 +146,7 @@ var app = new Vue({
             {
                 acao    : 'up_generico',
                 campo   : 'des_sexo',
-                valor   : this.user.sexo_usuario,
+                valor   : this.user.sexo_usuario.substr(0, 1),
                 id      : $('#id_usuario_logado').val(),
             },
             function(data){
@@ -170,6 +176,8 @@ var app = new Vue({
         salvarSenha: function(e){
             if(this.senha != this.confirmSenha){
                 alert('As senhas não são iguais!');
+            }else if(this.senha.length < 8){
+                alert('A senha deve conter no mínimo 8 digítos!');
             }else{
                 $.post('view/_utils/ajax_perfil.php',
                 {
@@ -188,3 +196,4 @@ var app = new Vue({
         },
     }
 });
+

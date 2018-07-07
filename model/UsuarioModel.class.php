@@ -34,8 +34,8 @@
 
         public function slug_update(string $slug, int $id)
         {
-            // $slug = preg_replace( '/[`^~\'"]/', null, iconv( 'UTF-8', 'ASCII//TRANSLIT', $slug ) );
             $slug = str_replace(' ', '', $slug);
+            $slug = preg_replace( '/[`^~\'"]/', null, iconv( 'UTF-8', 'ASCII//TRANSLIT', $slug ) );
             $slug = filter_var($slug, FILTER_SANITIZE_STRING);
             if (self::verifyUniqueSlug($slug)) {
                 $sql = new Sql();

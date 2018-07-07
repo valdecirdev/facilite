@@ -68,7 +68,7 @@
                                     <div class="row">
                                         <p class="sub"><i class="fa fa-at"></i> <span><?php if($usuario != NULL){echo $usuario->getSlugUsuario();} ?></span></p>
                                         <p class="sub"><i class="fa fa-users"></i><span id="sideSexo">
-                                            <?php if(!is_null($usuario->getSexoUsuario())){ 
+                                            <?php if((!is_null($usuario->getSexoUsuario()))&&($usuario->getSexoUsuario() != '')){ 
                                                 echo $usuario->getSexoUsuario().', ';  
                                             } ?>
                                             </span> <span id="sideIdade"><?php echo $usuario->getIdadeUsuario().' anos'; ?></span>
