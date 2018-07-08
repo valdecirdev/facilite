@@ -53,13 +53,25 @@
                             </div>
                             <div class="infos">
                                 <h5 class="text-center"><span class="profile-name"><?php echo $usuario->getNomeSimplesUsuario(); ?></span> <span style="font-size:15px;font-weight:normal">-<i class="fa fa-star" style="margin-left:5px;font-size: 18px;color:rgb(255, 208, 0)"></i> 4,2</span></h5>
+                                
+                                
+
 
                                 <div class="text-center">
                                     <p style="margin-top:-5px;font-size:14px;"><span id="sideOcupacao"><?php echo $usuario->getOcupacaoUsuario(); ?></span></p>
-                                    <?php if((isset($_SESSION['id']))&&($_SESSION['id'] != $usuario->getidUsuario())){ ?>
-                                        <button aria-label="entrar em contato" class="btn btn-fc-primary btn-radius d-print-none" style="margin-bottom:10px;">entrar em Contato</button>
-                                    <?php }else if(!isset($_SESSION['id'])){ ?>
-                                        <a href="identifique-se" aria-label="entrar em contato" class="btn btn-fc-primary btn-radius d-print-none" style="margin-bottom:10px;">entrar em Contato</a>
+                                    <?php if(isset($_SESSION['id'])){
+                                        if(!$donoPerfil){
+                                            $ligacoes = $ligacao->loadById($loggedUser->getIdUsuario(),$usuario->getIdUsuario());  ?>
+                                            <div class="btn-group" role="group">
+                                                <button class="col-12 d-print-none btn btn-fc-<?php if(is_null($ligacoes)){echo 'primary';}else{echo 'danger';} ?>" id="criar-conexao" style="padding:7px;margin-bottom:10px;border-radius:2px 0px 0px 2px"<?php if(!isset($_SESSION['id'])||($_SESSION['id'] == $usuario->getidUsuario())){ echo 'disabled'; } ?>><?php if(is_null($ligacoes)){echo ' Adicionar';}else{echo ' Remover';} ?>  Contato</button>
+                                                <button class="btn btn-fc-primary d-print-none" style="margin-bottom:10px;border-radius:0px 2px 2px 0px">Mensagem</button>
+                                            </div>
+                                        <?php } ?>
+                                    <?php } else{ ?>      
+                                        <div class="btn-group" role="group">
+                                            <a href="identifique-se" class="col-12 d-print-none btn btn-fc-primary" style="padding:7px;margin-bottom:10px;border-radius:2px 0px 0px 2px"> Adicionar Contato</a>
+                                            <a href="identifique-se" class="btn btn-fc-primary btn-radius d-print-none" style="margin-bottom:10px;border-radius:0px 2px 2px 0px">Mensagem</a>
+                                        </div>
                                     <?php } ?>
                                 </div>
                                 
@@ -85,27 +97,15 @@
                                 <div class="row text-center">
                                     <div class="col-4">
                                         <span style="font-size: 22px;font-weight:500;color:#3d4347">25</span>
-                                        <p style="margin-top:-5px;margin-bottom:0px;color:#a6a9ac;font-weight:200">Concluídos</p>
+                                        <p style="margin-top:-5px;margin-bottom:0px;color:#777;font-weight:200">Concluídos</p>
                                     </div>
                                     <div class="col-4">
                                         <span style="font-size:22px;font-weight:500;color:#3d4347">20</span>
-                                        <p style="margin-top:-5px;margin-bottom:0px;color:#a6a9ac;font-weight:200">Avaliações</p>
+                                        <p style="margin-top:-5px;margin-bottom:0px;color:#777;font-weight:200">Avaliações</p>
                                     </div>
                                     <div class="col-4">
                                         <button aria-label="Compartilhar perfil de <?php echo $usuario->getNomeSimplesUsuario(); ?>" class="btn d-print-none btn-fc-primary btn-radius"  style="padding:0px;margin-top:5px; height:40px; width:40px; margin-left:5px;" data-toggle="tooltip" data-placement="top" title="Compartilhar"><i class="fa fa-share"></i></button>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="row text-center">
-                                    <?php if(isset($_SESSION['id'])){
-                                    if(!$donoPerfil){
-                                        $ligacoes = $ligacao->loadById($loggedUser->getIdUsuario(),$usuario->getIdUsuario()); 
-                                    ?>
-                                        <button aria-label="Adicionar <?php echo $usuario->getNomeSimplesUsuario(); ?> como contato" class="col-12 d-print-none btn btn-fc-<?php if(is_null($ligacoes)){echo 'primary';}else{echo 'danger';} ?> open-Login btn-radius" id="criar-conexao" style="padding:7px;margin-top:10px;"<?php if(!isset($_SESSION['id'])||($_SESSION['id'] == $usuario->getidUsuario())){ echo 'disabled'; } ?>><?php if(is_null($ligacoes)){echo ' Adicionar';}else{echo ' Remover';} ?>  Contato</button>
-                                    <?php }}else{ ?>
-                                        <a href="identifique-se" class="col-12 d-print-none btn btn-fc-primary btn-radius" aria-label="Adicionar <?php echo $usuario->getNomeSimplesUsuario(); ?> como contato" style="padding:7px;margin-top:10px;"> Adicionar Contato</a>
-                                    <?php } ?>
                                 </div>
                             </div>
                         </div>
@@ -136,7 +136,7 @@
                                         <div id="geral" class="tab-pane fade active show">
                                             <div class="clearfix">
                                                 <div class="col-12">
-                                                    <p class="pull-left" style="width:auto;margin-top: 15px;margin-bottom:0px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="far fa-address-card" style="margin-left:-5px;font-size:20px;color:#60686e;margin-right:10px"></i> Sobre</p>
+                                                    <p class="pull-left" style="width:auto;margin-top: 15px;margin-bottom:0px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="far fa-address-card" style="margin-left:-5px;font-size:20px;color:rgb(230, 54, 107);margin-right:10px"></i> Sobre</p>
                                                     <?php if($donoPerfil){ ?>
                                                         <div class="clearfix">
                                                             <button type="button" aria-label="Editar apresentação" class="btn btn-fc-primary btn-radius pull-right btn-sm d-print-none" style="margin-top:13px;margin-bottom:-15px;" data-toggle="modal" data-target="#editApresentacaoModal"><i class="fa fa-edit" style="margin-right:5px;"></i>Editar</button>
@@ -169,7 +169,7 @@
                                             if(($donoPerfil)||(count($experiencias)>0)){ ?>
                                             <div class="clearfix" style="margin-bottom:20px;">
                                                 <div class="col-12">
-                                                    <p class="pull-left" style="width:auto;margin-top: 30px;margin-bottom:10px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="fa fa-suitcase" style="margin-left:-5px;font-size:20px;color:#60686e;margin-right:10px"></i> Experiências</p>
+                                                    <p class="pull-left" style="width:auto;margin-top: 30px;margin-bottom:10px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="fa fa-suitcase" style="margin-left:-5px;font-size:20px;color:rgb(230, 54, 107);margin-right:10px"></i> Experiências</p>
                                                     <?php if($donoPerfil){ ?>
                                                         <div class="clearfix">
                                                             <button type="button" aria-label="Adicionar Experiência" class="btn btn-fc-primary btn-radius pull-right btn-sm d-print-none" style="margin-top:28px;margin-bottom:-15px;" data-toggle="modal" data-target="#addExperienciaModal"><i class="fa fa-plus-circle" style="margin-right:5px;"></i>Adicionar</button>
@@ -208,7 +208,7 @@
                                             if(($donoPerfil)||(count($formacoes)>0)){ ?>
                                             <div class="clearfix">
                                                 <div class="col-12">
-                                                    <p class="pull-left" style="width:auto;margin-top: 30px;margin-bottom:0px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="fa fa-trophy" style="margin-left:-5px;font-size:20px;color:#60686e;margin-right:10px"></i> Formação</p>
+                                                    <p class="pull-left" style="width:auto;margin-top: 30px;margin-bottom:0px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="fa fa-trophy" style="margin-left:-5px;font-size:20px;color:rgb(230, 54, 107);margin-right:10px"></i> Formação</p>
                                                     <?php if($donoPerfil){ ?>
                                                         <div class="clearfix">
                                                             <button type="button" aria-label="Adicionar nova formação" class="btn btn-fc-primary btn-radius pull-right btn-sm d-print-none" style="margin-top:28px;margin-bottom:-15px;" data-toggle="modal" data-target="#addFormacaoModal"><i class="fa fa-plus-circle" style="margin-right:5px;"></i>Adicionar</button>
@@ -247,7 +247,7 @@
                                             if(($donoPerfil)||(count($habilidades)>0)){ ?>
                                             <div class="clearfix">
                                                 <div class="col-12">
-                                                    <p class="pull-left" style="width:auto;margin-left:17px;margin-top: 30px;margin-bottom:0px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="fa fa-lightbulb" style="margin-left:-20px;font-size:20px;color:#60686e;margin-right:10px"></i> Habilidades</p>
+                                                    <p class="pull-left" style="width:auto;margin-left:17px;margin-top: 30px;margin-bottom:0px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="fa fa-lightbulb" style="margin-left:-20px;font-size:20px;color:rgb(230, 54, 107);margin-right:10px"></i> Habilidades</p>
                                                     <?php if($donoPerfil){ ?>
                                                         <div class="clearfix">
                                                             <button type="button" aria-label="Adicionar nova Habilidade" class="btn btn-fc-primary btn-radius pull-right btn-sm d-print-none" style="margin-top:25px;margin-bottom:-15px;padding-left:10px;padding-right:10px" data-toggle="modal" data-target="#addHabilidadeModal"><i class="fa fa-plus-circle" style="margin-right:5px;"></i>Adicionar</button>
@@ -268,7 +268,7 @@
                                         
                                         <div id="servicos" class="tab-pane fade">
                                             <div class="clearfix">
-                                                <p class="pull-left" style="width:auto;margin-left:12px;margin-top: 15px;margin-bottom:0px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="fa fa-globe" style="margin-left:-5px;font-size:20px;color:#60686e;margin-right:10px"></i> Serviços</p>
+                                                <p class="pull-left" style="width:auto;margin-left:12px;margin-top: 15px;margin-bottom:0px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="fa fa-globe" style="margin-left:-5px;font-size:20px;color:rgb(230, 54, 107);margin-right:10px"></i> Serviços</p>
                                                 <?php if($donoPerfil){ ?>
                                                     <div class="pull-right">
                                                         <div class="clearfix">
@@ -318,7 +318,7 @@
                         <div class="col-md-12">
                             <div class="col-12" style="padding:0px">
                                 <div class="title-text-card clearfix">
-                                    <h5 class="skills-title pull-left" style="font-weight:400;text-transform:uppercase">Contatos</h5>
+                                    <h5 class="skills-title pull-left" style="font-weight:300;text-transform:uppercase">Contatos</h5>
                                 </div>
                             </div>
                             <div class="col-12" style="padding:0px">

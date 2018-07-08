@@ -6,8 +6,14 @@ var app = new Vue({
         senha: null,
         confirmSenha: null,
         user: usuario,
+        cidades: null,
     },
     methods: {
+
+    // ---------------------------------------------------------------------------
+    //          LOAD CIDADES
+    // ---------------------------------------------------------------------------
+    
     // ---------------------------------------------------------------------------
     //          METODOS DAS INFORMACOES BASICAS
     // ---------------------------------------------------------------------------
@@ -164,6 +170,7 @@ var app = new Vue({
                 id      : $('#id_usuario_logado').val(),
             },
             function(data){
+                alert(data);
             });
             alert('Cidade atualizada com sucesso!');
             e.preventDefault();
@@ -196,4 +203,3 @@ var app = new Vue({
         },
     }
 });
-

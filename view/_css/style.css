@@ -54,7 +54,7 @@ header{
 }
 header .home-header{
     height: 65vh;
-    padding-top: 21vh;
+    padding-top: 20vh;
     padding-left: 9%;
     padding-right: 7%;
     /* border-bottom: 3px #0074b7 solid; */
@@ -212,7 +212,8 @@ header  .opacity-dark{
     padding-left: 10px;
     padding-top: 5px;
     font-size: 30px;
-    color: rgb(59, 59, 59);
+    /* color: rgb(59, 59, 59); */
+    color:rgb(230, 54, 107);
 }
 .card .job-title {
     text-transform: uppercase;
@@ -280,6 +281,10 @@ header  .opacity-dark{
 
 
 /* PERFIL */
+.breadcrumb{
+    -webkit-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.05); 
+    box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.05);
+}
 #profile-page{
     padding-top: 60px;
     padding-left: 40px;
@@ -291,6 +296,9 @@ header  .opacity-dark{
     border-radius: 0px;
     padding: 20px;
     border: 1px #eceff2 solid;
+    
+    -webkit-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.05); 
+    box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.05);
 }
 #profile-page .profile-card .img-profile{
     height: 150px;

@@ -149,6 +149,7 @@
             $result = $sql->select("SELECT id_cidade, des_nome,id_estado FROM tb_cidades".$where." ORDER BY des_nome", $array);
             return $result;
         }
+        
 
         public function loadFullCity($id)
         {
@@ -287,6 +288,8 @@
                 $valor = mb_convert_case($valor, MB_CASE_TITLE, 'UTF-8');
             }else if($campo == 'des_senha'){
                 $valor = password_hash($valor, PASSWORD_DEFAULT);
+            }else if($campo == 'id_cidade'){
+                $valor = self::loadCityByName($valor);
             }
             $sql = new Sql();
             $sql->query("UPDATE tb_usuarios SET $campo = :VALOR WHERE id_usuario = :ID", array(
