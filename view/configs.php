@@ -178,7 +178,7 @@
                                                             </div>
                                                             
                                                             <hr style="margin-left:-10px; margiin-right:-10px">
-                                                            <a id="delete-account" class="text-danger btn-link" style="cursor:pointer; margin-left:-10px;">Deletar minha conta</a>
+                                                            <a v-on:click="deletarConta()" class="text-danger btn-link" style="cursor:pointer; margin-left:-10px;">Deletar minha conta</a>
 
                                                         </div>
                                                     </div>

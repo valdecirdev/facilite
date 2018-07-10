@@ -3,9 +3,9 @@
     class Busca
     {
 
-        public function searchCount(string $q, $id){
+        public function searchCount($search, $id){
             $busca = new BuscaModel();
-            return $busca->searchCount($q, $id);
+            return $busca->searchCount($search, $id);
         }
 
         public function search(string $q, $id, $limit, $to){

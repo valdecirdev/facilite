@@ -6,6 +6,7 @@
 }
 html {
     height: 100%;
+    scroll-behavior: smooth;
 }
 body{
     background-color: var(--bg-page-color);
@@ -83,6 +84,7 @@ header  .opacity-dark{
     z-index: 9999;
     padding-left: 35px;
     padding-right: 50px;
+    min-height: 60px;
     /* -webkit-box-shadow: 0px 3px 0px 5px rgba(0,0,0,0.05); 
     box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.05); */
 }
@@ -104,6 +106,32 @@ header  .opacity-dark{
     color: #000 !important;
 }
 
+
+#nav-categorias{
+    position: sticky;
+    top: 60px;
+    background-color: var(--bg-navbar-color);
+    /* background-color: #fff;
+    -webkit-box-shadow: 0px 3px 0px 5px rgba(0,0,0,0.05); 
+    box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.05); */
+    margin-bottom: 20px;
+    padding-left: 40px;
+}
+#nav-categorias .navbar-nav .nav-item:first-child{
+    margin-left: 0px;
+}
+#nav-categorias .navbar-nav .nav-item{
+    margin-left:20px;
+}
+#nav-categorias .navbar-nav .nav-item a{
+    font-weight: 400;
+}
+.dropdown-categorias{
+    margin-top:7px;
+    border-radius:0px;
+    -webkit-box-shadow: 0px 3px 0px 5px rgba(0,0,0,0.05); 
+    box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.05);
+}
 
 
 .campo-busca{
@@ -172,7 +200,7 @@ header  .opacity-dark{
 }
 .card{
     margin-bottom: 30px;
-    border-radius: 3px;
+    border-radius: 0px;
     border: 1px #dbe2e8 solid;
     -webkit-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.05); 
     box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.05);
@@ -392,7 +420,9 @@ header  .opacity-dark{
 }
 
 @media (max-width: 767px){
-  
+  #nav-categorias{
+    display: none;
+  }
   .campo-busca, .btn-busca{
     margin-top: 20px;
     margin-bottom: 10px;

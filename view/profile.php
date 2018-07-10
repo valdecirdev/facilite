@@ -52,7 +52,7 @@
                                 <?php } ?>
                             </div>
                             <div class="infos">
-                                <h5 class="text-center"><span class="profile-name"><?php echo $usuario->getNomeSimplesUsuario(); ?></span> <span style="font-size:15px;font-weight:normal">-<i class="fa fa-star" style="margin-left:5px;font-size: 18px;color:rgb(255, 208, 0)"></i> 4,2</span></h5>
+                                <h5 class="text-center"><span class="profile-name"><?php echo $usuario->getNomeSimplesUsuario(); ?></span> <span class="d-print-none" style="font-size:15px;font-weight:normal">-<i class="fa fa-star" style="margin-left:5px;font-size: 18px;color:rgb(255, 208, 0)"></i> 4,2</span></h5>
                                 
                                 
 
@@ -63,14 +63,14 @@
                                         if(!$donoPerfil){
                                             $ligacoes = $ligacao->loadById($loggedUser->getIdUsuario(),$usuario->getIdUsuario());  ?>
                                             <div class="btn-group" role="group">
-                                                <button class="col-12 d-print-none btn btn-fc-<?php if(is_null($ligacoes)){echo 'primary';}else{echo 'danger';} ?>" id="criar-conexao" style="padding:7px;margin-bottom:10px;border-radius:2px 0px 0px 2px"<?php if(!isset($_SESSION['id'])||($_SESSION['id'] == $usuario->getidUsuario())){ echo 'disabled'; } ?>><?php if(is_null($ligacoes)){echo ' Adicionar';}else{echo ' Remover';} ?>  Contato</button>
-                                                <button class="btn btn-fc-primary d-print-none" style="margin-bottom:10px;border-radius:0px 2px 2px 0px">Mensagem</button>
+                                                <button class="col-12 d-print-none btn btn-fc-<?php if(is_null($ligacoes)){echo 'primary';}else{echo 'danger';} ?>" id="criar-conexao" style="padding:7px;margin-bottom:10px;border-radius:2px 0px 0px 2px;font-weight:400"<?php if(!isset($_SESSION['id'])||($_SESSION['id'] == $usuario->getidUsuario())){ echo 'disabled'; } ?>><?php if(is_null($ligacoes)){echo ' Adicionar';}else{echo ' Remover';} ?>  Contato</button>
+                                                <button class="btn btn-fc-primary d-print-none" style="margin-bottom:10px;border-radius:0px 2px 2px 0px;font-weight:400">Mensagem</button>
                                             </div>
                                         <?php } ?>
                                     <?php } else{ ?>      
                                         <div class="btn-group" role="group">
-                                            <a href="identifique-se" class="col-12 d-print-none btn btn-fc-primary" style="padding:7px;margin-bottom:10px;border-radius:2px 0px 0px 2px"> Adicionar Contato</a>
-                                            <a href="identifique-se" class="btn btn-fc-primary btn-radius d-print-none" style="margin-bottom:10px;border-radius:0px 2px 2px 0px">Mensagem</a>
+                                            <a href="identifique-se" class="col-12 d-print-none btn btn-fc-primary" style="padding:7px;margin-bottom:10px;border-radius:2px 0px 0px 2px;font-weight:400"> Adicionar Contato</a>
+                                            <a href="identifique-se" class="btn btn-fc-primary btn-radius d-print-none" style="margin-bottom:10px;border-radius:0px 2px 2px 0px;font-weight:400">Mensagem</a>
                                         </div>
                                     <?php } ?>
                                 </div>
@@ -92,8 +92,8 @@
                                 </div>
                             </div>
                             
-                        <hr style="margin-left:-20px;margin-right:-20px">
-                            <div class="col-12 numbers-card">
+                        <hr class="d-print-none" style="margin-left:-20px;margin-right:-20px">
+                            <div class="col-12 numbers-card d-print-none">
                                 <div class="row text-center">
                                     <div class="col-4">
                                         <span style="font-size: 22px;font-weight:500;color:#3d4347">25</span>
@@ -118,7 +118,7 @@
                         <div class="col-md-12" id="visao-geral">
                             <div class="row">
                                 <div class="col-md-12  profile-card">
-                                    <ul class="nav nav-tabs">
+                                    <ul class="nav nav-tabs d-print-none">
                                         <li class="nav-item ">
                                             <a aria-label="Visao geral" class="nav-link active" data-toggle="tab" href="#geral">Visão Geral</a>
                                         </li>
@@ -128,7 +128,7 @@
                                             </li>
                                         <?php } ?>
                                         <?php if($donoPerfil){ ?>
-                                            <a href="configuracoes" class="pull-right" style="margin-top:7px;margin-left:20px">Configurações</a>
+                                            <a href="configuracoes" class="pull-right d-print-none" style="margin-top:7px;margin-left:20px">Configurações</a>
                                         <?php } ?>
                                     </ul>
 
@@ -187,7 +187,7 @@
                                                                 <p class="des_titulo_experiencia col-11" style="width:auto; margin-left:-5px;font-weight:400; font-size:17px;margin-bottom:0px"><?php echo $experiencias[$key]->getTituloExperiencia(); ?></p>
                                                                 <?php if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
                                                                 <div class="btn-group col-1">
-                                                                    <button type="button" aria-label="Opções da experiência" class="btn btn-link dropdown-toggle" style="color:#5b5656" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                                                    <button type="button" class="btn btn-link dropdown-toggle d-print-none" style="color:#5b5656" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                                                                     <div class="dropdown-menu dropdown-menu-right">
                                                                         <button aria-label="Editar experiência" class="btn-editExperiencia dropdown-item" type="button" style="cursor:pointer">Editar</button>
                                                                         <button aria-label="Deletar experiência" class="btn-delExperiencia text-danger dropdown-item" type="button" style="cursor:pointer">Deletar</button>
@@ -225,7 +225,7 @@
                                                                 <p class="des_titulo_formacao col-11" style="width:auto;margin-left:-5px;font-weight:400;font-size:17px;margin-bottom:0px;"><?php echo $formacoes[$key]->getTituloFormacao(); ?></p>
                                                                 <?php if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
                                                                 <div class="btn-group col-1">
-                                                                    <button aria-label="opções da formação" type="button" class="btn btn-link dropdown-toggle" style="color:#5b5656" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                                                    <button type="button" class="btn btn-link dropdown-toggle d-print-none" style="color:#5b5656" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                                                                     <div class="dropdown-menu dropdown-menu-right">
                                                                         <button aria-label="Editar formação" class="btn-editFormacao dropdown-item" type="button" style="cursor:pointer">Editar</button>
                                                                         <button aria-label="Deletar formação" class="btn-delFormacao text-danger dropdown-item" type="button" style="cursor:pointer">Deletar</button>
@@ -258,7 +258,7 @@
                                             <div style="margin-top:0px">
                                                 <div id="habilidades-itens" class="row" style="margin-left:10px;margin-top:20px;margin-bottom:30px;">
                                                     <?php foreach ($habilidades as $key => $value) { ?>
-                                                        <span id="<?php echo $habilidades[$key]->getIdHabilidade(); ?>" class="skills-label"><?php echo $habilidades[$key]->getDescricaoHabilidade(); ?><?php if($donoPerfil){ ?><i class="fa fa-times-circle btn-delHabilidade" style="margin-left:10px;cursor:pointer" aria-label="Deletar habilidade"></i><?php } ?></span>
+                                                        <span id="<?php echo $habilidades[$key]->getIdHabilidade(); ?>" class="skills-label"><?php echo $habilidades[$key]->getDescricaoHabilidade(); ?><?php if($donoPerfil){ ?><i class="fa fa-times-circle btn-delHabilidade d-print-none" style="margin-left:10px;cursor:pointer" aria-label="Deletar habilidade"></i><?php } ?></span>
                                                     <?php } ?>
                                                 </div>
                                             </div>

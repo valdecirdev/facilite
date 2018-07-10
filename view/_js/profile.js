@@ -514,26 +514,6 @@ if(($('#id_servico_modal').val() != '')&&($('#id_servico_modal').val() != undefi
 
 
 
-
-
-
-
-    // BOTAO DE DELETAR HABILIDADE
-    $('#delete-account').click(function(){
-        var id_usuario = $('#id_usuario').val();
-        
-        if (confirm('Realmente deseja deletar sua conta?')){
-            $.post('view/_utils/ajax_perfil.php',
-            {
-                acao: 'delete_user',
-                id_usuario: id_usuario
-            },function(data){
-                // alert(data);
-                window.location.href = 'home';
-            });
-        }
-    });
-
     // BOTÃO DE CRIAR NOVA CONEXAO
     $('#criar-conexao').click(function(){
         btn_criar_conexao_profile(this);

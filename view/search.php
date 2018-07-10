@@ -18,139 +18,92 @@
 ?>
     <div id="content">
         <section id="profile-page" class="container-fluid">
-            <div class="row d-print-none">
-                <div class="col-md-12 " style="padding:5px;margin:0px;">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb" style="background-color:#fff;">
-                            <li class="breadcrumb-item"><a href="home">Início</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Pesquisa: <?php echo $_GET['q']; ?></li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
+            
 
-            <div class="row" style="margin-top:-10px;">
+            <div class="row" style="margin-top:20px;">
                 <div class="col-md-3" style="padding-left:20px;padding-right:20px;margin-bottom:20px;">
+                    
+                    
+
+
                     <div class="row">
-                        <div id="" class="profile-card col-md-12 clearfix">
+                        <div class="profile-card col-md-12 clearfix">
                             <div class="tab-content">
-                                <div class="col-12" style="margin-bottom:20px">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="text-secondary" style="font-size:17px;">
-                                            <?php if(isset($_SESSION['id'])){ 
-                                                $total_results = $search->searchCount($_GET['q'],$_SESSION['id']);
-                                            }else{
-                                                $total_results = $search->searchCount($_GET['q'],"*");
-                                            } 
-                                            echo $total_results; ?> Resultados
-                                            </div>
-                                            <div class="pull-right align-middle" style="margin-top:-22px;">
-                                                <a href="">
-                                                    <i class="fa fa-repeat text-secondary" aria-hidden="true"></i>
-                                                </a>
-                                            </div>
+                                <div class="row">
+                                    <div class="col-12" style="margin-top:0px;">
+                                        <div style="margin-bottom:15px">
+                                            Pesquisa: <?php echo '"'.$_GET['q'].'"'; ?>
+                                            <span style="font-size:12px;">
+                                                <?php if(isset($_SESSION['id'])){
+                                                    $total_results = $search->searchCount($_GET['q'],$_SESSION['id']);
+                                                }else{
+                                                    $total_results = $search->searchCount($_GET['q'],"*");
+                                                }
+                                                echo '</br>('.$total_results.' resultados)'; ?> 
+                                            </span></br>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-12" style="margin-top:10px;">
-                                            <a class="" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2" class="text-secondary font-weight-bold">Opções Avançadas</a>
-                                            <div class="collapse multi-collapse" id="multiCollapseExample2">
-                                                <div style="margin-top:10px;">
-                                                    
-                                                <div class="row">
-                                        <div class="col-12" style="margin-top:25px;">
-                                            <form action="">
+                                        <a class="" data-toggle="collapse" href="#filtrosSearch" role="button" aria-expanded="false" aria-controls="filtrosSearch" class="text-secondary font-weight-bold" style="font-size:14px">Filtros Avançados</a>
+                                        <div class="collapse multi-collapse" id="filtrosSearch">
+                                            <div style="margin-top:10px;">
+                                                
+                                            <div class="row">
+                                    <div class="col-12">
+                                        <form action="">
                                             <div class="form-group text-secondary">
-                                            <label for="exampleFormControlSelect1" class="font-weight-bold">Ordenar</label>
+                                                <label for="organizar">Organizar</label>
                                                 <div class="form-group">
-                                                    <select class="form-control" id="exampleFormControlSelect1">
-                                                        <option>Mais Relevantes</option>
+                                                    <select class="form-control" id="organizar" style="border-radius:0px">
+                                                        <option>Mais recentes</option>
                                                         <option>Menor Preço</option>
                                                         <option>Maior Preço</option>
                                                     </select>
                                                 </div>
                                             </div>
-                                            </form>
-                                        </div>
-
-                                        <div class="col-12" style="margin-top:25px;">
-                                            <!-- <form action=""> -->
-                                            <div class="form-group text-secondary">
-                                            <label for="exampleFormControlSelect1" class="font-weight-bold">Categorias</label>
-                                                <div class="form-group">
-                                                <?php 
-                                                $cat = $categorias->loadAll();
-                                                foreach ($cat as $key => $value) { ?> 
-                                                    <a href=""><?php echo $cat[$key]->getDescricaoCategoria(); ?></a> 
-                                                <?php } ?>
-                                                </div>
-                                            </div>
-                                            <!-- </form> -->
-                                        </div>
-
-                                        <div class="col-12" style="margin-top:25px;">
-                                            <!-- <form action=""> -->
-                                            <div class="form-group text-secondary">
-                                            <label for="exampleFormControlSelect1" class="font-weight-bold">Localização</label>
-                                                <div class="form-group">
-                                                
-                                                </div>
-                                            </div>
-                                            <!-- </form> -->
-                                        </div>
-
-                                        <div class="col-12" style="margin-top:25px;">
-                                            <!-- <form action=""> -->
-                                            <div class="form-group text-secondary">
-                                            <label for="exampleFormControlSelect1" class="font-weight-bold">Nivel</label>
-                                                <div class="form-group">
-                                                
-                                                </div>
-                                            </div>
-                                            <!-- </form> -->
-                                        </div>
-
-                                        <div class="col-12" style="margin-top:25px;">
-                                            <!-- <form action=""> -->
-                                            <div class="form-group text-secondary">
-                                            <label for="exampleFormControlSelect1" class="font-weight-bold">Preço</label>
-                                                <div class="form-group">
-                                                <div class="row" style="margin-top: 10px;">
-                                                        <div class="col-6" style="margin-top: 5px;">
-                                                            <label for="nomeUsr">De</label>
-                                                            <form style="margin:0px">
-                                                                <input type="text" class="form-control" name="" id="" value="">
-                                                            </form>
-                                                        </div>
-                                                        <div class="col-6" style="margin-top: 5px;">
-                                                            <label for="nomeUsr">Até</label>
-                                                            <form style="margin:0px">
-                                                                <input type="text" class="form-control" name="" id="" value="">
-                                                            </form>
-                                                        </div>
-                                                        </div>
-                                                </div>
-                                            </div>
-                                            <!-- </form> -->
-                                        </div>
+                                        </form>
                                     </div>
 
+                                    <div class="col-12" style="margin-top:5px;">
+                                        <div class="form-group text-secondary">
+                                            <label for="exampleFormControlSelect1">Categorias</label>
+                                                <div class="form-group">
+                                                    <?php 
+                                                    $cat = $categorias->loadAll();
+                                                    foreach ($cat as $key => $value) { ?> 
+                                                        <a href=""><?php echo $cat[$key]->getDescricaoCategoria(); ?></a><br>
+                                                    <?php } ?>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12" style="margin-top:5px;">
+                                            <div class="form-group text-secondary">
+                                                <label>Preço</label>
+                                                <div class="form-group">
+                                                    <div class="row" style="margin-top: 0px;">
+                                                        <div class="col-6">
+                                                            <input type="number" class="form-control" placeholder="Mínimo" style="border-radius:0px">
+                                                        </div>
+                                                        <div class="col-6" style="margin-left:-20px">
+                                                            <input type="number" class="form-control" placeholder="Máximo" style="border-radius:0px">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    
+                                </div>
+                                </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-9" style="">
-                    <div class="row">
-                        <div id="" class="col-md-12">                            
-                            <div class="tab-content">
-                                <div class="row">
+                    <div class="col-md-7"><!-- style="padding:5px;padding-top:0px">-->
+                        <div class="row">
+                            <div id="" class="col-md-12">                            
+                                <div class="tab-content">
+                                    <div class="row">
     
 
                                     <?php 
@@ -174,7 +127,7 @@
                                         $categoria = $categorias->loadbyId($anuncios[$key]->getIdCategoriaAnuncio()); ?>
                                             <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
                                                 <div class="card card-body">
-                                                    <div class="row" style="min-height:88px;">
+                                                    <div class="row" style="min-height:0px;">
                                                         <div class="col-2">
                                                             <a href="#">
                                                                 <div class="">
@@ -196,16 +149,16 @@
                                                         <div class="col-12 numbers-card">
                                                             <div class="row text-center">
                                                                 <div style="width: 30%">
-                                                                    <span style="font-size: 22px;font-weight:bold;">25</span>
+                                                                    <span style="font-size: 22px;font-weight:500;">25</span>
                                                                     <p style="margin-top: -5px">Concluídos</p>
                                                                 </div>
                                                                 <div style="width: 40%">
                                                                     <span style="font-size: 13px">R$</span>
-                                                                    <span style="font-size:22px;font-weight:bold;"><?php echo $anuncios[$key]->getPrecoAnuncio(); ?></span>
+                                                                    <span style="font-size: 22px;font-weight:500;"><?php echo $anuncios[$key]->getPrecoAnuncio(); ?></span>
                                                                     <p style="margin-top: -5px"><?php echo $modalidade->getDescricaoModalidade(); ?></p>
                                                                 </div>
                                                                 <div style="width: 30%">
-                                                                    <span style="font-size:22px;font-weight:bold;">20</span>
+                                                                    <span style="font-size: 22px;font-weight:500;">20</span>
                                                                     <p style="margin-top: -5px">Avaliações</p>
                                                                 </div>
                                                             </div>
@@ -220,9 +173,9 @@
                                                             <img src="view/_img/profile/<?php echo $usuario->getFotoUsuario(); ?>" alt="" height="55px" width="55px" class="profile-face-footer rounded-circle">
                                                         </div>
                                                         <div class="col-10 footer-card">
-                                                            <a href="<?php echo $usuario->getSlugUsuario(); ?>" class="username"><h5><?php echo $usuario->getNomeSimplesUsuario(); ?></h5></a>
-                                                            <span class="float-left stars">
-                                                                <a><i class="fa fa-star" style="font-size: 18px"></i> 9,2</a>
+                                                            <a href="<?php echo $usuario->getSlugUsuario(); ?>" class="username"><h6 style="font-weight:400"><?php echo $usuario->getNomeSimplesUsuario(); ?></h6></a>
+                                                            <span class="float-left stars" style="margin-top: -5px;">
+                                                                <a style="font-size: 15px"><i class="fa fa-star"></i> 4,2</a>
                                                             </span>
                                                             <span class="float-right">
                                                                 <a href="#" class="icon-bag"> <i class="fa fa-shopping-bag grey-text ml-3"></i></a>

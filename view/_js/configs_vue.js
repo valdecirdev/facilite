@@ -175,6 +175,21 @@ var app = new Vue({
             alert('Cidade atualizada com sucesso!');
             e.preventDefault();
         },
+
+        deletarConta: function(e){
+            var id_usuario = $('#id_usuario_logado').val();
+            
+            if (confirm('Realmente deseja deletar sua conta?')){
+                $.post('view/_utils/ajax_perfil.php',
+                {
+                    acao: 'delete_user',
+                    id_usuario: id_usuario
+                },function(data){
+                    // alert(data);
+                    window.location.href = 'home';
+                });
+            }
+        },
         
     // ---------------------------------------------------------------------------
     //          METODOS PARA ALTERAR SENHA

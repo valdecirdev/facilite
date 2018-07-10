@@ -1,5 +1,5 @@
 <nav class="d-print-none navbar navbar-expand-md navbar-dark">
-    <a aria-label="Voltar ao inicio" class="navbar-brand" href="home" style="margin-right:50px">
+    <a class="navbar-brand" href="home" style="margin-right:50px">
         <div class="brand">
             <img src="view/_img/logo.png" alt="" height="30px">
         </div>
