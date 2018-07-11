@@ -62,15 +62,15 @@
                                     <?php if(isset($_SESSION['id'])){
                                         if(!$donoPerfil){
                                             $ligacoes = $ligacao->loadById($loggedUser->getIdUsuario(),$usuario->getIdUsuario());  ?>
-                                            <div class="btn-group" role="group">
-                                                <button class="col-12 d-print-none btn btn-fc-<?php if(is_null($ligacoes)){echo 'primary';}else{echo 'danger';} ?>" id="criar-conexao" style="padding:7px;margin-bottom:10px;border-radius:2px 0px 0px 2px;font-weight:400"<?php if(!isset($_SESSION['id'])||($_SESSION['id'] == $usuario->getidUsuario())){ echo 'disabled'; } ?>><?php if(is_null($ligacoes)){echo ' Adicionar';}else{echo ' Remover';} ?>  Contato</button>
-                                                <button class="btn btn-fc-primary d-print-none" style="margin-bottom:10px;border-radius:0px 2px 2px 0px;font-weight:400">Mensagem</button>
+                                            <div style="margin-bottom:10px;">
+                                                <button class="d-print-none btn btn-fc-<?php if(is_null($ligacoes)){echo 'primary';}else{echo 'danger';} ?>" id="criar-conexao" style="padding:7px;border-radius:5px;font-weight:400;height:40px"<?php if(!isset($_SESSION['id'])||($_SESSION['id'] == $usuario->getidUsuario())){ echo 'disabled'; } ?>><i class="fas fa-user" style="margin-right:5px"></i> <span id="msg-btnContato"><?php if(is_null($ligacoes)){echo ' Adicionar';}else{echo ' Remover';} ?></span> </button>
+                                                <button class="btn btn-fc-primary d-print-none" style="border-radius:5px;font-weight:400;"><i class="fas fa-comment" style="margin-right:2px"></i> Mensagem</button>
                                             </div>
                                         <?php } ?>
                                     <?php } else{ ?>      
-                                        <div class="btn-group" role="group">
-                                            <a href="identifique-se" class="col-12 d-print-none btn btn-fc-primary" style="padding:7px;margin-bottom:10px;border-radius:2px 0px 0px 2px;font-weight:400"> Adicionar Contato</a>
-                                            <a href="identifique-se" class="btn btn-fc-primary btn-radius d-print-none" style="margin-bottom:10px;border-radius:0px 2px 2px 0px;font-weight:400">Mensagem</a>
+                                        <div style="margin-bottom:10px;">
+                                            <a href="identifique-se" class="d-print-none btn btn-fc-primary" style="padding:7px;border-radius:5px;font-weight:400;height:40px"><i class="fas fa-user" style="margin-right:5px"></i> Adicionar</a>
+                                            <a href="identifique-se" class="btn btn-fc-primary btn-radius d-print-none" style="border-radius:5px;font-weight:400"><i class="fas fa-comment" style="margin-right:2px"></i> Mensagem</a>
                                         </div>
                                     <?php } ?>
                                 </div>

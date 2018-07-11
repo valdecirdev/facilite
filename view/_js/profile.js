@@ -91,7 +91,7 @@ $(document).ready(function () {
  */ 
     function btn_criar_conexao_profile(btn_action){
         if($(btn_action).hasClass('btn-fc-primary')){
-            $(btn_action).text('Remover Contato');
+            $('#msg-btnContato').text('Remover');
             $(btn_action).removeClass('btn-fc-primary');
             $(btn_action).addClass('btn-fc-danger');
 
@@ -102,7 +102,7 @@ $(document).ready(function () {
                 id_contato: $('#id_usuario').val(),
             });
         }else{
-            $(btn_action).text('Adicionar Contato');
+            $('#msg-btnContato').text('Adicionar');
             $(btn_action).removeClass('btn-fc-danger');
             $(btn_action).addClass('btn-fc-primary');
             $.post('view/_utils/ajax_perfil.php',
