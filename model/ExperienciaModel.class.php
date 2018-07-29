@@ -2,8 +2,8 @@
 
 namespace model;
 
-use object\ObjExperiencia;
-use dao\Sql;
+use model\object\ObjExperiencia;
+use model\dao\Sql;
     
     class ExperienciaModel
     {

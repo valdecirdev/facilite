@@ -2,8 +2,8 @@
 
 namespace model;
 
-use object\ObjHabilidade;
-use dao\Sql;
+use model\object\ObjHabilidade;
+use model\dao\Sql;
     
     class HabilidadeModel
     {

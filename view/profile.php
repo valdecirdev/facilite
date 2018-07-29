@@ -23,15 +23,15 @@
 
 ?>
     <div id="content">
-        <input type="text" value="<?php if(isset($loggedUser)){echo $loggedUser->getIdUsuario();} ?>" id="id_usuario_logado" class="d-none">
+        <input title="id ususario" value="<?php if(isset($loggedUser)){echo $loggedUser->getIdUsuario();} ?>" id="id_usuario_logado" class="d-none">
         <section class="container-fluid" style="" id="profile-page">
             
             <div class="row">
                 <div class="col-md-3" style="padding:20px;">
                     <div class="row d-print-none">
-                        <div class="col-md-12 " style="padding:0px;margin:0px;margin-bottom:-5px">
+                        <div class="col-md-12 " style="padding:0; margin: 0 0 -5px;">
                             <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb" style="background-color:#fff;border-radius:0px">
+                                <ol class="breadcrumb" style="background-color:#fff;border-radius:0">
                                     <li class="breadcrumb-item"><a aria-label="inicio" href="home">Início</a></li>
                                     <li class="breadcrumb-item active" aria-current="page"><?=$usuario->getNomeSimplesUsuario(); ?></li>
                                 </ol>
@@ -100,14 +100,14 @@
                                 <div class="row text-center">
                                     <div class="col-4">
                                         <span style="font-size: 22px;font-weight:500;color:#3d4347">25</span>
-                                        <p style="margin-top:-5px;margin-bottom:0px;color:#777;font-weight:200">Concluídos</p>
+                                        <p style="margin-top:-5px;margin-bottom:0;color:#777;font-weight:200">Concluídos</p>
                                     </div>
                                     <div class="col-4">
                                         <span style="font-size:22px;font-weight:500;color:#3d4347">20</span>
-                                        <p style="margin-top:-5px;margin-bottom:0px;color:#777;font-weight:200">Avaliações</p>
+                                        <p style="margin-top:-5px;margin-bottom:0;color:#777;font-weight:200">Avaliações</p>
                                     </div>
                                     <div class="col-4">
-                                        <button aria-label="Compartilhar perfil de <?=$usuario->getNomeSimplesUsuario();?>" class="btn d-print-none btn-fc-primary btn-radius"  style="padding:0px;margin-top:5px; height:40px; width:40px; margin-left:5px;" data-toggle="tooltip" data-placement="top" title="Compartilhar"><i class="fa fa-share"></i></button>
+                                        <button aria-label="Compartilhar perfil de <?=$usuario->getNomeSimplesUsuario();?>" class="btn d-print-none btn-fc-primary btn-radius"  style="padding:0;margin-top:5px; height:40px; width:40px; margin-left:5px;" data-toggle="tooltip" data-placement="top" title="Compartilhar"><i class="fa fa-share"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -117,7 +117,7 @@
                 
 
                 <div class="col-md-6">
-                    <div class="row" style="margin-top:0px">
+                    <div class="row" style="margin-top:0">
                         <div class="col-md-12" id="visao-geral">
                             <div class="row">
                                 <div class="col-md-12  profile-card">
@@ -139,7 +139,7 @@
                                         <div id="geral" class="tab-pane fade active show">
                                             <div class="clearfix">
                                                 <div class="col-12">
-                                                    <p class="pull-left" style="width:auto;margin-top: 15px;margin-bottom:0px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="far fa-address-card" style="margin-left:-5px;font-size:20px;color:rgb(230, 54, 107);margin-right:10px"></i> Sobre</p>
+                                                    <p class="pull-left" style="width:auto;margin-top: 15px;margin-bottom:0;font-weight:400;font-size:18px;text-transform:uppercase"><i class="far fa-address-card" style="margin-left:-5px;font-size:20px;color:rgb(230, 54, 107);margin-right:10px"></i> Sobre</p>
                                                     <?php if($donoPerfil){ ?>
                                                         <div class="clearfix">
                                                             <button type="button" aria-label="Editar apresentação" class="btn btn-fc-primary btn-radius pull-right btn-sm d-print-none" style="margin-top:13px;margin-bottom:-15px;" data-toggle="modal" data-target="#editApresentacaoModal"><i class="fa fa-edit" style="margin-right:5px;"></i>Editar</button>
@@ -151,7 +151,7 @@
                                                 <div class="col-12">
                                                     <div style="margin-top:10px;margin-bottom:15px">
                                                         <div class="clearfix">
-                                                            <input type="text" style="position:absolute; display:none" id="id_usuario" value="<?=$usuario->getIdUsuario();?>">
+                                                            <input title="id usuario" style="position:absolute; display:none" id="id_usuario" value="<?=$usuario->getIdUsuario();?>">
                                                             <?php if(($usuario->getApresentacaoUsuario() != '')&&($usuario->getApresentacaoUsuario() != NULL)){ ?>
                                                                 <p id="des_apresentacao" style="margin-top:5px;margin-left:-7px;margin-right:-10px;font-weight:300"><?=$usuario->getApresentacaoUsuario();?></p>
                                                             <?php }else{ ?>

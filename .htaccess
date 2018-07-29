@@ -3,7 +3,6 @@
 RewriteEngine on
 
 
-
 RewriteRule ^$ view/index.php [L]
 RewriteRule ^home?$ view/index.php [NC,L]
 RewriteRule ^search?$ view/search.php [NC,L]

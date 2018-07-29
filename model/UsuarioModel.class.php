@@ -2,8 +2,8 @@
 
     namespace model;
 
-    use object\ObjUsuario;
-    use dao\Sql;
+    use model\object\ObjUsuario;
+    use model\dao\Sql;
 
     class UsuarioModel {
 

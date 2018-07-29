@@ -1,19 +1,13 @@
 <?php
 
-    define('DS',DIRECTORY_SEPARATOR);
+    define('DS', DIRECTORY_SEPARATOR);
 
     spl_autoload_register(function($class_name) {
 
-        $dirs = array(
-            ".." . DS . "{$class_name}.class.php",
-            ".." . DS . ".." . DS . "{$class_name}.class.php",
-            ".." . DS . ".." . DS . "model" . DS . "{$class_name}.class.php",
-            ".." . DS . "model" . DS . "{$class_name}.class.php",
-        );
-        foreach ($dirs as $key => $value) {
-            if (file_exists($dirs[$key])) {
-                require($dirs[$key]);
-                break;
-            }
+        if (file_exists(".." . DS . "{$class_name}.class.php")) {
+            require(".." . DS . "{$class_name}.class.php");
+        } elseif (file_exists(".." . DS . ".." . DS . "{$class_name}.class.php")){
+            require(".." . DS . ".." . DS . "{$class_name}.class.php");
         }
+
     });

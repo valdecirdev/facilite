@@ -2,8 +2,8 @@
 
 namespace model;
 
-use object\ObjFormacao;
-use dao\Sql;
+use model\object\ObjFormacao;
+use model\dao\Sql;
     
     class FormacaoModel
     {

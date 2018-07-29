@@ -2,8 +2,8 @@
 
 namespace model;
 
-use object\ObjLigacao;
-use dao\Sql;
+use model\object\ObjLigacao;
+use model\dao\Sql;
     
     class LigacaoModel
     {

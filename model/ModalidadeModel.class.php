@@ -2,8 +2,8 @@
 
 namespace model;
 
-use object\ObjModalidade;
-use dao\Sql;
+use model\object\ObjModalidade;
+use model\dao\Sql;
     
     class ModalidadeModel
     {

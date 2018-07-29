@@ -1,6 +1,6 @@
 <?php
 
-namespace object;
+namespace model\object;
 
 class ObjExperiencia
 {

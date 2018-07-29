@@ -2,8 +2,8 @@
 
 namespace model;
 
-use object\ObjCategoria;
-use dao\Sql;
+use model\object\ObjCategoria;
+use model\dao\Sql;
     
     class Categoriamodel
     {

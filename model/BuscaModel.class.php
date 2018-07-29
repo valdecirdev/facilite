@@ -2,9 +2,9 @@
 
 namespace model;
 
-use object\ObjAnuncio;
+use model\object\ObjAnuncio;
 use controller\{Categoria, Modalidade};
-use dao\Sql;
+use model\dao\Sql;
     
     class BuscaModel
     {
