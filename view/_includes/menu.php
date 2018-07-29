@@ -36,23 +36,20 @@
                         $loggedUser = new Usuario(); 
                         $loggedUser = $loggedUser->loadById($_SESSION['id']); 
                     ?>
-                    <img class="float-left img-nav-profile rounded-circle" src="view/_img/profile/<?php echo $loggedUser->getFotoUsuario(); ?>" height="25" width="25">
-                    <span class="float-left clearfix d-sm-inline-block text-white" id="navbar-username" style="margin-top:-3px;margin-left:3px;margin-right:3px"><?php echo explode(' ', $loggedUser->getNomeSimplesUsuario())[0] ?></span>
+                    <img class="float-left img-nav-profile rounded-circle" src="view/_img/profile/<?=$loggedUser->getFotoUsuario();?>" height="25" width="25">
+                    <span class="float-left clearfix d-sm-inline-block text-white" id="navbar-username" style="margin-top:-3px;margin-left:3px;margin-right:3px"><?=explode(' ', $loggedUser->getNomeSimplesUsuario())[0];?></span>
                 </a>
-                <div class="dropdown-menu dropdown-menu-right" style="min-width:300px;border-radius: 2px;" aria-label="navbarDropdownMenuLink">
+                <div class="dropdown-menu dropdown-menu-right" style="min-width:200px;border-radius: 8px;" aria-label="navbarDropdownMenuLink">
                     <div id="dropdown-logged-user" class="row" style="padding:10px;padding-left:0px;padding-bottom:0px;width:100%;margin-bottom:-12px;margin-left:0px">
-                        <div class="col-2">
-                            <img class="img-nav-profile rounded-circle" src="view/_img/profile/<?php echo $loggedUser->getFotoUsuario(); ?>" height="40" width="40">
-                        </div>
-                        <div class="col-10" style="padding-left:20px;">
-                            <p id="nomeSimplesLogged" style="padding:0px;margin-top:-7px;font-size: 15px;font-weight:bold;"><?php echo $loggedUser->getNomeSimplesUsuario();?></p>
-                            <p id="emailLogged" style="padding:0px;margin-top:-17px;font-size:14px"><?php echo $loggedUser->getEmailUsuario();?></p>
+                        <div class="col-12 text-center">
+                            <a class="img-profile" href="<?=$loggedUser->getSlugUsuario();?>"><img class="img-nav-dropdown rounded-circle" src="view/_img/profile/<?=$loggedUser->getFotoUsuario();?>" height="120" width="120"></a>
+                            <p style="color:#8b8b8b">Perfil <span class="text-warning">40%</span> completo</p>
                         </div>
                     </div>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item text-muted" href="<?php echo $loggedUser->getSlugUsuario(); ?>">Visualizar perfil <span style="padding:0px;margin-bottom:5px;font-size:13px;color:#8b8b8b">- 50% Completo</span></a>
-                    <a class="dropdown-item text-muted" href="configuracoes">Configurações <span style="padding:0px;margin-bottom:5px;font-size:13px;color:#8b8b8b"></span></a>
-                    <button type="button"  aria-label="Fazer Logout" id="logout-user" class="dropdown-item text-danger" style="cursor:pointer;">Sair</button>
+                    <a class="dropdown-item text-muted" href="configuracoes"><i class="fas fa-cogs" style="margin-right:5px; font-size:13px; margin-left: -2px"></i> Configurações</a>
+                    <a class="dropdown-item text-muted" href="configuracoes"><i class="fas fa-lock" style="margin-right:8px; font-size:13px"></i> Alterar Senha</a>
+                    <button type="button" aria-label="Fazer Logout" id="logout-user" class="dropdown-item text-muted" style="cursor:pointer;"><i class="fas fa-power-off" style="margin-right:6px; font-size:13px"></i> Sair</button>
                 </div>
             </li>
         <?php } ?>

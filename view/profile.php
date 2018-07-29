@@ -30,7 +30,7 @@
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb" style="background-color:#fff;border-radius:0px">
                                     <li class="breadcrumb-item"><a aria-label="inicio" href="home">Início</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page"><?php echo $usuario->getNomeSimplesUsuario(); ?></li>
+                                    <li class="breadcrumb-item active" aria-current="page"><?=$usuario->getNomeSimplesUsuario(); ?></li>
                                 </ol>
                             </nav>
                         </div>
@@ -44,7 +44,7 @@
                                 <form method="post" id="form-usrFoto" enctype="multipart/form-data" style="position:absolute">
                                     <input type="file" id="usrFoto" name="usrFoto" accept="image/jpeg" style="max-width:100%;display:none">
                                 </form><?php } ?>
-                                <img src="view/_img/profile/<?php echo $usuario->getFotoUsuario(); ?>" alt="" id="usrFotoView">
+                                <img src="view/_img/profile/<?=$usuario->getFotoUsuario(); ?>" alt="" id="usrFotoView">
                                 <?php if($donoPerfil){ ?>
                                     <div id="fotoMouseOn" style="display:none">
                                         <img src="view/_img/camera.png" alt="">
@@ -52,25 +52,25 @@
                                 <?php } ?>
                             </div>
                             <div class="infos">
-                                <h5 class="text-center"><span class="profile-name"><?php echo $usuario->getNomeSimplesUsuario(); ?></span> <span class="d-print-none" style="font-size:15px;font-weight:normal">-<i class="fa fa-star" style="margin-left:5px;font-size: 18px;color:rgb(255, 208, 0)"></i> 4,2</span></h5>
+                                <h5 class="text-center"><span class="profile-name"><?=$usuario->getNomeSimplesUsuario(); ?></span> <span class="d-print-none" style="font-size:15px;font-weight:normal">-<i class="fa fa-star" style="margin-left:5px;font-size: 18px;color:rgb(255, 208, 0)"></i> 4,2</span></h5>
                                 
                                 
 
 
                                 <div class="text-center">
-                                    <p style="margin-top:-5px;font-size:14px;"><span id="sideOcupacao"><?php echo $usuario->getOcupacaoUsuario(); ?></span></p>
+                                    <p style="margin-top:-5px;font-size:14px;"><span id="sideOcupacao"><?=$usuario->getOcupacaoUsuario(); ?></span></p>
                                     <?php if(isset($_SESSION['id'])){
                                         if(!$donoPerfil){
                                             $ligacoes = $ligacao->loadById($loggedUser->getIdUsuario(),$usuario->getIdUsuario());  ?>
                                             <div style="margin-bottom:10px;">
-                                                <button class="d-print-none btn btn-fc-<?php if(is_null($ligacoes)){echo 'primary';}else{echo 'danger';} ?>" id="criar-conexao" style="padding:7px;border-radius:5px;font-weight:400;height:40px"<?php if(!isset($_SESSION['id'])||($_SESSION['id'] == $usuario->getidUsuario())){ echo 'disabled'; } ?>><i class="fas fa-user" style="margin-right:5px"></i> <span id="msg-btnContato"><?php if(is_null($ligacoes)){echo ' Adicionar';}else{echo ' Remover';} ?></span> </button>
-                                                <button class="btn btn-fc-primary d-print-none" style="border-radius:5px;font-weight:400;"><i class="fas fa-comment" style="margin-right:2px"></i> Mensagem</button>
+                                                <button class="d-print-none btn btn-fc-<?php if(is_null($ligacoes)){echo 'primary';}else{echo 'danger';} ?>" id="criar-conexao" style="border-radius:5px;font-weight:400;height:34px;font-size:13px"<?php if(!isset($_SESSION['id'])||($_SESSION['id'] == $usuario->getidUsuario())){ echo 'disabled'; } ?>><i class="fas fa-user" style="margin-right:5px"></i> <span id="msg-btnContato"><?php if(is_null($ligacoes)){echo ' Adicionar';}else{echo ' Remover';} ?></span> </button>
+                                                <button class="btn btn-fc-primary d-print-none" style="border-radius:5px;font-weight:400;height:33px;font-size:13px"><i class="fas fa-comment" style="margin-right:2px"></i> Mensagem</button>
                                             </div>
                                         <?php } ?>
                                     <?php } else{ ?>      
                                         <div style="margin-bottom:10px;">
-                                            <a href="identifique-se" class="d-print-none btn btn-fc-primary" style="padding:7px;border-radius:5px;font-weight:400;height:40px"><i class="fas fa-user" style="margin-right:5px"></i> Adicionar</a>
-                                            <a href="identifique-se" class="btn btn-fc-primary btn-radius d-print-none" style="border-radius:5px;font-weight:400"><i class="fas fa-comment" style="margin-right:2px"></i> Mensagem</a>
+                                            <a href="identifique-se" class="d-print-none btn btn-fc-primary" style="border-radius:5px;font-weight:400;height:34px;font-size:13px"><i class="fas fa-user" style="margin-right:5px"></i> Adicionar</a>
+                                            <a href="identifique-se" class="btn btn-fc-primary btn-radius d-print-none" style="border-radius:5px;font-weight:400; height:33px;font-size:13px"><i class="fas fa-comment" style="margin-right:2px"></i> Mensagem</a>
                                         </div>
                                     <?php } ?>
                                 </div>
@@ -83,10 +83,10 @@
                                             <?php if((!is_null($usuario->getSexoUsuario()))&&($usuario->getSexoUsuario() != '')){ 
                                                 echo $usuario->getSexoUsuario().', ';  
                                             } ?>
-                                            </span> <span id="sideIdade"><?php echo $usuario->getIdadeUsuario().' anos'; ?></span>
+                                            </span> <span id="sideIdade"><?=$usuario->getIdadeUsuario().' anos'; ?></span>
                                         </p>
                                         <?php if(!is_null($usuario->getCidadeUsuario())){ ?>
-                                            <p class="sub"><i class="fa fa-map-marker" style="margin-left: 3px;margin-right: 8px;"></i><?php echo $usuario->getCidadeUsuario(); ?></p>
+                                            <p class="sub"><i class="fa fa-map-marker" style="margin-left: 3px;margin-right: 8px;"></i><?=$usuario->getCidadeUsuario(); ?></p>
                                         <?php } ?>
                                     </div>
                                 </div>
@@ -104,7 +104,7 @@
                                         <p style="margin-top:-5px;margin-bottom:0px;color:#777;font-weight:200">Avaliações</p>
                                     </div>
                                     <div class="col-4">
-                                        <button aria-label="Compartilhar perfil de <?php echo $usuario->getNomeSimplesUsuario(); ?>" class="btn d-print-none btn-fc-primary btn-radius"  style="padding:0px;margin-top:5px; height:40px; width:40px; margin-left:5px;" data-toggle="tooltip" data-placement="top" title="Compartilhar"><i class="fa fa-share"></i></button>
+                                        <button aria-label="Compartilhar perfil de <?=$usuario->getNomeSimplesUsuario();?>" class="btn d-print-none btn-fc-primary btn-radius"  style="padding:0px;margin-top:5px; height:40px; width:40px; margin-left:5px;" data-toggle="tooltip" data-placement="top" title="Compartilhar"><i class="fa fa-share"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -146,15 +146,16 @@
                                             </div>
                                             <div id="apresentacao">  
                                                 <div class="col-12">
-                                                    <div style="margin-top:25px;margin-bottom:15px">
+                                                    <div style="margin-top:10px;margin-bottom:15px">
                                                         <div class="clearfix">
-                                                            <input type="text" style="position:absolute; display:none" id="id_usuario" value="<?php echo $usuario->getIdUsuario(); ?>">
+                                                            <input type="text" style="position:absolute; display:none" id="id_usuario" value="<?=$usuario->getIdUsuario();?>">
                                                             <?php if(($usuario->getApresentacaoUsuario() != '')&&($usuario->getApresentacaoUsuario() != NULL)){ ?>
-                                                                <p id="des_apresentacao" style="margin-top:5px;margin-left:-7px;margin-right:-10px;font-weight:300"><?php echo $usuario->getApresentacaoUsuario(); ?></p>
+                                                                <p id="des_apresentacao" style="margin-top:5px;margin-left:-7px;margin-right:-10px;font-weight:300"><?=$usuario->getApresentacaoUsuario();?></p>
                                                             <?php }else{ ?>
                                                                 <p id="des_apresentacao" style="margin-top:5px;margin-left:-7px;margin-right:-10px;font-weight:300">Olá, eu sou novo aqui. :)</p>
                                                             <?php } ?>
                                                         </div>
+                                                        <hr style="margin-left:-5px;margin-right:-5px">
                                                     </div>
                                                 </div>
                                             </div>
@@ -169,7 +170,7 @@
                                             if(($donoPerfil)||(count($experiencias)>0)){ ?>
                                             <div class="clearfix" style="margin-bottom:20px;">
                                                 <div class="col-12">
-                                                    <p class="pull-left" style="width:auto;margin-top: 30px;margin-bottom:10px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="fa fa-suitcase" style="margin-left:-5px;font-size:20px;color:rgb(230, 54, 107);margin-right:10px"></i> Experiências</p>
+                                                    <p class="pull-left" style="width:auto;margin-top: 25px;margin-bottom:10px;font-weight:400;font-size:18px;text-transform:uppercase"><i class="fa fa-suitcase" style="margin-left:-5px;font-size:20px;color:rgb(230, 54, 107);margin-right:10px"></i> Experiências</p>
                                                     <?php if($donoPerfil){ ?>
                                                         <div class="clearfix">
                                                             <button type="button" aria-label="Adicionar Experiência" class="btn btn-fc-primary btn-radius pull-right btn-sm d-print-none" style="margin-top:28px;margin-bottom:-15px;" data-toggle="modal" data-target="#addExperienciaModal"><i class="fa fa-plus-circle" style="margin-right:5px;"></i>Adicionar</button>
@@ -177,14 +178,14 @@
                                                     <?php } ?> 
                                                 </div>
                                             </div>
-                                            <div id="experiencias-itens">
+                                            <div id="experiencias-itens" style="margin-top:-15px;">
                                                 
                                                 <?php foreach ($experiencias as $key => $value) { ?>
                                                     <div class="col-12">
                                                         <div class="clearfix">
-                                                            <input type="text" class="id_experiencia d-none" value="<?php echo $experiencias[$key]->getIdExperiencia(); ?>">
+                                                            <input type="text" class="id_experiencia d-none" value="<?=$experiencias[$key]->getIdExperiencia();?>">
                                                             <div class="row clearfix">
-                                                                <p class="des_titulo_experiencia col-11" style="width:auto; margin-left:-5px;font-weight:400; font-size:17px;margin-bottom:0px"><?php echo $experiencias[$key]->getTituloExperiencia(); ?></p>
+                                                                <p class="des_titulo_experiencia col-11" style="width:auto; margin-left:-5px;font-weight:400; font-size:17px;margin-bottom:0px"><?=$experiencias[$key]->getTituloExperiencia();?></p>
                                                                 <?php if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
                                                                 <div class="btn-group col-1">
                                                                     <button type="button" class="btn btn-link dropdown-toggle d-print-none" style="color:#5b5656" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
@@ -195,7 +196,7 @@
                                                                 </div>
                                                                 <?php }} ?>
                                                             </div>
-                                                            <p class="col-12 desc des_descricao_experiencia" style="margin-left:-10px;margin-right:-10px; padding-left:5px;font-weight:300;font-size:16px"><?php echo $experiencias[$key]->getDescricaoExperiencia(); ?></p>
+                                                            <p class="col-12 desc des_descricao_experiencia" style="margin-left:-10px;margin-right:-10px; padding-left:5px;font-weight:300;font-size:16px"><?=$experiencias[$key]->getDescricaoExperiencia();?></p>
                                                         </div>
                                                         <hr style="margin-left:-5px;margin-right:-5px">
                                                     </div>
@@ -216,13 +217,13 @@
                                                     <?php } ?>
                                                 </div>
                                             </div>
-                                            <div id="formacoes-itens" class="row" style="margin-top:30px;margin-left:0px;padding-right:15px;">
+                                            <div id="formacoes-itens" class="row" style="margin-top:15px;margin-left:0px;padding-right:15px;">
                                                 <?php foreach ($formacoes as $key => $value) { ?>
                                                     <div class="col-12">
                                                         <div class="clearfix">
-                                                            <input type="text" class="id_formacao" value="<?php echo $formacoes[$key]->getIDFormacao(); ?>" style="display:none">
+                                                            <input type="text" class="id_formacao" value="<?=$formacoes[$key]->getIDFormacao();?>" style="display:none">
                                                             <div class="row clearfix">
-                                                                <p class="des_titulo_formacao col-11" style="width:auto;margin-left:-5px;font-weight:400;font-size:17px;margin-bottom:0px;"><?php echo $formacoes[$key]->getTituloFormacao(); ?></p>
+                                                                <p class="des_titulo_formacao col-11" style="width:auto;margin-left:-5px;font-weight:400;font-size:17px;margin-bottom:0px;"><?=$formacoes[$key]->getTituloFormacao();?></p>
                                                                 <?php if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
                                                                 <div class="btn-group col-1">
                                                                     <button type="button" class="btn btn-link dropdown-toggle d-print-none" style="color:#5b5656" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
@@ -233,7 +234,7 @@
                                                                 </div>
                                                                 <?php }} ?>
                                                             </div>
-                                                            <p class="desc des_descricao_formacao" style="margin-left:-5px;margin-right:-10px;margin-top:0px;font-weight:300;color:#a0a5b5"><?php echo $formacoes[$key]->getDescricaoFormacao(); ?></p>
+                                                            <p class="desc des_descricao_formacao" style="margin-left:-5px;margin-right:-10px;margin-top:0px;font-weight:300;color:#a0a5b5"><?=$formacoes[$key]->getDescricaoFormacao();?></p>
                                                         </div>
                                                         <hr style="margin-left:-5px;margin-right:-5px">
                                                     </div>
@@ -258,7 +259,7 @@
                                             <div style="margin-top:0px">
                                                 <div id="habilidades-itens" class="row" style="margin-left:10px;margin-top:20px;margin-bottom:30px;">
                                                     <?php foreach ($habilidades as $key => $value) { ?>
-                                                        <span id="<?php echo $habilidades[$key]->getIdHabilidade(); ?>" class="skills-label"><?php echo $habilidades[$key]->getDescricaoHabilidade(); ?><?php if($donoPerfil){ ?><i class="fa fa-times-circle btn-delHabilidade d-print-none" style="margin-left:10px;cursor:pointer" aria-label="Deletar habilidade"></i><?php } ?></span>
+                                                        <span id="<?=$habilidades[$key]->getIdHabilidade();?>" class="skills-label"><?=$habilidades[$key]->getDescricaoHabilidade();?><?php if($donoPerfil){ ?><i class="fa fa-times-circle btn-delHabilidade d-print-none" style="margin-left:10px;cursor:pointer" aria-label="Deletar habilidade"></i><?php } ?></span>
                                                     <?php } ?>
                                                 </div>
                                             </div>
@@ -284,9 +285,9 @@
                                                 $anuncio = $anuncio->loadByUser($usuario->getidUsuario()); 
                                                 foreach ($anuncio as $key => $value) { ?>
                                                     <div class="col-12 clearfix" style="margin-bottom:5px">
-                                                        <input type="text" class="d-none id_servico" value="<?php echo $anuncio[$key]->getIdAnuncio(); ?>">
+                                                        <input type="text" class="d-none id_servico" value="<?=$anuncio[$key]->getIdAnuncio();?>">
                                                         <div class="row clearfix">
-                                                            <p class="des_categoria_servico col-11" id="<?php echo $anuncio[$key]->getIdCategoriaAnuncio(); ?>" style="width:auto; margin-left:-5px;font-weight:400; padding-right:25px;font-size:17px;margin-bottom:0px"><?php echo $anuncio[$key]->getCategoriaAnuncio(); ?></p>
+                                                            <p class="des_categoria_servico col-11" id="<?=$anuncio[$key]->getIdCategoriaAnuncio();?>" style="width:auto; margin-left:-5px;font-weight:400; padding-right:25px;font-size:17px;margin-bottom:0px"><?=$anuncio[$key]->getCategoriaAnuncio();?></p>
                                                             <?php if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->getidUsuario()){ ?>
                                                             <div class="btn-group col-1">
                                                                 <button type="button" aria-label="Opções do serviço" class="btn btn-link dropdown-toggle" style="color:#5b5656" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
@@ -298,10 +299,10 @@
                                                             <?php }} ?>
                                                         </div>
                                                         
-                                                        <p class="col-12 desc des_descricao_servico" style="margin-left:-10px;margin-right:-10px; padding-left:5px;padding-bottom:1px;padding-top:10px;font-weight:300;font-size:16px;"><?php echo $anuncio[$key]->getDescricaoAnuncio(); ?></p>
-                                                        <p class="desc" style="margin-left:-5px">Preço: R$ <span class="des_preco_servico"><?php echo $anuncio[$key]->getPrecoAnuncio(); ?></span><span class="des_modalidade_servico" id="<?php echo $anuncio[$key]->getIdModalidadeAnuncio(); ?>" style="margin-right:15px"> <?php echo $anuncio[$key]->getModalidadeAnuncio(); ?></span>
+                                                        <p class="col-12 desc des_descricao_servico" style="margin-left:-10px;margin-right:-10px; padding-left:5px;padding-bottom:1px;padding-top:10px;font-weight:300;font-size:16px;"><?=$anuncio[$key]->getDescricaoAnuncio();?></p>
+                                                        <p class="desc" style="margin-left:-5px">Preço: R$ <span class="des_preco_servico"><?= $anuncio[$key]->getPrecoAnuncio();?></span><span class="des_modalidade_servico" id="<?=$anuncio[$key]->getIdModalidadeAnuncio();?>" style="margin-right:15px"> <?=$anuncio[$key]->getModalidadeAnuncio();?></span>
                                                         
-                                                        Disponibilidade: <span class="des_disponibilidade_servico"><?php echo $anuncio[$key]->getDisponibilidadeAnuncio(); ?></span></p>                                                        
+                                                        Disponibilidade: <span class="des_disponibilidade_servico"><?=$anuncio[$key]->getDisponibilidadeAnuncio();?></span></p>                                                        
                                                         <hr style="margin-left:-5px;margin-right:-5px">
                                                     </div>
                                                 <?php } ?>
@@ -329,12 +330,12 @@
                                         <div class="col-md-12" style="margin-top: 5px;margin-bottom: 10px;">
                                             <div class="row clearfix">
                                                 <div class="col-2">
-                                                    <img src="view/_img/profile/<?php echo $contato->getFotoUsuario(); ?>" alt="" class="rounded-circle" height="50">
+                                                    <img src="view/_img/profile/<?=$contato->getFotoUsuario();?>" alt="" class="rounded-circle" height="50">
                                                 </div>
                                                 <div class="col-10" style="padding-left:30px;">
-                                                    <a aria-label="<?php echo $usuario->getNomeSimplesusuario(); ?>" href="<?php echo $contato->getSlugUsuario(); ?>" class="nome-contato"><h6 style="font-weight:400;margin-bottom:3px;margin-top:3px"><?php echo $contato->getNomeSimplesusuario(); ?> -<i class="fa fa-star" style="margin-left:5px;font-size: 15px;color:rgb(255, 208, 0)"></i> 9,2</h6></a>
+                                                    <a aria-label="<?=$usuario->getNomeSimplesusuario();?>" href="<?=$contato->getSlugUsuario();?>" class="nome-contato"><h6 style="font-weight:400;margin-bottom:3px;margin-top:3px"><?=$contato->getNomeSimplesusuario();?> -<i class="fa fa-star" style="margin-left:5px;font-size: 15px;color:rgb(255, 208, 0)"></i> 9,2</h6></a>
                                                     <span class="pull-left stars">
-                                                        <a aria-label="<?php echo substr($contato->getOcupacaoUsuario(),0,100); ?>" style="font-size:14px;color:#8b8b8b"><?php echo substr($contato->getOcupacaoUsuario(),0,100); ?></a>
+                                                        <a aria-label="<?=substr($contato->getOcupacaoUsuario(),0,100);?>" style="font-size:14px;color:#8b8b8b"><?=substr($contato->getOcupacaoUsuario(),0,100);?></a>
                                                     </span>
                                                 </div>
                                             </div>
@@ -370,6 +371,7 @@
 
 
 <?php if((isset($_SESSION['id']))&&($_SESSION['id'] == $usuario->getIdUsuario())){ ?>
+
     <!-- Modal Editar Apresnetacao -->
     <div class="modal fade" id="editApresentacaoModal" tabindex="-1" role="dialog" aria-label="editApresentacaoModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:400px;">
@@ -407,7 +409,7 @@
                                         $hab = new Habilidade();
                                         $hab = $hab->loadAll();
                                         foreach ($hab as $key => $value) { ?> 
-                                        <option value="<?php echo $hab[$key]->getIdHabilidade(); ?>"><?php echo $hab[$key]->getDescricaoHabilidade(); ?></option> 
+                                        <option value="<?=$hab[$key]->getIdHabilidade();?>"><?=$hab[$key]->getDescricaoHabilidade();?></option> 
                                         <?php } ?>
                                     </select>
                             </div>
@@ -499,7 +501,7 @@
                                         <?php 
                                         $cat = $categorias->loadAll();
                                         foreach ($cat as $key => $value) { ?> 
-                                        <option value="<?php echo $cat[$key]->getIdCategoria(); ?>"><?php echo $cat[$key]->getDescricaoCategoria(); ?></option> 
+                                        <option value="<?=$cat[$key]->getIdCategoria();?>"><?=$cat[$key]->getDescricaoCategoria();?></option> 
                                         <?php } ?>
                                     </select>
                                 </div>
@@ -517,7 +519,7 @@
                                         <?php 
                                         $mod = $modalidades->loadAll();
                                         foreach ($mod as $key => $value) { ?> 
-                                        <option value="<?php echo $cat[$key]->getIdCategoria(); ?>"><?php echo $mod[$key]->getDescricaoModalidade(); ?></option> 
+                                        <option value="<?=$cat[$key]->getIdCategoria();?>"><?=$mod[$key]->getDescricaoModalidade();?></option> 
                                         <?php } ?>
                                     </select>
                                 </div>
