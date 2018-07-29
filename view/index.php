@@ -1,4 +1,7 @@
-<?php 
+<?php
+
+    use controller\{Usuario, Busca, Anuncio, Ligacao, Experiencia, Formacao, Habilidade, Categoria, Modalidade};
+
     require('../autoload.php');
 
     $search = new Busca();
@@ -93,7 +96,7 @@
                     $usuario = $usuarios->loadById($anuncios[$key]->getIdUsuarioAnuncio()); ?>
                     <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
                         <div class="card card-body">
-                            <div class="row" style="height:75">
+                            <div class="row" style="height:75px">
                                 <div class="col-2">
                                     <a href="#">
                                         <i class="<?php echo $anuncios[$key]->getIconeCategoriaAnuncio(); ?> icon-align-center" aria-hidden="true"></i>

@@ -1,4 +1,8 @@
 <?php
+
+namespace controller;
+
+use model\HabilidadeModel;
     
     class Habilidade {
 
@@ -8,7 +12,7 @@
             return $habilidade->loadAll();
         }
 
-        public function loadByID(int $id):ObjHabilidade
+        public function loadByID(int $id)
         {
             $habilidade = new HabilidadeModel();
             return $habilidade->loadByID($id);

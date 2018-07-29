@@ -1,4 +1,9 @@
 <?php
+
+namespace model;
+
+use object\ObjHabilidade;
+use dao\Sql;
     
     class HabilidadeModel
     {

@@ -1,3 +1,5 @@
+<?php use controller\Usuario; ?>
+
 <nav class="d-print-none navbar navbar-expand-md navbar-dark">
     <a class="navbar-brand" href="home" style="margin-right:50px">
         <div class="brand">
@@ -32,7 +34,7 @@
         <?php }else{ ?>
             <li class="nav-item dropdown">
                 <a aria-label="Meu perfil" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <?php 
+                    <?php
                         $loggedUser = new Usuario(); 
                         $loggedUser = $loggedUser->loadById($_SESSION['id']); 
                     ?>

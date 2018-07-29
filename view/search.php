@@ -1,4 +1,7 @@
 <?php
+
+    use controller\{Usuario, Busca, Anuncio, Ligacao, Experiencia, Formacao, Habilidade, Categoria, Modalidade};
+
     require('../autoload.php');
     
     $search = new Busca();

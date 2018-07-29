@@ -1,4 +1,9 @@
 <?php
+
+namespace model;
+
+use object\ObjLigacao;
+use dao\Sql;
     
     class LigacaoModel
     {

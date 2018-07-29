@@ -1,9 +1,13 @@
 <?php
+
+namespace controller;
+
+use model\FormacaoModel;
     
     class Formacao
     {
 
-        public function loadByID(int $id):ObjFormacao
+        public function loadByID(int $id)
         {
             $formacao = new FormacaoModel();
             return $formacao->loadByID($id);

@@ -1,5 +1,9 @@
 <?php
 
+namespace controller;
+
+use model\UsuarioModel;
+
 class Usuario {
 
     public function loadBySlug(string $slug)
@@ -43,25 +47,25 @@ class Usuario {
         return $UsuarioModel->loadCity($id);
     }
 
-    public function loadById(int $id):ObjUsuario
+    public function loadById(int $id)
     {
         $UsuarioModel = new UsuarioModel();
         return $UsuarioModel->loadById($id);
     }
 
-    public function loadByEmail(string $email):ObjUsuario
+    public function loadByEmail(string $email)
     {
         $UsuarioModel = new UsuarioModel();
         return $UsuarioModel->loadByEmail($email);
     }
 
-    public function insert(ObjUsuario $usuario)
+    public function insert($usuario)
     {
         $UsuarioModel = new UsuarioModel();
         $UsuarioModel->loadByEmail($usuario);
     }
 
-    public function update_image(ObjUsuario $usuario, array $files = array()):string
+    public function update_image($usuario, array $files = array()):string
     {
         $UsuarioModel = new UsuarioModel();
         return $UsuarioModel->update_image($usuario, $files);

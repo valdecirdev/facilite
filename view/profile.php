@@ -1,11 +1,15 @@
 <?php
+
+    use controller\{Usuario, Anuncio, Ligacao, Experiencia, Formacao, Habilidade, Categoria, Modalidade};
+
     require('../autoload.php');
     $uri = explode('/', $_SERVER["REQUEST_URI"]);
     $slug = str_replace("@","",$uri[count($uri)-1]);
 
+
+    $user    = new Usuario();
     $anuncio = new Anuncio();
     $ligacao = new Ligacao();
-    $user = new Usuario();
     $usuario = $user->loadBySlug($slug) ?? header('location:erro');
     
     $pg_title = $usuario->getNomeSimplesUsuario() . ' - ';
@@ -17,7 +21,6 @@
         $donoPerfil = true;
     }
 
-     
 ?>
     <div id="content">
         <input type="text" value="<?php if(isset($loggedUser)){echo $loggedUser->getIdUsuario();} ?>" id="id_usuario_logado" class="d-none">

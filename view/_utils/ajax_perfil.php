@@ -1,12 +1,14 @@
 <?php
-    
+
+    use controller\{Usuario, Experiencia, Habilidade, Anuncio, Formacao, Ligacao};
+
     header('Access-Control-Allow-Origin: *');
     require_once('../../autoload.php'); 
 
     if (isset($_POST['acao'])) {
         switch ($_POST['acao']) {
             case 'logout':
-                echo Usuario::logout();
+                Usuario::logout();
                 break;
             case 'login':
                 echo Usuario::login($_POST);
@@ -16,7 +18,7 @@
                 break;
             case 'delete_user':
                 $usuario = new Usuario();
-                echo $usuario->delete($_POST['id_usuario']);
+                $usuario->delete($_POST['id_usuario']);
                 break;
             case 'up_slug':
                 $usuario = new Usuario();
@@ -48,7 +50,7 @@
                 break;
             case 'up_servico':
                 $anuncio = new Anuncio();
-                echo $anuncio->update($_POST);
+                $anuncio->update($_POST);
                 break;
             case 'add_servico':
                 $anuncio = new Anuncio();

@@ -1,9 +1,13 @@
 <?php
+
+namespace controller;
+
+use model\ExperienciaModel;
     
     class Experiencia
     {
 
-        public function loadByID(int $id):ObjExperiencia
+        public function loadByID(int $id)
         {
             $experiencia = new ExperienciaModel();
             return $experiencia->loadByID($id);

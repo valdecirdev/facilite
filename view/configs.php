@@ -1,4 +1,7 @@
 <?php
+
+    use controller\Usuario;
+
     require('../autoload.php');
     
     $pg_title = 'Configurações - ';

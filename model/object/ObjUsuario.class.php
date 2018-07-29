@@ -1,5 +1,9 @@
 <?php
 
+namespace object;
+
+use \DateTime;
+
 class ObjUsuario
 {
 
@@ -34,6 +38,7 @@ class ObjUsuario
         $interval = $date->diff( new DateTime( date('Y-m-d') ) ); // data definida
         return $interval->format( '%Y' );
     }
+
     public function getNomeSimplesUsuario()
     {
         $nome = explode(' ', $this->nome_usuario);
@@ -42,10 +47,12 @@ class ObjUsuario
         }
         return $nome[0];
     }
+
     public function getNomeUsuario()
     {
         return $this->nome_usuario;
     }
+
     public function setNomeUsuario($nome_usuario)
     {
         $this->nome_usuario = $nome_usuario;
@@ -55,37 +62,46 @@ class ObjUsuario
     {
         return $this->des_apresentacao;
     }
+
     public function setApresentacaoUsuario($des_apresentacao)
     {
         $this->des_apresentacao = $des_apresentacao;
     }
+
     public function getIdUsuario()
     {
         return $this->id_usuario;
     }
+
     public function setIdUsuario($id_usuario)
     {
         $this->id_usuario = $id_usuario;
     }
+
     public function getSlugUsuario()
     {
         return $this->slug_usuario;
     }
+
     public function setSlugUsuario($slug_usuario)
     {
         $this->slug_usuario = $slug_usuario;
     }
+
     public function getEmailUsuario() {
         return $this->email_usuario;
     }
+
     public function setEmailUsuario($email_usuario)
     {
         $this->email_usuario = $email_usuario;
     }
+
     public function getSenhaUsuario()
     {
         return $this->senha_usuario;
     }
+
     public function setSenhaUsuario($senha_usuario)
     {
         $this->senha_usuario = $senha_usuario;
@@ -94,70 +110,87 @@ class ObjUsuario
     {
         return $this->sexo_usuario;
     }
+
     public function setSexoUsuario($sexo_usuario)
     {
         $this->sexo_usuario = $sexo_usuario;
     }
+
     public function getDtNascUsuario()
     {
         return $this->dtnasc_usuario;
     }
+
     public function setDtNascUsuario($dtnasc_usuario)
     {
         $this->dtnasc_usuario = $dtnasc_usuario;
     }
+
     public function getFotoUsuario()
     {
         return $this->foto_usuario;
     }
+
     public function setFotoUsuario($foto_usuario)
     {
         $this->foto_usuario = $foto_usuario;
     }
+
     public function getCidadeUsuario()
     {
         return $this->cidade_usuario;
     }
+
     public function setCidadeUsuario($cidade_usuario)
     {
         $this->cidade_usuario = $cidade_usuario;
     }
+
     public function getTelefoneUsuario()
     {
         return $this->telefone_usuario;
     }
+
     public function setTelefoneUsuario($telefone_usuario)
     {
         $this->telefone_usuario = $telefone_usuario;
     }
+
     public function getOcupacaoUsuario()
     {
         return $this->ocupacao_usuario;
     }
+
     public function setOcupacaoUsuario($ocupacao_usuario)
     {
         $this->ocupacao_usuario = $ocupacao_usuario;
     }
+
     public function getStatusUsuario()
     {
         return $this->status_usuario;
     }
+
     public function setStatusUsuario($status_usuario)
     {
         $this->status_usuario = $status_usuario;
     }
+
     public function getDtCadastroUsuario()
     {
         return $this->dtcadastro_usuario;
     }
+
     public function setDtCadastroUsuario($dtcadastro_usuario)
     {
         $this->dtcadastro_usuario = $dtcadastro_usuario;
     }
+
     public function setCpfUsuario($cpf_usuario)
     {
         $this->cpf_usuario = $cpf_usuario;
     }
+
     public function getCpfUsuario()
     {
         return $this->cpf_usuario;

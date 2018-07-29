@@ -1,4 +1,8 @@
 <?php
+
+namespace controller;
+
+use model\BuscaModel;
     
     class Busca
     {

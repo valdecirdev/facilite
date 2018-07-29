@@ -1,4 +1,9 @@
 <?php
+
+namespace model;
+
+use object\ObjExperiencia;
+use dao\Sql;
     
     class ExperienciaModel
     {

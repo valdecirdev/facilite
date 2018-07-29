@@ -1,4 +1,9 @@
 <?php
+
+namespace model;
+
+use object\ObjFormacao;
+use dao\Sql;
     
     class FormacaoModel
     {

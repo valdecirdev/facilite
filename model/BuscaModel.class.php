@@ -1,4 +1,10 @@
 <?php
+
+namespace model;
+
+use object\ObjAnuncio;
+use controller\{Categoria, Modalidade};
+use dao\Sql;
     
     class BuscaModel
     {

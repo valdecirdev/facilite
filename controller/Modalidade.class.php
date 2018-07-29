@@ -1,4 +1,8 @@
 <?php
+
+namespace controller;
+
+use model\ModalidadeModel;
     
     class Modalidade
     {
@@ -9,7 +13,7 @@
             return $modalidade->loadAll();
         }
 
-        public function loadByID ($id):ObjModalidade
+        public function loadByID ($id)
         {
             $modalidade = new ModalidadeModel();
             return $modalidade->loadByID($id);

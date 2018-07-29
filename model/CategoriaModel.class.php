@@ -1,4 +1,9 @@
 <?php
+
+namespace model;
+
+use object\ObjCategoria;
+use dao\Sql;
     
     class Categoriamodel
     {

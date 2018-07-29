@@ -1,4 +1,9 @@
 <?php
+
+namespace model;
+
+use object\ObjModalidade;
+use dao\Sql;
     
     class ModalidadeModel
     {

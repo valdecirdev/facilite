@@ -1,12 +1,17 @@
 <?php
 
-class Sql extends PDO {
+namespace dao;
+
+use \PDO;
+
+class Sql extends PDO{
+
     //Variaveis de conexão.
-    private $conn = null;
-    private $host = "localhost";    // Servidor
+    private $conn   = null;
+    private $host   = "localhost";    // Servidor
     private $dbname = "facilite_bd";// Banco de Dados 
-    private $user = "root";         // Usuario
-    private $pass = "";             // Senha
+    private $user   = "root";         // Usuario
+    private $pass   = "";             // Senha
     private $driver = "mysql";      //driver banco de dados
     
     public function __construct(){
@@ -42,5 +47,3 @@ class Sql extends PDO {
       $this->conn = null;
     }
 }
-
-?>

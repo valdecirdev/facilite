@@ -1,45 +1,65 @@
 <?php
 
-class ObjFormacao {
+namespace object;
+
+class ObjFormacao
+{
 
     private $id_formacao;
     private $id_usuario;
     private $des_titulo;
     private $des_descricao;
 
-    function __construct($id_formacao=null, $id_usuario=null, $des_titulo=null, $des_descricao=null) {
+    function __construct($id_formacao=null, $id_usuario=null, $des_titulo=null, $des_descricao=null)
+    {
         $this->id_formacao   = $id_formacao;
         $this->id_usuario       = $id_usuario;
         $this->des_titulo       = $des_titulo;
         $this->des_descricao    = $des_descricao;
     }
 
-    function getIdFormacao() {
+    function getIdFormacao()
+    {
         return $this->id_formacao;
     }
-    function setIdFormacao($id_formacao) {
+
+    function setIdFormacao($id_formacao)
+    {
         $this->id_formacao = $id_formacao;
     }
-    function getIdUsuarioFormacao() {
+
+    function getIdUsuarioFormacao()
+    {
         return $this->id_usuario;
     }
-    function setIdUsuarioFormacao($id_usuario) {
+
+    function setIdUsuarioFormacao($id_usuario)
+    {
         $this->id_usuario = $id_usuario;
     }
-    function getTituloFormacao() {
+
+    function getTituloFormacao()
+    {
         return $this->des_titulo;
     }
-    function setTituloFormacao($des_titulo) {
+
+    function setTituloFormacao($des_titulo)
+    {
         $this->des_titulo = $des_titulo;
     }
-    function getDescricaoFormacao() {
+
+    function getDescricaoFormacao()
+    {
         return $this->des_descricao;
     }
-    function setDescricaoFormacao($des_descricao) {
+
+    function setDescricaoFormacao($des_descricao)
+    {
         $this->des_descricao = $des_descricao;
     }
 
-    public function __toString(){
+    public function __toString()
+    {
         return json_encode(array(
             "id_formacao"=>$this->getIdFormacao(),
             "id_usuario"=>$this->getIdUsuarioFormacao(),

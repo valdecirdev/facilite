@@ -1,9 +1,13 @@
 <?php
+
+namespace controller;
+
+use model\Categoriamodel;
     
     class Categoria
     {
 
-        public function loadByID($id):ObjCategoria
+        public function loadByID($id)
         {
             $categoria = new CategoriaModel();
             return $categoria->loadByID($id);

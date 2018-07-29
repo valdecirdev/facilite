@@ -64,7 +64,7 @@ function toRawType (value) {
 
 /**
  * Strict object type check. Only returns true
- * for plain JavaScript objects.
+ * for plain JavaScript object.
  */
 function isPlainObject (obj) {
   return _toString.call(obj) === '[object Object]'
@@ -279,7 +279,7 @@ function genStaticKeys (modules) {
 
 /**
  * Check if two values are loosely equal - that is,
- * if they are plain objects, do they have the same shape?
+ * if they are plain object, do they have the same shape?
  */
 function looseEqual (a, b) {
   if (a === b) { return true }
@@ -1129,7 +1129,7 @@ var strats = config.optionMergeStrategies;
 }
 
 /**
- * Helper that recursively merges two data objects together.
+ * Helper that recursively merges two data object together.
  */
 function mergeData (to, from) {
   if (!from) { return to }
@@ -1445,7 +1445,7 @@ function assertObjectType (name, value, vm) {
 }
 
 /**
- * Merge two option objects into a new one.
+ * Merge two option object into a new one.
  * Core utility used in both instantiation and inheritance.
  */
 function mergeOptions (
@@ -1658,7 +1658,7 @@ function assertType (value, type) {
   if (simpleCheckRE.test(expectedType)) {
     var t = typeof value;
     valid = t === expectedType.toLowerCase();
-    // for primitive wrapper objects
+    // for primitive wrapper object
     if (!valid && t === 'object') {
       valid = value instanceof type;
     }
@@ -4361,7 +4361,7 @@ function _createElement (
   if (isDef(data) && isDef((data).__ob__)) {
     "development" !== 'production' && warn(
       "Avoid using observed data object as vnode data: " + (JSON.stringify(data)) + "\n" +
-      'Always create fresh vnode data objects in each render!',
+      'Always create fresh vnode data object in each render!',
       context
     );
     return createEmptyVNode()
@@ -6303,7 +6303,7 @@ function updateAttrs (oldVnode, vnode) {
   var elm = vnode.elm;
   var oldAttrs = oldVnode.data.attrs || {};
   var attrs = vnode.data.attrs || {};
-  // clone observed objects, as the user probably wants to mutate it
+  // clone observed object, as the user probably wants to mutate it
   if (isDef(attrs.__ob__)) {
     attrs = vnode.data.attrs = extend({}, attrs);
   }
@@ -7107,7 +7107,7 @@ function updateDOMProps (oldVnode, vnode) {
   var elm = vnode.elm;
   var oldProps = oldVnode.data.domProps || {};
   var props = vnode.data.domProps || {};
-  // clone observed objects, as the user probably wants to mutate it
+  // clone observed object, as the user probably wants to mutate it
   if (isDef(props.__ob__)) {
     props = vnode.data.domProps = extend({}, props);
   }
@@ -9680,7 +9680,7 @@ function checkForAliasModel (el, value) {
         "You are binding v-model directly to a v-for iteration alias. " +
         "This will not be able to modify the v-for source array because " +
         "writing to the alias is like modifying a function local variable. " +
-        "Consider using an array of objects and use v-model on an object property instead."
+        "Consider using an array of object and use v-model on an object property instead."
       );
     }
     _el = _el.parent;

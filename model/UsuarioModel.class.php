@@ -1,5 +1,10 @@
 <?php
 
+    namespace model;
+
+    use object\ObjUsuario;
+    use dao\Sql;
+
     class UsuarioModel {
 
         public function verifyUniqueEmail(string $email, int $id = NULL)
@@ -90,7 +95,7 @@
         {
             $fullName = preg_replace( '/[`^~\'"]/', null, iconv( 'UTF-8', 'ASCII//TRANSLIT', $_POST['des_nome'] ) );
             $fullName = explode(' ', $fullName);
-            $cont=null; $lastName = "";
+            $cont = null; $lastName = "";
             if (count($fullName) > 1) {
                 $lastName = $fullName[count($fullName)-1];
             }
@@ -149,7 +154,21 @@
             $result = $sql->select("SELECT id_cidade, des_nome,id_estado FROM tb_cidades".$where." ORDER BY des_nome", $array);
             return $result;
         }
-        
+
+        public function loadCityByName(string $nome):array
+        {
+            $sql = new Sql();
+            $where = '';
+            $array = array();
+            if (!is_null($nome)) {
+                $where = ' WHERE des_nome = :NOME';
+                $array = array(
+                    ":NOME"=>$nome
+                );
+            }
+            $result = $sql->select("SELECT id_cidade, des_nome,id_estado FROM tb_cidades".$where." ORDER BY des_nome", $array);
+            return $result;
+        }
 
         public function loadFullCity($id)
         {
@@ -273,10 +292,10 @@
 
                 $usuario->setFotoUsuario($foto);
                 $sql = new Sql();
-                $sql->query("UPDATE tb_usuarios SET des_foto = :FOTO WHERE id_usuario = :ID", array(
+                $sql->query(array(
                     ":FOTO"=>$foto,
                     ":ID"=>$usuario->getIdUsuario()
-                ));
+                ), "UPDATE tb_usuarios SET des_foto = :FOTO WHERE id_usuario = :ID");
                 return $foto;
             } else {
                 $foto = $usuario->getFotoUsuario();
