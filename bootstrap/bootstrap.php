@@ -10,5 +10,5 @@
     } else if(file_exists(".." . DS . ".." . DS . "vendor" . DS . "autoload.php")) {
         require(".." . DS . ".." . DS . "vendor" . DS . "error_handler.php");
         require(".." . DS . ".." . DS . "vendor" . DS . "autoload.php");
-        require(".." . DS . "vendor" . DS . "facilite_autoload.php");
+        require(".." . DS . ".." . DS . "vendor" . DS . "facilite_autoload.php");
     }

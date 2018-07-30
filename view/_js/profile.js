@@ -72,6 +72,7 @@ $(document).ready(function () {
                 contentType: false,
                 type: 'POST',
                 success: function (data) {
+                    $('.img-nav-dropdown').attr('src, view/+img/profile/'+data);
                     $('#usrFotoView').attr('src','view/_img/profile/'+data);
                     $('.img-nav-profile').attr('src','view/_img/profile/'+data);
                 }

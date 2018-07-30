@@ -72,10 +72,10 @@ class Usuario
         return $UsuarioModel->update_image($usuario, $files);
     }
 
-    public function gen_update(string $campo, $valor, int $id)
+    public function gen_update(array $values)
     {
         $UsuarioModel = new UsuarioModel();
-        $UsuarioModel->gen_update($campo, $valor, $id);
+        $UsuarioModel->gen_update($values['campo'], $values['valor'], $values['id']);
     }
 
     public function delete(int $id)

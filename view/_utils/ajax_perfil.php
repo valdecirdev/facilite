@@ -1,6 +1,5 @@
 <?php
 
-
     use vendor\controller\{Usuario, Experiencia, Habilidade, Anuncio, Formacao, Ligacao};
 
     header('Access-Control-Allow-Origin: *');
@@ -27,7 +26,7 @@
                 break;
             case 'up_generico':
                 $usuario = new Usuario();
-                $usuario->gen_update($_POST['campo'], $_POST['valor'], $_POST['id']);
+                $usuario->gen_update($_POST);
                 break;
             case 'up_email':
                 $usuario = new Usuario();
