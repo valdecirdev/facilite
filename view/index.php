@@ -1,8 +1,8 @@
 <?php
 
-    use controller\{Usuario, Busca, Anuncio, Ligacao, Experiencia, Formacao, Habilidade, Categoria, Modalidade};
+    use vendor\controller\{Usuario, Busca, Categoria, Modalidade};
 
-    require('../autoload.php');
+    require('../bootstrap/bootstrap.php');
 
     $search = new Busca();
     $usuarios = new Usuario();
@@ -21,7 +21,7 @@
                         <h2><span style="color:rgb(230, 54, 107);margin-right:10px;font-weight:bold;margin-left:-30px">#</span>Facilite Serviços</h2><br>
                         <h5>Ótimos serviços com preços justos e total transparência.</h5><br>
                         <p>Encontre prestadores de serviços e conecte-se a novos clientes em poucos cliques.</p><br>
-                        <button type="button" class="btn btn-header btn-fc-primary" style="border-radius:0px">SAIBA MAIS</button>
+                        <button type="button" class="btn btn-header btn-fc-primary" style="border-radius:0">SAIBA MAIS</button>
                     </div>
                 </div>
             </div>
@@ -44,7 +44,7 @@
                                     $categorias = new Categoria();
                                     $cat = $categorias->loadAll();
                                     $cont = 0;
-                                    foreach ($cat as $key => $value) { ?> 
+                                    foreach ($cat as $key => $value) { ?>
                                         <a class="dropdown-item" href="#"><?php echo $cat[$key]->getDescricaoCategoria(); ?></a> 
                                     <?php 
                                         if($cont >= 10){

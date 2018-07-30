@@ -1,9 +1,10 @@
 <?php
 
-    use controller\{Usuario, Experiencia, Habilidade, Anuncio, Formacao, Ligacao};
+
+    use vendor\controller\{Usuario, Experiencia, Habilidade, Anuncio, Formacao, Ligacao};
 
     header('Access-Control-Allow-Origin: *');
-    require_once('../../autoload.php'); 
+    require_once('../../bootstrap/bootstrap.php');
 
     if (isset($_POST['acao'])) {
         switch ($_POST['acao']) {

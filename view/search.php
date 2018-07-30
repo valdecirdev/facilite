@@ -1,8 +1,8 @@
 <?php
 
-    use controller\{Usuario, Busca, Anuncio, Ligacao, Experiencia, Formacao, Habilidade, Categoria, Modalidade};
+    use vendor\controller\{Usuario, Busca, Anuncio, Ligacao, Experiencia, Formacao, Habilidade, Categoria, Modalidade};
 
-    require('../autoload.php');
+    require('../bootstrap/bootstrap.php');
     
     $search = new Busca();
     $usuarios = new Usuario();

@@ -1,4 +1,4 @@
-<?php use controller\Usuario; ?>
+<?php use vendor\controller\Usuario; ?>
 
 <nav class="d-print-none navbar navbar-expand-md navbar-dark">
     <a class="navbar-brand" href="home" style="margin-right:50px">

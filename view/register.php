@@ -1,5 +1,5 @@
 <?php
-    require('../autoload.php');
+    require('../bootstrap/bootstrap.php');
     $pg_title = "Cadastre-se - ";
     include('_includes'.DIRECTORY_SEPARATOR.'header.php'); 
 ?>

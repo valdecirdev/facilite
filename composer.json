@@ -1,0 +1,22 @@
+{
+  "name"        : "facilite",
+  "description" : "Buscador Web de Freelancers.",
+  "type"        : "project",
+  "license"     : "",
+  "authors"     : [
+    {
+      "name"    :  "Valdecir Junior",
+      "email"   : "valdecir.silva9@fatec.sp.gov.br",
+      "homepage": "https://valdecirjunior.com",
+      "role"    : "co-fundador, desenvolvedor"
+    }, {
+      "name"    :  "Leandro Pompélia",
+      "email"   : "leandro.pompelia@fatec.sp.gov.br",
+      "role"    : "fundador, desenvolvedor"
+    }
+  ],
+  "minimum-stability" : "dev",
+  "require"           : {
+    "phpmailer/phpmailer": "~6.0"
+  }
+}

@@ -1,8 +1,8 @@
 <?php
 
-    use controller\{Usuario, Anuncio, Ligacao, Experiencia, Formacao, Habilidade, Categoria, Modalidade};
+    use vendor\controller\{Usuario, Anuncio, Ligacao, Experiencia, Formacao, Habilidade, Categoria, Modalidade};
 
-    require('../autoload.php');
+    require('../bootstrap/bootstrap.php');
     $uri = explode('/', $_SERVER["REQUEST_URI"]);
     $slug = str_replace("@","",$uri[count($uri)-1]);
 

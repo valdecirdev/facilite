@@ -1,8 +1,8 @@
 <?php
 
-    use controller\Usuario;
+    use vendor\controller\Usuario;
 
-    require('../autoload.php');
+    require('../bootstrap/bootstrap.php');
     
     $pg_title = 'Configurações - ';
     include('_includes'.DS.'header.php');
