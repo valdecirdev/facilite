@@ -18,5 +18,13 @@
   "minimum-stability" : "dev",
   "require"           : {
     "phpmailer/phpmailer" : "~6.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "controller\\": "./app/controller/",
+      "model\\object\\": "./app/model/object/",
+      "model\\dao\\": "./app/model/dao/",
+      "model\\": "./app/model/"
+    }
   }
 }
