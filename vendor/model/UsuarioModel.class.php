@@ -3,7 +3,10 @@
     namespace vendor\model;
 
     use vendor\model\object\ObjUsuario;
+    use vendor\model\object\ObjConfirmacao;
+    use vendor\controller\Confirmacao;
     use vendor\model\dao\Sql;
+    use PHPMailer\PHPMailer\PHPMailer;
 
     class UsuarioModel {
 
@@ -103,7 +106,7 @@
                 $slug = $fullName[0].$lastName.$cont;
                 $cont++;
             } while (!self::verifyUniqueSlug($slug));
-            $usuario = new ObjUsuario(strtolower($_POST['des_email']), strtolower($slug), password_hash($_POST['des_senha'], PASSWORD_DEFAULT), mb_convert_case($_POST['des_nome'], MB_CASE_TITLE, 'UTF-8'), $_POST['des_sexo'], $_POST['dt_nasc']);
+            $usuario = new ObjUsuario(strtolower($_POST['des_email']), strtolower($slug), password_hash($_POST['des_senha'], PASSWORD_DEFAULT), mb_convert_case($_POST['des_nome'], MB_CASE_TITLE, 'UTF-8'), $_POST['des_sexo'], $_POST['dt_nasc'], "Pendente");
             if (count(self::verifyUniqueEmail($_POST['des_email']))==0) {
                 self::insert($usuario);
                 $values = array(
@@ -111,6 +114,12 @@
                     'des_senha'=>$_POST['des_senha']
                 );
                 self::login($values);
+
+                $hash = md5(date("Y/m/d H:i:s"));
+                $confirm = new ObjConfirmacao(null, $_SESSION['id'], $hash);
+                $confirmacao = new Confirmacao();
+                $confirmacao->insert($confirm);
+                self::mailer($_POST['des_email'], $_POST['des_nome'], $hash);
                 return TRUE;
             }
             return FALSE;
@@ -219,13 +228,14 @@
         public function insert(ObjUsuario $usuario)
         {
             $sql = new Sql();
-            $sql->query("INSERT INTO tb_usuarios(des_email, des_slug, des_senha, des_nome, des_sexo, dt_nasc) VALUES (:EMAIL, :SLUG, :PASS, :NOME, :SEXO, :NASC)", array(
+            $sql->query("INSERT INTO tb_usuarios(des_email, des_slug, des_senha, des_nome, des_sexo, dt_nasc, des_status) VALUES (:EMAIL, :SLUG, :PASS, :NOME, :SEXO, :NASC, :STATUS)", array(
                 ":EMAIL"=>$usuario->getEmailUsuario(),
                 ":SLUG"=>$usuario->getSlugUsuario(),
                 ":PASS"=>$usuario->getSenhaUsuario(),
                 ":NOME"=>$usuario->getNomeUsuario(),
                 ":SEXO"=>$usuario->getSexoUsuario(),
-                ":NASC"=>$usuario->getDtNascUsuario()
+                ":NASC"=>$usuario->getDtNascUsuario(),
+                ":STATUS"=>$usuario->getStatusUsuario()
             ));
         }
 
@@ -381,5 +391,52 @@
             // Remove as imagens temporárias
             imagedestroy($imagem);
             imagedestroy($nova_imagem);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public function mailer($destinatario, $nome, $hash)
+        {
+            $mail = new PHPMailer;
+            $mail->isSMTP();
+            $mail->SMTPDebug = 2;
+            $mail->Host = 'smtp.umbler.com';
+            $mail->Port = 587;
+            $mail->SMTPSecure = 'tls';
+            $mail->SMTPAuth = true;
+            $mail->Username = "noreply@faciliteserv.com";
+            $mail->Password = "faciliteservicos";
+            $mail->setFrom('noreply@faciliteserv.com', 'Facilite Servicos');
+            $mail->addAddress($destinatario, $nome);
+            $mail->Subject = 'Confirme seu email!';
+            $mail->isHTML(true);
+            $mail->Body    = 'Bem vindo '.$nome.'! <br> Confirme seu endereço de email através do link abaixo. <br> <a href="http://faciliteserv.com/confirm?hash='.$hash.'">Confirme seu email</a>';
+            $mail->AltBody = 'This is the HTML message body';
+
+            if (!$mail->send()) {
+                echo "Mailer Error: " . $mail->ErrorInfo;
+            }
         }
     }

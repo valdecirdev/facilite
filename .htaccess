@@ -10,6 +10,7 @@ RewriteRule ^erro?$ view/_includes/error.php [NC,L]
 RewriteRule ^identifique-se?$ view/login.php [NC,L]
 RewriteRule ^cadastre-se?$ view/register.php [NC,L]
 RewriteRule ^configuracoes$ view/configs.php [NC,L]
+RewriteRule ^confirm view/confirma_email.php [NC,L]
 RewriteRule ^([@,a-z,0-9,A-Z,_-]+)?$ view/profile.php [NC,L]
 
 

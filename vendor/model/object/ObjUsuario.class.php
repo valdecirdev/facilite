@@ -23,13 +23,14 @@ class ObjUsuario
     private $status_usuario;
     private $dtcadastro_usuario;
 
-    function __construct($email_usuario=null, $slug_usuario=null, $senha_usuario=null, $nome_usuario=null, $sexo_usuario=null, $dtnasc_usuario=null) {
+    function __construct($email_usuario=null, $slug_usuario=null, $senha_usuario=null, $nome_usuario=null, $sexo_usuario=null, $dtnasc_usuario=null, $status_usuario = null) {
         $this->email_usuario    = $email_usuario;
         $this->slug_usuario     = $slug_usuario;
         $this->senha_usuario    = $senha_usuario;
         $this->nome_usuario     = $nome_usuario;
         $this->sexo_usuario     = $sexo_usuario;
         $this->dtnasc_usuario   = $dtnasc_usuario;
+        $this->status_usuario   = $status_usuario;
     }
 
     public function getIdadeUsuario()

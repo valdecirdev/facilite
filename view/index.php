@@ -129,7 +129,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12 desc-card">
-                                    <p style="min-height:70px; margin-bottom:0px;"><?php echo $anuncios[$key]->getDescricaoAnuncio(); ?></p>
+                                    <p style="min-height:70px; margin-bottom:0px;"><?php echo substr($anuncios[$key]->getDescricaoAnuncio(), 0, 120);  if (strlen($anuncios[$key]->getDescricaoAnuncio()) > 120) {echo "...";} ?></p>
                                 </div>
                             </div>
                             <div class="row" style="margin-bottom:-10px">
