@@ -19,6 +19,7 @@ class LigacaoModel extends Model
 
     public function __construct()
     {
+        parent::__construct();
         new Database();
     }
 

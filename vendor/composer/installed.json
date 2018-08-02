@@ -121,12 +121,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/illuminate/contracts.git",
-            "reference": "317773dfaf0cba715cef0f0b44c0eb29a94d366d"
+            "reference": "ba6d44d1bf505977cd0221cce5f50e8e3eb57bf5"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/illuminate/contracts/zipball/317773dfaf0cba715cef0f0b44c0eb29a94d366d",
-            "reference": "317773dfaf0cba715cef0f0b44c0eb29a94d366d",
+            "url": "https://api.github.com/repos/illuminate/contracts/zipball/ba6d44d1bf505977cd0221cce5f50e8e3eb57bf5",
+            "reference": "ba6d44d1bf505977cd0221cce5f50e8e3eb57bf5",
             "shasum": ""
         },
         "require": {
@@ -134,7 +134,7 @@
             "psr/container": "^1.0",
             "psr/simple-cache": "^1.0"
         },
-        "time": "2018-07-31T12:49:14+00:00",
+        "time": "2018-08-01T22:10:41+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -167,12 +167,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/illuminate/database.git",
-            "reference": "78ddf4b592a50044e8e4dbd199b0870add64ce76"
+            "reference": "a4e255629df2b15abb3075cee6d08b8fabc5620f"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/illuminate/database/zipball/78ddf4b592a50044e8e4dbd199b0870add64ce76",
-            "reference": "78ddf4b592a50044e8e4dbd199b0870add64ce76",
+            "url": "https://api.github.com/repos/illuminate/database/zipball/a4e255629df2b15abb3075cee6d08b8fabc5620f",
+            "reference": "a4e255629df2b15abb3075cee6d08b8fabc5620f",
             "shasum": ""
         },
         "require": {
@@ -189,7 +189,7 @@
             "illuminate/filesystem": "Required to use the migrations (5.7.*).",
             "illuminate/pagination": "Required to paginate the result set (5.7.*)."
         },
-        "time": "2018-07-30T13:54:29+00:00",
+        "time": "2018-08-01T22:10:41+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {

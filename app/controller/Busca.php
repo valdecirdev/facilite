@@ -3,7 +3,6 @@
 namespace controller;
 
 use model\AnuncioModel;
-use model\BuscaModel;
 use model\object\ObjAnuncio;
 
 class Busca
@@ -14,7 +13,7 @@ class Busca
             $result = AnuncioModel::join('tb_categorias', 'tb_categorias.id_categoria', '=', 'tb_anuncios.id_categoria')
             ->join('tb_usuarios', 'tb_anuncios.id_usuario', '=', 'tb_usuarios.id_usuario')
             ->where('tb_anuncios.id_usuario', '!=', $id)
-            ->orWhere('tb_categorias.des_descricao', 'LIKE', '%'.$q.'%')
+            ->where('tb_categorias.des_descricao', 'LIKE', '%'.$q.'%')
             ->orWhere('tb_usuarios.des_nome', 'LIKE', '%'.$q.'%')
             ->orWhere('tb_anuncios.des_descricao', 'LIKE', '%'.$q.'%')
             ->orderBy('tb_anuncios.id_anuncio', 'desc')
@@ -25,14 +24,15 @@ class Busca
         public function search(string $q, $id, $limit, $to):array
         {
             $result = AnuncioModel::join('tb_categorias', 'tb_categorias.id_categoria', '=', 'tb_anuncios.id_categoria')
-                ->join('tb_usuarios', 'tb_anuncios.id_usuario', '=', 'tb_usuarios.id_usuario')
-                ->where('tb_anuncios.id_usuario', '!=', $id)
-                ->orWhere('tb_categorias.des_descricao', 'LIKE', '%'.$q.'%')
-                ->orWhere('tb_usuarios.des_nome', 'LIKE', '%'.$q.'%')
-                ->orWhere('tb_anuncios.des_descricao', 'LIKE', '%'.$q.'%')
-                ->orderBy('tb_anuncios.id_anuncio', 'desc')
-                ->skip($limit)->take($to)
-                ->get();
+                    ->join('tb_usuarios', 'tb_anuncios.id_usuario', '=', 'tb_usuarios.id_usuario')
+                    ->where('tb_anuncios.id_usuario', '!=', $id)
+                    ->where('tb_categorias.des_descricao', 'LIKE', '%'.$q.'%')
+                    ->orWhere('tb_usuarios.des_nome', 'LIKE', '%'.$q.'%')
+                    ->orWhere('tb_anuncios.des_descricao', 'LIKE', '%'.$q.'%')
+                    ->select('tb_anuncios.*', 'tb_categorias.id_categoria', 'tb_usuarios.des_nome')
+                    ->orderBy('tb_anuncios.id_anuncio', 'desc')
+                    ->skip($limit)->take($to)
+                    ->get();
 
             $anuncios = array();
             $categoria = array();

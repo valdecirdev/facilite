@@ -167,13 +167,15 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-12 desc-card">
-                                                            <p style="min-height:70px; margin-bottom:0px;"><?php echo $anuncios[$key]->getDescricaoAnuncio(); ?></p>
+                                                            <p style="min-height:70px; margin-bottom:0px;"><?php echo substr($anuncios[$key]->getDescricaoAnuncio(), 0, 120);  if (strlen($anuncios[$key]->getDescricaoAnuncio()) > 120) {echo "...";} ?></p>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-12"><hr></div>
                                                         <div class="col-2">
-                                                            <img src="view/_img/profile/<?php echo $usuario->getFotoUsuario(); ?>" alt="" height="55px" width="55px" class="profile-face-footer rounded-circle">
+                                                            <a href="<?php echo $usuario->getSlugUsuario(); ?>">
+                                                                <img src="view/_img/profile/<?php echo $usuario->getFotoUsuario(); ?>" alt="" height="55px" width="55px" class="profile-face-footer rounded-circle">
+                                                            </a>
                                                         </div>
                                                         <div class="col-10 footer-card">
                                                             <a href="<?php echo $usuario->getSlugUsuario(); ?>" class="username"><h6 style="font-weight:400"><?php echo $usuario->getNomeSimplesUsuario(); ?></h6></a>

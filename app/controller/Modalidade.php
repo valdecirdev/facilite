@@ -15,7 +15,7 @@ class Modalidade
             return $modalidade;
         }
 
-        public function loadByID ($id)
+        public function loadByID($id)
         {
             $modalidades = ModalidadeModel::where('id_modalidade', '=', $id)->get();
             $modalidade = $this->setData($modalidades);

@@ -19,8 +19,7 @@
             </form>
         </div>
         <ul class="nav navbar-nav ml-auto">
-        <?php if($_SESSION == NULL){
-            //if( $pg_title != ''){ echo '<li class="nav-item"><a aria-label="Pagina inicial" class="nav-link text-white" href="home">Página INICIAL</a></li>'; } ?>
+        <?php if($_SESSION == NULL){ ?>
             <li class="nav-item" style="margin-right:15px">
                 <a href="identifique-se" aria-label="Fazer Login" class="nav-link text-white" style="margin-top:-2px">
                     <i class="fas fa-user" style="margin-right:5px;"></i> Entrar
@@ -45,7 +44,7 @@
                     <div id="dropdown-logged-user" class="row" style="padding:10px;padding-left:0px;padding-bottom:0px;width:100%;margin-bottom:-12px;margin-left:0px">
                         <div class="col-12 text-center">
                             <a class="img-profile" href="<?=$loggedUser->getSlugUsuario();?>"><img class="img-nav-dropdown rounded-circle" src="app/view/_img/profile/<?=$loggedUser->getFotoUsuario();?>" height="120" width="120"></a>
-                            <p style="color:#8b8b8b">Perfil <span class="text-warning">40%</span> completo</p>
+                            <a href="<?php echo $loggedUser->getSlugUsuario(); ?>"><p style="color:#8b8b8b">Perfil <span class="text-warning">40%</span> completo</p></a>
                         </div>
                     </div>
                     <div class="dropdown-divider"></div>

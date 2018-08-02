@@ -549,7 +549,7 @@
 <?php } ?>
 
 <?php include('_includes'.DS.'footer.php'); ?>
-<script src="app/view/_js/profile.js"></script>
+<script src="resources/assets/_js/profile.js"></script>
 <script>
     $('.open-Login').click(function(e){
         e.stopPropagation();
