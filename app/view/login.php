@@ -1,5 +1,5 @@
 <?php
-    require('../bootstrap/bootstrap.php');
+    require('../../bootstrap/app.php');
     $pg_title = "Identifique-se - ";
     include('_includes'.DIRECTORY_SEPARATOR.'header.php');
     ?>

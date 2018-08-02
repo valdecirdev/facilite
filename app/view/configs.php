@@ -2,7 +2,7 @@
 
     use controller\Usuario;
 
-    require('../bootstrap/bootstrap.php');
+    require('../../bootstrap/app.php');
     
     $pg_title = 'Configurações - ';
     include('_includes'.DS.'header.php');

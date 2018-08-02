@@ -3,7 +3,7 @@
     use controller\{Usuario, Experiencia, Anuncio, Habilidade, Formacao, Ligacao};
 
     header('Access-Control-Allow-Origin: *');
-    require_once('../../bootstrap/bootstrap.php');
+    require_once('../../../bootstrap/app.php');
 
     if (isset($_POST['acao'])) {
         switch ($_POST['acao']) {
@@ -26,7 +26,7 @@
                 break;
             case 'up_generico':
                 $usuario = new Usuario();
-                $usuario->gen_update($_POST);
+                $usuario->gen_update($_POST['campo'], $_POST['valor'], $_POST['id']);
                 break;
             case 'up_email':
                 $usuario = new Usuario();

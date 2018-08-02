@@ -2,7 +2,7 @@
 
     use controller\{Busca, Usuario, Modalidade, Categoria};
 
-    require('../bootstrap/bootstrap.php');
+    require('../../bootstrap/app.php');
 
     $search = new Busca();
     $usuarios = new Usuario();

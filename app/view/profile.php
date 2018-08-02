@@ -2,7 +2,7 @@
 
     use controller\{Usuario, Anuncio, Ligacao, Experiencia, Formacao, Habilidade, Categoria, Modalidade};
 
-    require('../bootstrap/bootstrap.php');
+    require('../../bootstrap/app.php');
     $uri = explode('/', $_SERVER["REQUEST_URI"]);
     $slug = str_replace("@","",$uri[count($uri)-1]);
 
@@ -10,7 +10,7 @@
     $user    = new Usuario();
     $anuncio = new Anuncio();
     $ligacao = new Ligacao();
-    $usuario = $user->loadBySlug($slug) ?? header('location:erro');
+    $usuario = $user->loadBySlug($slug);// ?? header('location:erro');
     
     $pg_title = $usuario->getNomeSimplesUsuario() . ' - ';
     $description = $usuario->getApresentacaoUsuario();
@@ -64,9 +64,9 @@
                                     <p style="margin-top:-5px;font-size:14px;"><span id="sideOcupacao"><?=$usuario->getOcupacaoUsuario(); ?></span></p>
                                     <?php if(isset($_SESSION['id'])){
                                         if(!$donoPerfil){
-                                            $ligacoes = $ligacao->loadById($loggedUser->getIdUsuario(),$usuario->getIdUsuario());  ?>
+                                            $ligacoes = $ligacao->loadById($loggedUser->getIdUsuario(),$usuario->getIdUsuario()); ?>
                                             <div style="margin-bottom:10px;">
-                                                <button class="d-print-none btn btn-fc-<?php if(is_null($ligacoes)){echo 'primary';}else{echo 'danger';} ?>" id="criar-conexao" style="border-radius:5px;font-weight:400;height:34px;font-size:13px"<?php if(!isset($_SESSION['id'])||($_SESSION['id'] == $usuario->getidUsuario())){ echo 'disabled'; } ?>><i class="fas fa-user" style="margin-right:5px"></i> <span id="msg-btnContato"><?php if(is_null($ligacoes)){echo ' Adicionar';}else{echo ' Remover';} ?></span> </button>
+                                                <button class="d-print-none btn btn-fc-<?php if(is_null($ligacoes) || count($ligacoes) == 0){echo 'primary';}else{echo 'danger';} ?>" id="criar-conexao" style="border-radius:5px;font-weight:400;height:34px;font-size:13px"<?php if(!isset($_SESSION['id'])||($_SESSION['id'] == $usuario->getidUsuario())){ echo 'disabled'; } ?>><i class="fas fa-user" style="margin-right:5px"></i> <span id="msg-btnContato"><?php if(is_null($ligacoes)  || count($ligacoes) == 0){echo ' Adicionar';}else{echo ' Remover';} ?></span> </button>
                                                 <button class="btn btn-fc-primary d-print-none" style="border-radius:5px;font-weight:400;height:33px;font-size:13px"><i class="fas fa-comment" style="margin-right:2px"></i> Mensagem</button>
                                             </div>
                                         <?php } ?>

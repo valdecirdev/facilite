@@ -2,7 +2,7 @@
 
     use controller\{Confirmacao, Usuario};
 
-    require ("../bootstrap/bootstrap.php");
+    require ("../../bootstrap/app.php");
 
     if ((isset($_GET['hash']))) {
         $confirm = new Confirmacao();

@@ -17,13 +17,14 @@
   ],
   "minimum-stability" : "dev",
   "require"           : {
-    "phpmailer/phpmailer" : "~6.0"
+    "phpmailer/phpmailer" : "~6.0",
+    "illuminate/database": ">=5.7"
   },
   "autoload": {
     "psr-4": {
       "controller\\": "./app/controller/",
       "model\\object\\": "./app/model/object/",
-      "model\\dao\\": "./app/model/dao/",
+      "database\\": "./database/",
       "model\\": "./app/model/"
     }
   }

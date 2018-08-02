@@ -492,7 +492,7 @@ if(($('#id_servico_modal').val() != '')&&($('#id_servico_modal').val() != undefi
     $('#editApresentacaoModal').on('show.bs.modal', function (e) {
         $('#des_apresentacao_modal').val($('#des_apresentacao').text());
     });
-    // BOTAO DE SALVAR HABILIDADE
+    // BOTAO DE SALVAR APRENSENTACAO
     $('#btn-editApresentacao').click(function(){
         var apresentacao = $('#des_apresentacao_modal').val();
         
