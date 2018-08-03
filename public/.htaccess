@@ -2,6 +2,9 @@
 <IfModule mod_rewrite.c>
 RewriteEngine on
 
-RewriteRule ^([@,a-z,0-9,A-Z,_-]+)?$ index.php?pg=$1 [NC,L]
+Options -Indexes
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [NC,L]
 
 </IfModule>
