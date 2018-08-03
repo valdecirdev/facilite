@@ -15,10 +15,4 @@ class ConfirmacaoModel extends Model
 
     protected $table = 'tb_confirmacao_email';
     public $timestamps = false;
-
-    public function __construct()
-    {
-        parent::__construct();
-        new Database();
-    }
 }

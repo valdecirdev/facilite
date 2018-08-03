@@ -2,6 +2,7 @@
 
     namespace controller;
 
+    use Carbon\Carbon;
     use model\AnuncioModel;
     use model\CidadeModel;
     use model\ConfirmacaoModel;
@@ -14,6 +15,7 @@
     use model\UsuarioModel;
     use model\object\{ObjUsuario, ObjConfirmacao};
     use PHPMailer\PHPMailer\PHPMailer;
+    use \DateTime;
 
     class Usuario
     {
@@ -161,7 +163,7 @@
         }
 
         //---------------------------------------------------------------------
-        //  INSERTS
+        //  INSERT
         //---------------------------------------------------------------------
         public function insert(ObjUsuario $usuario)
         {
@@ -223,7 +225,7 @@
         {
             if ((isset($files['usrFoto']))&&(!is_null($files['usrFoto']))) {
                 $foto = $usuario->getFotoUsuario();
-                $diretorio = "../../view/_img/profile/";
+                $diretorio = __DIR__.DS.'..'.DS.'..'.DS.'public'.DS.'_img'.DS.'profile'.DS;
                 if (!is_dir($diretorio)) {
                     mkdir($diretorio);
                 }
@@ -261,14 +263,11 @@
             $result = UsuarioModel::where('id_usuario', '=', $id)->get();
             $foto = $result[0]['des_foto'];
             if($foto != 'default.jpg'){
-                unlink('../../view/_img/profile/'.$foto);
+                unlink(__DIR__.DS.'..'.DS.'..'.DS.'public'.DS.'_img'.DS.'profile'.DS.$foto);
             }
             UsuarioModel::where('id_usuario', '=', $id)->delete();
         }
 
-        //---------------------------------------------------------------------
-        //  TOOLS
-        //---------------------------------------------------------------------
         public function resize_image(string $caminho_imagem)
         {
             // Retorna o identificador da imagem
@@ -353,13 +352,17 @@
 
                 $usuario[$cont]->setSexoUsuario($sexo);
                 $usuario[$cont]->setDtNascUsuario($data['dt_nasc']);
+
+                $date = new DateTime( $data['dt_nasc'] ); // data de nascimento
+                $usuario[$cont]->setIdadeUsuario(Carbon::createFromDate($date->format( 'Y' ), $date->format( 'm' ), $date->format( 'd' ))->age);
                 $usuario[$cont]->setApresentacaoUsuario($data['des_apresentacao']);
                 $usuario[$cont]->setCpfUsuario($data['des_cpf']);
                 $usuario[$cont]->setFotoUsuario($data['des_foto']);
 
-                $cidade = $this->loadCityById($data['id_cidade'])['des_nome'] . ' - ' . $this->loadCityById($data['id_cidade'])->estado['des_uf'];
-
-                $usuario[$cont]->setCidadeUsuario($cidade);
+                if(!is_null($data['id_cidade'])) {
+                    $cidade = $this->loadCityById($data['id_cidade'])['des_nome'] . ' - ' . $this->loadCityById($data['id_cidade'])->estado['des_uf'];
+                    $usuario[$cont]->setCidadeUsuario($cidade);
+                }
                 $usuario[$cont]->setOcupacaoUsuario($data['des_ocupacao']);
                 $usuario[$cont]->setTelefoneUsuario($data['des_telefone']);
                 $usuario[$cont]->setStatusUsuario($data['des_status']);

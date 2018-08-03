@@ -16,9 +16,4 @@ class CategoriaModel extends Model
     protected $table = 'tb_categorias';
     public $timestamps = false;
 
-    public function __construct()
-    {
-        parent::__construct();
-        new Database();
-    }
 }

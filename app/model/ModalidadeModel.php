@@ -15,9 +15,4 @@
         protected $table = 'tb_modalidades';
         public $timestamps = false;
 
-        public function __construct()
-        {
-            parent::__construct();
-            new Database();
-        }
     }

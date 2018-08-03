@@ -17,9 +17,4 @@ class ExperienciaModel extends Model
     protected $table = 'tb_experiencias';
     public $timestamps = false;
 
-    public function __construct()
-    {
-        parent::__construct();
-        new Database();
-    }
 }

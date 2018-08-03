@@ -2,8 +2,6 @@
 
 namespace model\object;
 
-use \DateTime;
-
 class ObjUsuario
 {
 
@@ -22,6 +20,7 @@ class ObjUsuario
     private $ocupacao_usuario;
     private $status_usuario;
     private $dtcadastro_usuario;
+    private $idade_usuario;
 
     function __construct($email_usuario=null, $slug_usuario=null, $senha_usuario=null, $nome_usuario=null, $sexo_usuario=null, $dtnasc_usuario=null, $status_usuario = null) {
         $this->email_usuario    = $email_usuario;
@@ -33,11 +32,14 @@ class ObjUsuario
         $this->status_usuario   = $status_usuario;
     }
 
+    public function setIdadeUsuario($idade_usuario)
+    {
+        $this->idade_usuario = $idade_usuario;
+    }
+
     public function getIdadeUsuario()
     {
-        $date = new DateTime( $this::getDtNascUsuario() ); // data de nascimento
-        $interval = $date->diff( new DateTime( date('Y-m-d') ) ); // data definida
-        return $interval->format( '%Y' );
+        return $this->idade_usuario;
     }
 
     public function getNomeSimplesUsuario()

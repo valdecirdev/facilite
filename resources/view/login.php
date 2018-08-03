@@ -1,5 +1,5 @@
 <?php
-    require('../../bootstrap/app.php');
+
     $pg_title = "Identifique-se - ";
     include('_includes'.DIRECTORY_SEPARATOR.'header.php');
     ?>
@@ -47,6 +47,6 @@
 <?php
     include('_includes'.DIRECTORY_SEPARATOR.'footer.php');
 ?>
-<script src="app/view/_js/login_vue.js"></script>
+<script src="_js/login_vue.js"></script>
 </body>
 <html>

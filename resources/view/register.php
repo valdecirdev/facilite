@@ -1,5 +1,5 @@
 <?php
-    require('../../bootstrap/app.php');
+
     $pg_title = "Cadastre-se - ";
     include('_includes'.DIRECTORY_SEPARATOR.'header.php'); 
 ?>
@@ -58,7 +58,7 @@
 <?php
     include('_includes'.DIRECTORY_SEPARATOR.'footer.php');
 ?>
-<script src="app/view/_js/register_vue.js"></script>
+<script src="_js/register_vue.js"></script>
 </body>
 <html>
 

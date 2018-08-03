@@ -19,10 +19,4 @@ class AnuncioModel extends Model
     protected $table = 'tb_anuncios';
     public $timestamps = false;
 
-    public function __construct()
-    {
-        parent::__construct();
-        new Database();
-    }
-
 }

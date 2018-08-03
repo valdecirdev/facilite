@@ -17,11 +17,5 @@ class LigacaoModel extends Model
     protected $table = 'tb_ligacoes';
     public $timestamps = false;
 
-    public function __construct()
-    {
-        parent::__construct();
-        new Database();
-    }
-
 }
 

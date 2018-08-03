@@ -18,14 +18,16 @@
   "minimum-stability" : "dev",
   "require"           : {
     "phpmailer/phpmailer" : "~6.0",
-    "illuminate/database": ">=5.7"
+    "illuminate/database": ">=5.7",
+    "monolog/monolog": "^2.0@dev"
   },
   "autoload": {
     "psr-4": {
       "controller\\": "./app/controller/",
       "model\\object\\": "./app/model/object/",
       "database\\": "./database/",
-      "model\\": "./app/model/"
+      "model\\": "./app/model/",
+      "routes\\": "./routes/"
     }
   }
 }

@@ -1,0 +1,7 @@
+
+<IfModule mod_rewrite.c>
+RewriteEngine on
+
+RewriteRule ^([@,a-z,0-9,A-Z,_-]+)?$ index.php?pg=$1 [NC,L]
+
+</IfModule>

@@ -8,6 +8,9 @@ use model\object\ObjAnuncio;
 class Anuncio
 {
 
+    //---------------------------------------------------------------------
+    //  LOADS
+    //---------------------------------------------------------------------
     public function loadByID (int $id)
     {
         $anuncio = AnuncioModel::where('id_anuncio', '=', $id)->get();
@@ -42,6 +45,9 @@ class Anuncio
         return $anuncios;
     }
 
+    //---------------------------------------------------------------------
+    //  INSERT
+    //---------------------------------------------------------------------
     public function insert (array $values)
     {
         $descr = filter_var($values['des_descricao'], FILTER_SANITIZE_STRING);
@@ -58,6 +64,9 @@ class Anuncio
         return $anuncio->id;
     }
 
+    //---------------------------------------------------------------------
+    //  UPDATES
+    //---------------------------------------------------------------------
     public function update (array $values)
     {
         $descr = filter_var($values['des_descricao'], FILTER_SANITIZE_STRING);
@@ -67,11 +76,17 @@ class Anuncio
             ->update(['id_categoria' => $values['id_categoria'], 'des_descricao' => $descr, 'des_preco' => $preco, 'id_modalidade' => $values['id_modalidade'], 'des_disponibilidade' => $dispon]);
     }
 
+    //---------------------------------------------------------------------
+    //  TOOLS
+    //---------------------------------------------------------------------
     public function delete (int $id)
     {
         AnuncioModel::where('id_anuncio', '=', $id)->delete();
     }
 
+    //---------------------------------------------------------------------
+    //  DATASET
+    //---------------------------------------------------------------------
     public function setData ($anuncio, $data, $des_categoria, $des_icone_categoria, $des_modalidade)
     {
         $anuncio->setIdAnuncio($data['id_anuncio']);

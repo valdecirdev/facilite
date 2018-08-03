@@ -15,12 +15,6 @@ class HabilidadeUsuarioModel extends Model
     protected $table = 'tb_habilidades_usuarios';
     public $timestamps = false;
 
-    public function __construct()
-    {
-        parent::__construct();
-        new Database();
-    }
-
     public function relatedHabilidade()
     {
         return $this->belongsTo(HabilidadeModel::class, 'id_habilidade', 'id_habilidade');

@@ -2,7 +2,6 @@
 
     use controller\{Usuario, Anuncio, Ligacao, Experiencia, Formacao, Habilidade, Categoria, Modalidade};
 
-    require('../../bootstrap/app.php');
     $uri = explode('/', $_SERVER["REQUEST_URI"]);
     $slug = str_replace("@","",$uri[count($uri)-1]);
 
@@ -47,10 +46,10 @@
                                 <form method="post" id="form-usrFoto" enctype="multipart/form-data" style="position:absolute">
                                     <input type="file" id="usrFoto" name="usrFoto" accept="image/jpeg" style="max-width:100%;display:none">
                                 </form><?php } ?>
-                                <img src="app/view/_img/profile/<?=$usuario->getFotoUsuario(); ?>" alt="" id="usrFotoView">
+                                <img src="_img/profile/<?=$usuario->getFotoUsuario(); ?>" alt="" id="usrFotoView">
                                 <?php if($donoPerfil){ ?>
                                     <div id="fotoMouseOn" style="display:none">
-                                        <img src="app/view/_img/camera.png" alt="">
+                                        <img src="_img/camera.png" alt="">
                                     </div>
                                 <?php } ?>
                             </div>
@@ -340,7 +339,7 @@
                                         <div class="col-md-12" style="margin-top: 5px;margin-bottom: 10px;">
                                             <div class="row clearfix">
                                                 <div class="col-2">
-                                                    <img src="app/view/_img/profile/<?=$contato->getFotoUsuario();?>" alt="" class="rounded-circle" height="50">
+                                                    <img src="_img/profile/<?=$contato->getFotoUsuario();?>" alt="" class="rounded-circle" height="50">
                                                 </div>
                                                 <div class="col-10" style="padding-left:30px;">
                                                     <a aria-label="<?=$usuario->getNomeSimplesusuario();?>" href="<?=$contato->getSlugUsuario();?>" class="nome-contato"><h6 style="font-weight:400;margin-bottom:3px;margin-top:3px"><?=$contato->getNomeSimplesusuario();?> -<i class="fa fa-star" style="margin-left:5px;font-size: 15px;color:rgb(255, 208, 0)"></i> 9,2</h6></a>
@@ -549,7 +548,7 @@
 <?php } ?>
 
 <?php include('_includes'.DS.'footer.php'); ?>
-<script src="resources/assets/_js/profile.js"></script>
+<script src="_js/profile.js"></script>
 <script>
     $('.open-Login').click(function(e){
         e.stopPropagation();

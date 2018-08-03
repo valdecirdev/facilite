@@ -17,12 +17,6 @@ class EstadoModel extends Model
     protected $table = 'tb_estados';
     public $timestamps = false;
 
-    public function __construct()
-    {
-        parent::__construct();
-        new Database();
-    }
-
     public function pais()
     {
         return $this->belongsTo(PaisModel::class, 'id_pais', 'id_pais');

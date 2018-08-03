@@ -31,12 +31,6 @@
         protected $table = 'tb_usuarios';
         public $timestamps = false;
 
-        public function __construct()
-        {
-            parent::__construct();
-            new Database();
-        }
-
         public function relatedHabilidadeUsuario()
         {
             return $this->hasMany(HabilidadeUsuarioModel::class, 'id_usuario', 'id_usuario');

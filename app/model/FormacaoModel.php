@@ -16,10 +16,4 @@
 
         protected $table = 'tb_formacoes';
         public $timestamps = false;
-
-        public function __construct()
-        {
-            parent::__construct();
-            new Database();
-        }
     }

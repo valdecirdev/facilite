@@ -2,8 +2,6 @@
 
     use controller\{Busca, Usuario, Modalidade, Categoria};
 
-    require('../../bootstrap/app.php');
-
     $search = new Busca();
     $usuarios = new Usuario();
     $modalidades = new Modalidade();
@@ -136,7 +134,7 @@
                                 <div class="col-12"><hr></div>
                                 <div class="col-2">
                                     <a href="<?php echo $usuario->getSlugUsuario(); ?>">
-                                        <img src="app/view/_img/profile/<?php echo $usuario->getFotoUsuario(); ?>" alt="" height="55px" width="55px" class="rounded-circle">
+                                        <img src="_img/profile/<?php echo $usuario->getFotoUsuario(); ?>" alt="" height="55px" width="55px" class="rounded-circle">
                                     </a>
                                 </div>
                                 <div class="col-10 footer-card">

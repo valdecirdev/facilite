@@ -16,12 +16,6 @@
         protected $table = 'tb_habilidades';
         public $timestamps = false;
 
-        public function __construct()
-        {
-            parent::__construct();
-            new Database();
-        }
-
         public function relatedHabilidadeUsuario()
         {
             $this->hasMany(HabilidadeUsuarioModel::class, 'id_habilidade', 'id_habilidade');

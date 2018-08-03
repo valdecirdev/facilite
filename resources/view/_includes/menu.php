@@ -3,7 +3,7 @@
 <nav class="d-print-none navbar navbar-expand-md navbar-dark">
     <a class="navbar-brand" href="home" style="margin-right:50px">
         <div class="brand">
-            <img src="app/view/_img/logo.png" alt="" height="30px">
+            <img src="_img/logo.png" alt="" height="30px">
         </div>
     </a>
     <button class="navbar-toggler" type="button" aria-label="Exibir ou ocultar menu" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,13 +37,13 @@
                         $loggedUser = new Usuario(); 
                         $loggedUser = $loggedUser->loadById($_SESSION['id']); 
                     ?>
-                    <img class="float-left img-nav-profile rounded-circle" src="app/view/_img/profile/<?=$loggedUser->getFotoUsuario();?>" height="25" width="25">
+                    <img class="float-left img-nav-profile rounded-circle" src="_img/profile/<?=$loggedUser->getFotoUsuario();?>" height="25" width="25">
                     <span class="float-left clearfix d-sm-inline-block text-white" id="navbar-username" style="margin-top:-3px;margin-left:3px;margin-right:3px"><?=explode(' ', $loggedUser->getNomeSimplesUsuario())[0];?></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" style="min-width:200px;border-radius: 8px;" aria-label="navbarDropdownMenuLink">
                     <div id="dropdown-logged-user" class="row" style="padding:10px;padding-left:0px;padding-bottom:0px;width:100%;margin-bottom:-12px;margin-left:0px">
                         <div class="col-12 text-center">
-                            <a class="img-profile" href="<?=$loggedUser->getSlugUsuario();?>"><img class="img-nav-dropdown rounded-circle" src="app/view/_img/profile/<?=$loggedUser->getFotoUsuario();?>" height="120" width="120"></a>
+                            <a class="img-profile" href="<?=$loggedUser->getSlugUsuario();?>"><img class="img-nav-dropdown rounded-circle" src="_img/profile/<?=$loggedUser->getFotoUsuario();?>" height="120" width="120"></a>
                             <a href="<?php echo $loggedUser->getSlugUsuario(); ?>"><p style="color:#8b8b8b">Perfil <span class="text-warning">40%</span> completo</p></a>
                         </div>
                     </div>

@@ -16,12 +16,6 @@ class PaisModel extends Model
     protected $table = 'tb_paises';
     public $timestamps = false;
 
-    public function __construct()
-    {
-        parent::__construct();
-        new Database();
-    }
-
     public function estado()
     {
         $this->hasMany(EstadoModel::class, 'id_pais', 'id_pais');
