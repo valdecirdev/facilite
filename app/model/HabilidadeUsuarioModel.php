@@ -1,7 +1,6 @@
 <?php
 namespace model;
 
-use database\Database;
 use \Illuminate\Database\Eloquent\Model;
 
 class HabilidadeUsuarioModel extends Model
@@ -15,12 +14,12 @@ class HabilidadeUsuarioModel extends Model
     protected $table = 'tb_habilidades_usuarios';
     public $timestamps = false;
 
-    public function relatedHabilidade()
+    public function habilidade()
     {
         return $this->belongsTo(HabilidadeModel::class, 'id_habilidade', 'id_habilidade');
     }
 
-    public function relatedUsuario()
+    public function usuario()
     {
         return $this->belongsTo(UsuarioModel::class, 'id_usuario', 'id_usuario');
     }

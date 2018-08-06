@@ -33,7 +33,7 @@
                                 <div class="row">
                                     <div class="col-12" style="margin-top:0px;">
                                         <div style="margin-bottom:15px">
-                                            Pesquisa: <?php echo '"'.$_GET['q'].'"'; ?>
+                                            Pesquisa: <?php echo '"'.strip_tags($_GET['q']).'"'; ?>
                                             <span style="font-size:12px;">
                                                 <?php if(isset($_SESSION['id'])){
                                                     $total_results = $search->searchCount($_GET['q'],$_SESSION['id']);
@@ -66,15 +66,15 @@
                                     <div class="col-12" style="margin-top:5px;">
                                         <div class="form-group text-secondary">
                                             <label for="exampleFormControlSelect1">Categorias</label>
-                                                <div class="form-group">
-                                                    <?php 
-                                                    $cat = $categorias->loadAll();
-                                                    foreach ($cat as $key => $value) { ?> 
-                                                        <a href=""><?php echo $cat[$key]->getDescricaoCategoria(); ?></a><br>
-                                                    <?php } ?>
-                                                </div>
+                                            <div class="form-group">
+                                                <?php
+                                                $cat = $categorias->loadAll();
+                                                foreach ($cat as $key => $value) { ?>
+                                                    <a href=""><?php echo $cat[$key]->getAttribute('des_descricao'); ?></a><br>
+                                                <?php } ?>
                                             </div>
                                         </div>
+                                    </div>
 
                                         <div class="col-12" style="margin-top:5px;">
                                             <div class="form-group text-secondary">
@@ -123,27 +123,21 @@
                                             $anuncios = $search->search($_GET['q'],"*",$min,$max);
                                         }
                                     foreach ($anuncios as $key => $value) { 
-                                        $usuario = $usuarios->loadById($anuncios[$key]->getIdUsuarioAnuncio()); 
-                                        $modalidade = $modalidades->loadById($anuncios[$key]->getIdModalidadeAnuncio()); 
-                                        $categoria = $categorias->loadbyId($anuncios[$key]->getIdCategoriaAnuncio()); ?>
+                                        $usuario = $usuarios->loadById($anuncios[$key]->getAttribute('id_usuario')); ?>
                                             <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
                                                 <div class="card card-body">
                                                     <div class="row" style="min-height:0px;">
                                                         <div class="col-2">
                                                             <a href="#">
                                                                 <div class="">
-                                                                    <i class="<?php echo $categoria->getIconeCategoria(); ?> icon-align-center" aria-hidden="true"></i>
+                                                                    <i class="<?php echo $anuncios[$key]->categoria['des_icone']; ?> icon-align-center" aria-hidden="true"></i>
                                                                 </div>
                                                             </a>
                                                         </div>
                                                         <div class="col-10 title-card">
                                                             <a href=""><h4 class="job-title font-weight-bold">
-                                                                    <?php echo $categoria->getDescricaoCategoria(); ?>
+                                                                    <?php echo $anuncios[$key]->categoria['des_descricao']; ?>
                                                             </h4></a>
-                                                            <?php
-                                                                $date = strtotime($usuario->getDtCadastroUsuario());
-                                                                $date = date('d/m/Y',$date);
-                                                            ?>
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -155,8 +149,8 @@
                                                                 </div>
                                                                 <div style="width: 40%">
                                                                     <span style="font-size: 13px">R$</span>
-                                                                    <span style="font-size: 22px;font-weight:500;"><?php echo $anuncios[$key]->getPrecoAnuncio(); ?></span>
-                                                                    <p style="margin-top: -5px"><?php echo $modalidade->getDescricaoModalidade(); ?></p>
+                                                                    <span style="font-size: 22px;font-weight:500;"><?php echo $anuncios[$key]->getAttribute('des_preco'); ?></span>
+                                                                    <p style="margin-top: -5px"><?php echo $anuncios[$key]->modalidade['des_descricao']; ?></p>
                                                                 </div>
                                                                 <div style="width: 30%">
                                                                     <span style="font-size: 22px;font-weight:500;">20</span>
@@ -165,18 +159,19 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-12 desc-card">
-                                                            <p style="min-height:70px; margin-bottom:0px;"><?php echo substr($anuncios[$key]->getDescricaoAnuncio(), 0, 120);  if (strlen($anuncios[$key]->getDescricaoAnuncio()) > 120) {echo "...";} ?></p>
+                                                            <p style="min-height:70px; margin-bottom:0px;"><?php echo substr($anuncios[$key]->getAttribute('des_descricao'), 0, 120);  if (strlen($anuncios[$key]->getAttribute('des_descricao')) > 120) {echo "...";} ?></p>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-12"><hr></div>
                                                         <div class="col-2">
-                                                            <a href="<?php echo $usuario->getSlugUsuario(); ?>">
-                                                                <img src="_img/profile/<?php echo $usuario->getFotoUsuario(); ?>" alt="" height="55px" width="55px" class="profile-face-footer rounded-circle">
+                                                            <a href="<?php echo $usuario->getAttribute('des_slug'); ?>">
+                                                                <img src="img/profile/<?php echo $usuario->getAttribute('des_foto'); ?>" alt="" height="55px" width="55px" class="profile-face-footer rounded-circle">
                                                             </a>
                                                         </div>
                                                         <div class="col-10 footer-card">
-                                                            <a href="<?php echo $usuario->getSlugUsuario(); ?>" class="username"><h6 style="font-weight:400"><?php echo $usuario->getNomeSimplesUsuario(); ?></h6></a>
+                                                            <?php $nome = explode(' ', $usuario->getAttribute('des_nome')); ?>
+                                                            <a href="<?php echo $usuario->getAttribute('des_slug'); ?>" class="username"><h6 style="font-weight:400"><?php echo $nome[0] .' '. $nome[count($nome)-1]; ?></h6></a>
                                                             <span class="float-left stars" style="margin-top: -5px;">
                                                                 <a style="font-size: 15px"><i class="fa fa-star"></i> 4,2</a>
                                                             </span>

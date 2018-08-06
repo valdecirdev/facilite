@@ -2,7 +2,6 @@
 
 namespace model;
 
-use database\Database;
 use \Illuminate\Database\Eloquent\Model;
 
 class LigacaoModel extends Model
@@ -16,6 +15,11 @@ class LigacaoModel extends Model
 
     protected $table = 'tb_ligacoes';
     public $timestamps = false;
+
+    public function usuario()
+    {
+        return $this->belongsTo(UsuarioModel::class, 'id_usuario', 'id_usuario');
+    }
 
 }
 

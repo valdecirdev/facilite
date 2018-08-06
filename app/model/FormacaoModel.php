@@ -2,7 +2,6 @@
 
     namespace model;
 
-    use database\Database;
     use \Illuminate\Database\Eloquent\Model;
 
     class FormacaoModel extends Model
@@ -16,4 +15,10 @@
 
         protected $table = 'tb_formacoes';
         public $timestamps = false;
+
+        public function usuario()
+        {
+            return $this->belongsTo(UsuarioModel::class, 'id_usuario', 'id_usuario');
+        }
+
     }

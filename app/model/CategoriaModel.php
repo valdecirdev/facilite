@@ -2,7 +2,6 @@
 
 namespace model;
 
-use database\Database;
 use \Illuminate\Database\Eloquent\Model;
 
 class CategoriaModel extends Model
@@ -16,4 +15,8 @@ class CategoriaModel extends Model
     protected $table = 'tb_categorias';
     public $timestamps = false;
 
+    public function anuncio()
+    {
+        $this->hasMany(AnuncioModel::class, 'id_categoria', 'id_categoria');
+    }
 }

@@ -1,5 +1,5 @@
 $bg-body: #ebedf0;
-$bg-img-home: url('../_img/bg.jpg');
+$bg-img-home: url('../img/bg.jpg');
 $bg-navbar: #29344d;
 $bg-navbar-search-input: #fff;
 
@@ -418,6 +418,17 @@ header{
 }
 
 @media (max-width: 767px){
+    .navbar  .navbar-collapse .navbar-nav{
+        padding-bottom: 10px;
+    }
+    .navbar  .navbar-collapse .navbar-nav .nav-item .nav-link{
+        padding-top: 10px;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+        border-top: 1px #414d70 solid;
+        border-bottom: 1px #414d70 solid;
+    }
+
   #nav-categorias{
     display: none;
   }
@@ -449,6 +460,9 @@ header{
 }
 
 @media (min-width: 768px){
+    .navbar  .navbar-collapse .navbar-nav .nav-item .nav-link {
+        margin-right: 20px;
+    }
     .search-box{
         margin-left:25px !important;
     }

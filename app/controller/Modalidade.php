@@ -1,38 +1,37 @@
 <?php
 
-namespace controller;
+    namespace controller;
 
-use model\ModalidadeModel;
-use model\object\ObjModalidade;
+    use model\ModalidadeModel;
 
-class Modalidade
+    class Modalidade
     {
 
-        public function loadAll()
+        public function loadAll(): array
         {
             $modalidades = ModalidadeModel::all();
             $modalidade = $this->setData($modalidades);
             return $modalidade;
         }
 
-        public function loadByID($id)
+        public function loadByID(int $id): ModalidadeModel
         {
             $modalidades = ModalidadeModel::where('id_modalidade', '=', $id)->get();
             $modalidade = $this->setData($modalidades);
             return $modalidade[0];
         }
 
-        public function setData($infos)
+        public function setData($infos): array
         {
-            $modalidade = array();
+            $modal = array();
             $cont = 0;
             foreach ($infos as $data) {
-                $modalidade[$cont] = new ObjModalidade();
-                $modalidade[$cont]->setIdModalidade($data['id_modalidade']);
-                $modalidade[$cont]->setDescricaoModalidade($data['des_descricao']);
+                $modal[$cont] = new ModalidadeModel();
+                $modal[$cont]->setAttribute('id_modalidade', $data['id_modalidade']);
+                $modal[$cont]->setAttribute('des_descricao', $data['des_descricao']);
                 $cont++;
             }
-            return $modalidade;
+            return $modal;
         }
         
     }

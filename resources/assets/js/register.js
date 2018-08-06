@@ -23,8 +23,7 @@ var app = new Vue({
                 },
                 function(data){
                     if((data) || (data == 1)){
-                        alert(data);
-                        // window.location.reload();
+                        window.location.reload();
                     }else{
                         $('#register-alert').removeClass('d-none');
                     }

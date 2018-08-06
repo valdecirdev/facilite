@@ -24,7 +24,6 @@
   "autoload": {
     "psr-4": {
       "controller\\": "./app/controller/",
-      "model\\object\\": "./app/model/object/",
       "database\\": "./database/",
       "model\\": "./app/model/",
       "routes\\": "./routes/"

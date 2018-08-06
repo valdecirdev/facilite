@@ -3,19 +3,18 @@
     namespace controller;
 
     use model\FormacaoModel;
-    use model\object\ObjFormacao;
 
     class Formacao
     {
 
-        public function loadByID(int $id)
+        public function loadByID(int $id): FormacaoModel
         {
             $formacoes = FormacaoModel::where('id_formacao', '=', $id)->get();
             $formacao = $this->setData($formacoes);
             return $formacao[0];
         }
 
-        public function loadByUser(int $id)
+        public function loadByUser(int $id): array
         {
             $formacoes = FormacaoModel::where('id_usuario', '=', $id)->orderBy('id_formacao','desc')->get();
             $formacao = $this->setData($formacoes);
@@ -33,8 +32,6 @@
             $formacao->des_descricao = $descr;
             $formacao->save();
             return $formacao->id;
-            //$result = $sql->select("SELECT LAST_INSERT_ID()");
-            //return $result[0]['LAST_INSERT_ID()'];
         }
 
         public function update(array $values)
@@ -47,22 +44,20 @@
                 ->update(['des_titulo' => $titulo, 'des_descricao' => $descr]);
         }
 
-        public function delete(int $id)
+        public function delete(int $id): void
         {
             FormacaoModel::where('id_formacao', '=', $id)->delete();
         }
 
-        public function setData($infos)
+        public function setData($infos): array
         {
             $formacao = array();
-            $cont = 0;
-            foreach ($infos as $data) {
-                $formacao[$cont] = new ObjFormacao();
-                $formacao[$cont]->setIdFormacao($data['id_formacao']);
-                $formacao[$cont]->setIdUsuarioFormacao($data['id_usuario']);
-                $formacao[$cont]->setTituloFormacao($data['des_titulo']);
-                $formacao[$cont]->setDescricaoFormacao($data['des_descricao']);
-                $cont++;
+            foreach ($infos as $key => $data) {
+                $formacao[$key] = new FormacaoModel();
+                $formacao[$key]->setAttribute('id_formacao', $data['id_formacao']);
+                $formacao[$key]->setAttribute('id_usuario', $data['id_usuario']);
+                $formacao[$key]->setAttribute('des_titulo', $data['des_titulo']);
+                $formacao[$key]->setAttribute('des_descricao', $data['des_descricao']);
             }
             return $formacao;
         }

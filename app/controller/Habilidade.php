@@ -2,8 +2,8 @@
 
 namespace controller;
 
+use model\HabilidadeModel;
 use model\HabilidadeUsuarioModel;
-use model\object\ObjHabilidade;
 
 class Habilidade {
 
@@ -49,13 +49,11 @@ class Habilidade {
         public function setData($infos)
         {
             $habilidade = array();
-            $cont = 0;
-            foreach ($infos as $data) {
-                $habilidade[$cont] = new ObjHabilidade();
-                $habilidade[$cont]->setIdHabilidade($data['id_habilidade']);
-                $habilidade[$cont]->setIdUsuarioHabilidade($data['id_usuario']);
-                $habilidade[$cont]->setDescricaoHabilidade($data->relatedHabilidade->des_descricao);
-                $cont++;
+            foreach ($infos as $key => $data) {
+                $habilidade[$key] = new HabilidadeModel();
+                $habilidade[$key]->setAttribute('id_habilidade', $data['id_habilidade']);
+                $habilidade[$key]->setAttribute('id_usuario', $data['id_usuario']);
+                $habilidade[$key]->setAttribute('des_descricao', $data->habilidade->des_descricao);
             }
             return $habilidade;
         }

@@ -3,7 +3,6 @@
 namespace controller;
 
 use model\AnuncioModel;
-use model\object\ObjAnuncio;
 
 class Anuncio
 {
@@ -11,44 +10,24 @@ class Anuncio
     //---------------------------------------------------------------------
     //  LOADS
     //---------------------------------------------------------------------
-    public function loadByID (int $id)
+    public function loadByID (int $id): AnuncioModel
     {
-        $anuncio = AnuncioModel::where('id_anuncio', '=', $id)->get();
-        $anuncios = array();
-        $categoria = array();
-
-        foreach ($anuncio as $key => $value) {
-            $anuncios[$key] = new ObjAnuncio();
-            $categoria[$key] = new Categoria();
-            $modalidade[$key] = new Modalidade();
-            $des_categoria = $categoria[$key]->loadByID($anuncio[$key]['id_categoria']);
-            $des_modalidade = $modalidade[$key]->loadByID($anuncio[$key]['id_modalidade']);
-            $this->setData($anuncios[$key],$anuncio[$key], $des_categoria->getDescricaoCategoria(), $des_categoria->getIconeCategoria(), $des_modalidade->getDescricaoModalidade());
-        }
-        return $anuncios;
+        $result = AnuncioModel::where('id_anuncio', '=', $id)->get();
+        $anuncios = $this->setData($result);
+        return $anuncios[0];
     }
 
-    public function loadByUser (int $id)
+    public function loadByUser (int $id): array
     {
-        $anuncio = AnuncioModel::where('id_usuario', '=', $id)->get();
-        $anuncios = array();
-        $categoria = array();
-
-        foreach ($anuncio as $key => $value) {
-            $anuncios[$key] = new ObjAnuncio();
-            $categoria[$key] = new Categoria();
-            $modalidade[$key] = new Modalidade();
-            $des_categoria = $categoria[$key]->loadByID($anuncio[$key]['id_categoria']);
-            $des_modalidade = $modalidade[$key]->loadByID($anuncio[$key]['id_modalidade']);
-            $this->setData($anuncios[$key],$anuncio[$key], $des_categoria->getDescricaoCategoria(), $des_categoria->getIconeCategoria(), $des_modalidade->getDescricaoModalidade());
-        }
+        $result = AnuncioModel::where('id_usuario', '=', $id)->get();
+        $anuncios = $this->setData($result);
         return $anuncios;
     }
 
     //---------------------------------------------------------------------
     //  INSERT
     //---------------------------------------------------------------------
-    public function insert (array $values)
+    public function insert (array $values): int
     {
         $descr = filter_var($values['des_descricao'], FILTER_SANITIZE_STRING);
         $preco = filter_var($values['des_preco'], FILTER_SANITIZE_STRING);
@@ -67,7 +46,7 @@ class Anuncio
     //---------------------------------------------------------------------
     //  UPDATES
     //---------------------------------------------------------------------
-    public function update (array $values)
+    public function update (array $values): void
     {
         $descr = filter_var($values['des_descricao'], FILTER_SANITIZE_STRING);
         $preco = filter_var($values['des_preco'], FILTER_SANITIZE_STRING);
@@ -79,7 +58,7 @@ class Anuncio
     //---------------------------------------------------------------------
     //  TOOLS
     //---------------------------------------------------------------------
-    public function delete (int $id)
+    public function delete (int $id): void
     {
         AnuncioModel::where('id_anuncio', '=', $id)->delete();
     }
@@ -87,19 +66,21 @@ class Anuncio
     //---------------------------------------------------------------------
     //  DATASET
     //---------------------------------------------------------------------
-    public function setData ($anuncio, $data, $des_categoria, $des_icone_categoria, $des_modalidade)
+    public function setData ($infos)
     {
-        $anuncio->setIdAnuncio($data['id_anuncio']);
-        $anuncio->setIdUsuarioAnuncio($data['id_usuario']);
-        $anuncio->setIdCategoriaAnuncio($data['id_categoria']);
-        $anuncio->setCategoriaAnuncio($des_categoria);
-        $anuncio->setIconeCategoriaAnuncio($des_icone_categoria);
-        $anuncio->setDescricaoAnuncio($data['des_descricao']);
-        $preco = number_format($data['des_preco'], 2, ",", ".");
-        $anuncio->setPrecoAnuncio($preco);
-        $anuncio->setIdModalidadeAnuncio($data['id_modalidade']);
-        $anuncio->setModalidadeAnuncio($des_modalidade);
-        $anuncio->setDisponibilidadeAnuncio($data['des_disponibilidade']);
+        $anuncios = array();
+        foreach ($infos as $key => $data) {
+            $anuncios[$key] = new AnuncioModel();
+            $anuncios[$key]->setAttribute('id_anuncio', $data['id_anuncio']);
+            $anuncios[$key]->setAttribute('id_usuario', $data['id_usuario']);
+            $anuncios[$key]->setAttribute('id_categoria', $data['id_categoria']);
+            $anuncios[$key]->setAttribute('des_descricao', $data['des_descricao']);
+            $preco = number_format($data['des_preco'], 2, ",", ".");
+            $anuncios[$key]->setAttribute('des_preco', $preco);
+            $anuncios[$key]->setAttribute('id_modalidade', $data['id_modalidade']);
+            $anuncios[$key]->setAttribute('des_disponibilidade', $data['des_disponibilidade']);
+        }
+        return $anuncios;
     }
         
 }

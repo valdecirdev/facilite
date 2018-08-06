@@ -3,7 +3,7 @@
 <nav class="d-print-none navbar navbar-expand-md navbar-dark">
     <a class="navbar-brand" href="home" style="margin-right:50px">
         <div class="brand">
-            <img src="_img/logo.png" alt="" height="30px">
+            <img src="img/logo.png" alt="" height="30px">
         </div>
     </a>
     <button class="navbar-toggler" type="button" aria-label="Exibir ou ocultar menu" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,31 +20,31 @@
         </div>
         <ul class="nav navbar-nav ml-auto">
         <?php if($_SESSION == NULL){ ?>
-            <li class="nav-item" style="margin-right:15px">
-                <a href="identifique-se" aria-label="Fazer Login" class="nav-link text-white" style="margin-top:-2px">
-                    <i class="fas fa-user" style="margin-right:5px;"></i> Entrar
+            <li class="nav-item">
+                <a href="identifique-se" class="nav-link text-white" style="font-size: 16px;">
+                    <i class="fas fa-user" style="margin-right:7px;"></i> Entrar
                 </a>
             </li>
             <li class="nav-item">
-                <a href="cadastre-se" aria-label="Fazer Cadastro" class="btn btn-primary col-12" style="padding-top:5px;padding-bottom:5px;background-color:#02b3e4;border-color:#02b3e4;color:#fff !important;border-radius:3px !important;box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.05)">
+                <a href="cadastre-se" class="btn btn-primary col-12" style="padding: 7px 25px;background-color:#02b3e4;border-color:#02b3e4;color:#fff !important;border-radius:3px !important;box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.05)">
                     Cadastrar-se
                 </a>
             </li>
         <?php }else{ ?>
             <li class="nav-item dropdown">
-                <a aria-label="Meu perfil" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a aria-label="Meu perfil" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 16px;">
                     <?php
                         $loggedUser = new Usuario(); 
                         $loggedUser = $loggedUser->loadById($_SESSION['id']); 
                     ?>
-                    <img class="float-left img-nav-profile rounded-circle" src="_img/profile/<?=$loggedUser->getFotoUsuario();?>" height="25" width="25">
-                    <span class="float-left clearfix d-sm-inline-block text-white" id="navbar-username" style="margin-top:-3px;margin-left:3px;margin-right:3px"><?=explode(' ', $loggedUser->getNomeSimplesUsuario())[0];?></span>
+                    <img class="float-left img-nav-profile rounded-circle" src="img/profile/<?=$loggedUser->getAttribute('des_foto');?>" height="25" width="25" style="margin-top:-2px">
+                    <span class="float-left clearfix d-sm-inline-block text-white" id="navbar-username" style="margin-top:-2px;margin-left:8px;margin-right:8px"><?=explode(' ', $loggedUser->getAttribute('des_nome'))[0];?></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" style="min-width:200px;border-radius: 8px;" aria-label="navbarDropdownMenuLink">
                     <div id="dropdown-logged-user" class="row" style="padding:10px;padding-left:0px;padding-bottom:0px;width:100%;margin-bottom:-12px;margin-left:0px">
                         <div class="col-12 text-center">
-                            <a class="img-profile" href="<?=$loggedUser->getSlugUsuario();?>"><img class="img-nav-dropdown rounded-circle" src="_img/profile/<?=$loggedUser->getFotoUsuario();?>" height="120" width="120"></a>
-                            <a href="<?php echo $loggedUser->getSlugUsuario(); ?>"><p style="color:#8b8b8b">Perfil <span class="text-warning">40%</span> completo</p></a>
+                            <a class="img-profile" href="<?=$loggedUser->getAttribute('des_slug');?>"><img class="img-nav-dropdown rounded-circle" src="img/profile/<?=$loggedUser->getAttribute('des_foto');?>" height="120" width="120"></a>
+                            <a href="<?php echo $loggedUser->getAttribute('des_slug'); ?>"><p style="color:#8b8b8b">Perfil <span class="text-warning">40%</span> completo</p></a>
                         </div>
                     </div>
                     <div class="dropdown-divider"></div>

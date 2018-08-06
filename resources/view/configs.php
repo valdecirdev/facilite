@@ -17,7 +17,7 @@
         }    
     </style>
     <div id="content">
-        <input type="text" value="<?php if(isset($loggedUser)){echo $loggedUser->getIdUsuario();} ?>" id="id_usuario_logado" class="d-none">
+        <input type="text" value="<?php if(isset($loggedUser)){echo $loggedUser->getAttribute('id_usuario');} ?>" id="id_usuario_logado" class="d-none">
         <section class="container-fluid" style="" id="profile-page">
             
             <div class="row">

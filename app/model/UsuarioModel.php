@@ -2,7 +2,6 @@
 
     namespace model;
 
-    use database\Database;
     use \Illuminate\Database\Eloquent\Model;
 
     class UsuarioModel extends Model
@@ -31,9 +30,29 @@
         protected $table = 'tb_usuarios';
         public $timestamps = false;
 
-        public function relatedHabilidadeUsuario()
+        public function experiencias()
+        {
+            return $this->hasMany(ExperienciaModel::class, 'id_usuario', 'id_usuario');
+        }
+
+        public function formacoes()
+        {
+            return $this->hasMany(FormacaoModel::class, 'id_usuario', 'id_usuario');
+        }
+
+        public function habilidades()
         {
             return $this->hasMany(HabilidadeUsuarioModel::class, 'id_usuario', 'id_usuario');
+        }
+
+        public function anuncios()
+        {
+            return $this->hasMany(AnuncioModel::class, 'id_usuario', 'id_usuario');
+        }
+
+        public function ligacoes()
+        {
+            return $this->hasMany(LigacaoModel::class, 'id_usuario', 'id_usuario');
         }
 
     }

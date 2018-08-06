@@ -3,7 +3,6 @@
     namespace controller;
 
     use model\ExperienciaModel;
-    use model\object\ObjExperiencia;
 
     class Experiencia
     {
@@ -45,22 +44,20 @@
                 ->update(['des_titulo' => $titulo, 'des_descricao' => $descr]);
         }
 
-        public function delete(int $id)
+        public function delete(int $id): void
         {
             ExperienciaModel::where('id_experiencia', '=', $id)->delete();
         }
 
-        public function setData($infos)
+        public function setData($infos): array
         {
             $experiencia = array();
-            $cont = 0;
-            foreach ($infos as $data) {
-                $experiencia[$cont] = new ObjExperiencia();
-                $experiencia[$cont]->setIdExperiencia($data['id_experiencia']);
-                $experiencia[$cont]->setIdUsuarioExperiencia($data['id_usuario']);
-                $experiencia[$cont]->setTituloExperiencia($data['des_titulo']);
-                $experiencia[$cont]->setDescricaoExperiencia($data['des_descricao']);
-                $cont++;
+            foreach ($infos as $key => $data) {
+                $experiencia[$key] = new ExperienciaModel();
+                $experiencia[$key]->setAttribute('id_experiencia', $data['id_experiencia']);
+                $experiencia[$key]->setAttribute('id_usuario', $data['id_usuario']);
+                $experiencia[$key]->setAttribute('des_titulo', $data['des_titulo']);
+                $experiencia[$key]->setAttribute('des_descricao', $data['des_descricao']);
             }
             return $experiencia;
         }

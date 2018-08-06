@@ -2,7 +2,6 @@
 
 namespace model;
 
-use database\Database;
 use \Illuminate\Database\Eloquent\Model;
 
 class CidadeModel extends Model

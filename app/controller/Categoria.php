@@ -3,35 +3,32 @@
     namespace controller;
 
     use model\CategoriaModel;
-    use model\object\ObjCategoria;
 
     class Categoria
     {
 
-        public function loadByID($id)
+        public function loadByID($id): CategoriaModel
         {
             $categorias = CategoriaModel::where('id_categoria', '=', $id)->get();
             $categoria = $this->setData($categorias);
             return $categoria[0];
         }
 
-        public function loadAll()
+        public function loadAll(): array
         {
             $categorias = CategoriaModel::all();
             $categoria = $this->setData($categorias);
             return $categoria;
         }
 
-        public function setData($infos)
+        public function setData($infos): array
         {
             $categoria = array();
-            $cont = 0;
-            foreach ($infos as $data) {
-                $categoria[$cont] = new ObjCategoria();
-                $categoria[$cont]->setIdCategoria($data['id_categoria']);
-                $categoria[$cont]->setDescricaoCategoria($data['des_descricao']);
-                $categoria[$cont]->setIconeCategoria($data['des_icone']);
-                $cont++;
+            foreach ($infos as $key => $data) {
+                $categoria[$key] = new CategoriaModel();
+                $categoria[$key]->setAttribute('id_categoria', $data['id_categoria']);
+                $categoria[$key]->setAttribute('des_descricao', $data['des_descricao']);
+                $categoria[$key]->setAttribute('des_icone', $data['des_icone']);
             }
             return $categoria;
         }

@@ -5,55 +5,54 @@ $(document).ready(function () {
  *      FUNÇÕES GERAIS
  * ------------------------------------------------------------------------------------------------- */ 
    
-/** @description Calcula a idade do usuario com base na data de nascimento informada ;
- *  @param {number} nascimento Data de nascimento do usuário
- *  @return {number} Idade do usuário 
- */ 
-    function calcularIdade(nascimento) {
-        hoje = new Date;
-        nascimento = new Date(nascimento);
-        var idade = hoje.getFullYear() - nascimento.getFullYear();
-        if ( new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate()) < 
-             new Date(hoje.getFullYear(), nascimento.getMonth(), nascimento.getDate()) )
-             idade--;
-        return idade;
-    }
-
+// /** @description Calcula a idade do usuario com base na data de nascimento informada ;
+//  *  @param {number} nascimento Data de nascimento do usuário
+//  *  @return {number} Idade do usuário
+//  */
+//     function calcularIdade(nascimento) {
+//         hoje = new Date;
+//         nascimento = new Date(nascimento);
+//         var idade = hoje.getFullYear() - nascimento.getFullYear();
+//         if ( new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate()) <
+//              new Date(hoje.getFullYear(), nascimento.getMonth(), nascimento.getDate()) )
+//              idade--;
+//         return idade;
+//     }
 
 /* -------------------------------------------------------------------------------------------------
  *      ALTERAR FOTO DE PERFIL
- * ------------------------------------------------------------------------------------------------- */ 
- 
-/** @description Abre a caixa de dialogo para seleção de foto após clique na foto de perfil.  
- */ 
+ * ------------------------------------------------------------------------------------------------- */
+
+/** @description Abre a caixa de dialogo para seleção de foto após clique na foto de perfil.
+ */
     $("#usrFotoView").click(function (e) {
         $('#usrFoto').click(); // Open dialog
         e.preventDefault();
     });
 /** @description Abre a caixa de dialogo para seleção de foto após clique no icone de camera da foto de 
  * perfil. 
- */  
+ */
     $("#fotoMouseOn").click(function (e) {
         $('#usrFoto').click(); // Open dialog
         e.preventDefault();
     });
 /** @description Exibe imagem da camera sobre a foto de perfil.  
- */ 
+ */
     $("#fotoMouseOn").mouseover(function() {
         $("#fotoMouseOn").css('display','block');
     });
 /** @description Esconde imagem da camera sobre a foto de perfil.  
- */ 
+ */
     $("#fotoMouseOn").mouseout(function() {
         $("#fotoMouseOn").css('display','none');
     });
-/** @description Exibe imagem da camera sobre a foto de perfil.  
- */ 
+/** @description Exibe imagem da camera sobre a foto de perfil.
+ */
     $("#usrFotoView").mouseover(function() {
         $("#fotoMouseOn").css('display','block');
     });
 /** @description Executa a ação do botão Adicionar/Remover Contato.  
- */ 
+ */
     $("#usrFoto").change(function(){
         $('#form-usrFoto').submit();        
     });
@@ -61,7 +60,7 @@ $(document).ready(function () {
 /** @description Faz o envio do formulario com a nova imagem de perfil e atualiza automaticamente na pagina. 
  */ 
     $("#form-usrFoto").submit(function(e) {
-        if($("#usrFoto").val() != ''){
+        if($("#usrFoto").val() !== ''){
             var form;
             form = new FormData();
             form.append('usrFoto', event.target.files[0]); // para enviar apenas 1 arquivo
@@ -72,9 +71,9 @@ $(document).ready(function () {
                 contentType: false,
                 type: 'POST',
                 success: function (data) {
-                    $('.img-nav-dropdown').attr('src, _img/profile/'+data);
-                    $('#usrFotoView').attr('src','_img/profile/'+data);
-                    $('.img-nav-profile').attr('src','_img/profile/'+data);
+                    $('.img-nav-dropdown').attr('src', 'img/profile/'+data);
+                    $('#usrFotoView').attr('src','img/profile/'+data);
+                    $('.img-nav-profile').attr('src','img/profile/'+data);
                 }
             });
         }

@@ -13,7 +13,6 @@
     use model\LigacaoModel;
     use model\PaisModel;
     use model\UsuarioModel;
-    use model\object\{ObjUsuario, ObjConfirmacao};
     use PHPMailer\PHPMailer\PHPMailer;
     use \DateTime;
 
@@ -36,6 +35,7 @@
             if (count($result)>0) {
                 if (password_verify($values['des_senha'], $result[0]['des_senha'])) {
                     session_start();
+                    session_regenerate_id();
                     $_SESSION['id'] = $result[0]['id_usuario'];
                     $_SESSION['nome'] = $result[0]['des_nome'];
                     $_SESSION['slug'] = $result[0]['des_slug'];
@@ -69,7 +69,9 @@
                 self::login($values);
 
                 $hash = md5(date("Y/m/d H:i:s"));
-                $confirm = new ObjConfirmacao(null, $_SESSION['id'], $hash);
+                $confirm = new ConfirmacaoModel();
+                $confirm->setAttribute('id_usuario', $_SESSION['id']);
+                $confirm->setAttribute('des_hash', $hash);
                 $confirmacao = new Confirmacao();
                 $confirmacao->insert($confirm);
                 $user->mailer($_POST['des_email'], $_POST['des_nome'], $hash);
@@ -115,6 +117,9 @@
         {
             $users = UsuarioModel::where('des_slug', '=', $slug)->get();
             $usuario = $this->setInfosUsuario($users);
+            if (is_null($usuario) || count($usuario)==0) {
+                return NULL;
+            }
             return $usuario[0];
         }
 
@@ -122,6 +127,9 @@
         {
             $users = UsuarioModel::where('id_usuario', '=', $id)->get();
             $usuario = $this->setInfosUsuario($users);
+            if (is_null($usuario) || count($usuario)==0) {
+                return NULL;
+            }
             return $usuario[0];
         }
 
@@ -129,52 +137,70 @@
         {
             $users = UsuarioModel::where('des_email', '=', $email)->get();
             $usuario = $this->setInfosUsuario($users);
+            if (is_null($usuario) || count($usuario)==0) {
+                return NULL;
+            }
             return $usuario[0];
         }
 
         public function loadCityByName(string $nome)
         {
             $result = CidadeModel::where('des_nome', '=', $nome)->get();
+            if (is_null($result) || count($result)==0) {
+                return NULL;
+            }
             return $result;
         }
 
         public function loadCity()
         {
             $result = CidadeModel::all();
+            if (is_null($result) || count($result)==0) {
+                return NULL;
+            }
             return $result[0];
         }
 
         public function loadCityById(int $id)
         {
             $result = CidadeModel::where('id_cidade', '=', $id)->get();
+            if (is_null($result) || count($result)==0) {
+                return NULL;
+            }
             return $result[0];
         }
 
         public function loadCountryById(int $id):array
         {
             $result = PaisModel::where('id_pais', '=', $id)->get();
+            if (is_null($result) || count($result)==0) {
+                return NULL;
+            }
             return $result[0];
         }
 
         public function loadStateById(int $id = null):array
         {
             $result = EstadoModel::where('id_estado', '=', $id)->get();
+            if (is_null($result) || count($result)==0) {
+                return NULL;
+            }
             return $result[0];
         }
 
         //---------------------------------------------------------------------
         //  INSERT
         //---------------------------------------------------------------------
-        public function insert(ObjUsuario $usuario)
+        public function insert(UsuarioModel $usuario): int
         {
             $user = new UsuarioModel();
-            $user->des_email = $usuario->getEmailUsuario();
-            $user->des_slug = $usuario->getSlugUsuario();
-            $user->des_senha = $usuario->getSenhaUsuario();
-            $user->des_nome = $usuario->getNomeUsuario();
-            $user->des_sexo = $usuario->getSexoUsuario();
-            $user->dt_nasc = $usuario->getDtNascUsuario();
-            $user->des_status = $usuario->getStatusUsuario();
+            $user->des_email  = $usuario->getAttribute('des_email');
+            $user->des_slug   = $usuario->getAttribute('des_slug');
+            $user->des_senha  = $usuario->getAttribute('des_senha');
+            $user->des_nome   = $usuario->getAttribute('des_nome');
+            $user->des_sexo   = $usuario->getAttribute('des_sexo');
+            $user->dt_nasc    = $usuario->getAttribute('dt_nasc');
+            $user->des_status = $usuario->getAttribute('des_status');
             $user->save();
             return $user->id;
         }
@@ -221,11 +247,11 @@
             return FALSE;
         }
 
-        public function update_image(ObjUsuario $usuario, array $files = array()):string
+        public function update_image(UsuarioModel $usuario, array $files = array()):string
         {
             if ((isset($files['usrFoto']))&&(!is_null($files['usrFoto']))) {
-                $foto = $usuario->getFotoUsuario();
-                $diretorio = __DIR__.DS.'..'.DS.'..'.DS.'public'.DS.'_img'.DS.'profile'.DS;
+                $foto = $usuario->getAttribute('des_foto');
+                $diretorio = __DIR__.DS.'..'.DS.'..'.DS.'public'.DS.'img'.DS.'profile'.DS;
                 if (!is_dir($diretorio)) {
                     mkdir($diretorio);
                 }
@@ -237,11 +263,11 @@
                 move_uploaded_file($files['usrFoto']['tmp_name'], $diretorio.$foto);
                 $this->resize_image($diretorio.$foto);
 
-                $usuario->setFotoUsuario($foto);
-                UsuarioModel::where('id_usuario', $usuario->getIdUsuario())->update(['des_foto' => $foto]);
+                $usuario->setAttribute('des_foto', $foto);
+                UsuarioModel::where('id_usuario', $usuario->getAttribute('id_usuario'))->update(['des_foto' => $foto]);
                 return $foto;
             } else {
-                $foto = $usuario->getFotoUsuario();
+                $foto = $usuario->getAttribute('des_foto');
                 return $foto;
             }
         }
@@ -251,7 +277,7 @@
         //---------------------------------------------------------------------
         //  TOOLS
         //---------------------------------------------------------------------
-        public function delete(int $id)
+        public function delete(int $id): void
         {
             self::logout();
             AnuncioModel::where('id_usuario', '=', $id)->delete();
@@ -263,12 +289,12 @@
             $result = UsuarioModel::where('id_usuario', '=', $id)->get();
             $foto = $result[0]['des_foto'];
             if($foto != 'default.jpg'){
-                unlink(__DIR__.DS.'..'.DS.'..'.DS.'public'.DS.'_img'.DS.'profile'.DS.$foto);
+                unlink(__DIR__.DS.'..'.DS.'..'.DS.'public'.DS.'img'.DS.'profile'.DS.$foto);
             }
             UsuarioModel::where('id_usuario', '=', $id)->delete();
         }
 
-        public function resize_image(string $caminho_imagem)
+        public function resize_image(string $caminho_imagem): void
         {
             // Retorna o identificador da imagem
             $imagem = imagecreatefromjpeg($caminho_imagem);
@@ -336,12 +362,12 @@
             $usuario = array();
             $cont = 0;
             foreach ($infos as $data) {
-                $usuario[$cont] = new ObjUsuario();
+                $usuario[$cont] = new UsuarioModel();
 
-                $usuario[$cont]->setNomeUsuario($data['des_nome']);
-                $usuario[$cont]->setSlugUsuario($data['des_slug']);
-                $usuario[$cont]->setIdUsuario($data['id_usuario']);
-                $usuario[$cont]->setEmailUsuario($data['des_email']);
+                $usuario[$cont]->setAttribute('des_nome', $data['des_nome']);
+                $usuario[$cont]->setAttribute('des_slug', $data['des_slug']);
+                $usuario[$cont]->setAttribute('id_usuario', $data['id_usuario']);
+                $usuario[$cont]->setAttribute('des_email', $data['des_email']);
 
                 $sexo = '';
                 if ($data['des_sexo'] == 'M') {
@@ -350,23 +376,23 @@
                     $sexo = 'Feminino';
                 }
 
-                $usuario[$cont]->setSexoUsuario($sexo);
-                $usuario[$cont]->setDtNascUsuario($data['dt_nasc']);
+                $usuario[$cont]->setAttribute('des_sexo', $sexo);
+                $usuario[$cont]->setAttribute('dt_nasc', $data['dt_nasc']);
 
                 $date = new DateTime( $data['dt_nasc'] ); // data de nascimento
-                $usuario[$cont]->setIdadeUsuario(Carbon::createFromDate($date->format( 'Y' ), $date->format( 'm' ), $date->format( 'd' ))->age);
-                $usuario[$cont]->setApresentacaoUsuario($data['des_apresentacao']);
-                $usuario[$cont]->setCpfUsuario($data['des_cpf']);
-                $usuario[$cont]->setFotoUsuario($data['des_foto']);
+//                $usuario[$cont]->setIdadeUsuario(Carbon::createFromDate($date->format( 'Y' ), $date->format( 'm' ), $date->format( 'd' ))->age);
+                $usuario[$cont]->setAttribute('des_apresentacao', $data['des_apresentacao']);
+                $usuario[$cont]->setAttribute('des_cpf', $data['des_cpf']);
+                $usuario[$cont]->setAttribute('des_foto', $data['des_foto']);
 
                 if(!is_null($data['id_cidade'])) {
                     $cidade = $this->loadCityById($data['id_cidade'])['des_nome'] . ' - ' . $this->loadCityById($data['id_cidade'])->estado['des_uf'];
-                    $usuario[$cont]->setCidadeUsuario($cidade);
+                    $usuario[$cont]->setAttribute('id_cidade', $cidade);
                 }
-                $usuario[$cont]->setOcupacaoUsuario($data['des_ocupacao']);
-                $usuario[$cont]->setTelefoneUsuario($data['des_telefone']);
-                $usuario[$cont]->setStatusUsuario($data['des_status']);
-                $usuario[$cont]->setDtCadastroUsuario($data['dt_cadastro']);
+                $usuario[$cont]->setAttribute('des_ocupacao', $data['des_ocupacao']);
+                $usuario[$cont]->setAttribute('des_telefone', $data['des_telefone']);
+                $usuario[$cont]->setAttribute('des_status', $data['des_status']);
+                $usuario[$cont]->setAttribute('dt_cadastro', $data['dt_cadastro']);
                 $cont++;
             }
             return $usuario;

@@ -2,7 +2,6 @@
 //
 namespace model;
 
-use database\Database;
 use \Illuminate\Database\Eloquent\Model;
 
 class ExperienciaModel extends Model
@@ -16,5 +15,10 @@ class ExperienciaModel extends Model
 
     protected $table = 'tb_experiencias';
     public $timestamps = false;
+
+    public function usuario()
+    {
+        return $this->belongsTo(UsuarioModel::class, 'id_usuario', 'id_usuario');
+    }
 
 }

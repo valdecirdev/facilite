@@ -2,7 +2,6 @@
 
     namespace model;
 
-    use database\Database;
     use \Illuminate\Database\Eloquent\Model;
 
     class HabilidadeModel extends Model
@@ -16,7 +15,7 @@
         protected $table = 'tb_habilidades';
         public $timestamps = false;
 
-        public function relatedHabilidadeUsuario()
+        public function usuario()
         {
             $this->hasMany(HabilidadeUsuarioModel::class, 'id_habilidade', 'id_habilidade');
         }

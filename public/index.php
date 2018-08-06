@@ -9,67 +9,31 @@ $router = new Router();
 
 $router
     ->get('/', function () {
-        ob_start();
-        require dirname(__DIR__) . "/resources/view/index.php";
-        $html = ob_get_contents();
-        ob_end_clean();
-        return $html;
+        require __APP_ROOT__ . "/resources/view/index.php";
     })
     ->get('/home', function () {
-        ob_start();
-        require dirname(__DIR__) . "/resources/view/index.php";
-        $html = ob_get_contents();
-        ob_end_clean();
-        return $html;
+        require __APP_ROOT__ . "/resources/view/index.php";
     })
     ->get('/configuracoes', function () {
-        ob_start();
-        require dirname(__DIR__) . "/resources/view/configs.php";
-        $html = ob_get_contents();
-        ob_end_clean();
-        return $html;
+        require __APP_ROOT__ . "/resources/view/configs.php";
     })
     ->get('/search', function () {
-        ob_start();
-        require dirname(__DIR__) . "/resources/view/search.php";
-        $html = ob_get_contents();
-        ob_end_clean();
-        return $html;
+        require __APP_ROOT__ . "/resources/view/search.php";
     })
     ->get('/erro', function () {
-        ob_start();
-        require dirname(__DIR__) . "/resources/view/error.php";
-        $html = ob_get_contents();
-        ob_end_clean();
-        return $html;
+        require __APP_ROOT__ . "/resources/view/error.php";
     })
     ->get('/identifique-se', function () {
-        ob_start();
-        require dirname(__DIR__) . "/resources/view/login.php";
-        $html = ob_get_contents();
-        ob_end_clean();
-        return $html;
+        require __APP_ROOT__ . "/resources/view/login.php";
     })
     ->get('/cadastre-se', function () {
-        ob_start();
-        require dirname(__DIR__) . "/resources/view/register.php";
-        $html = ob_get_contents();
-        ob_end_clean();
-        return $html;
+        require __APP_ROOT__ . "/resources/view/register.php";
     })
     ->get('/confirm', function () {
-        ob_start();
-        require dirname(__DIR__) . "/resources/view/confirma_email.php";
-        $html = ob_get_contents();
-        ob_end_clean();
-        return $html;
+        require __APP_ROOT__ . "/resources/view/confirma_email.php";
     })
-    ->get('/(\w+)', function () {
-        ob_start();
-        require dirname(__DIR__) . "/resources/view/profile.php";
-        $html = ob_get_contents();
-        ob_end_clean();
-        return $html;
+    ->get('/([@,a-z,0-9,A-Z,_-]+)', function () {
+        require __APP_ROOT__ . "/resources/view/profile.php";
     });
 
 echo $router($router->method(), $router->uri());

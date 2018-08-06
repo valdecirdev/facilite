@@ -46,7 +46,7 @@
                     <input type="date" class="form-control" id="dt_nasc" name="dt_nasc" v-model="dt_nasc" placeholder="">
                 </div>
                 <div class="form-group col-md-12">
-                <p style="margin-top:10px">Ao clicar em 'Registrar-se', você concorda com nossos <a href="">Termos de Uso</a> e nossa <a href="">Política de Privacidade</a>.</p>
+                    <p style="margin-top:10px">Ao clicar em 'Registrar-se', você concorda com nossos <a href="">Termos de Uso</a> e nossa <a href="">Política de Privacidade</a>.</p>
                     <button type="submit" aria-label="Cadastrar-se" class="btn btn-primary col-12" style="margin-top:10px;padding-top:15px;padding-bottom:15px;background-color:#02b3e4;border-color:#02b3e4">REGISTRAR-SE</button>
                 </div>
             </form>

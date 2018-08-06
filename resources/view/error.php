@@ -1,6 +1,5 @@
 <?php $pg_title = 'Pagina Não Encontrada - ';
-include_once('../../../bootstrap/app.php');
-include_once('header.php'); ?>
+include_once('_includes/header.php'); ?>
 <style>
     body{
         background-color: #505050;

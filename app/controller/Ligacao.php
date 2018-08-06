@@ -3,19 +3,18 @@
 namespace controller;
 
 use model\LigacaoModel;
-use model\object\ObjLigacao;
     
     class Ligacao
     {
 
         public function loadById(int $id_usuario, int $id_contato)
         {
-            $ligacaoes = LigacaoModel::where([
+            $ligacoes = LigacaoModel::where([
                 ['id_usuario', '=', $id_usuario],
                 ['id_contato', '=', $id_contato]
             ])->get();
-            $ligacaoes = $this->setData($ligacaoes);
-            return $ligacaoes;
+            $ligacoes = $this->setData($ligacoes);
+            return $ligacoes;
         }
 
         public function loadByUser(int $id, int $limite)
@@ -25,7 +24,7 @@ use model\object\ObjLigacao;
             return $ligacoes;
         }
 
-        public function add_ligacao(int $id_usuario,int $id_contato)
+        public function add_ligacao(int $id_usuario,int $id_contato): void
         {
             $ligacao = new LigacaoModel;
             $ligacao->id_usuario = $id_usuario;
@@ -33,7 +32,7 @@ use model\object\ObjLigacao;
             $ligacao->save();
         }
 
-        public function rem_ligacao(int $id_usuario, int $id_contato)
+        public function rem_ligacao(int $id_usuario, int $id_contato): void
         {
             LigacaoModel::where([
                 ['id_usuario', '=', $id_usuario],
@@ -41,17 +40,15 @@ use model\object\ObjLigacao;
             ])->delete();
         }
 
-        public function setData($info)
+        public function setData($info): array
         {
             $ligacoes = array();
-            $cont = 0;
-            foreach ($info as $data) {
-                $ligacoes[$cont] = new ObjLigacao();
-                $ligacoes[$cont]->setIdLigacao($data['id_ligacao']);
-                $ligacoes[$cont]->setIdUsuarioLigacao($data['id_usuario']);
-                $ligacoes[$cont]->setIdContatoLigacao($data['id_contato']);
-                $ligacoes[$cont]->setDtLigacao($data['dt_ligacao']);
-                $cont++;
+            foreach ($info as $key => $data) {
+                $ligacoes[$key] = new LigacaoModel();
+                $ligacoes[$key]->setAttribute('id_ligacao', $data['id_ligacao']);
+                $ligacoes[$key]->setAttribute('id_usuario', $data['id_usuario']);
+                $ligacoes[$key]->setAttribute('id_contato', $data['id_contato']);
+                $ligacoes[$key]->setAttribute('dt_ligacao', $data['dt_ligacao']);
             }
             return $ligacoes;
         }

@@ -3,16 +3,15 @@
 namespace controller;
 
 use model\ConfirmacaoModel;
-use model\object\ObjConfirmacao;
 
 class Confirmacao
 {
 
-    public function insert(ObjConfirmacao $confirmacao)
+    public function insert(ConfirmacaoModel $confirmacao): void
     {
         $confirm = new ConfirmacaoModel();
-        $confirm->id_usuario = $confirmacao->getIdUsuario();
-        $confirm->des_hash = $confirmacao->getDesHash();
+        $confirm->id_usuario = $confirmacao->getAttribute('id_usuario');
+        $confirm->des_hash = $confirmacao->getAttribute('des_hash');
         $confirm->save();
     }
 
@@ -22,7 +21,7 @@ class Confirmacao
         return $confirmacao;
     }
 
-    public function delete(int $id)
+    public function delete(int $id): void
     {
         ConfirmacaoModel::where('id_confirmacao', '=', $id)->delete();
     }
