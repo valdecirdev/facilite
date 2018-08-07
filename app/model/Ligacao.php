@@ -4,7 +4,7 @@ namespace model;
 
 use \Illuminate\Database\Eloquent\Model;
 
-class LigacaoModel extends Model
+class Ligacao extends Model
 {
     protected $fillable = [
         'id_ligacao',
@@ -18,7 +18,12 @@ class LigacaoModel extends Model
 
     public function usuario()
     {
-        return $this->belongsTo(UsuarioModel::class, 'id_usuario', 'id_usuario');
+        return $this->belongsTo(Usuario::class, 'id_usuario', 'id_usuario');
+    }
+
+    public function contato()
+    {
+        return $this->belongsTo(Usuario::class, 'id_usuario', 'id_contato');
     }
 
 }

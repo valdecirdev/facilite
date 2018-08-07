@@ -2,14 +2,14 @@
 
 namespace controller;
 
-use model\ConfirmacaoModel;
+use model\Confirmacao;
 
-class Confirmacao
+class ConfirmacaoController
 {
 
-    public function insert(ConfirmacaoModel $confirmacao): void
+    public function insert(Confirmacao $confirmacao): void
     {
-        $confirm = new ConfirmacaoModel();
+        $confirm = new Confirmacao();
         $confirm->id_usuario = $confirmacao->getAttribute('id_usuario');
         $confirm->des_hash = $confirmacao->getAttribute('des_hash');
         $confirm->save();
@@ -17,13 +17,13 @@ class Confirmacao
 
     public function loadByHash($hash)
     {
-        $confirmacao = ConfirmacaoModel::where('des_hash', '=', $hash)->get();
+        $confirmacao = Confirmacao::where('des_hash', '=', $hash)->get();
         return $confirmacao;
     }
 
     public function delete(int $id): void
     {
-        ConfirmacaoModel::where('id_confirmacao', '=', $id)->delete();
+        Confirmacao::where('id_confirmacao', '=', $id)->delete();
     }
 
 }

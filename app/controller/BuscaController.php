@@ -2,16 +2,16 @@
 
 namespace controller;
 
-use model\AnuncioModel;
+use model\Anuncio;
 //use model\object\ObjAnuncio;
 
-class Busca
+class BuscaController
     {
 
         public function searchCount(string $q, $id)
         {
             $q = strip_tags($q);
-            $result = AnuncioModel::join('tb_categorias', 'tb_categorias.id_categoria', '=', 'tb_anuncios.id_categoria')
+            $result = Anuncio::join('tb_categorias', 'tb_categorias.id_categoria', '=', 'tb_anuncios.id_categoria')
             ->join('tb_usuarios', 'tb_anuncios.id_usuario', '=', 'tb_usuarios.id_usuario')
             ->where('tb_anuncios.id_usuario', '!=', $id)
             ->where('tb_categorias.des_descricao', 'LIKE', '%'.$q.'%')
@@ -25,7 +25,7 @@ class Busca
         public function search(string $q, $id, $limit, $to):array
         {
             $q = strip_tags($q);
-            $result = AnuncioModel::join('tb_categorias', 'tb_categorias.id_categoria', '=', 'tb_anuncios.id_categoria')
+            $result = Anuncio::join('tb_categorias', 'tb_categorias.id_categoria', '=', 'tb_anuncios.id_categoria')
                     ->join('tb_usuarios', 'tb_anuncios.id_usuario', '=', 'tb_usuarios.id_usuario')
                     ->where('tb_anuncios.id_usuario', '!=', $id)
                     ->where('tb_categorias.des_descricao', 'LIKE', '%'.$q.'%')
@@ -44,7 +44,7 @@ class Busca
         {
             $anuncios = array();
             foreach ($infos as $key => $data) {
-                $anuncios[$key] = new AnuncioModel();
+                $anuncios[$key] = new Anuncio();
                 $anuncios[$key]->setAttribute('id_anuncio', $data['id_anuncio']);
                 $anuncios[$key]->setAttribute('id_usuario', $data['id_usuario']);
                 $anuncios[$key]->setAttribute('id_categoria', $data['id_categoria']);

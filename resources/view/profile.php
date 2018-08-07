@@ -1,14 +1,14 @@
 <?php
 
-    use controller\{Usuario, Habilidade, Ligacao, Categoria, Modalidade};
+    use controller\{UsuarioController, HabilidadeController, LigacaoController, CategoriaController, ModalidadeController};
     use Carbon\Carbon;
 
     $uri = explode('/', $_SERVER["REQUEST_URI"]);
     $slug = str_replace("@","",$uri[count($uri)-1]);
 
 
-    $user    = new Usuario();
-    $ligacao = new Ligacao();
+    $user    = new UsuarioController();
+    $ligacao = new LigacaoController();
     $usuario = $user->loadBySlug($slug) ?? header('location:erro');
 
     $nome = explode(' ', $usuario->getAttribute('des_nome'));
@@ -339,7 +339,7 @@
                                                     <a href="<?=$contato->getAttribute('des_slug');?>"><img src="img/profile/<?=$contato->getAttribute('des_foto');?>" alt="" class="rounded-circle" height="50"></a>
                                                 </div>
                                                 <div class="col-10" style="padding-left:30px;">
-                                                    <a href="<?=$contato->getAttribute('des_slug');?>" class="nome-contato"><h6 style="font-weight:400;margin-bottom:3px;margin-top:3px"><?=$nomeSimpes;?> -<i class="fa fa-star" style="margin-left:5px;font-size: 15px;color:rgb(255, 208, 0)"></i> 9,2</h6></a>
+                                                    <a href="<?=$contato->getAttribute('des_slug');?>" class="nome-contato"><h6 style="font-weight:400;margin-bottom:3px;margin-top:3px"><?=explode( ' ',$contato->getAttribute('des_nome'))[0]. ' '.explode(' ', $contato->getAttribute('des_nome'))[count(explode( ' ', $contato->getAttribute('des_nome')))-1];?> -<i class="fa fa-star" style="margin-left:5px;font-size: 15px;color:rgb(255, 208, 0)"></i> 9,2</h6></a>
                                                     <span class="pull-left stars">
                                                         <a aria-label="<?=substr($contato->getAttribute('des_ocupacao'),0,100);?>" style="font-size:14px;color:#8b8b8b"><?=substr($contato->getAttribute('des_ocupacao'),0,100);?></a>
                                                     </span>
@@ -412,7 +412,7 @@
                                 <label>Habilidade:</label>
                                 <select class="form-control" readonly name="des_habilidade_modal" id="des_habilidade_modal">
                                         <?php 
-                                        $hab = new Habilidade();
+                                        $hab = new HabilidadeController();
                                         $hab = $hab->loadAll();
                                         foreach ($hab as $key => $value) { ?>
                                             <option value="<?=$hab[$key]->getAttribute('id_habilidade');?>"><?=$hab[$key]->getAttribute('des_descricao');?></option>
@@ -492,8 +492,8 @@
     <div class="modal fade" id="addServicoModal" tabindex="-1" role="dialog" aria-label="addServicoModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content" style="padding:10px 10px 0px 10px">
-            <?php $categorias = new Categoria();
-                  $modalidades = new Modalidade(); ?>
+            <?php $categorias = new CategoriaController();
+                  $modalidades = new ModalidadeController(); ?>
                 <form action="" method="POST">
                     <div class="modal-body">
                         <h4>Adicionar Serviço</h4>

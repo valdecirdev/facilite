@@ -2,21 +2,21 @@
 
     namespace controller;
 
-    use model\ModalidadeModel;
+    use model\Modalidade;
 
-    class Modalidade
+    class ModalidadeController
     {
 
         public function loadAll(): array
         {
-            $modalidades = ModalidadeModel::all();
+            $modalidades = Modalidade::all();
             $modalidade = $this->setData($modalidades);
             return $modalidade;
         }
 
-        public function loadByID(int $id): ModalidadeModel
+        public function loadByID(int $id): Modalidade
         {
-            $modalidades = ModalidadeModel::where('id_modalidade', '=', $id)->get();
+            $modalidades = Modalidade::where('id_modalidade', '=', $id)->get();
             $modalidade = $this->setData($modalidades);
             return $modalidade[0];
         }
@@ -26,7 +26,7 @@
             $modal = array();
             $cont = 0;
             foreach ($infos as $data) {
-                $modal[$cont] = new ModalidadeModel();
+                $modal[$cont] = new Modalidade();
                 $modal[$cont]->setAttribute('id_modalidade', $data['id_modalidade']);
                 $modal[$cont]->setAttribute('des_descricao', $data['des_descricao']);
                 $cont++;

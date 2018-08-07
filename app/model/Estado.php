@@ -4,7 +4,7 @@ namespace model;
 
 use \Illuminate\Database\Eloquent\Model;
 
-class EstadoModel extends Model
+class Estado extends Model
 {
     protected $fillable = [
         'id_estado',
@@ -18,11 +18,11 @@ class EstadoModel extends Model
 
     public function pais()
     {
-        return $this->belongsTo(PaisModel::class, 'id_pais', 'id_pais');
+        return $this->belongsTo(Pais::class, 'id_pais', 'id_pais');
     }
 
     public function cidade()
     {
-        $this->hasMany(CidadeModel::class, 'id_estado', 'id_estado');
+        $this->hasMany(Cidade::class, 'id_estado', 'id_estado');
     }
 }

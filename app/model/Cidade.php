@@ -4,7 +4,7 @@ namespace model;
 
 use \Illuminate\Database\Eloquent\Model;
 
-class CidadeModel extends Model
+class Cidade extends Model
 {
     protected $fillable = [
         'id_cidade',
@@ -17,6 +17,6 @@ class CidadeModel extends Model
 
     public function estado()
     {
-        return $this->belongsTo(EstadoModel::class, 'id_estado', 'id_estado');
+        return $this->belongsTo(Estado::class, 'id_estado', 'id_estado');
     }
 }

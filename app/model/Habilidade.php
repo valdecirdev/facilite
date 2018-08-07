@@ -4,7 +4,7 @@
 
     use \Illuminate\Database\Eloquent\Model;
 
-    class HabilidadeModel extends Model
+    class Habilidade extends Model
     {
         protected $fillable = [
             'id_habilidade',
@@ -17,7 +17,7 @@
 
         public function usuario()
         {
-            $this->hasMany(HabilidadeUsuarioModel::class, 'id_habilidade', 'id_habilidade');
+            $this->hasMany(HabilidadeUsuario::class, 'id_habilidade', 'id_habilidade');
         }
 
     }

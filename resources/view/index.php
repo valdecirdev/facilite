@@ -1,9 +1,9 @@
 <?php
 
-    use controller\{Busca, Usuario, Categoria};
+    use controller\{BuscaController, UsuarioController, CategoriaController};
 
-    $search = new Busca();
-    $usuarios = new Usuario();
+    $search = new BuscaController();
+    $usuarios = new UsuarioController();
 
     $pg_title = '';
     include('_includes/header.php');
@@ -37,7 +37,7 @@
                             </a>
                             <div class="dropdown-menu dropdown-categorias" aria-labelledby="navbarDropdown">
                                 <?php 
-                                    $categorias = new Categoria();
+                                    $categorias = new CategoriaController();
                                     $cat = $categorias->loadAll();
                                     $cont = 0;
                                     foreach ($cat as $key => $value) { ?>

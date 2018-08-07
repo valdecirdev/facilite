@@ -1,4 +1,4 @@
-<?php use controller\Usuario; ?>
+<?php use controller\UsuarioController; ?>
 
 <nav class="d-print-none navbar navbar-expand-md navbar-dark">
     <a class="navbar-brand" href="home" style="margin-right:50px">
@@ -34,7 +34,7 @@
             <li class="nav-item dropdown">
                 <a aria-label="Meu perfil" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 16px;">
                     <?php
-                        $loggedUser = new Usuario(); 
+                        $loggedUser = new UsuarioController();
                         $loggedUser = $loggedUser->loadById($_SESSION['id']); 
                     ?>
                     <img class="float-left img-nav-profile rounded-circle" src="img/profile/<?=$loggedUser->getAttribute('des_foto');?>" height="25" width="25" style="margin-top:-2px">

@@ -4,7 +4,7 @@ namespace model;
 
 use \Illuminate\Database\Eloquent\Model;
 
-class ExperienciaModel extends Model
+class Experiencia extends Model
 {
     protected $fillable = [
         'id_experiencia',
@@ -18,7 +18,7 @@ class ExperienciaModel extends Model
 
     public function usuario()
     {
-        return $this->belongsTo(UsuarioModel::class, 'id_usuario', 'id_usuario');
+        return $this->belongsTo(Usuario::class, 'id_usuario', 'id_usuario');
     }
 
 }

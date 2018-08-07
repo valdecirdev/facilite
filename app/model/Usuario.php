@@ -4,7 +4,7 @@
 
     use \Illuminate\Database\Eloquent\Model;
 
-    class UsuarioModel extends Model
+    class Usuario extends Model
     {
 
         const CREATED_AT = 'dt_cadastro';
@@ -32,27 +32,27 @@
 
         public function experiencias()
         {
-            return $this->hasMany(ExperienciaModel::class, 'id_usuario', 'id_usuario');
+            return $this->hasMany(Experiencia::class, 'id_usuario', 'id_usuario');
         }
 
         public function formacoes()
         {
-            return $this->hasMany(FormacaoModel::class, 'id_usuario', 'id_usuario');
+            return $this->hasMany(Formacao::class, 'id_usuario', 'id_usuario');
         }
 
         public function habilidades()
         {
-            return $this->hasMany(HabilidadeUsuarioModel::class, 'id_usuario', 'id_usuario');
+            return $this->hasMany(HabilidadeUsuario::class, 'id_usuario', 'id_usuario');
         }
 
         public function anuncios()
         {
-            return $this->hasMany(AnuncioModel::class, 'id_usuario', 'id_usuario');
+            return $this->hasMany(Anuncio::class, 'id_usuario', 'id_usuario');
         }
 
         public function ligacoes()
         {
-            return $this->hasMany(LigacaoModel::class, 'id_usuario', 'id_usuario');
+            return $this->hasMany(Ligacao::class, 'id_usuario', 'id_usuario');
         }
 
     }

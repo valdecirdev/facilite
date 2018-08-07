@@ -4,7 +4,7 @@ namespace model;
 
 use \Illuminate\Database\Eloquent\Model;
 
-class ConfirmacaoModel extends Model
+class Confirmacao extends Model
 {
     protected $fillable = [
         'id_confirmacao',

@@ -2,24 +2,24 @@
 
 namespace controller;
 
-use model\AnuncioModel;
+use model\Anuncio;
 
-class Anuncio
+class AnuncioController
 {
 
     //---------------------------------------------------------------------
     //  LOADS
     //---------------------------------------------------------------------
-    public function loadByID (int $id): AnuncioModel
+    public function loadByID (int $id): Anuncio
     {
-        $result = AnuncioModel::where('id_anuncio', '=', $id)->get();
+        $result = Anuncio::where('id_anuncio', '=', $id)->get();
         $anuncios = $this->setData($result);
         return $anuncios[0];
     }
 
     public function loadByUser (int $id): array
     {
-        $result = AnuncioModel::where('id_usuario', '=', $id)->get();
+        $result = Anuncio::where('id_usuario', '=', $id)->get();
         $anuncios = $this->setData($result);
         return $anuncios;
     }
@@ -32,7 +32,7 @@ class Anuncio
         $descr = filter_var($values['des_descricao'], FILTER_SANITIZE_STRING);
         $preco = filter_var($values['des_preco'], FILTER_SANITIZE_STRING);
         $dispon = filter_var($values['des_disponibilidade'], FILTER_SANITIZE_STRING);
-        $anuncio = new AnuncioModel();
+        $anuncio = new Anuncio();
         $anuncio->id_usuario = $values['id_usuario'];
         $anuncio->id_categoria = $values['id_categoria'];
         $anuncio->des_descricao = $descr;
@@ -51,7 +51,7 @@ class Anuncio
         $descr = filter_var($values['des_descricao'], FILTER_SANITIZE_STRING);
         $preco = filter_var($values['des_preco'], FILTER_SANITIZE_STRING);
         $dispon = filter_var($values['des_disponibilidade'], FILTER_SANITIZE_STRING);
-        AnuncioModel::where('id_anuncio', $values['id_anuncio'])
+        Anuncio::where('id_anuncio', $values['id_anuncio'])
             ->update(['id_categoria' => $values['id_categoria'], 'des_descricao' => $descr, 'des_preco' => $preco, 'id_modalidade' => $values['id_modalidade'], 'des_disponibilidade' => $dispon]);
     }
 
@@ -60,7 +60,7 @@ class Anuncio
     //---------------------------------------------------------------------
     public function delete (int $id): void
     {
-        AnuncioModel::where('id_anuncio', '=', $id)->delete();
+        Anuncio::where('id_anuncio', '=', $id)->delete();
     }
 
     //---------------------------------------------------------------------
@@ -70,7 +70,7 @@ class Anuncio
     {
         $anuncios = array();
         foreach ($infos as $key => $data) {
-            $anuncios[$key] = new AnuncioModel();
+            $anuncios[$key] = new Anuncio();
             $anuncios[$key]->setAttribute('id_anuncio', $data['id_anuncio']);
             $anuncios[$key]->setAttribute('id_usuario', $data['id_usuario']);
             $anuncios[$key]->setAttribute('id_categoria', $data['id_categoria']);

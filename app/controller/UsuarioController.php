@@ -3,20 +3,19 @@
     namespace controller;
 
     use Carbon\Carbon;
-    use model\AnuncioModel;
-    use model\CidadeModel;
-    use model\ConfirmacaoModel;
-    use model\EstadoModel;
-    use model\ExperienciaModel;
-    use model\FormacaoModel;
-    use model\HabilidadeUsuarioModel;
-    use model\LigacaoModel;
-    use model\PaisModel;
-    use model\UsuarioModel;
+    use model\Anuncio;
+    use model\Cidade;
+    use model\Confirmacao;
+    use model\Estado;
+    use model\Experiencia;
+    use model\Formacao;
+    use model\HabilidadeUsuario;
+    use model\Ligacao;
+    use model\Pais;
+    use model\Usuario;
     use PHPMailer\PHPMailer\PHPMailer;
-    use \DateTime;
 
-    class Usuario
+    class UsuarioController
     {
 
         //---------------------------------------------------------------------
@@ -30,7 +29,7 @@
 
         public static function login(array $values = array())
         {
-            $user = new Usuario();
+            $user = new UsuarioController();
             $result = $user->verifyUniqueEmail($values['login_des_email']);
             if (count($result)>0) {
                 if (password_verify($values['des_senha'], $result[0]['des_senha'])) {
@@ -48,7 +47,7 @@
 
         public static function register(array $values = array())
         {
-            $user = new Usuario();
+            $user = new UsuarioController();
             $fullName = preg_replace( '/[`^~\'"]/', null, iconv( 'UTF-8', 'ASCII//TRANSLIT', $_POST['des_nome'] ) );
             $fullName = explode(' ', $fullName);
             $cont = null; $lastName = "";
@@ -69,10 +68,10 @@
                 self::login($values);
 
                 $hash = md5(date("Y/m/d H:i:s"));
-                $confirm = new ConfirmacaoModel();
+                $confirm = new Confirmacao();
                 $confirm->setAttribute('id_usuario', $_SESSION['id']);
                 $confirm->setAttribute('des_hash', $hash);
-                $confirmacao = new Confirmacao();
+                $confirmacao = new ConfirmacaoController();
                 $confirmacao->insert($confirm);
                 $user->mailer($_POST['des_email'], $_POST['des_nome'], $hash);
                 return TRUE;
@@ -85,7 +84,7 @@
         //---------------------------------------------------------------------
         public function verifyUniqueSlug(string $slug)
         {
-            $result = UsuarioModel::where('des_slug', '=' , $slug)->get();
+            $result = Usuario::where('des_slug', '=' , $slug)->get();
             if (count($result)==0) {
                 return TRUE;
             }
@@ -97,12 +96,12 @@
             $email = filter_var($email, FILTER_SANITIZE_EMAIL);
             if (!is_null($id)) {
                 if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                    $result = UsuarioModel::where('des_email', '=' , $email)->where('id_usuario', '=', $id)->get();
+                    $result = Usuario::where('des_email', '=' , $email)->where('id_usuario', '=', $id)->get();
                     return $result;
                 }
             } else {
                 if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                    $result = UsuarioModel::where('des_email', '=' , $email)->get();
+                    $result = Usuario::where('des_email', '=' , $email)->get();
                     return $result;
                 }
             }
@@ -115,7 +114,7 @@
         //---------------------------------------------------------------------
         public function loadBySlug(string $slug)
         {
-            $users = UsuarioModel::where('des_slug', '=', $slug)->get();
+            $users = Usuario::where('des_slug', '=', $slug)->get();
             $usuario = $this->setInfosUsuario($users);
             if (is_null($usuario) || count($usuario)==0) {
                 return NULL;
@@ -125,7 +124,7 @@
 
         public function loadById(int $id)
         {
-            $users = UsuarioModel::where('id_usuario', '=', $id)->get();
+            $users = Usuario::where('id_usuario', '=', $id)->get();
             $usuario = $this->setInfosUsuario($users);
             if (is_null($usuario) || count($usuario)==0) {
                 return NULL;
@@ -135,7 +134,7 @@
 
         public function loadByEmail(string $email)
         {
-            $users = UsuarioModel::where('des_email', '=', $email)->get();
+            $users = Usuario::where('des_email', '=', $email)->get();
             $usuario = $this->setInfosUsuario($users);
             if (is_null($usuario) || count($usuario)==0) {
                 return NULL;
@@ -145,7 +144,7 @@
 
         public function loadCityByName(string $nome)
         {
-            $result = CidadeModel::where('des_nome', '=', $nome)->get();
+            $result = Cidade::where('des_nome', '=', $nome)->get();
             if (is_null($result) || count($result)==0) {
                 return NULL;
             }
@@ -154,16 +153,16 @@
 
         public function loadCity()
         {
-            $result = CidadeModel::all();
+            $result = Cidade::all();
             if (is_null($result) || count($result)==0) {
                 return NULL;
             }
-            return $result[0];
+            return $result;
         }
 
         public function loadCityById(int $id)
         {
-            $result = CidadeModel::where('id_cidade', '=', $id)->get();
+            $result = Cidade::where('id_cidade', '=', $id)->get();
             if (is_null($result) || count($result)==0) {
                 return NULL;
             }
@@ -172,7 +171,7 @@
 
         public function loadCountryById(int $id):array
         {
-            $result = PaisModel::where('id_pais', '=', $id)->get();
+            $result = Pais::where('id_pais', '=', $id)->get();
             if (is_null($result) || count($result)==0) {
                 return NULL;
             }
@@ -181,7 +180,7 @@
 
         public function loadStateById(int $id = null):array
         {
-            $result = EstadoModel::where('id_estado', '=', $id)->get();
+            $result = Estado::where('id_estado', '=', $id)->get();
             if (is_null($result) || count($result)==0) {
                 return NULL;
             }
@@ -191,9 +190,9 @@
         //---------------------------------------------------------------------
         //  INSERT
         //---------------------------------------------------------------------
-        public function insert(UsuarioModel $usuario): int
+        public function insert(Usuario $usuario): int
         {
-            $user = new UsuarioModel();
+            $user = new Usuario();
             $user->des_email  = $usuario->getAttribute('des_email');
             $user->des_slug   = $usuario->getAttribute('des_slug');
             $user->des_senha  = $usuario->getAttribute('des_senha');
@@ -214,7 +213,7 @@
             if (count($result)==0) {
                 $email = filter_var($email, FILTER_SANITIZE_EMAIL);
                 if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                    UsuarioModel::where('id_usuario', $id)
+                    Usuario::where('id_usuario', $id)
                         ->update(['des_email' => $email]);
                     return TRUE;
                 }
@@ -232,7 +231,7 @@
             }else if($campo == 'id_cidade'){
                 $valor = $this->loadCityByName($valor);
             }
-            UsuarioModel::where('id_usuario', $id)->update([$campo => $valor]);
+            Usuario::where('id_usuario', $id)->update([$campo => $valor]);
         }
 
         public function slug_update(string $slug, int $id)
@@ -241,13 +240,13 @@
             $slug = preg_replace( '/[`^~\'"]/', null, iconv( 'UTF-8', 'ASCII//TRANSLIT', $slug ) );
             $slug = filter_var($slug, FILTER_SANITIZE_STRING);
             if ($this->verifyUniqueSlug($slug)) {
-                UsuarioModel::where('id_usuario', $id)->update(['des_slug' => $slug]);
+                Usuario::where('id_usuario', $id)->update(['des_slug' => $slug]);
                 return TRUE;
             }
             return FALSE;
         }
 
-        public function update_image(UsuarioModel $usuario, array $files = array()):string
+        public function update_image(Usuario $usuario, array $files = array()):string
         {
             if ((isset($files['usrFoto']))&&(!is_null($files['usrFoto']))) {
                 $foto = $usuario->getAttribute('des_foto');
@@ -264,7 +263,7 @@
                 $this->resize_image($diretorio.$foto);
 
                 $usuario->setAttribute('des_foto', $foto);
-                UsuarioModel::where('id_usuario', $usuario->getAttribute('id_usuario'))->update(['des_foto' => $foto]);
+                Usuario::where('id_usuario', $usuario->getAttribute('id_usuario'))->update(['des_foto' => $foto]);
                 return $foto;
             } else {
                 $foto = $usuario->getAttribute('des_foto');
@@ -280,18 +279,18 @@
         public function delete(int $id): void
         {
             self::logout();
-            AnuncioModel::where('id_usuario', '=', $id)->delete();
-            ExperienciaModel::where('id_usuario', '=', $id)->delete();
-            FormacaoModel::where('id_usuario', '=', $id)->delete();
-            HabilidadeUsuarioModel::where('id_usuario', '=', $id)->delete();
-            LigacaoModel::where('id_usuario', '=', $id)->delete();
-            ConfirmacaoModel::where('id_usuario', '=', $id)->delete();
-            $result = UsuarioModel::where('id_usuario', '=', $id)->get();
+            Anuncio::where('id_usuario', '=', $id)->delete();
+            Experiencia::where('id_usuario', '=', $id)->delete();
+            Formacao::where('id_usuario', '=', $id)->delete();
+            HabilidadeUsuario::where('id_usuario', '=', $id)->delete();
+            Ligacao::where('id_usuario', '=', $id)->delete();
+            Confirmacao::where('id_usuario', '=', $id)->delete();
+            $result = Usuario::where('id_usuario', '=', $id)->get();
             $foto = $result[0]['des_foto'];
             if($foto != 'default.jpg'){
                 unlink(__DIR__.DS.'..'.DS.'..'.DS.'public'.DS.'img'.DS.'profile'.DS.$foto);
             }
-            UsuarioModel::where('id_usuario', '=', $id)->delete();
+            Usuario::where('id_usuario', '=', $id)->delete();
         }
 
         public function resize_image(string $caminho_imagem): void
@@ -362,7 +361,7 @@
             $usuario = array();
             $cont = 0;
             foreach ($infos as $data) {
-                $usuario[$cont] = new UsuarioModel();
+                $usuario[$cont] = new Usuario();
 
                 $usuario[$cont]->setAttribute('des_nome', $data['des_nome']);
                 $usuario[$cont]->setAttribute('des_slug', $data['des_slug']);
@@ -378,9 +377,6 @@
 
                 $usuario[$cont]->setAttribute('des_sexo', $sexo);
                 $usuario[$cont]->setAttribute('dt_nasc', $data['dt_nasc']);
-
-                $date = new DateTime( $data['dt_nasc'] ); // data de nascimento
-//                $usuario[$cont]->setIdadeUsuario(Carbon::createFromDate($date->format( 'Y' ), $date->format( 'm' ), $date->format( 'd' ))->age);
                 $usuario[$cont]->setAttribute('des_apresentacao', $data['des_apresentacao']);
                 $usuario[$cont]->setAttribute('des_cpf', $data['des_cpf']);
                 $usuario[$cont]->setAttribute('des_foto', $data['des_foto']);

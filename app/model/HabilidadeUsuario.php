@@ -3,7 +3,7 @@ namespace model;
 
 use \Illuminate\Database\Eloquent\Model;
 
-class HabilidadeUsuarioModel extends Model
+class HabilidadeUsuario extends Model
 {
     protected $fillable = [
         'id_habilidade_usuario',
@@ -16,12 +16,12 @@ class HabilidadeUsuarioModel extends Model
 
     public function habilidade()
     {
-        return $this->belongsTo(HabilidadeModel::class, 'id_habilidade', 'id_habilidade');
+        return $this->belongsTo(Habilidade::class, 'id_habilidade', 'id_habilidade');
     }
 
     public function usuario()
     {
-        return $this->belongsTo(UsuarioModel::class, 'id_usuario', 'id_usuario');
+        return $this->belongsTo(Usuario::class, 'id_usuario', 'id_usuario');
     }
 
 }

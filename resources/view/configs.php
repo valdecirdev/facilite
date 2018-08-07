@@ -1,6 +1,6 @@
 <?php
 
-    use controller\Usuario;
+    use controller\UsuarioController;
     
     $pg_title = 'Configurações - ';
     include('_includes'.DS.'header.php');
@@ -8,7 +8,8 @@
         header('location: home');
     }
 
-    ?><script>usuario = <?php echo $loggedUser; ?>;</script>
+    ?>
+<script>usuario = <?php echo $loggedUser; ?>;</script>
     
     <style>
         input{
@@ -78,7 +79,7 @@
                                                                 <div class="input-group-prepend">
                                                                     <span class="input-group-text" id="inputGroupPrepend2" style="border-radius:0px">faciliteserv.com/</span>
                                                                 </div>
-                                                                <input type="text" class="form-control block-plaintext" id="slugUsr" v-model="user.slug_usuario">
+                                                                <input type="text" class="form-control block-plaintext" id="slugUsr" v-model="user.des_slug">
                                                             </div>
                                                             <button type="button" class="btn btn-primary col-md-2" v-on:click="salvarUsuario()" style="border-radius:0px">Salvar</button>
                                                         </div>
@@ -87,7 +88,7 @@
                                                     <div class="form-row">
                                                         <div class="form-group col-md-12 row" style="padding-left:20px">
                                                             <label for="nomeUsr" class="col-12" style="margin-left:-15px">Nome completo</label>
-                                                            <input type="text" class="form-control col-md-9" id="nomeUsr" v-model="user.nome_usuario" placeholder="Nome Completo:">
+                                                            <input type="text" class="form-control col-md-9" id="nomeUsr" v-model="user.des_nome" placeholder="Nome Completo:">
                                                             <button type="button" class="btn btn-primary col-md-2" v-on:click="salvarNome()" style="border-radius:0px">Salvar</button>
                                                         </div>
                                                     </div>
@@ -95,7 +96,7 @@
                                                     <div class="form-row">
                                                         <div class="form-group col-md-12 row" style="padding-left:20px">
                                                             <label for="emailUsr" class="col-12" style="margin-left:-15px">Email</label>
-                                                            <input type="text" class="form-control col-md-9" id="emailUsr" v-model="user.email_usuario" placeholder="Email:">
+                                                            <input type="text" class="form-control col-md-9" id="emailUsr" v-model="user.des_email" placeholder="Email:">
                                                             <button type="button" class="btn btn-primary col-md-2" v-on:click="salvarEmail()" style="border-radius:0px">Salvar</button>
                                                         </div>
                                                     </div>
@@ -103,7 +104,7 @@
                                                     <div class="form-row">
                                                         <div class="form-group col-md-12 row" style="padding-left:20px">
                                                             <label for="ocupUsr" class="col-12" style="margin-left:-15px">Ocupação</label>
-                                                            <input type="email" class="form-control col-md-9" id="ocupUsr" v-model="user.ocupacao_usuario" placeholder="Ocupação:">
+                                                            <input type="email" class="form-control col-md-9" id="ocupUsr" v-model="user.des_ocupacao" placeholder="Ocupação:">
                                                             <button type="button" class="btn btn-primary col-md-2" v-on:click="salvarOcupacao()" style="border-radius:0px">Salvar</button>
                                                         </div>
                                                     </div>
@@ -130,7 +131,7 @@
                                                             <div class="form-row">
                                                                 <div class="form-group col-md-12 row" style="padding-left:20px">
                                                                     <label for="cellUsr" class="col-12" style="margin-left:-15px">Número de celular:</label>
-                                                                    <input type="text" class="form-control col-md-9" id="cellUsr" v-model="user.telefone_usuario" placeholder="Número de celular: (xx) xxxxx-xxxx">
+                                                                    <input type="text" class="form-control col-md-9" id="cellUsr" v-model="user.des_telefone" placeholder="Número de celular: (xx) xxxxx-xxxx">
                                                                     <button type="button" class="btn btn-primary col-md-2" v-on:click="salvarCelular()" style="border-radius:0px">Salvar</button>
                                                                 </div>
                                                             </div>
@@ -138,7 +139,7 @@
                                                             <div class="form-row">
                                                                 <div class="form-group col-md-12 row" style="padding-left:20px">
                                                                     <label for="cpfUsr" class="col-12" style="margin-left:-15px">CPF:</label>
-                                                                    <input type="text" class="form-control col-md-9" id="cpfUsr" v-model="user.cpf_usuario" placeholder="CPF: xxx.xxx.xxx-xx">
+                                                                    <input type="text" class="form-control col-md-9" id="cpfUsr" v-model="user.des_cpf" placeholder="CPF: xxx.xxx.xxx-xx">
                                                                     <button type="button" class="btn btn-primary col-md-2" v-on:click="salvarCpf()" style="border-radius:0px">Salvar</button>
                                                                 </div>
                                                             </div>
@@ -146,7 +147,7 @@
                                                             <div class="form-row">
                                                                 <div class="form-group col-md-12 row" style="padding-left:20px">
                                                                     <label for="dtNascUsr" class="col-12" style="margin-left:-15px">Data de Nascimento</label>
-                                                                    <input type="date" class="form-control col-md-9" id="dtNascUsr" v-model="user.dtnasc_usuario" placeholder="Data de Nascimento:">
+                                                                    <input type="date" class="form-control col-md-9" id="dtNascUsr" v-model="user.dt_nasc" placeholder="Data de Nascimento:">
                                                                     <button type="button" class="btn btn-primary col-md-2" v-on:click="salvarDtNasc()" style="border-radius:0px">Salvar</button>
                                                                 </div>
                                                             </div>
@@ -154,7 +155,7 @@
                                                             <div class="form-row">
                                                                 <div class="form-group col-md-12 row" style="padding-left:20px">
                                                                     <label for="sexoUsr" class="col-12" style="margin-left:-15px">Sexo</label>
-                                                                    <select class="form-control col-md-9" id="sexoUsr" v-model="user.sexo_usuario" style="border-radius:0px;height:45px">
+                                                                    <select class="form-control col-md-9" id="sexoUsr" v-model="user.des_sexo" style="border-radius:0px;height:45px">
                                                                         <option value="Feminino">Feminino</option>
                                                                         <option value="Masculino">Masculino</option>
                                                                         <option value="P">Prefiro não informar </option>
@@ -166,10 +167,10 @@
                                                             <div class="form-row">
                                                                 <div class="form-group col-md-12 row" style="padding-left:20px">
                                                                     <label for="cidadeUsr" class="col-12" style="margin-left:-15px">Cidade</label>                                                                       
-                                                                    <select class="form-control col-md-9" id="cidadeUsr" v-model="user.cidade_usuario" style="border-radius:0px;height:45px">
+                                                                    <select class="form-control col-md-9" id="cidadeUsr" v-model="user.id_cidade" style="border-radius:0px;height:45px">
                                                                         <?php
-                                                                        $user = new Usuario();    
-                                                                        $cidades = $user->loadCity(); 
+                                                                        $user = new UsuarioController();
+                                                                        $cidades = $user->loadCity();
                                                                         foreach ($cidades as $key => $value) { ?>
                                                                             <option value="<?php echo $cidades[$key]['id_cidade']; ?>"><?php echo $cidades[$key]['des_nome']; ?></option>
                                                                         <?php } ?>
@@ -238,8 +239,8 @@
 
 
 <?php include('_includes'.DS.'footer.php'); ?>
-<script src="js/configs.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="js/configs.js"></script>
+<!--<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>-->
+<!--<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">-->
 </body>
 </html>

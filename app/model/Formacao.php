@@ -4,7 +4,7 @@
 
     use \Illuminate\Database\Eloquent\Model;
 
-    class FormacaoModel extends Model
+    class Formacao extends Model
     {
         protected $fillable = [
             'id_formacao',
@@ -18,7 +18,7 @@
 
         public function usuario()
         {
-            return $this->belongsTo(UsuarioModel::class, 'id_usuario', 'id_usuario');
+            return $this->belongsTo(Usuario::class, 'id_usuario', 'id_usuario');
         }
 
     }

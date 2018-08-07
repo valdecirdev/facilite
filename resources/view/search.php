@@ -1,11 +1,11 @@
 <?php
 
-    use controller\{Busca, Usuario, Modalidade, Categoria};
+    use controller\{BuscaController, UsuarioController, ModalidadeController, CategoriaController};
     
-    $search = new Busca();
-    $usuarios = new Usuario();
-    $modalidades = new Modalidade();
-    $categorias = new Categoria();
+    $search = new BuscaController();
+    $usuarios = new UsuarioController();
+    $modalidades = new ModalidadeController();
+    $categorias = new CategoriaController();
     
     if((!isset($_GET['q']))||($_GET['q'] == NULL)){
         $pg_title = "Pesquisa - ";
