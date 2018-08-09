@@ -2,15 +2,9 @@
 
     namespace controller;
 
-    use Carbon\Carbon;
-    use model\Anuncio;
     use model\Cidade;
     use model\Confirmacao;
     use model\Estado;
-    use model\Experiencia;
-    use model\Formacao;
-    use model\HabilidadeUsuario;
-    use model\Ligacao;
     use model\Pais;
     use model\Usuario;
     use PHPMailer\PHPMailer\PHPMailer;
@@ -58,12 +52,19 @@
                 $slug = $fullName[0].$lastName.$cont;
                 $cont++;
             } while (!$user->verifyUniqueSlug($slug));
-            $usuario = new ObjUsuario(strtolower($_POST['des_email']), strtolower($slug), password_hash($_POST['des_senha'], PASSWORD_DEFAULT), mb_convert_case($_POST['des_nome'], MB_CASE_TITLE, 'UTF-8'), $_POST['des_sexo'], $_POST['dt_nasc'], "Pendente");
-            if (count($user->verifyUniqueEmail($_POST['des_email']))==0) {
+            $usuario = new Usuario();
+            $usuario->setAttribute('des_email', strtolower($values['des_email']));
+            $usuario->setAttribute('des_slug', strtolower($slug));
+            $usuario->setAttribute('des_senha', password_hash($values['des_senha'], PASSWORD_DEFAULT));
+            $usuario->setAttribute('des_nome', mb_convert_case($values['des_nome'], MB_CASE_TITLE, 'UTF-8'));
+            $usuario->setAttribute('des_sexo', $values['des_sexo']);
+            $usuario->setAttribute('dt_nasc', $_POST['dt_nasc']);
+            $usuario->setAttribute('des_status', "Pendente");
+            if (count($user->verifyUniqueEmail($values['des_email']))==0) {
                 $user->insert($usuario);
                 $values = array(
-                    'login_des_email'=>$_POST['des_email'],
-                    'des_senha'=>$_POST['des_senha']
+                    'login_des_email'=>$values['des_email'],
+                    'des_senha'=>$values['des_senha']
                 );
                 self::login($values);
 
@@ -246,7 +247,7 @@
             return FALSE;
         }
 
-        public function update_image(Usuario $usuario, array $files = array()):string
+        public function update_image(Usuario $usuario, array $files = array())
         {
             if ((isset($files['usrFoto']))&&(!is_null($files['usrFoto']))) {
                 $foto = $usuario->getAttribute('des_foto');
@@ -255,7 +256,9 @@
                     mkdir($diretorio);
                 }
                 if ($foto != 'default.jpg') {
-                    unlink($diretorio . $foto);
+                    if(file_exists($diretorio . $foto)) {
+                        unlink($diretorio . $foto);
+                    }
                 }
                 $foto = md5(time()).'.jpg';
 
@@ -279,21 +282,17 @@
         public function delete(int $id): void
         {
             self::logout();
-            Anuncio::where('id_usuario', '=', $id)->delete();
-            Experiencia::where('id_usuario', '=', $id)->delete();
-            Formacao::where('id_usuario', '=', $id)->delete();
-            HabilidadeUsuario::where('id_usuario', '=', $id)->delete();
-            Ligacao::where('id_usuario', '=', $id)->delete();
-            Confirmacao::where('id_usuario', '=', $id)->delete();
             $result = Usuario::where('id_usuario', '=', $id)->get();
             $foto = $result[0]['des_foto'];
             if($foto != 'default.jpg'){
-                unlink(__DIR__.DS.'..'.DS.'..'.DS.'public'.DS.'img'.DS.'profile'.DS.$foto);
+                if(file_exists(__DIR__.DS.'..'.DS.'..'.DS.'public'.DS.'img'.DS.'profile'.DS.$foto)) {
+                    unlink(__DIR__ . DS . '..' . DS . '..' . DS . 'public' . DS . 'img' . DS . 'profile' . DS . $foto);
+                }
             }
             Usuario::where('id_usuario', '=', $id)->delete();
         }
 
-        public function resize_image(string $caminho_imagem): void
+        public function resize_image(string $caminho_imagem)
         {
             // Retorna o identificador da imagem
             $imagem = imagecreatefromjpeg($caminho_imagem);

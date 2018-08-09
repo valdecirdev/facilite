@@ -92,7 +92,7 @@
                     $usuario = $usuarios->loadById($anuncios[$key]->getAttribute('id_usuario')); ?>
                     <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
                         <div class="card card-body">
-                            <div class="row" style="height:75px">
+                            <div class="row" style="height:45px">
                                 <div class="col-2">
                                     <a href="#">
                                         <i class="<?php echo $anuncios[$key]->categoria->getAttribute('des_icone'); ?> icon-align-center" aria-hidden="true"></i>

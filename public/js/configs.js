@@ -15,7 +15,7 @@ var app = new Vue({
     // ---------------------------------------------------------------------------
         
         salvarUsuario: function(e){
-            if(!this.user.nome_usuario){
+            if(!this.user.des_slug){
                 $('.basic-msg').text('O campo "Nome de usuário" não pode estar vazio!');
                 if($('.basic-msg').hasClass('d-none')){
                     $('.basic-msg').addClass('text-danger');
@@ -41,10 +41,10 @@ var app = new Vue({
         },
 
         salvarNome: function(e){
-            if(!this.user.nome_usuario){
+            if(!this.user.des_nome){
                 alert('O campo "Nome Completo" não pode estar vazio!');
             }else{
-                var res = (this.user.des_nome.split(" "));
+                let res = (this.user.des_nome.split(" "));
                 $('#nomeSimplesLogged').text(res[0]+' '+res[res.length-1]);
                 $('#navbar-username').text(res[0]);
                 $.post('_utils/ajax_perfil.php',
@@ -62,7 +62,7 @@ var app = new Vue({
         },
 
         salvarEmail: function(e){
-            if(!this.user.email_usuario){
+            if(!this.user.des_email){
                 alert('O campo "Email" não pode estar vazio!');
             }else{
                 $('#emailLogged').text(this.user.des_email);
@@ -173,7 +173,7 @@ var app = new Vue({
         },
 
         deletarConta: function(e){
-            var id_usuario = $('#id_usuario_logado').val();
+            let id_usuario = $('#id_usuario_logado').val();
             
             if (confirm('Realmente deseja deletar sua conta?')){
                 $.post('_utils/ajax_perfil.php',
@@ -192,7 +192,7 @@ var app = new Vue({
     // ---------------------------------------------------------------------------
         
         salvarSenha: function(e){
-            if(this.senha != this.confirmSenha){
+            if(this.senha !== this.confirmSenha){
                 alert('As senhas não são iguais!');
             }else if(this.senha.length < 8){
                 alert('A senha deve conter no mínimo 8 digítos!');
