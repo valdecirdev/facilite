@@ -9,14 +9,14 @@ class HabilidadeController {
 
         public function loadAll()
         {
-            $habilidades = HabilidadeUsuario::all();
+            $habilidades = Habilidade::all();
             $habilidade = $this->setData($habilidades);
             return $habilidade;
         }
 
         public function loadByID(int $id)
         {
-            $habilidades = HabilidadeUsuario::where('id_habilidade', '=', $id)->get();
+            $habilidades = Habilidade::where('id_habilidade', '=', $id)->get();
             $habilidade = $this->setData($habilidades);
             return $habilidade[0];
         }
@@ -52,8 +52,7 @@ class HabilidadeController {
             foreach ($infos as $key => $data) {
                 $habilidade[$key] = new Habilidade();
                 $habilidade[$key]->setAttribute('id_habilidade', $data['id_habilidade']);
-                $habilidade[$key]->setAttribute('id_usuario', $data['id_usuario']);
-                $habilidade[$key]->setAttribute('des_descricao', $data->habilidade->des_descricao);
+                $habilidade[$key]->setAttribute('des_descricao', $data['des_descricao']);
             }
             return $habilidade;
         }
