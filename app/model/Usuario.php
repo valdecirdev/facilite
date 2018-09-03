@@ -11,15 +11,18 @@
 
         protected $fillable = [
             'id_usuario',
+            'id_plano',
             'des_slug',
             'des_email',
             'des_senha',
             'des_nome',
+            'des_nome_exibicao',
             'des_sexo',
             'dt_nasc',
             'des_apresentacao',
             'des_cpf',
             'des_foto',
+            'des_cep',
             'id_cidade',
             'des_telefone',
             'des_ocupacao',
@@ -53,6 +56,16 @@
         public function ligacoes()
         {
             return $this->hasMany(Ligacao::class, 'id_usuario', 'id_usuario');
+        }
+
+        public function cidade()
+        {
+            return $this->belongsTo(Cidade::class, 'id_cidade', 'id_cidade');
+        }
+
+        public function plano()
+        {
+            return $this->belongsTo(Plano::class, 'id_plano', 'id_plano');
         }
 
     }

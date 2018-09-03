@@ -21,15 +21,15 @@
             session_destroy();
         }
 
-        public static function login(array $values = array())
+        public static function login(array $values = array()): bool
         {
-            $user = new UsuarioController();
-            $result = $user->verifyUniqueEmail($values['login_des_email']);
+            $result = Usuario::where('des_email', $values['login_des_email'])
+                ->select('id_usuario', 'des_email', 'des_senha', 'des_slug', 'des_sexo')->get();
             if (count($result)>0) {
                 if (password_verify($values['des_senha'], $result[0]['des_senha'])) {
                     session_start();
                     session_regenerate_id();
-                    $_SESSION['id'] = $result[0]['id_usuario'];
+                    $_SESSION['id']   = $result[0]['id_usuario'];
                     $_SESSION['nome'] = $result[0]['des_nome'];
                     $_SESSION['slug'] = $result[0]['des_slug'];
                     $_SESSION['sexo'] = $result[0]['des_sexo'];
@@ -45,14 +45,14 @@
             $fullName = preg_replace( '/[`^~\'"]/', null, iconv( 'UTF-8', 'ASCII//TRANSLIT', $_POST['des_nome'] ) );
             $fullName = explode(' ', $fullName);
             $cont = null; $lastName = "";
-            if (count($fullName) > 1) {
-                $lastName = $fullName[count($fullName)-1];
-            }
+            if (count($fullName) > 1) $lastName = $fullName[count($fullName)-1];
+
             do {
                 $slug = $fullName[0].$lastName.$cont;
                 $cont++;
-            } while (!$user->verifyUniqueSlug($slug));
+            } while ($user->slugExists($slug));
             $usuario = new Usuario();
+            $usuario->setAttribute('id_plano', 1);
             $usuario->setAttribute('des_email', strtolower($values['des_email']));
             $usuario->setAttribute('des_slug', strtolower($slug));
             $usuario->setAttribute('des_senha', password_hash($values['des_senha'], PASSWORD_DEFAULT));
@@ -60,7 +60,7 @@
             $usuario->setAttribute('des_sexo', $values['des_sexo']);
             $usuario->setAttribute('dt_nasc', $_POST['dt_nasc']);
             $usuario->setAttribute('des_status', "Pendente");
-            if (count($user->verifyUniqueEmail($values['des_email']))==0) {
+            if (!$user->emailExists($values['des_email'])) {
                 $user->insert($usuario);
                 $values = array(
                     'login_des_email'=>$values['des_email'],
@@ -83,30 +83,14 @@
         //---------------------------------------------------------------------
         //  AUX
         //---------------------------------------------------------------------
-        public function verifyUniqueSlug(string $slug)
+        public function slugExists(string $slug)
         {
-            $result = Usuario::where('des_slug', '=' , $slug)->get();
-            if (count($result)==0) {
-                return TRUE;
-            }
-            return FALSE;
+            return Usuario::where('des_slug', $slug)->exists();
         }
 
-        public function verifyUniqueEmail(string $email, int $id = NULL)
+        public function emailExists(string $email)
         {
-            $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-            if (!is_null($id)) {
-                if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                    $result = Usuario::where('des_email', '=' , $email)->where('id_usuario', '=', $id)->get();
-                    return $result;
-                }
-            } else {
-                if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                    $result = Usuario::where('des_email', '=' , $email)->get();
-                    return $result;
-                }
-            }
-            return NULL;
+            return Usuario::where('des_email', $email)->exists();
         }
 
 
@@ -115,7 +99,7 @@
         //---------------------------------------------------------------------
         public function loadBySlug(string $slug)
         {
-            $users = Usuario::where('des_slug', '=', $slug)->get();
+            $users = Usuario::where('des_slug', $slug)->get();
             $usuario = $this->setInfosUsuario($users);
             if (is_null($usuario) || count($usuario)==0) {
                 return NULL;
@@ -125,7 +109,7 @@
 
         public function loadById(int $id)
         {
-            $users = Usuario::where('id_usuario', '=', $id)->get();
+            $users = Usuario::where('id_usuario', $id)->get();
             $usuario = $this->setInfosUsuario($users);
             if (is_null($usuario) || count($usuario)==0) {
                 return NULL;
@@ -135,7 +119,7 @@
 
         public function loadByEmail(string $email)
         {
-            $users = Usuario::where('des_email', '=', $email)->get();
+            $users = Usuario::where('des_email', $email)->get();
             $usuario = $this->setInfosUsuario($users);
             if (is_null($usuario) || count($usuario)==0) {
                 return NULL;
@@ -143,9 +127,9 @@
             return $usuario[0];
         }
 
-        public function loadCityByName(string $nome)
+        public static function loadCityByName(string $nome)
         {
-            $result = Cidade::where('des_nome', '=', $nome)->get();
+            $result = Cidade::where('des_nome', $nome)->get();
             if (is_null($result) || count($result)==0) {
                 return NULL;
             }
@@ -163,25 +147,7 @@
 
         public function loadCityById(int $id)
         {
-            $result = Cidade::where('id_cidade', '=', $id)->get();
-            if (is_null($result) || count($result)==0) {
-                return NULL;
-            }
-            return $result[0];
-        }
-
-        public function loadCountryById(int $id):array
-        {
-            $result = Pais::where('id_pais', '=', $id)->get();
-            if (is_null($result) || count($result)==0) {
-                return NULL;
-            }
-            return $result[0];
-        }
-
-        public function loadStateById(int $id = null):array
-        {
-            $result = Estado::where('id_estado', '=', $id)->get();
+            $result = Cidade::where('id_cidade', $id)->get();
             if (is_null($result) || count($result)==0) {
                 return NULL;
             }
@@ -194,13 +160,16 @@
         public function insert(Usuario $usuario): int
         {
             $user = new Usuario();
-            $user->des_email  = $usuario->getAttribute('des_email');
-            $user->des_slug   = $usuario->getAttribute('des_slug');
-            $user->des_senha  = $usuario->getAttribute('des_senha');
-            $user->des_nome   = $usuario->getAttribute('des_nome');
-            $user->des_sexo   = $usuario->getAttribute('des_sexo');
-            $user->dt_nasc    = $usuario->getAttribute('dt_nasc');
-            $user->des_status = $usuario->getAttribute('des_status');
+            $user->setAttribute('des_email', $usuario->getAttribute('des_email'));
+            $user->setAttribute('des_slug' , $usuario->getAttribute('des_slug'));
+            $user->setAttribute('des_senha', $usuario->getAttribute('des_senha'));
+            $user->setAttribute('des_nome', $usuario->getAttribute('des_nome'));
+            $nome = explode(' ', $usuario->getAttribute('des_nome'));
+            $nomeExibicao = $nome[0].' '.$nome[count($nome)-1];
+            $user->setAttribute('des_nome_exibicao', $nomeExibicao);
+            $user->setAttribute('des_sexo', $usuario->getAttribute('des_sexo'));
+            $user->setAttribute('dt_nasc', $usuario->getAttribute('dt_nasc'));
+            $user->setAttribute('des_status', $usuario->getAttribute('des_status'));
             $user->save();
             return $user->id;
         }
@@ -210,10 +179,9 @@
         //---------------------------------------------------------------------
         public function email_update(string $email,int $id)
         {
-            $result = $this->verifyUniqueEmail($email, $id);
-            if (count($result)==0) {
-                $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-                if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                if (!$this->emailExists($email)) {
                     Usuario::where('id_usuario', $id)
                         ->update(['des_email' => $email]);
                     return TRUE;
@@ -240,11 +208,19 @@
             $slug = str_replace(' ', '', $slug);
             $slug = preg_replace( '/[`^~\'"]/', null, iconv( 'UTF-8', 'ASCII//TRANSLIT', $slug ) );
             $slug = filter_var($slug, FILTER_SANITIZE_STRING);
-            if ($this->verifyUniqueSlug($slug)) {
+            if (!$this->slugExists($slug)) {
                 Usuario::where('id_usuario', $id)->update(['des_slug' => $slug]);
                 return TRUE;
             }
             return FALSE;
+        }
+
+        public function cep_update(string $cep, string $cidade, int $id)
+        {
+            $cidade = UsuarioController::loadCityByName($cidade);
+            Usuario::where('id_usuario', $id)->update(['des_cep' => $cep]);
+            Usuario::where('id_usuario', $id)->update(['id_cidade' => $cidade[0]['id_cidade']]);
+            return $id;
         }
 
         public function update_image(Usuario $usuario, array $files = array())
@@ -355,17 +331,18 @@
         //---------------------------------------------------------------------
         //  DATASET
         //---------------------------------------------------------------------
-        public function setInfosUsuario($infos)
+        public function setInfosUsuario($infos): array
         {
             $usuario = array();
-            $cont = 0;
-            foreach ($infos as $data) {
-                $usuario[$cont] = new Usuario();
+            foreach ($infos as $key => $data) {
+                $usuario[$key] = new Usuario();
 
-                $usuario[$cont]->setAttribute('des_nome', $data['des_nome']);
-                $usuario[$cont]->setAttribute('des_slug', $data['des_slug']);
-                $usuario[$cont]->setAttribute('id_usuario', $data['id_usuario']);
-                $usuario[$cont]->setAttribute('des_email', $data['des_email']);
+                $usuario[$key]->setAttribute('id_plano', $data['id_plano']);
+                $usuario[$key]->setAttribute('des_nome', $data['des_nome']);
+                $usuario[$key]->setAttribute('des_nome_exibicao', $data['des_nome_exibicao']);
+                $usuario[$key]->setAttribute('des_slug', $data['des_slug']);
+                $usuario[$key]->setAttribute('id_usuario', $data['id_usuario']);
+                $usuario[$key]->setAttribute('des_email', $data['des_email']);
 
                 $sexo = '';
                 if ($data['des_sexo'] == 'M') {
@@ -374,21 +351,17 @@
                     $sexo = 'Feminino';
                 }
 
-                $usuario[$cont]->setAttribute('des_sexo', $sexo);
-                $usuario[$cont]->setAttribute('dt_nasc', $data['dt_nasc']);
-                $usuario[$cont]->setAttribute('des_apresentacao', $data['des_apresentacao']);
-                $usuario[$cont]->setAttribute('des_cpf', $data['des_cpf']);
-                $usuario[$cont]->setAttribute('des_foto', $data['des_foto']);
-
-                if(!is_null($data['id_cidade'])) {
-                    $cidade = $this->loadCityById($data['id_cidade'])['des_nome'] . ' - ' . $this->loadCityById($data['id_cidade'])->estado['des_uf'];
-                    $usuario[$cont]->setAttribute('id_cidade', $cidade);
-                }
-                $usuario[$cont]->setAttribute('des_ocupacao', $data['des_ocupacao']);
-                $usuario[$cont]->setAttribute('des_telefone', $data['des_telefone']);
-                $usuario[$cont]->setAttribute('des_status', $data['des_status']);
-                $usuario[$cont]->setAttribute('dt_cadastro', $data['dt_cadastro']);
-                $cont++;
+                $usuario[$key]->setAttribute('des_sexo', $sexo);
+                $usuario[$key]->setAttribute('dt_nasc', $data['dt_nasc']);
+                $usuario[$key]->setAttribute('des_apresentacao', $data['des_apresentacao']);
+                $usuario[$key]->setAttribute('des_cpf', $data['des_cpf']);
+                $usuario[$key]->setAttribute('des_foto', $data['des_foto']);
+                $usuario[$key]->setAttribute('des_cep', $data['des_cep']);
+                $usuario[$key]->setAttribute('id_cidade', $data['id_cidade']);
+                $usuario[$key]->setAttribute('des_ocupacao', $data['des_ocupacao']);
+                $usuario[$key]->setAttribute('des_telefone', $data['des_telefone']);
+                $usuario[$key]->setAttribute('des_status', $data['des_status']);
+                $usuario[$key]->setAttribute('dt_cadastro', $data['dt_cadastro']);
             }
             return $usuario;
         }

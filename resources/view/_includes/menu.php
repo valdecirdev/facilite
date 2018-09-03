@@ -1,4 +1,4 @@
-<?php use controller\UsuarioController; ?>
+<?php use controller\{UsuarioController, MensagemController}; ?>
 
 <nav class="d-print-none navbar navbar-expand-md navbar-dark">
     <a class="navbar-brand" href="home" style="margin-right:50px">
@@ -6,15 +6,15 @@
             <img src="img/logo.png" alt="" height="30px">
         </div>
     </a>
-    <button class="navbar-toggler" type="button" aria-label="Exibir ou ocultar menu" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <div class="input-group col-md-6 search-group">
             <form action="search" method="GET" style="width:100%">
-                <input type="text" name="q" class="pull-left campo-busca form-control" placeholder="Encontre o que você precisa!" aria-label="Encontre o que você precisa!" value="<?php if(isset($_GET['q'])){echo $_GET['q'];} ?>">
+                <input type="text" name="q" class="pull-left campo-busca form-control" placeholder="Encontre o que você precisa!" value="<?php if(isset($_GET['q'])){echo $_GET['q'];} ?>">
                 <div class="input-group-append">
-                    <button class="btn btn-busca" type="submit" aria-label="Pesquisar"><i class="fas fa-search"></i></button>
+                    <button class="btn btn-busca" type="submit"><i class="fas fa-search"></i></button>
                 </div>
             </form>
         </div>
@@ -31,6 +31,16 @@
                 </a>
             </li>
         <?php }else{ ?>
+            <li class="nav-item">
+                <a href="messages" class="nav-link text-white" style="font-size: 16px;margin-top:-2px">
+                <i class="fas fa-comment"></i>
+                <?php 
+                    $countNewMessages = new MensagemController();
+                    $countNewMessages = $countNewMessages->newMessagesCount($_SESSION['id']);
+                ?>
+                <span class="badge badge-light" id="countNewMessages" style="margin-left:-10px;font-size:10px;color:#ccc;position:float;background-color:red;"><?=$countNewMessages;//php if($countNewMessages>0){echo '1';}?></span>
+                </a>
+            </li>
             <li class="nav-item dropdown">
                 <a aria-label="Meu perfil" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 16px;">
                     <?php
@@ -38,10 +48,10 @@
                         $loggedUser = $loggedUser->loadById($_SESSION['id']); 
                     ?>
                     <img class="float-left img-nav-profile rounded-circle" src="img/profile/<?=$loggedUser->getAttribute('des_foto');?>" height="25" width="25" style="margin-top:-2px">
-                    <span class="float-left clearfix d-sm-inline-block text-white" id="navbar-username" style="margin-top:-2px;margin-left:8px;margin-right:8px"><?=explode(' ', $loggedUser->getAttribute('des_nome'))[0];?></span>
+                    <span class="float-left clearfix d-sm-inline-block text-white" id="navbar-username" style="margin-top:-2px;margin-left:8px;margin-right:8px"><?=explode(' ', $loggedUser->getAttribute('des_nome_exibicao'))[0];?></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" style="min-width:200px;border-radius: 8px;" aria-label="navbarDropdownMenuLink">
-                    <div id="dropdown-logged-user" class="row" style="padding:10px;padding-left:0px;padding-bottom:0px;width:100%;margin-bottom:-12px;margin-left:0px">
+                    <div id="dropdown-logged-user" class="row" style="padding: 10px 10px 0 0;width:100%;margin-bottom:-12px;margin-left:0">
                         <div class="col-12 text-center">
                             <a class="img-profile" href="<?=$loggedUser->getAttribute('des_slug');?>"><img class="img-nav-dropdown rounded-circle" src="img/profile/<?=$loggedUser->getAttribute('des_foto');?>" height="120" width="120"></a>
                             <a href="<?php echo $loggedUser->getAttribute('des_slug'); ?>"><p style="color:#8b8b8b">Perfil <span class="text-warning">40%</span> completo</p></a>

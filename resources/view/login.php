@@ -47,6 +47,6 @@
 <?php
     include('_includes'.DIRECTORY_SEPARATOR.'footer.php');
 ?>
-<script src="js/login.min.js"></script>
+<script src="js/login.js"></script>
 </body>
 <html>

@@ -101,7 +101,7 @@ $(document).ready(function () {
                 id_usuario: $('#id_usuario_logado').val(),
                 id_contato: $('#id_usuario').val(),
             });
-        }else{
+        } else {
             $('#msg-btnContato').text('Adicionar');
             $(btn_action).removeClass('btn-fc-danger');
             $(btn_action).addClass('btn-fc-primary');
@@ -508,6 +508,16 @@ if(($('#id_servico_modal').val() != '')&&($('#id_servico_modal').val() != undefi
                 $('#des_apresentacao').text('Olá, eu sou novo aqui. :)');
             }
             $('#editApresentacaoModal').modal('hide');
+            swal({ 
+                title: "Sucesso!",
+                text: "As alterações foram salvas e já estão visíveis no seu perfil.",
+                timer: 2000,
+                type: "success" 
+                },
+                function(){
+                // location.reload();
+                }
+            );
         });
     });
 

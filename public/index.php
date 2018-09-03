@@ -32,6 +32,9 @@ $router
     ->get('/confirm', function () {
         require __APP_ROOT__ . "/resources/view/confirma_email.php";
     })
+    ->get('/messages', function () {
+        require __APP_ROOT__ . "/resources/view/messages.php";
+    })
     ->get('/([@,a-z,0-9,A-Z,_-]+)', function () {
         require __APP_ROOT__ . "/resources/view/profile.php";
     });

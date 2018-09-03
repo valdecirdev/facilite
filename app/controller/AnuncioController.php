@@ -12,15 +12,15 @@ class AnuncioController
     //---------------------------------------------------------------------
     public function loadByID (int $id): Anuncio
     {
-        $result = Anuncio::where('id_anuncio', '=', $id)->get();
-        $anuncios = $this->setData($result);
-        return $anuncios[0];
+        $anuncio = Anuncio::where('id_anuncio', $id)->get();
+        $anuncio = $this->setData($anuncio);
+        return $anuncio[0];
     }
 
     public function loadByUser (int $id): array
     {
-        $result = Anuncio::where('id_usuario', '=', $id)->get();
-        $anuncios = $this->setData($result);
+        $anuncios = Anuncio::where('id_usuario', $id)->get();
+        $anuncios = $this->setData($anuncios);
         return $anuncios;
     }
 
@@ -29,16 +29,17 @@ class AnuncioController
     //---------------------------------------------------------------------
     public function insert (array $values): int
     {
-        $descr = filter_var($values['des_descricao'], FILTER_SANITIZE_STRING);
-        $preco = filter_var($values['des_preco'], FILTER_SANITIZE_STRING);
-        $dispon = filter_var($values['des_disponibilidade'], FILTER_SANITIZE_STRING);
+        $values['des_descricao']  = filter_var($values['des_descricao'], FILTER_SANITIZE_STRING);
+        $values['des_preco']  = filter_var($values['des_preco'], FILTER_SANITIZE_STRING);
+        $values['des_disponibilidade'] = filter_var($values['des_disponibilidade'], FILTER_SANITIZE_STRING);
+
         $anuncio = new Anuncio();
-        $anuncio->id_usuario = $values['id_usuario'];
-        $anuncio->id_categoria = $values['id_categoria'];
-        $anuncio->des_descricao = $descr;
-        $anuncio->des_preco = $preco;
-        $anuncio->id_modalidade = $values['id_modalidade'];
-        $anuncio->des_disponibilidade = $dispon;
+        $anuncio->setAttribute('id_usuario', $values['id_usuario']);
+        $anuncio->setAttribute('id_categoria', $values['id_categoria']);
+        $anuncio->setAttribute('des_descricao', $values['des_descricao']);
+        $anuncio->setAttribute('des_preco', $values['des_preco']);
+        $anuncio->setAttribute('id_modalidade', $values['id_modalidade']);
+        $anuncio->setAttribute('des_disponibilidade', $values['des_disponibilidade']);
         $anuncio->save();
         return $anuncio->id;
     }
@@ -48,11 +49,10 @@ class AnuncioController
     //---------------------------------------------------------------------
     public function update (array $values): void
     {
-        $descr = filter_var($values['des_descricao'], FILTER_SANITIZE_STRING);
-        $preco = filter_var($values['des_preco'], FILTER_SANITIZE_STRING);
-        $dispon = filter_var($values['des_disponibilidade'], FILTER_SANITIZE_STRING);
-        Anuncio::where('id_anuncio', $values['id_anuncio'])
-            ->update(['id_categoria' => $values['id_categoria'], 'des_descricao' => $descr, 'des_preco' => $preco, 'id_modalidade' => $values['id_modalidade'], 'des_disponibilidade' => $dispon]);
+        $values['des_descricao'] = filter_var($values['des_descricao'], FILTER_SANITIZE_STRING);
+        $values['des_preco'] = filter_var($values['des_preco'], FILTER_SANITIZE_STRING);
+        $values['des_disponibilidade'] = filter_var($values['des_disponibilidade'], FILTER_SANITIZE_STRING);
+        Anuncio::where('id_anuncio', $values['id_anuncio'])->update(['id_categoria' => $values['id_categoria'], 'des_descricao' => $values['des_descricao'], 'des_preco' => $values['des_preco'], 'id_modalidade' => $values['id_modalidade'], 'des_disponibilidade' => $values['des_disponibilidade']]);
     }
 
     //---------------------------------------------------------------------
@@ -60,13 +60,13 @@ class AnuncioController
     //---------------------------------------------------------------------
     public function delete (int $id): void
     {
-        Anuncio::where('id_anuncio', '=', $id)->delete();
+        Anuncio::where('id_anuncio', $id)->delete();
     }
 
     //---------------------------------------------------------------------
     //  DATASET
     //---------------------------------------------------------------------
-    public function setData ($infos)
+    public function setData (array $infos): array
     {
         $anuncios = array();
         foreach ($infos as $key => $data) {

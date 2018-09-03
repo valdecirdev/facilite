@@ -116,6 +116,9 @@ header{
     }
     .navbar-toggler-icon{ color: #000 !important; }
 }
+a.dropdown-item:active{
+    color: #fff !important;
+}
 
 #nav-categorias{
     position: sticky;

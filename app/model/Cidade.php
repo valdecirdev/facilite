@@ -19,4 +19,10 @@ class Cidade extends Model
     {
         return $this->belongsTo(Estado::class, 'id_estado', 'id_estado');
     }
+
+    public function usuario()
+    {
+        return $this->hasMany(Usuario::class, 'id_cidade', 'id_cidade');
+    }
+
 }

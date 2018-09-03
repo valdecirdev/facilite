@@ -6,6 +6,6 @@
     use database\Database;
 
     require_once (__DIR__.DS."..".DS."vendor".DS."autoload.php");
-    require_once (__DIR__.DS."..".DS."app".DS."exceptions".DS."handler.php");
+    // require_once (__DIR__.DS."..".DS."app".DS."exceptions".DS."handler.php");
 
     new Database();

@@ -3,12 +3,11 @@
 namespace controller;
 
 use model\Anuncio;
-//use model\object\ObjAnuncio;
 
 class BuscaController
     {
 
-        public function searchCount(string $q, $id)
+        public function searchCount(string $q, $id): int
         {
             $q = strip_tags($q);
             $result = Anuncio::join('tb_categorias', 'tb_categorias.id_categoria', '=', 'tb_anuncios.id_categoria')
@@ -22,9 +21,19 @@ class BuscaController
             return $result;
         }
 
-        public function search(string $q, $id, $limit, $to):array
+        public function search(string $q, $id, $limit, $to, $ord = NULL):array
         {
             $q = strip_tags($q);
+            if (is_null($ord) || $ord == 'recent') {
+                $campo = 'tb_anuncios.id_anuncio';
+                $ordem = 'desc';
+            }elseif($ord == 'lowest') {
+                $campo = 'tb_anuncios.des_preco';
+                $ordem = 'asc';
+            }elseif($ord == 'biggest') {
+                $campo = 'tb_anuncios.des_preco';
+                $ordem = 'desc';
+            }
             $result = Anuncio::join('tb_categorias', 'tb_categorias.id_categoria', '=', 'tb_anuncios.id_categoria')
                     ->join('tb_usuarios', 'tb_anuncios.id_usuario', '=', 'tb_usuarios.id_usuario')
                     ->where('tb_anuncios.id_usuario', '!=', $id)
@@ -32,7 +41,7 @@ class BuscaController
                     ->orWhere('tb_usuarios.des_nome', 'LIKE', '%'.$q.'%')
                     ->orWhere('tb_anuncios.des_descricao', 'LIKE', '%'.$q.'%')
                     ->select('tb_anuncios.*', 'tb_categorias.id_categoria', 'tb_usuarios.des_nome')
-                    ->orderBy('tb_anuncios.id_anuncio', 'desc')
+                    ->orderBy($campo, $ordem)
                     ->skip($limit)->take($to)
                     ->get();
 

@@ -7,30 +7,30 @@
     class CategoriaController
     {
 
-        public function loadByID($id): Categoria
+        public function loadByID(int $id): Categoria
         {
-            $categorias = Categoria::where('id_categoria', '=', $id)->get();
-            $categoria = $this->setData($categorias);
+            $categoria = Categoria::where('id_categoria', '=', $id)->get();
+            $categoria = $this->setData($categoria);
             return $categoria[0];
         }
 
         public function loadAll(): array
         {
             $categorias = Categoria::all();
-            $categoria = $this->setData($categorias);
-            return $categoria;
+            $categorias = $this->setData($categorias);
+            return $categorias;
         }
 
         public function setData($infos): array
         {
-            $categoria = array();
+            $categorias = array();
             foreach ($infos as $key => $data) {
-                $categoria[$key] = new Categoria();
-                $categoria[$key]->setAttribute('id_categoria', $data['id_categoria']);
-                $categoria[$key]->setAttribute('des_descricao', $data['des_descricao']);
-                $categoria[$key]->setAttribute('des_icone', $data['des_icone']);
+                $categorias[$key] = new Categoria();
+                $categorias[$key]->setAttribute('id_categoria', $data['id_categoria']);
+                $categorias[$key]->setAttribute('des_descricao', $data['des_descricao']);
+                $categorias[$key]->setAttribute('des_icone', $data['des_icone']);
             }
-            return $categoria;
+            return $categorias;
         }
 
     }

@@ -16,7 +16,7 @@ var app = new Vue({
         
         salvarUsuario: function(e){
             if(!this.user.des_slug){
-                $('.basic-msg').text('O campo "Nome de usuário" não pode estar vazio!');
+                swal ( "Oops!" ,  "O campo 'Nome de Usuário' não pode estar vazio!" ,  "error" );
                 if($('.basic-msg').hasClass('d-none')){
                     $('.basic-msg').addClass('text-danger');
                     $('.basic-msg').removeClass('d-none');
@@ -30,23 +30,18 @@ var app = new Vue({
                 },
                 function(data){
                     if((data == 1)||(data == true)){
-                        alert('Nome de usuário atualizado com sucesso!');
-                        location.reload();
+                        swal ( "Sucesso!" ,  "As alterações foram salvas." ,  "success" );
                     }else{
-                        alert('Nome de usuário já existe!');
+                        swal ( "Oops!" ,  "O nome de usuário já existe!" ,  "error" );
                     }
                 });
             }
-            e.preventDefault();
         },
 
         salvarNome: function(e){
             if(!this.user.des_nome){
-                alert('O campo "Nome Completo" não pode estar vazio!');
+                swal ( "Oops!" ,  "O campo 'Nome Completo' não pode estar vazio!" ,  "error" );
             }else{
-                let res = (this.user.des_nome.split(" "));
-                $('#nomeSimplesLogged').text(res[0]+' '+res[res.length-1]);
-                $('#navbar-username').text(res[0]);
                 $.post('_utils/ajax_perfil.php',
                 {
                     acao    : 'up_generico',
@@ -56,14 +51,32 @@ var app = new Vue({
                 },
                 function(data){
                 });
-                alert('Nome atualizado com sucesso!');
+                swal ( "Sucesso!" ,  "As alterações foram salvas." ,  "success" );
             }
-            e.preventDefault();
+        },
+
+        salvarNomeExibicao: function(e){
+            if(!this.user.des_nome_exibicao){
+                swal ( "Oops!" ,  "O campo 'Nome de Exibição' não pode estar vazio!" ,  "error" );
+            }else{
+                let res = (this.user.des_nome_exibicao.split(" "));
+                $('#navbar-username').text(res[0]);
+                $.post('_utils/ajax_perfil.php',
+                    {
+                        acao    : 'up_generico',
+                        campo   : 'des_nome_exibicao',
+                        valor   : this.user.des_nome_exibicao,
+                        id      : $('#id_usuario_logado').val()
+                    },
+                    function(data){
+                    });
+                    swal ( "Sucesso!" ,  "As alterações foram salvas." ,  "success" );
+            }
         },
 
         salvarEmail: function(e){
             if(!this.user.des_email){
-                alert('O campo "Email" não pode estar vazio!');
+                swal ( "Oops!" ,  "O campo 'Email' não pode estar vazio!" ,  "error" );
             }else{
                 $('#emailLogged').text(this.user.des_email);
                 $.post('_utils/ajax_perfil.php',
@@ -73,14 +86,13 @@ var app = new Vue({
                     id      : $('#id_usuario_logado').val(),
                 },
                 function(data){
-                    if(data == 0){
-                        alert('Email inválido ou já cadastrado!');
-                    }else{
-                        alert('Email atualizado com sucesso!');
+                    if (data === 0){
+                        swal ( "Oops!" ,  "Email inválido ou já cadastrado!" ,  "error" );
+                    } else {
+                        swal ( "Sucesso!" ,  "As alterações foram salvas." ,  "success" );
                     }
                 });
             }
-            e.preventDefault();
         },
 
         salvarOcupacao: function(e){
@@ -93,8 +105,7 @@ var app = new Vue({
             },
             function(data){
             });
-            alert('Ocupação atualizada com sucesso!');
-            e.preventDefault();
+            swal ( "Sucesso!" ,  "As alterações foram salvas." ,  "success" );
         },
 
     // ---------------------------------------------------------------------------
@@ -111,8 +122,7 @@ var app = new Vue({
             },
             function(data){
             });
-            alert('Número de celular atualizado com sucesso!');
-            e.preventDefault();
+            swal ( "Sucesso!" ,  "As alterações foram salvas." ,  "success" );
         },
 
         salvarCpf: function(e){
@@ -125,8 +135,7 @@ var app = new Vue({
             },
             function(data){
             });
-            alert('Número de CPF atualizado com sucesso!');
-            e.preventDefault();
+            swal ( "Sucesso!" ,  "As alterações foram salvas." ,  "success" );
         },
 
         salvarDtNasc: function(e){
@@ -139,8 +148,7 @@ var app = new Vue({
             },
             function(data){
             });
-            alert('Data de nascimento atualizado com sucesso!');
-            e.preventDefault();
+            swal ( "Sucesso!" ,  "As alterações foram salvas." ,  "success" );
         },
 
         salvarSexo: function(e){
@@ -153,38 +161,48 @@ var app = new Vue({
             },
             function(data){
             });
-            alert('Sexo atualizado com sucesso!');
-            e.preventDefault();
+            swal ( "Sucesso!" ,  "As alterações foram salvas." ,  "success" );
         },
 
-        salvarCidade: function(e){
-            $.post('_utils/ajax_perfil.php',
-            {
-                acao    : 'up_generico',
-                campo   : 'id_cidade',
-                valor   : this.user.id_cidade,
-                id      : $('#id_usuario_logado').val(),
-            },
-            function(data){
-                alert(data);
-            });
-            alert('Cidade atualizada com sucesso!');
-            e.preventDefault();
+        salvarCEP: function(){
+            $.get('http://api.postmon.com.br/v1/cep/'+this.user.des_cep,
+                { },
+                function(data){
+                    $.post('_utils/ajax_perfil.php',
+                        {
+                            acao    : 'up_cep',
+                            cep     : data['cep'],
+                            cidade  : data['cidade'],
+                            id      : $('#id_usuario_logado').val(),
+                        },
+                        function(data){ });
+
+                    $('#cidadeUsr').val(data['cidade']);
+                    swal ( "Sucesso!" ,  "As alterações foram salvas." ,  "success" );
+                }
+            );
         },
 
         deletarConta: function(e){
             let id_usuario = $('#id_usuario_logado').val();
-            
-            if (confirm('Realmente deseja deletar sua conta?')){
-                $.post('_utils/ajax_perfil.php',
-                {
-                    acao: 'delete_user',
-                    id_usuario: id_usuario
-                },function(data){
-                    // alert(data);
-                    window.location.href = 'home';
-                });
-            }
+            swal({
+                title: "Realmente deseja deletar sua conta?",
+                text: "Esta ação não poderá ser desfeita e todos os dados da sua conta serão deletados.",
+                icon: "warning",
+                buttons: ["Cancelar", "Deletar"],
+                dangerMode: true,
+              })
+              .then((willDelete) => {
+                if (willDelete) {
+                    $.post('_utils/ajax_perfil.php',
+                    {
+                        acao: 'delete_user',
+                        id_usuario: id_usuario
+                    },function(data){
+                        window.location.href = 'home';
+                    });
+                }
+              });
         },
         
     // ---------------------------------------------------------------------------
@@ -193,9 +211,9 @@ var app = new Vue({
         
         salvarSenha: function(e){
             if(this.senha !== this.confirmSenha){
-                alert('As senhas não são iguais!');
+                swal ( "Oops!" ,  "As senhas não são iguais!" ,  "error" );
             }else if(this.senha.length < 8){
-                alert('A senha deve conter no mínimo 8 digítos!');
+                swal ( "Oops!" ,  "A senha deve conter no mínimo 8 digítos!" ,  "error" );
             }else{
                 $.post('_utils/ajax_perfil.php',
                 {
@@ -208,9 +226,8 @@ var app = new Vue({
                 });
                 this.senha = null;
                 this.confirmSenha = null;
-                alert('Senha atualizada com sucesso!');
+                swal ( "Sucesso!" ,  "As alterações foram salvas." ,  "success" );
             }
-            e.preventDefault();
         },
     }
 });

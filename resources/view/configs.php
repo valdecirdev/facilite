@@ -18,7 +18,7 @@
         }    
     </style>
     <div id="content">
-        <input type="text" value="<?php if(isset($loggedUser)){echo $loggedUser->getAttribute('id_usuario');} ?>" id="id_usuario_logado" class="d-none">
+        <input type="text" value="<?php if(isset($loggedUser)){ echo $loggedUser->getAttribute('id_usuario');} ?>" id="id_usuario_logado" class="d-none">
         <section class="container-fluid" style="" id="profile-page">
             
             <div class="row">
@@ -27,7 +27,8 @@
                         <div class="col-md-12 " style="padding:0px;margin:0px;margin-bottom:-5px">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb" style="background-color:#fff;border-radius:0px">
-                                    <li class="breadcrumb-item"><a aria-label="inicio" href="home">Início</a></li>
+                                    <li class="breadcrumb-item"><a href="home">Início</a></li>
+                                    <li class="breadcrumb-item"><a href="<?=$loggedUser->getAttribute('des_slug');?>">Perfil</a></li>
                                     <li class="breadcrumb-item active">Configurações</li>
                                 </ol>
                             </nav>
@@ -61,10 +62,10 @@
                             <div class="row">
                                 <div class="col-md-12 profile-card">
                                     <div class="tab-content" style="margin-top:-10px;">
-                                        <div id="basicos" class="tab-pane fade active show" style="padding-left:15px">
-                                            <div class="row"> 
-                                                <div class="col-12">
-                                                    <p class="pull-left" style="width:auto;margin-top: 15px;margin-bottom:0px;font-weight:400;font-size:18px;">Informações básicas</p>
+                                        <div id="basicos" class="tab-pane fade active show" style="padding-left:15px;">
+                                            <div class="row" style="padding-right:15px;margin-left:0px"> 
+                                                <div class="col-12" style="background-color:#f7f9fa;margin-top:10px;padding-bottom:15px;padding-top:15px;">
+                                                    <p class="pull-left" style="width:auto;font-weight:400;font-size:15px;margin:0px;color:#637282;font-weight:500">Informações básicas</p>
                                                 </div>
                                             </div>
                                             <div class="row" style="margin-top:20px">
@@ -77,7 +78,7 @@
                                                             <label for="slugUsr" class="col-12" style="margin-left:-15px">Nome de usuario</label>
                                                             <div class="input-group col-md-9" style="padding:0px">
                                                                 <div class="input-group-prepend">
-                                                                    <span class="input-group-text" id="inputGroupPrepend2" style="border-radius:0px">faciliteserv.com/</span>
+                                                                    <span class="input-group-text" id="inputGroupPrepend2" style="border-radius:0px">faciliteserv.com</span>
                                                                 </div>
                                                                 <input type="text" class="form-control block-plaintext" id="slugUsr" v-model="user.des_slug">
                                                             </div>
@@ -90,6 +91,14 @@
                                                             <label for="nomeUsr" class="col-12" style="margin-left:-15px">Nome completo</label>
                                                             <input type="text" class="form-control col-md-9" id="nomeUsr" v-model="user.des_nome" placeholder="Nome Completo:">
                                                             <button type="button" class="btn btn-primary col-md-2" v-on:click="salvarNome()" style="border-radius:0px">Salvar</button>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-12 row" style="padding-left:20px">
+                                                            <label for="nomeExibUsr" class="col-12" style="margin-left:-15px">Nome de Exibição</label>
+                                                            <input type="text" class="form-control col-md-9" id="nomeExibUsr" v-model="user.des_nome_exibicao" placeholder="Nome de Exibição:">
+                                                            <button type="button" class="btn btn-primary col-md-2" v-on:click="salvarNomeExibicao()" style="border-radius:0px">Salvar</button>
                                                         </div>
                                                     </div>
 
@@ -120,9 +129,9 @@
                                         <div id="pessoal" class="tab-pane fade">
                                             <div class="clearfix">
                                                 <div class="col-12">
-                                                    <div class="row">    
-                                                        <div class="col-12">
-                                                            <p class="pull-left" style="width:auto;margin-top: 15px;margin-bottom:0px;font-weight:400;font-size:18px;">Informações pessoais</p>
+                                                    <div class="row" style="padding-right:15px;margin-left:0px"> 
+                                                        <div class="col-12" style="background-color:#f7f9fa;margin-top:10px;padding-bottom:15px;padding-top:15px;">
+                                                            <p class="pull-left" style="width:auto;font-weight:400;font-size:15px;margin:0px;color:#637282;font-weight:500">Informações pessoais</p>
                                                         </div>
                                                     </div>
                                                     <div class="row" style="margin-top:40px">
@@ -164,18 +173,15 @@
                                                                 </div>
                                                             </div>
 
+
                                                             <div class="form-row">
                                                                 <div class="form-group col-md-12 row" style="padding-left:20px">
-                                                                    <label for="cidadeUsr" class="col-12" style="margin-left:-15px">Cidade</label>                                                                       
-                                                                    <select class="form-control col-md-9" id="cidadeUsr" v-model="user.id_cidade" style="border-radius:0px;height:45px">
-                                                                        <?php
-                                                                        $user = new UsuarioController();
-                                                                        $cidades = $user->loadCity();
-                                                                        foreach ($cidades as $key => $value) { ?>
-                                                                            <option value="<?php echo $cidades[$key]['id_cidade']; ?>"><?php echo $cidades[$key]['des_nome']; ?></option>
-                                                                        <?php } ?>
-                                                                    </select>
-                                                                    <button type="button" class="btn btn-primary col-md-2" v-on:click="salvarCidade()" style="border-radius:0px">Salvar</button>
+                                                                    <label for="cidadeUsr" class="col-12" style="margin-left:-15px">CEP</label>
+                                                                    <input type="text" maxlength="9" class="form-control col-md-9" id="dtNascUsr" v-model="user.des_cep" placeholder="CEP:">
+                                                                    <button type="button" class="btn btn-primary col-md-2" v-on:click="salvarCEP()" style="border-radius:0px">Salvar</button>
+                                                                </div>
+                                                                <div class="form-group col-md-12 row" style="padding-left:20px">
+                                                                    <input type="text" class="form-control col-md-9" id="cidadeUsr" disabled placeholder="Cidade:" value="<?=$loggedUser->cidade->getAttribute('des_nome');?>">
                                                                 </div>
                                                             </div>
                                                             
@@ -195,22 +201,20 @@
                                         <div id="senha" class="tab-pane fade">
                                             <div class="clearfix">
                                                 <div class="col-12">
-                                                    <div class="row">    
-                                                        <div class="col-12">
-                                                            <p class="pull-left" style="width:auto;margin-top: 15px;margin-bottom:0px;font-weight:400;font-size:18px;">Alterar senha</p>
+                                                    <div class="row" style="padding-right:15px;margin-left:0px"> 
+                                                        <div class="col-12" style="background-color:#f7f9fa;margin-top:10px;padding-bottom:15px;padding-top:15px;">
+                                                            <p class="pull-left" style="width:auto;font-weight:400;font-size:15px;margin:0px;color:#637282;font-weight:500">Alterar senha</p>
                                                         </div>
                                                     </div>
-                                                    <div class="row" style="margin-top:40px">
+                                                    <div class="row" style="margin-top:20px">
                                                         <div class="col-md-8">
 
                                                             <div class="form-row">
                                                                 <div class="form-group col-md-12 row" style="padding-left:20px">
-                                                                    <!-- <label for="senhaUsr" class="col-12" style="margin-left:-15px">Nova senha:</label> -->
                                                                     <input type="password" class="form-control col-md-9" id="senhaUsr" v-model="senha" placeholder="Nova senha:"/>
                                                                 </div>
 
                                                                 <div class="form-group col-md-12 row" style="padding-left:20px">
-                                                                    <!-- <label for="confirmSenhaUsr" class="col-12" style="margin-left:-15px">Repita a senha:</label> -->
                                                                     <input type="password" class="form-control col-md-9" id="confirmSenhaUsr" v-model="confirmSenha" placeholder="Repita a senha:">
                                                                     <button type="button" class="btn btn-primary col-md-2" v-on:click="salvarSenha()" style="border-radius:0px">Salvar</button>
                                                                     <p><sub>A senha deve conter no mínimo 8 caracteres.</sub></p>

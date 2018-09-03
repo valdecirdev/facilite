@@ -35,10 +35,11 @@
                                         <div style="margin-bottom:15px">
                                             Pesquisa: <?php echo '"'.strip_tags($_GET['q']).'"'; ?>
                                             <span style="font-size:12px;">
-                                                <?php if(isset($_SESSION['id'])){
-                                                    $total_results = $search->searchCount($_GET['q'],$_SESSION['id']);
+                                                <?php
+                                                if(isset($_SESSION['id'])){
+                                                    $total_results = $search->searchCount($_GET['q'], $_SESSION['id']);
                                                 }else{
-                                                    $total_results = $search->searchCount($_GET['q'],"*");
+                                                    $total_results = $search->searchCount($_GET['q'], "*");
                                                 }
                                                 echo '</br>('.$total_results.' resultados)'; ?> 
                                             </span></br>
@@ -117,10 +118,11 @@
                                             $min = 0;
                                             $max = 10;
                                         }
+                                        $ord = $_GET['ord'] ?? NULL;
                                         if(isset($_SESSION['id'])){
-                                            $anuncios = $search->search($_GET['q'],$_SESSION['id'],$min,$max);
+                                            $anuncios = $search->search($_GET['q'], $_SESSION['id'],$min,$max, $ord);
                                         }else{
-                                            $anuncios = $search->search($_GET['q'],"*",$min,$max);
+                                            $anuncios = $search->search($_GET['q'], "*",$min,$max, $ord);
                                         }
                                     foreach ($anuncios as $key => $value) { 
                                         $usuario = $usuarios->loadById($anuncios[$key]->getAttribute('id_usuario')); ?>
@@ -171,7 +173,7 @@
                                                         </div>
                                                         <div class="col-10 footer-card">
                                                             <?php $nome = explode(' ', $usuario->getAttribute('des_nome')); ?>
-                                                            <a href="<?php echo $usuario->getAttribute('des_slug'); ?>" class="username"><h6 style="font-weight:400"><?php echo $nome[0] .' '. $nome[count($nome)-1]; ?></h6></a>
+                                                            <a href="<?php echo $usuario->getAttribute('des_slug'); ?>" class="username"><h6 style="font-weight:400"><?=$usuario->getAttribute('des_nome_exibicao'); ?></h6></a>
                                                             <span class="float-left stars" style="margin-top: -5px;">
                                                                 <a style="font-size: 15px"><i class="fa fa-star"></i> 4,2</a>
                                                             </span>

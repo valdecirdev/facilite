@@ -41,7 +41,7 @@
                                     $cat = $categorias->loadAll();
                                     $cont = 0;
                                     foreach ($cat as $key => $value) { ?>
-                                        <a class="dropdown-item" href="#"><?php echo $cat[$key]->getAttribute('des_descricao'); ?></a>
+                                        <a class="dropdown-item" href="#"><?=$cat[$key]->getAttribute('des_descricao')?></a>
                                     <?php 
                                         if($cont >= 10){
                                             break;
@@ -84,9 +84,9 @@
             <div class="row">
                 <?php 
                 if(isset($_SESSION['id'])){
-                    $anuncios = $search->search('',$_SESSION['id'],0,12);
+                    $anuncios = $search->search('',$_SESSION['id'],0,12, NULL);
                 }else{
-                    $anuncios = $search->search('',"*",0, 12);
+                    $anuncios = $search->search('',"*",0, 12, NULL);
                 }
                 foreach ($anuncios as $key => $value) {
                     $usuario = $usuarios->loadById($anuncios[$key]->getAttribute('id_usuario')); ?>
@@ -95,13 +95,13 @@
                             <div class="row" style="height:45px">
                                 <div class="col-2">
                                     <a href="#">
-                                        <i class="<?php echo $anuncios[$key]->categoria->getAttribute('des_icone'); ?> icon-align-center" aria-hidden="true"></i>
+                                        <i class="<?=$anuncios[$key]->categoria->getAttribute('des_icone')?> icon-align-center" aria-hidden="true"></i>
                                     </a>
                                 </div>
                                 <div class="col-10">
                                     <a href="">
                                         <h4 class="job-title font-weight-bold">
-                                            <?php echo $anuncios[$key]->categoria->getAttribute('des_descricao'); ?>
+                                            <?=$anuncios[$key]->categoria->getAttribute('des_descricao')?>
                                         </h4>
                                     </a>
                                 </div>
@@ -115,8 +115,8 @@
                                         </div>
                                         <div style="width: 40%">
                                             <span style="font-size: 13px">R$</span>
-                                            <span style="font-size:22px;font-weight:500;"><?php echo $anuncios[$key]->getAttribute('des_preco'); ?></span>
-                                            <p style="margin-top: -5px"><?php echo $anuncios[$key]->modalidade->getAttribute('des_descricao'); ?></p>
+                                            <span style="font-size:22px;font-weight:500;"><?=$anuncios[$key]->getAttribute('des_preco')?></span>
+                                            <p style="margin-top: -5px"><?=$anuncios[$key]->modalidade->getAttribute('des_descricao')?></p>
                                         </div>
                                         <div style="width: 30%">
                                             <span style="font-size:22px;font-weight:500;">20</span>
@@ -137,13 +137,17 @@
                                 </div>
                                 <div class="col-10 footer-card">
                                     <?php $nome = explode(' ', $usuario->getAttribute('des_nome')); ?>
-                                    <a href="<?php echo $usuario->getAttribute('des_slug'); ?>" class="username"><h6 style="font-weight:400"><?php echo $nome[0] .' '. $nome[count($nome)-1]; ?></h6></a>
+                                    <a href="<?php echo $usuario->getAttribute('des_slug'); ?>" class="username"><h6 style="font-weight:400"><?=$usuario->getAttribute('des_nome_exibicao'); ?></h6></a>
                                     <span class="float-left stars" style="margin-top: -5px;">
                                         <a style="font-size: 15px"><i class="fa fa-star"></i> 4,2</a>
                                     </span>
                                     <span class="float-right">
-                                        <a href="#" style="margin-right:-10px !important"> <i class="fa fa-user-plus grey-text ml-3"></i></a>
-                                        <a href="#"><i class="fa fa-share-alt grey-text ml-3"></i></a>
+                                        <?php if(isset($loggedUser)){ ?>
+                                            <a href="#" style="margin-right:-10px !important"> <i class="fa fa-user-plus grey-text ml-3" style="color: #e6366b"></i></a>
+                                        <?php } else { ?>
+                                            <a href="cadastre-se" style="margin-right:-10px !important"> <i class="fa fa-user-plus grey-text ml-3" style="color: #e6366b"></i></a>
+                                        <?php } ?>
+                                        <a href="#"><i class="fa fa-share-alt ml-3" style="color: #e6366b"></i></a>
                                     </span>
                                 </div>
                             </div>

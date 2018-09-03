@@ -1,6 +1,6 @@
 <?php
 
-    use controller\{UsuarioController, HabilidadeController, LigacaoController, CategoriaController, ModalidadeController};
+    use controller\{UsuarioController, HabilidadeController, CategoriaController, ModalidadeController};
     use Carbon\Carbon;
 
     $uri = explode('/', $_SERVER["REQUEST_URI"]);
@@ -8,13 +8,9 @@
 
 
     $user    = new UsuarioController();
-    $ligacao = new LigacaoController();
     $usuario = $user->loadBySlug($slug) ?? header('location:erro');
 
-    $nome = explode(' ', $usuario->getAttribute('des_nome'));
-    $nomeSimpes = $nome[0] . ' ' . $nome[count($nome)-1];
-
-    $pg_title = $nomeSimpes.' - ';
+    $pg_title = $usuario->getAttribute('des_nome_exibicao').' - ';
     $description = $usuario->getAttribute('des_apresentacao');
     include('_includes'.DS.'header.php');
 
@@ -35,7 +31,7 @@
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb" style="background-color:#fff;border-radius:0">
                                     <li class="breadcrumb-item"><a aria-label="inicio" href="home">Início</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page"><?=$nomeSimpes; ?></li>
+                                    <li class="breadcrumb-item active" aria-current="page"><?=$usuario->getAttribute('des_nome_exibicao'); ?></li>
                                 </ol>
                             </nav>
                         </div>
@@ -57,7 +53,7 @@
                                 <?php } ?>
                             </div>
                             <div class="infos">
-                                <h5 class="text-center"><span class="profile-name"><?=$nomeSimpes;  ?></span> <span class="d-print-none" style="font-size:15px;font-weight:normal">-<i class="fa fa-star" style="margin-left:5px;font-size: 18px;color:rgb(255, 208, 0)"></i> 4,2</span></h5>
+                                <h5 class="text-center"><span class="profile-name"><?=$usuario->getAttribute('des_nome_exibicao');  ?></span> <span class="d-print-none" style="font-size:15px;font-weight:normal">-<i class="fa fa-star" style="margin-left:5px;font-size: 18px;color:rgb(255, 208, 0)"></i> 4,2</span></h5>
                                 
                                 
 
@@ -66,10 +62,10 @@
                                     <p style="margin-top:-5px;font-size:14px;"><span id="sideOcupacao"><?=$usuario->getAttribute('des_ocupacao'); ?></span></p>
                                     <?php if(isset($_SESSION['id'])){
                                         if(!$donoPerfil){
-                                            $ligacoes = $ligacao->loadById($loggedUser->getAttribute('id_usuario'),$usuario->getAttribute('id_usuario')); ?>
+                                            $contato = $loggedUser->ligacoes->where('id_contato', $usuario->getAttribute('id_usuario'))->count(); ?>
                                             <div style="margin-bottom:10px;">
-                                                <button class="d-print-none btn btn-fc-<?php if(is_null($ligacoes) || count($ligacoes) == 0){echo 'primary';}else{echo 'danger';} ?>" id="criar-conexao" style="border-radius:5px;font-weight:400;height:34px;font-size:13px"<?php if(!isset($_SESSION['id'])||($_SESSION['id'] == $usuario->getAttribute('id_usuario'))){ echo 'disabled'; } ?>><i class="fas fa-user" style="margin-right:5px"></i> <span id="msg-btnContato"><?php if(is_null($ligacoes)  || count($ligacoes) == 0){echo ' Adicionar';}else{echo ' Remover';} ?></span> </button>
-                                                <button class="btn btn-fc-primary d-print-none" style="border-radius:5px;font-weight:400;height:33px;font-size:13px"><i class="fas fa-comment" style="margin-right:2px"></i> Mensagem</button>
+                                                <button class="d-print-none btn btn-fc-<?php if(!$contato){echo 'primary';}else{echo 'danger';} ?>" id="criar-conexao" style="border-radius:5px;font-weight:400;height:34px;font-size:13px"<?php if(!isset($_SESSION['id'])||($_SESSION['id'] == $usuario->getAttribute('id_usuario'))){ echo 'disabled'; } ?>><i class="fas fa-user" style="margin-right:5px"></i> <span id="msg-btnContato"><?php if(!$contato){echo ' Adicionar';}else{echo ' Remover';} ?></span> </button>
+                                                <a href="messages?to=<?=$usuario->getAttribute('id_usuario')?>" class="btn btn-fc-primary d-print-none" style="border-radius:5px;font-weight:400;height:33px;font-size:13px;color:#fff"><i class="fas fa-comment" style="margin-right:2px"></i> Mensagem</a>
                                             </div>
                                         <?php } ?>
                                     <?php } else{ ?>      
@@ -93,7 +89,7 @@
                                            ?></span> <span id="sideIdade"><?=$idade.' anos'; ?></span>
                                         </p>
                                         <?php if(!is_null($usuario->getAttribute('id_cidade'))){ ?>
-                                            <p class="sub"><i class="fa fa-map-marker" style="margin-left: 3px;margin-right: 8px;"></i><?=$usuario->getAttribute('id_cidade'); ?></p>
+                                            <p class="sub"><i class="fa fa-map-marker" style="margin-left: 3px;margin-right: 8px;"></i><?=$usuario->cidade->getAttribute('des_nome').' - '.$usuario->cidade->estado->getAttribute('des_uf'); ?></p>
                                         <?php } ?>
                                     </div>
                                 </div>
@@ -111,7 +107,7 @@
                                         <p style="margin-top:-5px;margin-bottom:0;color:#777;font-weight:200">Avaliações</p>
                                     </div>
                                     <div class="col-4">
-                                        <button aria-label="Compartilhar perfil de <?=$nomeSimpes;?>" class="btn d-print-none btn-fc-primary btn-radius"  style="padding:0;margin-top:5px; height:40px; width:40px; margin-left:5px;" data-toggle="tooltip" data-placement="top" title="Compartilhar"><i class="fa fa-share"></i></button>
+                                        <button aria-label="Compartilhar perfil de <?=$usuario->getAttribute('des_nome_exibicao');?>" class="btn d-print-none btn-fc-primary btn-radius"  style="padding:0;margin-top:5px; height:40px; width:40px; margin-left:5px;" data-toggle="tooltip" data-placement="top" title="Compartilhar"><i class="fa fa-share"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -320,7 +316,7 @@
                         </div>
                         </div></div>
                         <div class="col-md-3" style="padding:20px;">
-                    <?php $ligacoes = $ligacao->loadByUser($usuario->getAttribute('id_usuario'), 3); ?>
+                    <?php $ligacoes = $usuario->ligacoes->take(3);?>
                     <div class="row d-print-none" style="margin-top: 15px;">
                         <div class="col-md-12">
                             <div class="col-12" style="padding:0px">
@@ -339,7 +335,7 @@
                                                     <a href="<?=$contato->getAttribute('des_slug');?>"><img src="img/profile/<?=$contato->getAttribute('des_foto');?>" alt="" class="rounded-circle" height="50"></a>
                                                 </div>
                                                 <div class="col-10" style="padding-left:30px;">
-                                                    <a href="<?=$contato->getAttribute('des_slug');?>" class="nome-contato"><h6 style="font-weight:400;margin-bottom:3px;margin-top:3px"><?=explode( ' ',$contato->getAttribute('des_nome'))[0]. ' '.explode(' ', $contato->getAttribute('des_nome'))[count(explode( ' ', $contato->getAttribute('des_nome')))-1];?> -<i class="fa fa-star" style="margin-left:5px;font-size: 15px;color:rgb(255, 208, 0)"></i> 9,2</h6></a>
+                                                    <a href="<?=$contato->getAttribute('des_slug');?>" class="nome-contato"><h6 style="font-weight:400;margin-bottom:3px;margin-top:3px"><?=$contato->getAttribute('des_nome_exibicao');?> -<i class="fa fa-star" style="margin-left:5px;font-size: 15px;color:rgb(255, 208, 0)"></i> 4,2</h6></a>
                                                     <span class="pull-left stars">
                                                         <a aria-label="<?=substr($contato->getAttribute('des_ocupacao'),0,100);?>" style="font-size:14px;color:#8b8b8b"><?=substr($contato->getAttribute('des_ocupacao'),0,100);?></a>
                                                     </span>
@@ -347,7 +343,7 @@
                                             </div>
                                         </div>
                                     <?php }
-                                    }else{ ?>   
+                                    }else{ ?>
                                         <div class="col-md-12" style="margin-top: 5px;margin-bottom: 10px;color:#8b8b8b">
                                             Nenhum Contato
                                         </div>
@@ -545,7 +541,7 @@
 <?php } ?>
 
 <?php include('_includes'.DS.'footer.php'); ?>
-<script src="js/profile.min.js"></script>
+<script src="js/profile.js"></script>
 <script>
     $('.open-Login').click(function(e){
         e.stopPropagation();

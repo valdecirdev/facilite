@@ -18,7 +18,7 @@
             <h2 style="font-weight:300">Crie sua conta</h2>
             <p style="margin-top:20px">Sua conta é a porta de entrada para um mundo de oportunidades na Facilite Serviços!</p>
             <div id="register-alert" class="d-none alert alert-danger alert-dismissible fade show" role="alert">
-                Erro ao criar cadastro, verifique as informações.
+                Erro.
             </div>
             <form @submit="checkForm" action="" method="POST" style="margin-top:30px" class="row">
                 <div class="form-group col-md-12">
@@ -26,16 +26,16 @@
                     <input type="text" class="form-control" id="des_nome" name="des_nome" v-model="nome" placeholder="Nome Completo">
                 </div>
                 <div class="form-group col-md-6">
-                    <!-- <label for="des_email">email</label> -->
+                     <label for="des_email">email</label>
                     <input type="email" class="form-control" id="des_email" name="des_email" v-model="email" placeholder="Endereço de Email">
                 </div>
                 <div class="form-group col-md-6">
-                    <!-- <label for="des_senha">senha</label> -->
+                     <label for="des_senha">senha</label>
                     <input type="password" class="form-control" id="des_senha" name="des_senha" v-model="senha" placeholder="Senha">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="des_sexo">sexo:</label>
-                    <select class="form-control" name="des_sexo" v-model="sexo" id="des_sexo" style="height: 45px;">
+                    <select class="form-control" name="des_sexo" v-model="sexo" id="des_sexo" style="height: 45px;border-radius: 0">
                         <option value="F">Feminino</option>
                         <option value="M">Masculino</option>
                         <option value="P">Prefiro não informar </option>
@@ -58,7 +58,7 @@
 <?php
     include('_includes'.DIRECTORY_SEPARATOR.'footer.php');
 ?>
-<script src="js/register.min.js"></script>
+<script src="js/register.js"></script>
 </body>
 <html>
 
