@@ -20,17 +20,13 @@
                 $usuario = new UsuarioController();
                 $usuario->delete($_POST['id_usuario']);
                 break;
-            case 'up_slug':
-                $usuario = new UsuarioController();
-                echo $usuario->slug_update($_POST['slug'], $_POST['id']);
-                break;
             case 'up_cep':
                 $usuario = new UsuarioController();
                 echo $usuario->cep_update($_POST['cep'], $_POST['cidade'], $_POST['id']);
                 break;
             case 'up_generico':
                 $usuario = new UsuarioController();
-                $usuario->gen_update($_POST['campo'], $_POST['valor'], $_POST['id']);
+                echo $usuario->gen_update($_POST['campo'], $_POST['valor'], $_POST['id']);
                 break;
             case 'up_email':
                 $usuario = new UsuarioController();

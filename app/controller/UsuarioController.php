@@ -2,11 +2,7 @@
 
     namespace controller;
 
-    use model\Cidade;
-    use model\Confirmacao;
-    use model\Estado;
-    use model\Pais;
-    use model\Usuario;
+    use model\{Cidade, Confirmacao, Estado, Pais, Usuario};
     use PHPMailer\PHPMailer\PHPMailer;
 
     class UsuarioController
@@ -21,28 +17,73 @@
             session_destroy();
         }
 
-        public static function login(array $values = array()): bool
+        public static function login( array $loginInfos = array() ): bool
         {
-            $result = Usuario::where('des_email', $values['login_des_email'])
+            $result = Usuario::where('des_email', $loginInfos['des_email'])
                 ->select('id_usuario', 'des_email', 'des_senha', 'des_slug', 'des_sexo')->get();
-            if (count($result)>0) {
-                if (password_verify($values['des_senha'], $result[0]['des_senha'])) {
-                    session_start();
-                    session_regenerate_id();
-                    $_SESSION['id']   = $result[0]['id_usuario'];
-                    $_SESSION['nome'] = $result[0]['des_nome'];
-                    $_SESSION['slug'] = $result[0]['des_slug'];
-                    $_SESSION['sexo'] = $result[0]['des_sexo'];
-                    return TRUE;
-                }
+            if (( !isset($result[0])) || (!password_verify($loginInfos['des_senha'], $result[0]['des_senha']))) {
+                return FALSE;
             }
-            return FALSE;
+            session_start();
+            session_regenerate_id();
+            $_SESSION = [
+                'id'   => $result[0]['id_usuario'], 
+                'nome' => $result[0]['des_nome'], 
+                'slug' => $result[0]['des_slug'],
+                'sexo' => $result[0]['des_sexo'],
+            ];
+            return TRUE;
         }
 
-        public static function register(array $values = array())
+        public static function register( array $registerInfos = array() ): bool
+        {
+            $usuarioController = new UsuarioController();
+            $email = filter_var($registerInfos['des_email'], FILTER_SANITIZE_EMAIL);
+            $slug = $usuarioController->slugGenerator($registerInfos['des_nome']);
+            $tmpNome = explode(' ', $registerInfos['des_nome']);
+            $nomeExibicao = $tmpNome[0].' '.$tmpNome[count($tmpNome)-1];
+
+            if ((!filter_var($email, FILTER_VALIDATE_EMAIL)) || ($usuarioController->emailExists($email))) {
+                return FALSE;
+            }
+
+            $usuario = new Usuario([
+                'id_plano'   => '1',
+                'des_email'  => strtolower($email),
+                'des_slug'   => strtolower($slug),
+                'des_senha'  => password_hash($registerInfos['des_senha'], PASSWORD_DEFAULT),
+                'des_nome'   => mb_convert_case($registerInfos['des_nome'], MB_CASE_TITLE, 'UTF-8'),
+                'des_nome_exibicao' => $nomeExibicao,
+                'des_sexo'   => $registerInfos['des_sexo'],
+                'dt_nasc'    => $registerInfos['dt_nasc'],
+                'des_status' => "Ativo",
+            ]);
+            $usuario->save();
+            
+            $loginInfos = ['des_email' => $registerInfos['des_email'], 'des_senha' => $registerInfos['des_senha']];
+            self::login($loginInfos);
+            
+            // Código responsável pelo envio de email e confirmação de conta
+
+            // $hash = md5(date("Y/m/d H:i:s"));
+            // $confirmacao = new Confirmacao([
+            //     'id_usuario' => $_SESSION['id'],
+            //     'des_hash'   => $hash,
+            // ]);
+            // $confirmacaoController = new ConfirmacaoController();
+            
+            // $confirmacaoController->insert($confirmacao);
+            // $usuarioController->mailer($email, $registerInfos['des_nome'], $hash);
+            return TRUE;
+        }
+
+        //---------------------------------------------------------------------
+        //  AUX
+        //---------------------------------------------------------------------
+        public function slugGenerator(string $fullName): string
         {
             $user = new UsuarioController();
-            $fullName = preg_replace( '/[`^~\'"]/', null, iconv( 'UTF-8', 'ASCII//TRANSLIT', $_POST['des_nome'] ) );
+            $fullName = preg_replace( '/[`^~\'"]/', null, iconv( 'UTF-8', 'ASCII//TRANSLIT', $fullName ) );
             $fullName = explode(' ', $fullName);
             $cont = null; $lastName = "";
             if (count($fullName) > 1) $lastName = $fullName[count($fullName)-1];
@@ -51,39 +92,10 @@
                 $slug = $fullName[0].$lastName.$cont;
                 $cont++;
             } while ($user->slugExists($slug));
-            $usuario = new Usuario();
-            $usuario->setAttribute('id_plano', 1);
-            $usuario->setAttribute('des_email', strtolower($values['des_email']));
-            $usuario->setAttribute('des_slug', strtolower($slug));
-            $usuario->setAttribute('des_senha', password_hash($values['des_senha'], PASSWORD_DEFAULT));
-            $usuario->setAttribute('des_nome', mb_convert_case($values['des_nome'], MB_CASE_TITLE, 'UTF-8'));
-            $usuario->setAttribute('des_sexo', $values['des_sexo']);
-            $usuario->setAttribute('dt_nasc', $_POST['dt_nasc']);
-            $usuario->setAttribute('des_status', "Pendente");
-            if (!$user->emailExists($values['des_email'])) {
-                $user->insert($usuario);
-                $values = array(
-                    'login_des_email'=>$values['des_email'],
-                    'des_senha'=>$values['des_senha']
-                );
-                self::login($values);
-
-                $hash = md5(date("Y/m/d H:i:s"));
-                $confirm = new Confirmacao();
-                $confirm->setAttribute('id_usuario', $_SESSION['id']);
-                $confirm->setAttribute('des_hash', $hash);
-                $confirmacao = new ConfirmacaoController();
-                $confirmacao->insert($confirm);
-                $user->mailer($_POST['des_email'], $_POST['des_nome'], $hash);
-                return TRUE;
-            }
-            return FALSE;
+            return $slug;
         }
 
-        //---------------------------------------------------------------------
-        //  AUX
-        //---------------------------------------------------------------------
-        public function slugExists(string $slug)
+        public function slugExists(string $slug): bool
         {
             return Usuario::where('des_slug', $slug)->exists();
         }
@@ -97,40 +109,40 @@
         //---------------------------------------------------------------------
         //  LOADS
         //---------------------------------------------------------------------
-        public function loadBySlug(string $slug)
+        public function loadBySlug(string $slug, array $campos = ['*'])
         {
-            $users = Usuario::where('des_slug', $slug)->get();
-            $usuario = $this->setInfosUsuario($users);
-            if (is_null($usuario) || count($usuario)==0) {
+            $usuario = Usuario::where('des_slug', $slug)->select($campos)->get();
+            if (count($usuario)==0) {
                 return NULL;
             }
-            return $usuario[0];
+            $usuario = $this->setInfosUsuario($usuario);
+            return $usuario;
         }
 
-        public function loadById(int $id)
+        public function loadById(int $id, array $campos = ['*'])
         {
-            $users = Usuario::where('id_usuario', $id)->get();
-            $usuario = $this->setInfosUsuario($users);
-            if (is_null($usuario) || count($usuario)==0) {
+            $usuario = Usuario::where('id_usuario', $id)->select($campos)->get();
+            if (count($usuario)==0) {
                 return NULL;
             }
-            return $usuario[0];
+            $usuario = $this->setInfosUsuario($usuario);
+            return $usuario;
         }
 
-        public function loadByEmail(string $email)
+        public function loadByEmail(string $email, array $campos = ['*'])
         {
-            $users = Usuario::where('des_email', $email)->get();
-            $usuario = $this->setInfosUsuario($users);
-            if (is_null($usuario) || count($usuario)==0) {
+            $usuario = Usuario::where('des_email', $email)->select($campos)->get();
+            if (count($usuario)==0) {
                 return NULL;
             }
-            return $usuario[0];
+            $usuario = $this->setInfosUsuario($usuario);
+            return $usuario;
         }
 
         public static function loadCityByName(string $nome)
         {
             $result = Cidade::where('des_nome', $nome)->get();
-            if (is_null($result) || count($result)==0) {
+            if (count($result)==0) {
                 return NULL;
             }
             return $result;
@@ -139,7 +151,7 @@
         public function loadCity()
         {
             $result = Cidade::all();
-            if (is_null($result) || count($result)==0) {
+            if (count($result)==0) {
                 return NULL;
             }
             return $result;
@@ -148,74 +160,52 @@
         public function loadCityById(int $id)
         {
             $result = Cidade::where('id_cidade', $id)->get();
-            if (is_null($result) || count($result)==0) {
+            if (count($result)==0) {
                 return NULL;
             }
             return $result[0];
         }
 
         //---------------------------------------------------------------------
-        //  INSERT
-        //---------------------------------------------------------------------
-        public function insert(Usuario $usuario): int
-        {
-            $user = new Usuario();
-            $user->setAttribute('des_email', $usuario->getAttribute('des_email'));
-            $user->setAttribute('des_slug' , $usuario->getAttribute('des_slug'));
-            $user->setAttribute('des_senha', $usuario->getAttribute('des_senha'));
-            $user->setAttribute('des_nome', $usuario->getAttribute('des_nome'));
-            $nome = explode(' ', $usuario->getAttribute('des_nome'));
-            $nomeExibicao = $nome[0].' '.$nome[count($nome)-1];
-            $user->setAttribute('des_nome_exibicao', $nomeExibicao);
-            $user->setAttribute('des_sexo', $usuario->getAttribute('des_sexo'));
-            $user->setAttribute('dt_nasc', $usuario->getAttribute('dt_nasc'));
-            $user->setAttribute('des_status', $usuario->getAttribute('des_status'));
-            $user->save();
-            return $user->id;
-        }
-
-        //---------------------------------------------------------------------
         //  UPDATES
         //---------------------------------------------------------------------
-        public function email_update(string $email,int $id)
+        public function email_update(string $email,int $id_usuario): bool
         {
             $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                if (!$this->emailExists($email)) {
-                    Usuario::where('id_usuario', $id)
-                        ->update(['des_email' => $email]);
-                    return TRUE;
-                }
+            if ((!filter_var($email, FILTER_VALIDATE_EMAIL)) || ($this->emailExists($email))) {
+                return FALSE;
             }
-            return FALSE;
+            Usuario::where('id_usuario', $id_usuario)->update(['des_email' => $email]);
+            return TRUE;
         }
 
-        public function gen_update($campo, $valor, $id)
+        public function gen_update($campo, $valor, $id_usuario): bool
         {
             $valor = filter_var($valor, FILTER_SANITIZE_STRING);
-            if($campo == 'des_nome'){
-                $valor = mb_convert_case($valor, MB_CASE_TITLE, 'UTF-8');
-            }else if($campo == 'des_senha'){
-                $valor = password_hash($valor, PASSWORD_DEFAULT);
-            }else if($campo == 'id_cidade'){
-                $valor = $this->loadCityByName($valor);
+            switch ($campo) {
+                case 'des_nome':
+                    $valor = mb_convert_case($valor, MB_CASE_TITLE, 'UTF-8');
+                    break;
+                case 'des_senha':
+                    $valor = password_hash($valor, PASSWORD_DEFAULT);
+                    break;
+                case 'id_cidade':
+                    $valor = $this->loadCityByName($valor);
+                    break;
+                case 'des_slug':
+                    $valor = str_replace(' ', '', $valor);
+                    $valor = preg_replace( '/[`^~\'"]/', null, iconv( 'UTF-8', 'ASCII//TRANSLIT', $valor ) );
+                    $valor = filter_var($valor, FILTER_SANITIZE_STRING);
+                    if ($this->slugExists($valor)) {
+                        return FALSE;
+                    }
+                    break;
             }
-            Usuario::where('id_usuario', $id)->update([$campo => $valor]);
+            Usuario::where('id_usuario', $id_usuario)->update([$campo => $valor]);
+            return TRUE;
         }
 
-        public function slug_update(string $slug, int $id)
-        {
-            $slug = str_replace(' ', '', $slug);
-            $slug = preg_replace( '/[`^~\'"]/', null, iconv( 'UTF-8', 'ASCII//TRANSLIT', $slug ) );
-            $slug = filter_var($slug, FILTER_SANITIZE_STRING);
-            if (!$this->slugExists($slug)) {
-                Usuario::where('id_usuario', $id)->update(['des_slug' => $slug]);
-                return TRUE;
-            }
-            return FALSE;
-        }
-
-        public function cep_update(string $cep, string $cidade, int $id)
+        public function cep_update(string $cep, string $cidade, int $id): int
         {
             $cidade = UsuarioController::loadCityByName($cidade);
             Usuario::where('id_usuario', $id)->update(['des_cep' => $cep]);
@@ -223,31 +213,27 @@
             return $id;
         }
 
-        public function update_image(Usuario $usuario, array $files = array())
+        public function update_image($usuario, $files)
         {
-            if ((isset($files['usrFoto']))&&(!is_null($files['usrFoto']))) {
-                $foto = $usuario->getAttribute('des_foto');
-                $diretorio = __DIR__.DS.'..'.DS.'..'.DS.'public'.DS.'img'.DS.'profile'.DS;
-                if (!is_dir($diretorio)) {
-                    mkdir($diretorio);
-                }
-                if ($foto != 'default.jpg') {
-                    if(file_exists($diretorio . $foto)) {
-                        unlink($diretorio . $foto);
-                    }
-                }
-                $foto = md5(time()).'.jpg';
-
-                move_uploaded_file($files['usrFoto']['tmp_name'], $diretorio.$foto);
-                $this->resize_image($diretorio.$foto);
-
-                $usuario->setAttribute('des_foto', $foto);
-                Usuario::where('id_usuario', $usuario->getAttribute('id_usuario'))->update(['des_foto' => $foto]);
-                return $foto;
-            } else {
-                $foto = $usuario->getAttribute('des_foto');
+            if ((!isset($files['usrFoto'])) || (is_null($files['usrFoto']))) {
+                $foto = $usuario->des_foto;
                 return $foto;
             }
+            $foto = $usuario->des_foto;
+            $diretorio = dirname(__DIR__).DS.'..'.DS.'public'.DS.'img'.DS.'profile'.DS;
+            if (!is_dir($diretorio)) {
+                mkdir($diretorio);
+            }
+            if (($foto != 'default.jpg') && (file_exists($diretorio . $foto))) {
+                unlink($diretorio . $foto);
+            }
+            $foto = md5(time()).'.jpg';
+
+            move_uploaded_file($files['usrFoto']['tmp_name'], $diretorio.$foto);
+            $this->resize_image($diretorio.$foto);
+
+            Usuario::where('id_usuario', $usuario->id_usuario)->update(['des_foto' => $foto]);
+            return $foto;
         }
 
 
@@ -255,20 +241,18 @@
         //---------------------------------------------------------------------
         //  TOOLS
         //---------------------------------------------------------------------
-        public function delete(int $id): void
+        public function delete(int $id_usuario): void
         {
             self::logout();
-            $result = Usuario::where('id_usuario', '=', $id)->get();
+            $result = Usuario::where('id_usuario', '=', $id_usuario)->select('des_foto')->get();
             $foto = $result[0]['des_foto'];
-            if($foto != 'default.jpg'){
-                if(file_exists(__DIR__.DS.'..'.DS.'..'.DS.'public'.DS.'img'.DS.'profile'.DS.$foto)) {
-                    unlink(__DIR__ . DS . '..' . DS . '..' . DS . 'public' . DS . 'img' . DS . 'profile' . DS . $foto);
-                }
+            if(($foto != 'default.jpg') && (file_exists(__DIR__.DS.'..'.DS.'..'.DS.'public'.DS.'img'.DS.'profile'.DS.$foto))) {
+                unlink(__DIR__ . DS . '..' . DS . '..' . DS . 'public' . DS . 'img' . DS . 'profile' . DS . $foto);
             }
-            Usuario::where('id_usuario', '=', $id)->delete();
+            Usuario::where('id_usuario', '=', $id_usuario)->delete();
         }
 
-        public function resize_image(string $caminho_imagem)
+        public function resize_image(string $caminho_imagem): void
         {
             // Retorna o identificador da imagem
             $imagem = imagecreatefromjpeg($caminho_imagem);
@@ -304,7 +288,9 @@
             imagedestroy($nova_imagem);
         }
 
-        public function mailer($destinatario, $nome, $hash)
+
+
+        public function mailer($destinatario, $nome, $hash): void
         {
             $mail = new PHPMailer();
             $mail->isSMTP();
@@ -327,42 +313,38 @@
             }
         }
 
-
         //---------------------------------------------------------------------
         //  DATASET
         //---------------------------------------------------------------------
-        public function setInfosUsuario($infos): array
+        public function setInfosUsuario($infos): Usuario
         {
-            $usuario = array();
-            foreach ($infos as $key => $data) {
-                $usuario[$key] = new Usuario();
-
-                $usuario[$key]->setAttribute('id_plano', $data['id_plano']);
-                $usuario[$key]->setAttribute('des_nome', $data['des_nome']);
-                $usuario[$key]->setAttribute('des_nome_exibicao', $data['des_nome_exibicao']);
-                $usuario[$key]->setAttribute('des_slug', $data['des_slug']);
-                $usuario[$key]->setAttribute('id_usuario', $data['id_usuario']);
-                $usuario[$key]->setAttribute('des_email', $data['des_email']);
-
-                $sexo = '';
-                if ($data['des_sexo'] == 'M') {
-                    $sexo = 'Masculino';
-                } else if ($data['des_sexo'] == 'F') {
-                    $sexo = 'Feminino';
-                }
-
-                $usuario[$key]->setAttribute('des_sexo', $sexo);
-                $usuario[$key]->setAttribute('dt_nasc', $data['dt_nasc']);
-                $usuario[$key]->setAttribute('des_apresentacao', $data['des_apresentacao']);
-                $usuario[$key]->setAttribute('des_cpf', $data['des_cpf']);
-                $usuario[$key]->setAttribute('des_foto', $data['des_foto']);
-                $usuario[$key]->setAttribute('des_cep', $data['des_cep']);
-                $usuario[$key]->setAttribute('id_cidade', $data['id_cidade']);
-                $usuario[$key]->setAttribute('des_ocupacao', $data['des_ocupacao']);
-                $usuario[$key]->setAttribute('des_telefone', $data['des_telefone']);
-                $usuario[$key]->setAttribute('des_status', $data['des_status']);
-                $usuario[$key]->setAttribute('dt_cadastro', $data['dt_cadastro']);
+            $sexo = '';
+            if ($infos[0]['des_sexo'] == 'M') {
+                $sexo = 'Masculino';
+            } 
+            if ($infos[0]['des_sexo'] == 'F') {
+                $sexo = 'Feminino';
             }
+
+            $usuario = new Usuario([
+                'id_usuario'        => $infos[0]['id_usuario'],
+                'id_plano'          => $infos[0]['id_plano'],
+                'des_email'         => $infos[0]['des_email'],
+                'des_slug'          => $infos[0]['des_slug'],
+                'des_nome'          => $infos[0]['des_nome'],
+                'des_nome_exibicao' => $infos[0]['des_nome_exibicao'],
+                'dt_nasc'           => $infos[0]['dt_nasc'],
+                'des_sexo'          => $sexo,
+                'des_apresentacao'  => $infos[0]['des_apresentacao'],
+                'des_cpf'           => $infos[0]['des_cpf'],
+                'des_foto'          => $infos[0]['des_foto'],
+                'des_cep'           => $infos[0]['des_cep'],
+                'id_cidade'         => $infos[0]['id_cidade'],
+                'des_ocupacao'      => $infos[0]['des_ocupacao'],
+                'des_telefone'      => $infos[0]['des_telefone'],
+                'des_status'        => $infos[0]['des_status'],
+                'dt_cadastro'       => $infos[0]['dt_cadastro'],
+            ]);
             return $usuario;
         }
     }

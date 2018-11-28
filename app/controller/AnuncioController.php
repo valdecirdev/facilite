@@ -10,7 +10,7 @@ class AnuncioController
     //---------------------------------------------------------------------
     //  LOADS
     //---------------------------------------------------------------------
-    public function loadByID (int $id): Anuncio
+    public function loadByID (int $id)
     {
         $anuncio = Anuncio::where('id_anuncio', $id)->get();
         $anuncio = $this->setData($anuncio);
@@ -63,10 +63,14 @@ class AnuncioController
         Anuncio::where('id_anuncio', $id)->delete();
     }
 
+
+
+
+
     //---------------------------------------------------------------------
     //  DATASET
     //---------------------------------------------------------------------
-    public function setData (array $infos): array
+    public function setData ($infos): array
     {
         $anuncios = array();
         foreach ($infos as $key => $data) {

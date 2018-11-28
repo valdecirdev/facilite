@@ -1,5 +1,17 @@
 $(document).ready(function(){
 
+    $('#msg_hire_btn').click(function(e){
+        let id_chat = $('#id_chat');
+        $.post('_utils/ajax_messages.php',
+        {
+            acao             : 'hire_service',
+            id_chat          : id_chat.val(),
+        },
+        function(data){
+            $('#msg_hire_btn').attr('disabled', 'disabled');
+        });
+    });
+
     var elem = document.getElementById('message_box');
     elem.scrollTop = elem.scrollHeight;
 

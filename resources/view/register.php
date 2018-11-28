@@ -1,8 +1,4 @@
-<?php
-
-    $pg_title = "Cadastre-se - ";
-    include('_includes'.DIRECTORY_SEPARATOR.'header.php'); 
-?>
+<?php include('_partials'.DIRECTORY_SEPARATOR.'header.php'); ?>
     <script>
         var logado = <?php if(isset($_SESSION['id'])){echo !is_null($_SESSION['id']);}else{echo 0;} ?>;
         if(logado){
@@ -11,8 +7,9 @@
     </script>
     <section id="app" class="auth-box col-md-5">
         <ul class="head-menu">
+            <input type="text" id="returnUrl" value="<?=$url;?>" style="display:none">
             <li class="active">Registrar-se</li>
-            <a href="identifique-se"><li style="border-left: 1px #dbe2e8 solid;">Entrar</li></a>
+            <a href="identifique-se<?='?returnUrl='.$url;?>"><li style="border-left: 1px #dbe2e8 solid;">Entrar</li></a>
         </ul>
         <div style="padding:40px; color: #2e3d49">
             <h2 style="font-weight:300">Crie sua conta</h2>
@@ -47,7 +44,7 @@
                 </div>
                 <div class="form-group col-md-12">
                     <p style="margin-top:10px">Ao clicar em 'Registrar-se', você concorda com nossos <a href="">Termos de Uso</a> e nossa <a href="">Política de Privacidade</a>.</p>
-                    <button type="submit" aria-label="Cadastrar-se" class="btn btn-primary col-12" style="margin-top:10px;padding-top:15px;padding-bottom:15px;background-color:#02b3e4;border-color:#02b3e4">REGISTRAR-SE</button>
+                    <button type="submit" aria-label="Cadastrar-se" id="registeruser" class="btn btn-primary col-12" style="margin-top:10px;padding-top:15px;padding-bottom:15px;background-color:#02b3e4;border-color:#02b3e4">REGISTRAR-SE</button>
                 </div>
             </form>
         </div>
@@ -56,7 +53,7 @@
 
 
 <?php
-    include('_includes'.DIRECTORY_SEPARATOR.'footer.php');
+    include('_partials'.DIRECTORY_SEPARATOR.'footer.php');
 ?>
 <script src="js/register.js"></script>
 </body>

@@ -13,7 +13,7 @@ class Plano extends Model
         'des_preco'
     ];
 
-    protected $table = 'tb_experiencias';
+    protected $table = 'tb_planos';
     public $timestamps = false;
 
     public function usuario()

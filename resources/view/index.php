@@ -5,11 +5,10 @@
     $search = new BuscaController();
     $usuarios = new UsuarioController();
 
-    $pg_title = '';
-    include('_includes/header.php');
+    include('_partials/header.php');
 ?>
 
-    <div id="content">  
+    <div id="content">
         <header>
             <div class="home-header container-fluid opacity-dark">
                 <div class="row">
@@ -24,7 +23,7 @@
         </header>
         <nav id="nav-categorias" class="navbar navbar-expand-md navbar-dark" style="z-index:999">
             <div class="container">
-                
+
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCategorias" aria-controls="navbarCategorias" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -36,35 +35,24 @@
                                 Categorias
                             </a>
                             <div class="dropdown-menu dropdown-categorias" aria-labelledby="navbarDropdown">
-                                <?php 
+                                <?php
                                     $categorias = new CategoriaController();
-                                    $cat = $categorias->loadAll();
-                                    $cont = 0;
-                                    foreach ($cat as $key => $value) { ?>
-                                        <a class="dropdown-item" href="#"><?=$cat[$key]->getAttribute('des_descricao')?></a>
-                                    <?php 
-                                        if($cont >= 10){
-                                            break;
-                                        }
-                                    } ?>
+                                    $categorias = $categorias->loadLimit(10);
+                                    foreach ($categorias as $key => $categoria) { ?>
+                                        <a class="dropdown-item" href="/search?cat=<?=$categoria->des_descricao?>"><?=$categoria->des_descricao?></a>
+                                    <?php } ?>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Ver todas</a>
+                                <a class="dropdown-item" href="/search">Ver todas</a>
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Destaques da Semana</a>
+                            <a class="nav-link" href="/search">Destaques da Semana</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Contratar</a>
+                            <a class="nav-link" href="/search">Contratar</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Anúnciar</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Últimas notícias</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Ajuda</a>
+                            <a class="nav-link" href="/<?=$loggedUser->slug ?? 'identifique-se';?>">Anúnciar</a>
                         </li>
                     </ul>
                 </div>
@@ -82,26 +70,21 @@
         </section>
         <section class="cards container">
             <div class="row">
-                <?php 
-                if(isset($_SESSION['id'])){
-                    $anuncios = $search->search('',$_SESSION['id'],0,12, NULL);
-                }else{
-                    $anuncios = $search->search('',"*",0, 12, NULL);
-                }
-                foreach ($anuncios as $key => $value) {
-                    $usuario = $usuarios->loadById($anuncios[$key]->getAttribute('id_usuario')); ?>
+                <?php
+                $anuncios = $search->search('', $_SESSION['id'] ?? '*', 0, 12, NULL);
+                foreach ($anuncios as $key => $anuncio) { ?>
                     <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
                         <div class="card card-body">
                             <div class="row" style="height:45px">
                                 <div class="col-2">
-                                    <a href="#">
-                                        <i class="<?=$anuncios[$key]->categoria->getAttribute('des_icone')?> icon-align-center" aria-hidden="true"></i>
+                                    <a href="servico/<?=$anuncio->id_anuncio;?>">
+                                        <i class="<?=$anuncio->categoria->des_icone;?> icon-align-center" aria-hidden="true"></i>
                                     </a>
                                 </div>
                                 <div class="col-10">
-                                    <a href="">
+                                    <a href="servico/<?=$anuncio->id_anuncio;?>">
                                         <h4 class="job-title font-weight-bold">
-                                            <?=$anuncios[$key]->categoria->getAttribute('des_descricao')?>
+                                            <?=$anuncio->categoria->des_descricao;?>
                                         </h4>
                                     </a>
                                 </div>
@@ -115,8 +98,8 @@
                                         </div>
                                         <div style="width: 40%">
                                             <span style="font-size: 13px">R$</span>
-                                            <span style="font-size:22px;font-weight:500;"><?=$anuncios[$key]->getAttribute('des_preco')?></span>
-                                            <p style="margin-top: -5px"><?=$anuncios[$key]->modalidade->getAttribute('des_descricao')?></p>
+                                            <span style="font-size:22px;font-weight:500;"><?=$anuncio->des_preco;?></span>
+                                            <p style="margin-top: -5px"><?=$anuncio->modalidade->des_descricao;?></p>
                                         </div>
                                         <div style="width: 30%">
                                             <span style="font-size:22px;font-weight:500;">20</span>
@@ -125,28 +108,23 @@
                                     </div>
                                 </div>
                                 <div class="col-12 desc-card">
-                                    <p style="min-height:70px; margin-bottom:0px;"><?php echo substr($anuncios[$key]->getAttribute('des_descricao'), 0, 120);  if (strlen($anuncios[$key]->getAttribute('des_descricao')) > 120) {echo "...";} ?></p>
+                                    <p style="min-height:70px; margin-bottom:0px;"><?php echo substr($anuncio->des_descricao, 0, 120);  if (strlen($anuncio->des_descricao) > 120) {echo "...";} ?></p>
                                 </div>
                             </div>
                             <div class="row" style="margin-bottom:-10px">
                                 <div class="col-12"><hr></div>
                                 <div class="col-2">
-                                    <a href="<?php echo $usuario->getAttribute('des_slug'); ?>">
-                                        <img src="img/profile/<?php echo $usuario->getAttribute('des_foto'); ?>" alt="" height="55px" width="55px" class="rounded-circle">
+                                    <a href="<?=$anuncio->usuario->des_slug;?>">
+                                        <img src="img/profile/<?=$anuncio->usuario->des_foto; ?>" alt="" height="55px" width="55px" class="rounded-circle">
                                     </a>
                                 </div>
                                 <div class="col-10 footer-card">
-                                    <?php $nome = explode(' ', $usuario->getAttribute('des_nome')); ?>
-                                    <a href="<?php echo $usuario->getAttribute('des_slug'); ?>" class="username"><h6 style="font-weight:400"><?=$usuario->getAttribute('des_nome_exibicao'); ?></h6></a>
+                                    <a href="<?=$anuncio->usuario->des_slug; ?>" class="username"><h6 style="font-weight:400"><?=$anuncio->usuario->des_nome_exibicao; ?></h6></a>
                                     <span class="float-left stars" style="margin-top: -5px;">
                                         <a style="font-size: 15px"><i class="fa fa-star"></i> 4,2</a>
                                     </span>
                                     <span class="float-right">
-                                        <?php if(isset($loggedUser)){ ?>
-                                            <a href="#" style="margin-right:-10px !important"> <i class="fa fa-user-plus grey-text ml-3" style="color: #e6366b"></i></a>
-                                        <?php } else { ?>
-                                            <a href="cadastre-se" style="margin-right:-10px !important"> <i class="fa fa-user-plus grey-text ml-3" style="color: #e6366b"></i></a>
-                                        <?php } ?>
+                                        <a href="<?php if(isset($loggedUser)){ echo '/#'; } else { echo '/cadastre-se';}?>" style="margin-right:-10px !important"> <i class="fa fa-user-plus grey-text ml-3" style="color: #e6366b"></i></a>
                                         <a href="#"><i class="fa fa-share-alt ml-3" style="color: #e6366b"></i></a>
                                     </span>
                                 </div>
@@ -162,4 +140,4 @@
         </section>
     </div>
         <!--Footer-->
-    <?php include('_includes/footer.php'); ?>
+    <?php include('_partials/footer.php'); ?>

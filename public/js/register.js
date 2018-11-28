@@ -18,6 +18,7 @@ var app = new Vue({
             } else if(valida_nome.length < 2) {
                 swal ( "Oops!" ,  "Digite o nome completo" ,  "error" );
             } else {
+                $('#registeruser').attr('disabled', 'disabled');
                 $.post('_utils/ajax_perfil.php',
                 {
                     acao        : 'register',
@@ -29,10 +30,10 @@ var app = new Vue({
                 },
                 function(data){
                     if((data) || (data === 1)){
-                        //alert(data);
-                        window.location.reload();
+                        window.location.href = $("#returnUrl").val();
                     }else{
                         swal ( "Oops!" ,  "Email inválido ou já cadastrado!" ,  "error" );
+                        $('#registeruser').removeAttr('disabled');
                     }
                 });
             }

@@ -13,19 +13,17 @@ var app = new Vue({
     // ---------------------------------------------------------------------------
     //          METODOS DAS INFORMACOES BASICAS
     // ---------------------------------------------------------------------------
-        
+
         salvarUsuario: function(e){
             if(!this.user.des_slug){
                 swal ( "Oops!" ,  "O campo 'Nome de Usuário' não pode estar vazio!" ,  "error" );
-                if($('.basic-msg').hasClass('d-none')){
-                    $('.basic-msg').addClass('text-danger');
-                    $('.basic-msg').removeClass('d-none');
-                }
             }else{
+                this.user.des_slug = this.user.des_slug.replace(",", "");
                 $.post('_utils/ajax_perfil.php',
                 {
-                    acao    : 'up_slug',
-                    slug    : this.user.des_slug,
+                    acao    : 'up_generico',
+                    campo   : 'des_slug',
+                    valor   : this.user.des_slug,
                     id      : $('#id_usuario_logado').val(),
                 },
                 function(data){
@@ -59,8 +57,9 @@ var app = new Vue({
             if(!this.user.des_nome_exibicao){
                 swal ( "Oops!" ,  "O campo 'Nome de Exibição' não pode estar vazio!" ,  "error" );
             }else{
-                let res = (this.user.des_nome_exibicao.split(" "));
-                $('#navbar-username').text(res[0]);
+                // let res = (this.user.des_nome_exibicao.split(" "));
+                // $('#navbar-username').text(res[0]);
+                $('#navbar-username').text(this.user.des_nome_exibicao);
                 $.post('_utils/ajax_perfil.php',
                     {
                         acao    : 'up_generico',
@@ -111,7 +110,7 @@ var app = new Vue({
     // ---------------------------------------------------------------------------
     //          METODOS DAS INFORMACOES Pessoais
     // ---------------------------------------------------------------------------
-        
+
         salvarCelular: function(e){
             $.post('_utils/ajax_perfil.php',
             {
@@ -204,11 +203,11 @@ var app = new Vue({
                 }
               });
         },
-        
+
     // ---------------------------------------------------------------------------
     //          METODOS PARA ALTERAR SENHA
     // ---------------------------------------------------------------------------
-        
+
         salvarSenha: function(e){
             if(this.senha !== this.confirmSenha){
                 swal ( "Oops!" ,  "As senhas não são iguais!" ,  "error" );

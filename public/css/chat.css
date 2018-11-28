@@ -133,7 +133,27 @@ img{ max-width:100%;}
   right: 0;
   top: 11px;
   width: 33px;
+  right: 100px;
 }
+.msg_hire_btn {
+  background: #05728f none repeat scroll 0 0;
+  border: medium none;
+  border-radius: 15px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 17px;
+  height: 33px;
+  position: absolute;
+  right: 0;
+  top: 8px;
+  padding: 3px 15px 3px 15px;
+  /* width: 33px; */
+  right: 0px;
+}
+.msg_hire_btn:disabled{
+  background: #69bcd3 none repeat scroll 0 0;
+}
+
 .messaging { padding: 0 0 50px 0;}
 .msg_history {
   height: 472px;

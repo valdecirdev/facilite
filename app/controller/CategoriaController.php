@@ -21,6 +21,13 @@
             return $categorias;
         }
 
+        public function loadLimit(int $limite): array
+        {
+            $categorias = Categoria::take($limite)->get();
+            $categorias = $this->setData($categorias);
+            return $categorias;
+        }
+
         public function setData($infos): array
         {
             $categorias = array();

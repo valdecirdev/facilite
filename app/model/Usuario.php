@@ -33,9 +33,14 @@
         protected $table = 'tb_usuarios';
         public $timestamps = false;
 
+        public function avaliacoes()
+        {
+            return $this->hasMany(Avaliacao::class, 'id_usuario', 'id_usuario')->orderby('dt_atualizacao', 'desc');
+        }
+
         public function experiencias()
         {
-            return $this->hasMany(Experiencia::class, 'id_usuario', 'id_usuario');
+            return $this->hasMany(Experiencia::class, 'id_usuario', 'id_usuario')->orderby('des_de', 'desc');
         }
 
         public function formacoes()

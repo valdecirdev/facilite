@@ -13,7 +13,7 @@
     }else{
         $pg_title = $_GET['q'].' - ';
     }
-    include('_includes'.DIRECTORY_SEPARATOR.'header.php');
+    include('_partials'.DIRECTORY_SEPARATOR.'header.php');
     
     
 ?>
@@ -31,48 +31,65 @@
                         <div class="profile-card col-md-12 clearfix">
                             <div class="tab-content">
                                 <div class="row">
-                                    <div class="col-12" style="margin-top:0px;">
-                                        <div style="margin-bottom:15px">
-                                            Pesquisa: <?php echo '"'.strip_tags($_GET['q']).'"'; ?>
-                                            <span style="font-size:12px;">
-                                                <?php
-                                                if(isset($_SESSION['id'])){
-                                                    $total_results = $search->searchCount($_GET['q'], $_SESSION['id']);
-                                                }else{
-                                                    $total_results = $search->searchCount($_GET['q'], "*");
-                                                }
-                                                echo '</br>('.$total_results.' resultados)'; ?> 
-                                            </span></br>
-                                        </div>
-                                        <a class="" data-toggle="collapse" href="#filtrosSearch" role="button" aria-expanded="false" aria-controls="filtrosSearch" class="text-secondary font-weight-bold" style="font-size:14px">Filtros Avançados</a>
-                                        <div class="collapse multi-collapse" id="filtrosSearch">
-                                            <div style="margin-top:10px;">
+                                    <div class="col-12" style="margin-top:0px; padding: 35px">
+                                        <!-- <div style="margin-bottom:15px"> -->
+                                            
+                                        <!-- </div> -->
+                    <!-- <a class="" data-toggle="collapse" href="#filtrosSearch" role="button" aria-expanded="false" aria-controls="filtrosSearch" class="text-secondary font-weight-bold" style="font-size:14px">Filtros Avançados</a> -->
+                    <div id="filtrosSearch"> <!-- class="collapse multi-collapse" -->
+                        <div style="margin-top:-5px;">
                                                 
-                                            <div class="row">
+                            <div class="row">
+                                <form action="" method="get">
                                     <div class="col-12">
-                                        <form action="">
+                                        <div class="form-group text-secondary">
+                                            <label for="organizar">Pesquisa</label>
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" name="q" value="<?=$_GET['q'] ?? '';?>" style="border-radius:0px">
+                                            </div>
+                                            <div class=" text-right">
+                                                <span style="font-size:12px;">
+                                                    <?php
+                                                    $cat = $_GET['cat'] ?? NULL;
+                                                    $min_price = $_GET['min_price'] ?? 0;
+                                                    $max_price = $_GET['max_price'] ?? NULL;
+                                                    
+                                                   
+                                                    
+                                                    
+                                                    $total_results = $search->searchCount($_GET['q'], $_SESSION['id'] ?? '*', $cat, $min_price, $max_price);
+                                                    echo '('.$total_results.' resultados)'; ?> 
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
                                             <div class="form-group text-secondary">
                                                 <label for="organizar">Organizar</label>
                                                 <div class="form-group">
-                                                    <select class="form-control" id="organizar" style="border-radius:0px">
-                                                        <option>Mais recentes</option>
-                                                        <option>Menor Preço</option>
-                                                        <option>Maior Preço</option>
+                                                    <?php $ord_search = $_GET['ord'] ?? ''; ?>
+                                                    <select class="form-control" name="ord" id="organizar" style="border-radius:0px">
+                                                        <option value="recent">Mais recentes</option>
+                                                        <option <?php if($ord_search == 'lowest'){echo("selected");}?> value="lowest">Menor Preço</option>
+                                                        <option <?php if($ord_search == 'biggest'){echo("selected");}?> value="biggest">Maior Preço</option>
                                                     </select>
                                                 </div>
                                             </div>
-                                        </form>
                                     </div>
 
                                     <div class="col-12" style="margin-top:5px;">
                                         <div class="form-group text-secondary">
                                             <label for="exampleFormControlSelect1">Categorias</label>
                                             <div class="form-group">
+                                                <select class="form-control" name="cat" id="categoria" style="border-radius:0px">
+                                                <option value=""></option>
                                                 <?php
-                                                $cat = $categorias->loadAll();
-                                                foreach ($cat as $key => $value) { ?>
-                                                    <a href=""><?php echo $cat[$key]->getAttribute('des_descricao'); ?></a><br>
+                                                    $cat_search = $_GET['cat'] ?? '';
+                                                    $cat = $categorias->loadAll();
+                                                    foreach ($cat as $key => $categoria) { ?>
+                                                        <option <?php if($cat_search == $categoria->des_descricao){echo("selected");}?>><?=$categoria->des_descricao;?></option>
                                                 <?php } ?>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -83,15 +100,32 @@
                                                 <div class="form-group">
                                                     <div class="row" style="margin-top: 0px;">
                                                         <div class="col-6">
-                                                            <input type="number" class="form-control" placeholder="Mínimo" style="border-radius:0px">
+                                                            <?php
+                                                                $min_price = $_GET['min_price'] ?? '';
+                                                                if(is_numeric($min_price)){
+                                                                    $min_price = number_format($min_price, 2, '.', '');
+                                                                }
+                                                            ?>
+                                                            <input type="number" class="form-control" name="min_price" placeholder="Mínimo" style="border-radius:0px" value="<?=$min_price;?>">
                                                         </div>
-                                                        <div class="col-6" style="margin-left:-20px">
-                                                            <input type="number" class="form-control" placeholder="Máximo" style="border-radius:0px">
+                                                        <div class="col-6">
+                                                            <?php
+                                                                $max_price = $_GET['max_price'] ?? '';
+                                                                if(is_numeric($max_price)){
+                                                                    $max_price = number_format($max_price, 2, '.', '');
+                                                                }
+                                                            ?>
+                                                            <input type="number" class="form-control" name="max_price" placeholder="Máximo" style="border-radius:0px" value="<?=$max_price;?>">
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+
+                                            <div class="col-12" style="margin-top:5px;">
+                                                <button type="submit" class="btn btn-fc-primary col-12">Filtrar</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                                 </div>
@@ -119,25 +153,26 @@
                                             $max = 10;
                                         }
                                         $ord = $_GET['ord'] ?? NULL;
-                                        if(isset($_SESSION['id'])){
-                                            $anuncios = $search->search($_GET['q'], $_SESSION['id'],$min,$max, $ord);
-                                        }else{
-                                            $anuncios = $search->search($_GET['q'], "*",$min,$max, $ord);
-                                        }
+                                        $cat = $_GET['cat'] ?? NULL;
+                                        $min_price = $_GET['min_price'] ?? 0;
+                                        $max_price = $_GET['max_price'] ?? NULL;
+                                        
+                                        $anuncios = $search->search($_GET['q'], $_SESSION['id'] ?? '*',$min,$max, $ord, $cat, $min_price, $max_price);
+                                        
                                     foreach ($anuncios as $key => $value) { 
                                         $usuario = $usuarios->loadById($anuncios[$key]->getAttribute('id_usuario')); ?>
                                             <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
                                                 <div class="card card-body">
                                                     <div class="row" style="min-height:0px;">
                                                         <div class="col-2">
-                                                            <a href="#">
+                                                            <a href="servico/<?=$anuncios[$key]->id_anuncio;?>">
                                                                 <div class="">
                                                                     <i class="<?php echo $anuncios[$key]->categoria['des_icone']; ?> icon-align-center" aria-hidden="true"></i>
                                                                 </div>
                                                             </a>
                                                         </div>
                                                         <div class="col-10 title-card">
-                                                            <a href=""><h4 class="job-title font-weight-bold">
+                                                            <a href="servico/<?=$anuncios[$key]->id_anuncio;?>"><h4 class="job-title font-weight-bold">
                                                                     <?php echo $anuncios[$key]->categoria['des_descricao']; ?>
                                                             </h4></a>
                                                         </div>
@@ -204,7 +239,16 @@
                                             <ul class="pagination justify-content-center">
                                                 <li class="page-item"><a class="page-link" href="#"><</a></li>
                                                 <?php for($i=0;$i <= $cont;$i++){  ?>
-                                                    <li class="page-item <?php if($pg == $i+1){echo 'active';} ?>"><a class="page-link" href="?q=<?php echo $_GET['q']; ?>&pg=<?php echo $i+1 ?>"><?php echo $i+1; ?></a></li>
+                                                    <?php
+                                                        $j = $i+1;
+                                                        $uri = $_SERVER["REQUEST_URI"];
+                                                        if(isset($_GET['pg'])){
+                                                            $uri = str_replace('&pg='.$_GET['pg'], "&pg=$j", $uri);
+                                                        }else {
+                                                            $uri.="&pg=$j";
+                                                        }
+                                                    ?>
+                                                    <li class="page-item <?php if($pg == $i+1){echo 'active';} ?>"><a class="page-link" href="<?php echo $uri ?>"><?php echo $i+1; ?></a></li>
                                                 <?php } ?>
                                                 <li class="page-item"><a class="page-link" href="#">></a></li>
                                             </ul>
@@ -221,4 +265,4 @@
     </div>
 
 
-<?php include('_includes'.DS.'footer.php'); ?>
+<?php include('_partials'.DS.'footer.php'); ?>

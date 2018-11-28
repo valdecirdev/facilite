@@ -7,6 +7,11 @@ use model\{Chat, Mensagem};
 class ChatController
 {
 
+    public function hire_service($idChat)
+    {
+        $count = Chat::where('id_chat', '=', $idChat)->update(['des_status' => 'Contratado']);
+    }
+
     public function loadByRecipient(int $idUser, int $idRecipient)
     {
         $chatInfos = Chat::where('id_anunciante', $idRecipient)

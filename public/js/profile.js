@@ -65,11 +65,11 @@ $(document).ready(function () {
             form = new FormData();
             form.append('usrFoto', event.target.files[0]); // para enviar apenas 1 arquivo
             $.ajax({
-                url: "_utils/ajax_perfil.php", // Url do lado server que vai receber o arquivo
+                type: 'POST',
+                url: "/_utils/ajax_perfil.php", // Url do lado server que vai receber o arquivo
                 data: form,
                 processData: false,
                 contentType: false,
-                type: 'POST',
                 success: function (data) {
                     $('.img-nav-dropdown').attr('src', 'img/profile/'+data);
                     $('#usrFotoView').attr('src','img/profile/'+data);
@@ -125,12 +125,20 @@ $(document).ready(function () {
     function btn_editar_experiencia(btn_action) {  
         var titulo = $('.des_titulo_experiencia', $(btn_action).parent().parent().parent().parent());
         var descricao = $('.des_descricao_experiencia', $(btn_action).parent().parent().parent().parent());
+
+        // var desde = $('.des_de', $(btn_action).parent().parent().parent().parent());
+        // de = $('.des_de', $(btn_action).parent().parent().parent().parent()).val().split("-");
+        // de = new Date(de[2], de[1] - 1, de[0]);
+
+        // var ate = $('.des_ate', $(btn_action).parent().parent().parent().parent());
         var id_experiencia = $('.id_experiencia', $(btn_action).parent().parent().parent().parent());
         
         $('#addExperienciaModal').modal();
         $('#id_experiencia_modal').val(id_experiencia.val());
         $('#des_titulo_experiencia').val(titulo.text());
         $('#des_descricao_experiencia').val(descricao.text());
+        // $('#des_de').val(desde.text());
+        // $('#des_ate').val(ate.text());
     }
 
 /** @description Executa a ação do botão deletar experiencia.  
@@ -360,6 +368,32 @@ if(($('#id_servico_modal').val() != '')&&($('#id_servico_modal').val() != undefi
     var modalidade = $('#des_modalidade_servico');
     var disponibilidade = $('#des_disponibilidade_servico');
     var id_servico = $('#id_servico_modal');
+
+
+    // $("#form-usrFoto").submit(function(e) {
+    //     if($("#usrFoto").val() !== ''){
+    //         var form;
+    //         form = new FormData();
+    //         form.append('usrFoto', event.target.files[0]); // para enviar apenas 1 arquivo
+    //         $.ajax({
+    //             url: "_utils/ajax_perfil.php", // Url do lado server que vai receber o arquivo
+    //             data: form,
+    //             processData: false,
+    //             contentType: false,
+    //             type: 'POST',
+    //             success: function (data) {
+    //                 $('.img-nav-dropdown').attr('src', 'img/profile/'+data);
+    //                 $('#usrFotoView').attr('src','img/profile/'+data);
+    //                 $('.img-nav-profile').attr('src','img/profile/'+data);
+    //             }
+    //         });
+    //     }
+    //     e.preventDefault();
+    // });
+
+
+
+
     $.post('_utils/ajax_perfil.php',
     {
         acao: 'up_servico',
@@ -494,7 +528,8 @@ if(($('#id_servico_modal').val() != '')&&($('#id_servico_modal').val() != undefi
     // BOTAO DE SALVAR APRENSENTACAO
     $('#btn-editApresentacao').click(function(){
         var apresentacao = $('#des_apresentacao_modal').val();
-        
+        $('#btn-editApresentacao').attr('disabled', 'disabled');
+
         $.post('_utils/ajax_perfil.php',
         {
             acao:   'up_generico',
@@ -507,15 +542,13 @@ if(($('#id_servico_modal').val() != '')&&($('#id_servico_modal').val() != undefi
             }else{
                 $('#des_apresentacao').text('Olá, eu sou novo aqui. :)');
             }
+            $('#btn-editApresentacao').removeAttr('disabled');
             $('#editApresentacaoModal').modal('hide');
-            swal({ 
+            swal({
                 title: "Sucesso!",
                 text: "As alterações foram salvas e já estão visíveis no seu perfil.",
                 timer: 2000,
                 type: "success" 
-                },
-                function(){
-                // location.reload();
                 }
             );
         });

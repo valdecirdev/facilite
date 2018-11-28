@@ -11,8 +11,9 @@
 
 <!-- <script src="view/_js/jquery-3.1.1.min.js"></script> -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="js/popper.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/app.min.js"></script>
-<script src="js/vue.min.js"></script>
-<script src="js/sweetalert/sweetalert.min.js"></script>
+<script src="http://facilite-dev.com/js/popper.min.js"></script>
+<script src="http://facilite-dev.com/js/bootstrap.min.js"></script>
+<script src="http://facilite-dev.com/js/app.min.js"></script>
+<script src="http://facilite-dev.com/js/vue.min.js"></script>
+<script src="http://facilite-dev.com/js/sweetalert/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>

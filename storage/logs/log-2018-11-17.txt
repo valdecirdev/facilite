@@ -1,0 +1,2 @@
+[2018-11-17T07:57:39.657052-02:00] System.ERROR: Undefined variable: loggedUser {"Code":8,"File":"C:\\xampp\\htdocs\\Facilite\\resources\\view\\service.php","Line":39} []
+[2018-11-17T07:57:39.798887-02:00] System.ERROR: Trying to get property 'avaliacoes' of non-object {"Code":8,"File":"C:\\xampp\\htdocs\\Facilite\\resources\\view\\service.php","Line":39} []

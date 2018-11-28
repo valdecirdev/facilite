@@ -23,7 +23,7 @@ class Ligacao extends Model
 
     public function contato()
     {
-        return $this->belongsTo(Usuario::class, 'id_usuario', 'id_contato');
+        return $this->belongsTo(Usuario::class, 'id_contato', 'id_usuario');
     }
 
 }

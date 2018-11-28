@@ -9,16 +9,17 @@
 
         <title><?=$pg_title; ?> Facilite Serviços</title>
 
-        <link rel="icon" href="img/icon.png">
+        <link rel="icon" href="http://facilite-dev.com/img/icon.png">
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" href="css/fontawesome-all.min.css">
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="css/sweetalert/sweetalert.css">
+        <link rel="stylesheet" href="http://facilite-dev.com/css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="http://facilite-dev.com/css/style.css">
+        <link rel="stylesheet" href="http://facilite-dev.com/css/sweetalert/sweetalert.css">
+
+        <!-- Bootstrap Select -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/css/bootstrap-select.min.css">
+
     </head>
     <body>
     <body>
-    <?php
-        session_start();
-        include 'menu.php'; 
-    ?>
+    <?php include 'menu.php'; ?>

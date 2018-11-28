@@ -7,39 +7,83 @@ use model\Anuncio;
 class BuscaController
     {
 
-        public function searchCount(string $q, $id): int
+        public function searchCount(string $q, $id, $categoria = NULL, $min_price = NULL, $max_price = NULL): int
         {
             $q = strip_tags($q);
-            $result = Anuncio::join('tb_categorias', 'tb_categorias.id_categoria', '=', 'tb_anuncios.id_categoria')
-            ->join('tb_usuarios', 'tb_anuncios.id_usuario', '=', 'tb_usuarios.id_usuario')
-            ->where('tb_anuncios.id_usuario', '!=', $id)
-            ->where('tb_categorias.des_descricao', 'LIKE', '%'.$q.'%')
-            ->orWhere('tb_usuarios.des_nome', 'LIKE', '%'.$q.'%')
-            ->orWhere('tb_anuncios.des_descricao', 'LIKE', '%'.$q.'%')
-            ->orderBy('tb_anuncios.id_anuncio', 'desc')
-            ->count();
+            $result = Anuncio::query()
+                    ->join('tb_categorias', 'tb_categorias.id_categoria', '=', 'tb_anuncios.id_categoria')
+                    ->join('tb_usuarios', 'tb_anuncios.id_usuario', '=', 'tb_usuarios.id_usuario')
+                    ->where('tb_anuncios.id_usuario', '!=', $id)
+                    // Filtra a categoria
+                    ->when($categoria != NULL, function ($query) use ($categoria) {
+                        return $query->where('tb_categorias.des_descricao', $categoria);
+                    })
+                    // Filtra o Preço
+                    ->when($max_price != NULL && $min_price != NULL, function ($query) use ($min_price, $max_price) {
+                        return $query->whereBetween('tb_anuncios.des_preco', [$min_price, $max_price]);
+                    })
+                    ->when($min_price != NULL, function ($query) use ($min_price) {
+                        return $query->where('tb_anuncios.des_preco', '>=', $min_price);
+                    })
+                    ->when($max_price != NULL, function ($query) use ($max_price) {
+                        return $query->where('tb_anuncios.des_preco', '<=', $max_price);
+                    })
+                    // Filtra a descricao e o nome de usuario
+                    ->where(function ($query) use ($q) {
+                        $query->where('tb_categorias.des_descricao', 'LIKE', '%'.$q.'%')
+                            ->orWhere('tb_anuncios.des_descricao', 'LIKE', '%'.$q.'%')
+                            ->orwhere('tb_usuarios.des_nome', 'LIKE', '%'.$q.'%');
+                    })
+                    ->select('tb_anuncios.*', 'tb_categorias.id_categoria', 'tb_usuarios.des_nome')
+                    ->count();
             return $result;
+            // ->avg('tb_anuncios.des_preco');
         }
 
-        public function search(string $q, $id, $limit, $to, $ord = NULL):array
+
+
+
+
+
+
+
+        public function search(string $q, $id, $limit, $to, $ord = NULL, $categoria = NULL, $min_price = NULL, $max_price = NULL):array
         {
             $q = strip_tags($q);
-            if (is_null($ord) || $ord == 'recent') {
-                $campo = 'tb_anuncios.id_anuncio';
-                $ordem = 'desc';
-            }elseif($ord == 'lowest') {
+            $campo = 'tb_anuncios.id_anuncio';
+            $ordem = 'desc';
+            if($ord == 'lowest') {
                 $campo = 'tb_anuncios.des_preco';
                 $ordem = 'asc';
-            }elseif($ord == 'biggest') {
+            }
+            if($ord == 'biggest') {
                 $campo = 'tb_anuncios.des_preco';
                 $ordem = 'desc';
             }
-            $result = Anuncio::join('tb_categorias', 'tb_categorias.id_categoria', '=', 'tb_anuncios.id_categoria')
+            $result = Anuncio::query()
+                    ->join('tb_categorias', 'tb_categorias.id_categoria', '=', 'tb_anuncios.id_categoria')
                     ->join('tb_usuarios', 'tb_anuncios.id_usuario', '=', 'tb_usuarios.id_usuario')
-                    ->where('tb_anuncios.id_usuario', '!=', $id)
-                    ->where('tb_categorias.des_descricao', 'LIKE', '%'.$q.'%')
-                    ->orWhere('tb_usuarios.des_nome', 'LIKE', '%'.$q.'%')
-                    ->orWhere('tb_anuncios.des_descricao', 'LIKE', '%'.$q.'%')
+                    ->having('tb_anuncios.id_usuario', '!=', $id)
+                    // Filtra a categoria
+                    ->when($categoria != NULL, function ($query) use ($categoria) {
+                        return $query->where('tb_categorias.des_descricao', $categoria);
+                    })
+                    // Filtra o Preço
+                    ->when($max_price != NULL && $min_price != NULL, function ($query) use ($min_price, $max_price) {
+                        return $query->whereBetween('tb_anuncios.des_preco', [$min_price, $max_price]);
+                    })
+                    ->when($min_price != NULL, function ($query) use ($min_price) {
+                        return $query->where('tb_anuncios.des_preco', '>=', $min_price);
+                    })
+                    ->when($max_price != NULL, function ($query) use ($max_price) {
+                        return $query->where('tb_anuncios.des_preco', '<=', $max_price);
+                    })
+                    // Filtra a descricao e o nome de usuario
+                    ->where(function ($query) use ($q) {
+                        $query->where('tb_categorias.des_descricao', 'LIKE', '%'.$q.'%')
+                            ->orWhere('tb_anuncios.des_descricao', 'LIKE', '%'.$q.'%')
+                            ->orwhere('tb_usuarios.des_nome', 'LIKE', '%'.$q.'%');
+                    })
                     ->select('tb_anuncios.*', 'tb_categorias.id_categoria', 'tb_usuarios.des_nome')
                     ->orderBy($campo, $ordem)
                     ->skip($limit)->take($to)

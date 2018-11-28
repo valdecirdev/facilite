@@ -31,6 +31,7 @@ class ComposerStaticInita8f25f80d973b681ac51a7fb714b5532
         'S' => 
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Contracts\\' => 18,
             'Symfony\\Component\\Translation\\' => 30,
         ),
         'P' => 
@@ -55,6 +56,10 @@ class ComposerStaticInita8f25f80d973b681ac51a7fb714b5532
         array (
             'Doctrine\\Common\\Inflector\\' => 26,
         ),
+        'C' => 
+        array (
+            'Carbon\\' => 7,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -77,6 +82,10 @@ class ComposerStaticInita8f25f80d973b681ac51a7fb714b5532
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
+        'Symfony\\Contracts\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/contracts',
         ),
         'Symfony\\Component\\Translation\\' => 
         array (
@@ -122,10 +131,10 @@ class ComposerStaticInita8f25f80d973b681ac51a7fb714b5532
         array (
             0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Common/Inflector',
         ),
-    );
-
-    public static $fallbackDirsPsr4 = array (
-        0 => __DIR__ . '/..' . '/nesbot/carbon/src',
+        'Carbon\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
+        ),
     );
 
     public static function getInitializer(ClassLoader $loader)
@@ -133,7 +142,6 @@ class ComposerStaticInita8f25f80d973b681ac51a7fb714b5532
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInita8f25f80d973b681ac51a7fb714b5532::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInita8f25f80d973b681ac51a7fb714b5532::$prefixDirsPsr4;
-            $loader->fallbackDirsPsr4 = ComposerStaticInita8f25f80d973b681ac51a7fb714b5532::$fallbackDirsPsr4;
 
         }, null, ClassLoader::class);
     }

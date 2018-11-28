@@ -15,6 +15,21 @@ body{
     display: flex;
     flex-direction: column;
 }
+
+.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 #content{
     flex: 1;
 }
@@ -32,7 +47,7 @@ a:hover, .btn-link:hover, .btn-link:active{
     border-color: #38b7ea;
     color: #fff;
     font-weight: 500;
-    border-bottom:2px #1d9dcf solid;
+    border-bottom:2px #0497ff solid;
     padding-right:12px;
     padding-left:12px;
 }
@@ -302,7 +317,21 @@ a.dropdown-item:active{
 }
 
 
-
+.modal input, .modal textarea{
+    border-radius: 0px;
+}
+.modal-content{
+    border-radius: 0px;
+}
+.modal-header{
+    padding: 5px 10px 10px 10px;
+    .modal-title{
+        font-weight: normal;
+    }
+}
+.modal-lg{
+    max-width: 650px !important;
+}
 .modal-bottom-divider{
     width: 100%;
     height: 1px;
@@ -323,13 +352,15 @@ a.dropdown-item:active{
         min-height: 10px;
         background-color: #fff;
         border-radius: 0;
-        padding: 20px;
-        border: 1px #eceff2 solid;
+        padding: 0px;
+        border: 1px #ccc solid;
         -webkit-box-shadow: 3px 3px 5px 0 rgba(0,0,0,0.05);
         box-shadow: 3px 3px 5px 0 rgba(0,0,0,0.05);
         .img-profile{
             height: 150px;
             width: 100%;
+            padding-top: 50px;
+            margin-bottom: 40px;
             img{
                 height: 150px;
                 width: 150px;
@@ -337,16 +368,18 @@ a.dropdown-item:active{
                 left:50%;
                 margin-left: -75px;
                 border-radius: 50%;
+                border: 5px #fff solid;
             }
         }
         .infos{
             margin-top: 10px;
-            padding-top: 10px;
-            .list-infos{
-                margin-top: 12px;
-                padding-left: 20px;
-                padding-right: 20px;
-            }
+            padding: 25px;
+            padding-bottom: 0px;
+            // .list-infos{
+                // margin-top: 12px;
+                // padding-left: 20px;
+                // padding-right: 20px;
+            // }
             .sub{
                 color: #66757f;
                 font-size: 13px;

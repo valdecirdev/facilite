@@ -2,7 +2,7 @@
 
 use controller\{UsuarioController, ChatController, MensagemController};
 
-$pg_title = 'Mensagem - '; ?>
+?>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -27,13 +27,13 @@ $pg_title = 'Mensagem - '; ?>
     <body>
     <body>
     <?php
-        session_start(); 
-        include('_includes'.DS.'menu.php');
+        // session_start(); 
+        include('_partials'.DS.'menu.php');
         $chatExist = true;
 
-        if(!isset($_SESSION['id']) || $_SESSION['id'] == NULL){
-            header('location:home');
-        }
+        // if(!isset($_SESSION['id']) || $_SESSION['id'] == NULL){
+        //     header('location:home');
+        // }
         if(!isset($_GET['to']) || $_GET['to'] == 0){
             // header('location:erro');
             $chatExist = false;
@@ -98,7 +98,6 @@ $pg_title = 'Mensagem - '; ?>
         </div>
         <div class="mesgs" style="background-color:#fff">
           <div class="msg_history" id="message_box">
-
             <?php
                 if($chatExist){
                     $msg = new MensagemController();
@@ -129,6 +128,7 @@ $pg_title = 'Mensagem - '; ?>
                 <form @submit="checkForm">
                     <input type="text" v-model="message" id="message" class="write_msg" placeholder="Escreva uma mensagem" />
                     <button class="msg_send_btn" type="submit"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                    <button class="msg_hire_btn" <?php if($chat[0]->des_status != "Em Negociação"){echo 'disabled = "disabled"';} ?> id="msg_hire_btn" type="button">Contratar</button>
                 </form>
             </div>
           </div>
@@ -138,7 +138,7 @@ $pg_title = 'Mensagem - '; ?>
     </div></div>
 
     
-<?php include('_includes'.DS.'footer.php'); ?>
+<?php include('_partials'.DS.'footer.php'); ?>
 <script src="js/messages.js"></script>
 </html>
     </body>

@@ -1,6 +1,7 @@
 # Carbon
 
 [![Latest Stable Version](https://poser.pugx.org/nesbot/carbon/v/stable.png)](https://packagist.org/packages/nesbot/carbon)
+[![Latest Beta Version](https://img.shields.io/packagist/vpre/nesbot/carbon.svg)](https://packagist.org/packages/nesbot/carbon)
 [![Total Downloads](https://poser.pugx.org/nesbot/carbon/downloads.png)](https://packagist.org/packages/nesbot/carbon)
 [![Build Status](https://travis-ci.org/briannesbitt/Carbon.svg?branch=master)](https://travis-ci.org/briannesbitt/Carbon)
 [![StyleCI](https://styleci.io/repos/5724990/shield?style=flat)](https://styleci.io/repos/5724990)
@@ -60,7 +61,7 @@ $ composer require nesbot/carbon
 ```json
 {
     "require": {
-        "nesbot/carbon": "~1.21"
+        "nesbot/carbon": "^1.33"
     }
 }
 ```
@@ -78,11 +79,11 @@ printf("Now: %s", Carbon::now());
 
 ### Without Composer
 
-Why are you not using [composer](http://getcomposer.org/)? Download [Carbon.php](https://github.com/briannesbitt/Carbon/blob/master/src/Carbon/Carbon.php) from the repo and save the file into your project path somewhere.
+Why are you not using [composer](http://getcomposer.org/)? Download the Carbon [latest release](https://github.com/briannesbitt/Carbon/releases) and put the contents of the ZIP archive into a directory in your project. Then require the file `autoload.php` to get all classes and dependencies loaded on need.
 
 ```php
 <?php
-require 'path/to/Carbon.php';
+require 'path-to-Carbon-directory/autoload.php';
 
 use Carbon\Carbon;
 

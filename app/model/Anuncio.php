@@ -20,17 +20,22 @@ class Anuncio extends Model
 
     public function usuario()
     {
-        return $this->belongsTo(Usuario::class, 'id_usuario', 'id_usuario');
+        return $this->hasOne(Usuario::class, 'id_usuario', 'id_usuario');
     }
 
     public function categoria()
     {
-        return $this->belongsTo(Categoria::class, 'id_categoria', 'id_categoria');
+        return $this->hasOne(Categoria::class, 'id_categoria', 'id_categoria');
     }
 
     public function modalidade()
     {
-        return $this->belongsTo(Modalidade::class, 'id_modalidade', 'id_modalidade');
+        return $this->hasOne(Modalidade::class, 'id_modalidade', 'id_modalidade');
+    }
+
+    public function avaliacoes()
+    {
+        return $this->belongsTo(Avaliacao::class, 'id_anuncio', 'id_anuncio');
     }
 
 }
