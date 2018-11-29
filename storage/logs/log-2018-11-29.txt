@@ -1,4 +1,0 @@
-[2018-11-29T10:18:11.505407-02:00] System.ERROR: Undefined index: id {"Code":8,"File":"C:\\xampp\\htdocs\\Facilite\\app\\Controller\\MensagemController.php","Line":19} []
-[2018-11-29T10:18:11.549412-02:00] System.ERROR: Undefined offset: 0 {"Code":8,"File":"C:\\xampp\\htdocs\\Facilite\\vendor\\illuminate\\support\\Collection.php","Line":1836} []
-[2018-11-29T10:18:11.651010-02:00] System.ERROR: Undefined index: id {"Code":8,"File":"C:\\xampp\\htdocs\\Facilite\\resources\\view\\messages.php","Line":42} []
-[2018-11-29T10:18:11.657833-02:00] System.ERROR: Undefined index: id {"Code":8,"File":"C:\\xampp\\htdocs\\Facilite\\resources\\view\\messages.php","Line":49} []

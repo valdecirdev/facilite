@@ -4,7 +4,7 @@
 
     use Models\{Usuario, Cidade};
     use Core\Controller;
-    use Controller\Login;
+    use Controller\LoginController;
 
     class SettingsController extends Controller
     {
@@ -12,8 +12,8 @@
         public function index()
         {
             session_start();
-            if (!isset($_SESSION['logged'])){
-                header('location: home');
+            if (!isset($_SESSION['id'])){
+                header('location:home');
             }
             $logged_user = Usuario::where('id_usuario', $_SESSION['id'])->get()[0];
             $pg_title = 'Configurações - ';
@@ -22,6 +22,7 @@
 
         public function genUpdate($campo, $valor, $id_usuario): bool
         {
+            $usuario = new Usuario();
             $valor = filter_var($valor, FILTER_SANITIZE_STRING);
             switch ($campo) {
                 case 'des_nome':
@@ -37,7 +38,7 @@
                     $valor = str_replace(' ', '', $valor);
                     $valor = preg_replace( '/[`^~\'"]/', null, iconv( 'UTF-8', 'ASCII//TRANSLIT', $valor ) );
                     $valor = filter_var($valor, FILTER_SANITIZE_STRING);
-                    if (Usuario::slugExists($valor)) {
+                    if ($usuario->slugExists($valor)) {
                         return FALSE;
                     }
                     break;
@@ -48,8 +49,9 @@
 
         public function emailUpdate(string $email,int $id_usuario): bool
         {
+            $usuario = new Usuario();
             $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-            if ((!filter_var($email, FILTER_VALIDATE_EMAIL)) || (Usuario::emailExists($email))) {
+            if ((!filter_var($email, FILTER_VALIDATE_EMAIL)) || ($usuario->emailExists($email))) {
                 return FALSE;
             }
             Usuario::where('id_usuario', $id_usuario)->update(['des_email' => $email]);
@@ -66,7 +68,7 @@
 
         public function delete(int $id_usuario): void
         {
-            Login::logout();
+            LoginController::logout();
             $result = Usuario::where('id_usuario', '=', $id_usuario)->select('des_foto')->get();
             $foto = $result[0]['des_foto'];
             if(($foto != 'default.jpg') && (file_exists(__DIR__.DS.'..'.DS.'..'.DS.'public'.DS.'img'.DS.'profile'.DS.$foto))) {

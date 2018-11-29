@@ -56,7 +56,11 @@
                                         <p class="sub"><i class="fa fa-user"></i><span id="sideSexo">
                                             <?php 
                                             if((!is_null($usuario->des_sexo))&&($usuario->des_sexo != '')){
-                                                echo $usuario->des_sexo.', ';
+                                                if($usuario->des_sexo == 'M'){
+                                                    echo 'Masculino'.', ';
+                                                } else if($usuario->des_sexo == 'F'){
+                                                    echo 'Feminino'.', ';
+                                                }
                                             }
                                             $date = new DateTime( $usuario->dt_nasc ); // data de nascimento
                                             $idade = Carbon::createFromDate($date->format( 'Y' ), $date->format( 'm' ), $date->format( 'd' ))->age;

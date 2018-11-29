@@ -15,7 +15,6 @@
     }
     include('template'.DIRECTORY_SEPARATOR.'header.php');
     
-    
 ?>
     <div id="content">
         <section id="profile-page" class="container-fluid">
@@ -160,59 +159,59 @@
                                         $anuncios = $search->search($_GET['q'], $_SESSION['id'] ?? '*',$min,$max, $ord, $cat, $min_price, $max_price);
                                         
                                     foreach ($anuncios as $key => $value) { 
-                                        $usuario = $usuarios->loadById($anuncios[$key]->getAttribute('id_usuario')); ?>
-                                            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
-                                                <div class="card card-body">
-                                                    <div class="row" style="min-height:0px;">
-                                                        <div class="col-2">
-                                                            <a href="servico/<?=$anuncios[$key]->id_anuncio;?>">
-                                                                <div class="">
-                                                                    <i class="<?php echo $anuncios[$key]->categoria['des_icone']; ?> icon-align-center" aria-hidden="true"></i>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                        <div class="col-10 title-card">
-                                                            <a href="servico/<?=$anuncios[$key]->id_anuncio;?>"><h4 class="job-title font-weight-bold">
-                                                                    <?php echo $anuncios[$key]->categoria['des_descricao']; ?>
-                                                            </h4></a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-12 numbers-card">
-                                                            <div class="row text-center">
-                                                                <div style="width: 30%">
-                                                                    <span style="font-size: 22px;font-weight:500;">25</span>
-                                                                    <p style="margin-top: -5px">Concluídos</p>
-                                                                </div>
-                                                                <div style="width: 40%">
-                                                                    <span style="font-size: 13px">R$</span>
-                                                                    <span style="font-size: 22px;font-weight:500;"><?php echo $anuncios[$key]->getAttribute('des_preco'); ?></span>
-                                                                    <p style="margin-top: -5px"><?php echo $anuncios[$key]->modalidade['des_descricao']; ?></p>
-                                                                </div>
-                                                                <div style="width: 30%">
-                                                                    <span style="font-size: 22px;font-weight:500;">20</span>
-                                                                    <p style="margin-top: -5px">Avaliações</p>
-                                                                </div>
+                                        $usuario = $usuarios->loadById($anuncios[$key]->id_usuario); ?>
+                                        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                            <div class="card card-body">
+                                                <div class="row" style="min-height:0px;">
+                                                    <div class="col-2">
+                                                        <a href="servico/<?=$anuncios[$key]->id_anuncio;?>">
+                                                            <div class="">
+                                                                <i class="<?php echo $anuncios[$key]->categoria['des_icone']; ?> icon-align-center" aria-hidden="true"></i>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-12 desc-card">
-                                                            <p style="min-height:70px; margin-bottom:0px;"><?php echo substr($anuncios[$key]->getAttribute('des_descricao'), 0, 120);  if (strlen($anuncios[$key]->getAttribute('des_descricao')) > 120) {echo "...";} ?></p>
+                                                    </a>
+                                                </div>
+                                                    <div class="col-10 title-card">
+                                                        <a href="servico/<?=$anuncios[$key]->id_anuncio;?>"><h4 class="job-title font-weight-bold">
+                                                                <?php echo $anuncios[$key]->categoria['des_descricao']; ?>
+                                                        </h4></a>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 numbers-card">
+                                                        <div class="row text-center">
+                                                            <div style="width: 30%">
+                                                                <span style="font-size: 22px;font-weight:500;">25</span>
+                                                                <p style="margin-top: -5px">Concluídos</p>
+                                                            </div>
+                                                            <div style="width: 40%">
+                                                                <span style="font-size: 13px">R$</span>
+                                                                <span style="font-size: 22px;font-weight:500;"><?php echo $anuncios[$key]->getAttribute('des_preco'); ?></span>
+                                                                <p style="margin-top: -5px"><?php echo $anuncios[$key]->modalidade['des_descricao']; ?></p>
+                                                            </div>
+                                                            <div style="width: 30%">
+                                                                <span style="font-size: 22px;font-weight:500;">20</span>
+                                                                <p style="margin-top: -5px">Avaliações</p>
+                                                                </div>
                                                         </div>
                                                     </div>
-                                                    <div class="row">
-                                                        <div class="col-12"><hr></div>
-                                                        <div class="col-2">
-                                                            <a href="<?php echo $usuario->getAttribute('des_slug'); ?>">
-                                                                <img src="img/profile/<?php echo $usuario->getAttribute('des_foto'); ?>" alt="" height="55px" width="55px" class="profile-face-footer rounded-circle">
-                                                            </a>
-                                                        </div>
-                                                        <div class="col-10 footer-card">
-                                                            <?php $nome = explode(' ', $usuario->getAttribute('des_nome')); ?>
-                                                            <a href="<?php echo $usuario->getAttribute('des_slug'); ?>" class="username"><h6 style="font-weight:400"><?=$usuario->getAttribute('des_nome_exibicao'); ?></h6></a>
-                                                            <span class="float-left stars" style="margin-top: -5px;">
-                                                                <a style="font-size: 15px"><i class="fa fa-star"></i> 4,2</a>
-                                                            </span>
-                                                            <span class="float-right">
+                                                    <div class="col-12 desc-card">
+                                                        <p style="min-height:70px; margin-bottom:0px;"><?php echo substr($anuncios[$key]->getAttribute('des_descricao'), 0, 120);  if (strlen($anuncios[$key]->getAttribute('des_descricao')) > 120) {echo "...";} ?></p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                <div class="col-12"><hr></div>
+                                                    <div class="col-2">
+                                                        <a href="<?php echo $usuario->getAttribute('des_slug'); ?>">
+                                                            <img src="img/profile/<?php echo $usuario->getAttribute('des_foto'); ?>" alt="" height="55px" width="55px" class="profile-face-footer rounded-circle">
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-10 footer-card">
+                                                        <?php $nome = explode(' ', $usuario->getAttribute('des_nome')); ?>
+                                                        <a href="<?php echo $usuario->getAttribute('des_slug'); ?>" class="username"><h6 style="font-weight:400"><?=$usuario->getAttribute('des_nome_exibicao'); ?></h6></a>
+                                                        <span class="float-left stars" style="margin-top: -5px;">
+                                                            <a style="font-size: 15px"><i class="fa fa-star"></i> 4,2</a>
+                                                        </span>
+                                                        <span class="float-right">
                                                                 <a href="#" class="icon-bag"> <i class="fa fa-shopping-bag grey-text ml-3"></i></a>
                                                                 <a href="#" class="icon-share"><i class="fa fa-share-alt grey-text ml-3"></i></a>
                                                             </span>

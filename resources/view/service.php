@@ -13,13 +13,6 @@
                     <div class="row">
                         <div class="col-md-12 profile-card" id="visao-geral" style="padding: 40px; margin-top:20px">
                             <div class="row">
-                                <!-- <div class="col-6">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <img src="http://www.dikshasea.com/wp-content/uploads/2017/08/SAP-ABAP.jpg" width="100%" alt="">
-                                        </div>
-                                    </div>
-                                </div> -->
                                 <div class="offset-3 col-6">
                                     <h3><i class="<?=$servico->categoria->des_icone;?>" style="margin-right:15px;color:rgb(255, 208, 0)"></i> <?=$servico->categoria->des_descricao;?></h3>
                                     <p style="margin-top:25px"><?=$servico->des_descricao;?></p>

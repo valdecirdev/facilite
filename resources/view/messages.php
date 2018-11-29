@@ -128,7 +128,7 @@ use Controller\{UsuarioController, ChatController, MensagemController};
                 <form @submit="checkForm">
                     <input type="text" v-model="message" id="message" class="write_msg" placeholder="Escreva uma mensagem" />
                     <button class="msg_send_btn" type="submit"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
-                    <button class="msg_hire_btn" <?php if($chat[0]->des_status != "Em Negociação"){echo 'disabled = "disabled"';} ?> id="msg_hire_btn" type="button">Contratar</button>
+                    <button class="msg_hire_btn" <?php if((isset($chat[0])) && ($chat[0]->des_status != "Em Negociação")){echo 'disabled = "disabled"';} ?> id="msg_hire_btn" type="button">Contratar</button>
                 </form>
             </div>
           </div>

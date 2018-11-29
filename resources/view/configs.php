@@ -162,8 +162,8 @@
                                                                 <div class="form-group col-md-12 row" style="padding-left:20px">
                                                                     <label for="sexoUsr" class="col-12" style="margin-left:-15px">Sexo</label>
                                                                     <select class="form-control col-md-9" id="sexoUsr" v-model="user.des_sexo" style="border-radius:0px;height:45px">
-                                                                        <option value="Feminino">Feminino</option>
-                                                                        <option value="Masculino">Masculino</option>
+                                                                        <option value="F">Feminino</option>
+                                                                        <option value="M">Masculino</option>
                                                                         <option value="P">Prefiro não informar </option>
                                                                     </select>
                                                                     <button type="button" class="btn btn-primary col-md-2" v-on:click="salvarSexo()" style="border-radius:0px">Salvar</button>

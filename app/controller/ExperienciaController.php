@@ -27,12 +27,14 @@
         {
             $titulo = filter_var($values['des_titulo'], FILTER_SANITIZE_STRING);
             $descr = filter_var($values['des_descricao'], FILTER_SANITIZE_STRING);
-            $desde = $values['des_desde'];
-            $ate = $values['des_ate'];
+            // $desde = $values['des_desde'];
+            // $ate = $values['des_ate'];
             $id = $values['id_experiencia'];
 
             Experiencia::where('id_experiencia', $id)
-                ->update(['des_titulo' => $titulo, 'des_descricao' => $descr, 'des_de' => $desde, 'des_ate' => $ate]);
+                ->update(['des_titulo' => $titulo, 'des_descricao' => $descr]);
+            // Experiencia::where('id_experiencia', $id)
+            //     ->update(['des_titulo' => $titulo, 'des_descricao' => $descr, 'des_de' => $desde, 'des_ate' => $ate]);
         }
 
         public function delete(int $id): void

@@ -58,7 +58,7 @@
             $foto = md5(time()).'.jpg';
 
             move_uploaded_file($avatar['usrFoto']['tmp_name'], $diretorio.$foto);
-            self::resizeImage($diretorio.$foto);
+            $this->resizeImage($diretorio.$foto);
 
             Usuario::where('id_usuario', $usuario->id_usuario)->update(['des_foto' => $foto]);
             return $foto;

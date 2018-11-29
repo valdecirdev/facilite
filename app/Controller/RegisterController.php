@@ -17,12 +17,13 @@
 
         public static function register( array $register_infos = array() ): bool
         {
+            $usuario = new Usuario();
             $email = filter_var($register_infos['des_email'], FILTER_SANITIZE_EMAIL);
-            if ((!filter_var($email, FILTER_VALIDATE_EMAIL)) || (Usuario::emailExists($email))) {
+            if ((!filter_var($email, FILTER_VALIDATE_EMAIL)) || ($usuario->emailExists($email))) {
                 return FALSE;
             }
 
-            $slug = Usuario::slugGenerator($register_infos['des_nome']);
+            $slug = $usuario->slugGenerator($register_infos['des_nome']);
             $tmpNome = explode(' ', $register_infos['des_nome']);
             $nomeExibicao = $tmpNome[0].' '.$tmpNome[count($tmpNome)-1];
 
@@ -40,7 +41,7 @@
             $usuario->save();
             
             $login_infos = ['des_email' => $register_infos['des_email'], 'des_senha' => $register_infos['des_senha']];
-            $login = new Login();
+            $login = new LoginController();
             $login->login($login_infos);
             
             // Código responsável pelo envio de email e confirmação de conta

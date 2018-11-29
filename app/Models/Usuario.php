@@ -35,7 +35,7 @@
 
         public function slugGenerator(string $fullname): string
         {
-            $fullname = preg_replace( '/[`^~\'"]/', null, iconv( 'UTF-8', 'ASCII//TRANSLIT', $fullName ) );
+            $fullname = preg_replace( '/[`^~\'"]/', null, iconv( 'UTF-8', 'ASCII//TRANSLIT', $fullname ) );
             $fullname = explode(' ', $fullname);
             $cont = null; $lastname = "";
             if (count($fullname) > 1) $lastname = $fullname[count($fullname)-1];
@@ -43,7 +43,7 @@
             do {
                 $slug = $fullname[0].$lastname.$cont;
                 $cont++;
-            } while ($self::slugExists($slug));
+            } while ($this->slugExists($slug));
             return $slug;
         }
 

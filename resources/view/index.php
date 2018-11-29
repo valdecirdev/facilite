@@ -52,7 +52,7 @@
                             <a class="nav-link" href="/search">Contratar</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/<?=$loggedUser->slug ?? 'identifique-se';?>">Anúnciar</a>
+                            <a class="nav-link" href="/<?=$logged_user->slug ?? 'identifique-se';?>">Anúnciar</a>
                         </li>
                     </ul>
                 </div>
@@ -124,7 +124,7 @@
                                         <a style="font-size: 15px"><i class="fa fa-star"></i> 4,2</a>
                                     </span>
                                     <span class="float-right">
-                                        <a href="<?php if(isset($loggedUser)){ echo '/#'; } else { echo '/cadastre-se';}?>" style="margin-right:-10px !important"> <i class="fa fa-user-plus grey-text ml-3" style="color: #e6366b"></i></a>
+                                        <a href="<?php if(isset($logged_user)){ echo '/#'; } else { echo '/cadastre-se';}?>" style="margin-right:-10px !important"> <i class="fa fa-user-plus grey-text ml-3" style="color: #e6366b"></i></a>
                                         <a href="#"><i class="fa fa-share-alt ml-3" style="color: #e6366b"></i></a>
                                     </span>
                                 </div>

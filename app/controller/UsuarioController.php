@@ -3,7 +3,7 @@
     namespace Controller;
 
     use Models\{Cidade, Confirmacao, Estado, Pais, Usuario};
-    use PHPMailer\PHPMailer\PHPMailer;
+    // use PHPMailer\PHPMailer\PHPMailer;
     use Core\Controller;
 
     class UsuarioController extends Controller
@@ -13,15 +13,15 @@
         //---------------------------------------------------------------------
         //  LOADS
         //---------------------------------------------------------------------
-        public function loadBySlug(string $slug, array $campos = ['*'])
-        {
-            $usuario = Usuario::where('des_slug', $slug)->select($campos)->get();
-            if (count($usuario)==0) {
-                return NULL;
-            }
-            $usuario = $this->setInfosUsuario($usuario);
-            return $usuario;
-        }
+        // public function loadBySlug(string $slug, array $campos = ['*'])
+        // {
+        //     $usuario = Usuario::where('des_slug', $slug)->select($campos)->get();
+        //     if (count($usuario)==0) {
+        //         return NULL;
+        //     }
+        //     $usuario = $this->setInfosUsuario($usuario);
+        //     return $usuario;
+        // }
 
         public function loadById(int $id, array $campos = ['*'])
         {
@@ -33,15 +33,15 @@
             return $usuario;
         }
 
-        public function loadByEmail(string $email, array $campos = ['*'])
-        {
-            $usuario = Usuario::where('des_email', $email)->select($campos)->get();
-            if (count($usuario)==0) {
-                return NULL;
-            }
-            $usuario = $this->setInfosUsuario($usuario);
-            return $usuario;
-        }
+        // public function loadByEmail(string $email, array $campos = ['*'])
+        // {
+        //     $usuario = Usuario::where('des_email', $email)->select($campos)->get();
+        //     if (count($usuario)==0) {
+        //         return NULL;
+        //     }
+        //     $usuario = $this->setInfosUsuario($usuario);
+        //     return $usuario;
+        // }
 
         public static function loadCityByName(string $nome)
         {
@@ -52,51 +52,51 @@
             return $result;
         }
 
-        public function loadCity()
-        {
-            $result = Cidade::all();
-            if (count($result)==0) {
-                return NULL;
-            }
-            return $result;
-        }
+        // public function loadCity()
+        // {
+        //     $result = Cidade::all();
+        //     if (count($result)==0) {
+        //         return NULL;
+        //     }
+        //     return $result;
+        // }
 
-        public function loadCityById(int $id)
-        {
-            $result = Cidade::where('id_cidade', $id)->get();
-            if (count($result)==0) {
-                return NULL;
-            }
-            return $result[0];
-        }
+        // public function loadCityById(int $id)
+        // {
+        //     $result = Cidade::where('id_cidade', $id)->get();
+        //     if (count($result)==0) {
+        //         return NULL;
+        //     }
+        //     return $result[0];
+        // }
 
 
-        public function mailer($destinatario, $nome, $hash): void
-        {
-            $mail = new PHPMailer();
-            $mail->isSMTP();
-            $mail->SMTPDebug = 2;
-            $mail->Host = 'smtp.umbler.com';
-            $mail->Port = 587;
-            $mail->SMTPSecure = 'tls';
-            $mail->SMTPAuth = true;
-            $mail->Username = "noreply@faciliteserv.com";
-            $mail->Password = "faciliteservicos";
-            $mail->setFrom('noreply@faciliteserv.com', 'Facilite Servicos');
-            $mail->addAddress($destinatario, $nome);
-            $mail->Subject = 'Confirme seu email!';
-            $mail->isHTML(true);
-            $mail->Body    = 'Bem vindo '.$nome.'! <br> Confirme seu endereço de email através do link abaixo. <br> <a href="http://faciliteserv.com/confirm?hash='.$hash.'">Confirme seu email</a>';
-            $mail->AltBody = 'This is the HTML message body';
+        // public function mailer($destinatario, $nome, $hash): void
+        // {
+        //     $mail = new PHPMailer();
+        //     $mail->isSMTP();
+        //     $mail->SMTPDebug = 2;
+        //     $mail->Host = 'smtp.umbler.com';
+        //     $mail->Port = 587;
+        //     $mail->SMTPSecure = 'tls';
+        //     $mail->SMTPAuth = true;
+        //     $mail->Username = "noreply@faciliteserv.com";
+        //     $mail->Password = "faciliteservicos";
+        //     $mail->setFrom('noreply@faciliteserv.com', 'Facilite Servicos');
+        //     $mail->addAddress($destinatario, $nome);
+        //     $mail->Subject = 'Confirme seu email!';
+        //     $mail->isHTML(true);
+        //     $mail->Body    = 'Bem vindo '.$nome.'! <br> Confirme seu endereço de email através do link abaixo. <br> <a href="http://faciliteserv.com/confirm?hash='.$hash.'">Confirme seu email</a>';
+        //     $mail->AltBody = 'This is the HTML message body';
 
-            if (!$mail->send()) {
-                echo "Mailer Error: " . $mail->ErrorInfo;
-            }
-        }
+        //     if (!$mail->send()) {
+        //         echo "Mailer Error: " . $mail->ErrorInfo;
+        //     }
+        // }
 
-        // ---------------------------------------------------------------------
-        //  DATASET
-        // ---------------------------------------------------------------------
+        // // ---------------------------------------------------------------------
+        // //  DATASET
+        // // ---------------------------------------------------------------------
         public function setInfosUsuario($infos): Usuario
         {
             $sexo = '';
