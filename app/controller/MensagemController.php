@@ -1,12 +1,24 @@
 <?php
 
-namespace controller;
+namespace Controller;
 
-use model\{Mensagem, Chat};
+use Models\{Usuario, Mensagem, Chat};
 use \DateTime;
+use Core\Controller;
 
-class MensagemController
+class MensagemController extends Controller
 {
+
+    public function index()
+    {
+        session_start();
+        if (!isset($_SESSION['logged'])){
+            header('location: home');
+        }
+        $pg_title = 'Mensagem - ';
+        $logged_user = Usuario::where('id_usuario', $_SESSION['id'])->get()[0];
+        require BASEPATH."resources/view/messages.php";
+    }
 
     public function newMessagesCount($idUser){
         $count = Mensagem::join('tb_chats', 'tb_chats.id_chat', '=', 'tb_mensagens.id_chat')

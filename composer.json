@@ -7,12 +7,11 @@
     {
       "name"    : "Valdecir Junior",
       "email"   : "valdecir.silva9@fatec.sp.gov.br",
-      "homepage": "https://valdecirjunior.com",
-      "role"    : "co-fundador, desenvolvedor"
+      "role"    : "desenvolvedor"
     }, {
       "name"    : "Leandro Pompélia",
       "email"   : "leandro.pompelia@fatec.sp.gov.br",
-      "role"    : "fundador, desenvolvedor"
+      "role"    : "desenvolvedor"
     }
   ],
   "minimum-stability" : "dev",
@@ -23,10 +22,10 @@
   },
   "autoload": {
     "psr-4": {
-      "controller\\": "./app/controller/",
-      "database\\": "./database/",
-      "model\\": "./app/model/",
-      "routes\\": "./routes/"
+      "Controller\\": "./app/Controller/",
+      "Database\\": "./database/",
+      "Models\\": "./app/Models/",
+      "Core\\": "./app/Core/"
     }
   }
 }

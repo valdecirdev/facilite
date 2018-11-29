@@ -1,11 +1,12 @@
 <?php
 
-namespace controller;
+namespace Controller;
 
-use model\Habilidade;
-use model\HabilidadeUsuario;
+use Models\{Habilidade, HabilidadeUsuario};
+use Core\Controller;
 
-class HabilidadeController {
+class HabilidadeController extends Controller
+{
 
         public function loadAll()
         {
@@ -14,23 +15,9 @@ class HabilidadeController {
             return $habilidade;
         }
 
-        public function loadByID(int $id)
-        {
-            $habilidades = Habilidade::where('id_habilidade', '=', $id)->get();
-            $habilidade = $this->setData($habilidades);
-            return $habilidade[0];
-        }
-
-        public function loadByUser(int $id):array
-        {
-            $habilidades = HabilidadeUsuario::where('id_usuario', '=', $id)->get();
-            $habilidade = $this->setData($habilidades);
-            return $habilidade;
-        }
-
         public function insert(int $id_habilidade, int $id_usuario):int
         {
-            $habilidades_usuarios = HabilidadeUsuario::where('id_habilidade', '=', $id_habilidade)->where('id_usuario', '=', $id_usuario)->get();
+            $habilidades_usuarios = HabilidadeUsuario::where('id_habilidade', $id_habilidade)->where('id_usuario', $id_usuario)->get();
             if ((count($habilidades_usuarios) == 0) || ($habilidades_usuarios == NULL)) {
                 $experiencia = new HabilidadeUsuario();
                 $experiencia->id_usuario = $id_usuario;
@@ -43,7 +30,8 @@ class HabilidadeController {
 
         public function delete(int $id_habilidade, int $id_usuario)
         {
-            HabilidadeUsuario::where('id_habilidade', '=', $id_habilidade)->where('id_usuario', '=', $id_usuario)->delete();
+            HabilidadeUsuario::where('id_habilidade', $id_habilidade)->where('id_usuario', $id_usuario)->delete();
+            return TRUE;
         }
 
         public function setData($infos)

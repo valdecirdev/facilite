@@ -10,9 +10,8 @@ var app = new Vue({
                 swal ( "Oops!" ,  "Preencha todos os campos!" ,  "error" );
             } else {
                 $('#loginuser').attr('disabled', 'disabled');
-                $.post('_utils/ajax_perfil.php',
+                $.post('post/login',
                     {
-                        acao: 'login',
                         des_email: this.email,
                         des_senha: this.senha,
                     },

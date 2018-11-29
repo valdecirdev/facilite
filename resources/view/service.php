@@ -1,12 +1,11 @@
 <?php
-    use controller\{UsuarioController, HabilidadeController, CategoriaController, ModalidadeController};
-    use Carbon\Carbon;
+    
 
-    include('_partials'.DS.'header.php');
+    include('template'.DS.'header.php');
 
 ?>
     <div id="content">
-        <input value="<?=$loggedUser->id_usuario ?? '';?>" id="id_usuario_logado" class="d-none">
+        <input value="<?=$logged_user->id_usuario ?? '';?>" id="id_usuario_logado" class="d-none">
         <section class="container-fluid" style="" id="profile-page">
 
             <div class="row">
@@ -30,7 +29,7 @@
                                         <span style="text-transform: lowercase"><?=' / '.$servico->modalidade->des_descricao;?></span>
                                     </p>
                                     <p class="col-12 text-center" style="margin-top:25px">
-                                        <?php  if(isset($loggedUser)){ ?>
+                                        <?php  if(isset($logged_user)){ ?>
                                             <a href="/messages?to=<?=$usuario->id_usuario;?>" class="btn btn-lg btn-fc-primary">Enviar Mensagem</a>
                                         <?php } else { ?>
                                             <a href="/identifique-se" class="btn btn-lg btn-fc-primary">Enviar Mensagem</a>
@@ -43,7 +42,7 @@
                                     <hr>
                                     <!-- TODO: This is for server side, there is another version for browser defaults -->
                                     <form action="" method="post">
-                                        <input type="text" id="id_usuario" value="<?=$loggedUser->id_usuario ?? '';?>" style="display:none">
+                                        <input type="text" id="id_usuario" value="<?=$logged_user->id_usuario ?? '';?>" style="display:none">
                                         <input type="text" id="id_anuncio" value="<?=$servico->id_anuncio ?? '';?>" style="display:none">
                                         <div class="form-group">
                                           <label for="">Deixe um Comentário:</label>
@@ -54,7 +53,7 @@
                                           <input type="number" class="form-control col-2" name="" id="des_nota" placeholder="" style="border-radius:0px">
                                           <small id="helpId" class="form-text text-muted">Dê uma nota de 0 a 5</small>
                                         </div>
-                                        <?php  if(isset($loggedUser)){ ?>
+                                        <?php  if(isset($logged_user)){ ?>
                                             <button type="button" id="btn-avaliar" class="btn btn-fc-primary col-2">Enviar</button>
                                         <?php } else { ?>
                                             <a href="/identifique-se" class="btn btn-fc-primary col-2">Enviar</a>
@@ -129,6 +128,6 @@
 
 
 
-<?php include('_partials'.DS.'footer.php'); ?>
+<?php include('template'.DS.'footer.php'); ?>
 <script src="../js/service.js"></script>
 </html>

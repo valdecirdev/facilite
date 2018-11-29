@@ -1,11 +1,11 @@
 <?php
 
-    use controller\{BuscaController, UsuarioController, CategoriaController};
+    use Controller\{BuscaController, UsuarioController, CategoriaController};
 
     $search = new BuscaController();
     $usuarios = new UsuarioController();
 
-    include('_partials/header.php');
+    include('template/header.php');
 ?>
 
     <div id="content">
@@ -140,4 +140,4 @@
         </section>
     </div>
         <!--Footer-->
-    <?php include('_partials/footer.php'); ?>
+    <?php include('template/footer.php'); ?>

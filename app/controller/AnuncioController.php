@@ -1,32 +1,35 @@
 <?php
 
-namespace controller;
+namespace Controller;
 
-use model\Anuncio;
+use Models\{Anuncio, Usuario};
+use Core\Controller;
 
-class AnuncioController
+class AnuncioController extends Controller
 {
 
-    //---------------------------------------------------------------------
-    //  LOADS
-    //---------------------------------------------------------------------
-    public function loadByID (int $id)
+    public function index($id)
     {
-        $anuncio = Anuncio::where('id_anuncio', $id)->get();
-        $anuncio = $this->setData($anuncio);
-        return $anuncio[0];
+        session_start();
+
+        $servico = Anuncio::where('id_anuncio', $id)->get()[0] ?? header('location:erro');
+        $usuario = Usuario::where('id_usuario', $servico->id_usuario)->get()[0] ?? header('location:erro');
+        $pg_title    = $servico->categoria->des_descricao.' - ';
+        $description = $servico->des_descricao;
+
+        $donoServico = false;
+        if (isset($_SESSION['id']) && ($_SESSION['id'] == $usuario->id_usuario)) {
+            $donoServico = true;
+            $logged_user  = $usuario;
+        } else {
+            if(isset($_SESSION['id']) && !is_null($_SESSION['id'])){
+                $logged_user = Usuario::where('id_usuario', $_SESSION['id'])->get()[0];
+            }
+        }
+        
+        require BASEPATH."resources/view/service.php";
     }
 
-    public function loadByUser (int $id): array
-    {
-        $anuncios = Anuncio::where('id_usuario', $id)->get();
-        $anuncios = $this->setData($anuncios);
-        return $anuncios;
-    }
-
-    //---------------------------------------------------------------------
-    //  INSERT
-    //---------------------------------------------------------------------
     public function insert (array $values): int
     {
         $values['des_descricao']  = filter_var($values['des_descricao'], FILTER_SANITIZE_STRING);
@@ -44,9 +47,6 @@ class AnuncioController
         return $anuncio->id;
     }
 
-    //---------------------------------------------------------------------
-    //  UPDATES
-    //---------------------------------------------------------------------
     public function update (array $values): void
     {
         $values['des_descricao'] = filter_var($values['des_descricao'], FILTER_SANITIZE_STRING);
@@ -55,36 +55,9 @@ class AnuncioController
         Anuncio::where('id_anuncio', $values['id_anuncio'])->update(['id_categoria' => $values['id_categoria'], 'des_descricao' => $values['des_descricao'], 'des_preco' => $values['des_preco'], 'id_modalidade' => $values['id_modalidade'], 'des_disponibilidade' => $values['des_disponibilidade']]);
     }
 
-    //---------------------------------------------------------------------
-    //  TOOLS
-    //---------------------------------------------------------------------
     public function delete (int $id): void
     {
         Anuncio::where('id_anuncio', $id)->delete();
     }
 
-
-
-
-
-    //---------------------------------------------------------------------
-    //  DATASET
-    //---------------------------------------------------------------------
-    public function setData ($infos): array
-    {
-        $anuncios = array();
-        foreach ($infos as $key => $data) {
-            $anuncios[$key] = new Anuncio();
-            $anuncios[$key]->setAttribute('id_anuncio', $data['id_anuncio']);
-            $anuncios[$key]->setAttribute('id_usuario', $data['id_usuario']);
-            $anuncios[$key]->setAttribute('id_categoria', $data['id_categoria']);
-            $anuncios[$key]->setAttribute('des_descricao', $data['des_descricao']);
-            $preco = number_format($data['des_preco'], 2, ",", ".");
-            $anuncios[$key]->setAttribute('des_preco', $preco);
-            $anuncios[$key]->setAttribute('id_modalidade', $data['id_modalidade']);
-            $anuncios[$key]->setAttribute('des_disponibilidade', $data['des_disponibilidade']);
-        }
-        return $anuncios;
-    }
-        
 }

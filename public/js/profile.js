@@ -66,7 +66,7 @@ $(document).ready(function () {
             form.append('usrFoto', event.target.files[0]); // para enviar apenas 1 arquivo
             $.ajax({
                 type: 'POST',
-                url: "/_utils/ajax_perfil.php", // Url do lado server que vai receber o arquivo
+                url: "post/update_avatar", // Url do lado server que vai receber o arquivo
                 data: form,
                 processData: false,
                 contentType: false,
@@ -95,9 +95,8 @@ $(document).ready(function () {
             $(btn_action).removeClass('btn-fc-primary');
             $(btn_action).addClass('btn-fc-danger');
 
-            $.post('_utils/ajax_perfil.php',
+            $.post('post/add_conexao',
             {
-                acao: 'ad_conexao',
                 id_usuario: $('#id_usuario_logado').val(),
                 id_contato: $('#id_usuario').val(),
             });
@@ -105,9 +104,8 @@ $(document).ready(function () {
             $('#msg-btnContato').text('Adicionar');
             $(btn_action).removeClass('btn-fc-danger');
             $(btn_action).addClass('btn-fc-primary');
-            $.post('_utils/ajax_perfil.php',
+            $.post('post/rm_conexao',
             {
-                acao: 'rem_conexao',
                 id_usuario: $('#id_usuario_logado').val(),
                 id_contato: $('#id_usuario').val(),
             });
@@ -149,9 +147,8 @@ $(document).ready(function () {
         
         if (confirm('Realmente deseja deletar esta Experiencia?')){
             $(btn_action).parent().parent().parent().parent().parent().remove();
-            $.post('_utils/ajax_perfil.php',
+            $.post('post/rm_experiencia',
             {
-                acao: 'del_experiencia',
                 id_experiencia: $(id_experiencia).val()
             });
         }
@@ -173,9 +170,8 @@ $(document).ready(function () {
             var titulo = $('#des_titulo_experiencia');
             var descricao = $('#des_descricao_experiencia');
             var id_experiencia = $('#id_experiencia_modal');
-            $.post('_utils/ajax_perfil.php',
+            $.post('post/up_experiencia',
             {
-                acao: 'up_experiencia',
                 id_usuario: $('#id_usuario').val(),
                 des_titulo: $(titulo).val(),
                 des_descricao: $(descricao).val(),
@@ -195,9 +191,8 @@ $(document).ready(function () {
             var $id_usuario = $('#id_usuario_logado').val();
             var $titulo    = $('#des_titulo_experiencia').val();
             var $descr     = $('#des_descricao_experiencia').val();
-            $.post('_utils/ajax_perfil.php',
+            $.post('post/add_experiencia',
             {
-                acao        : 'ad_experiencia',
                 id_usuario  : $id_usuario,
                 titulo      : $titulo,
                 descr       : $descr,
@@ -243,9 +238,8 @@ $(document).ready(function () {
         
         if (confirm('Realmente deseja deletar esta Formação?')){
             $(btn_action).parent().parent().parent().parent().parent().remove();
-            $.post('_utils/ajax_perfil.php',
+            $.post('post/rm_formacao',
             {
-                acao: 'del_formacao',
                 id_formacao: $(id_formacao).val()
             });
         }
@@ -266,9 +260,8 @@ $('#btn-addFormacao').click(function(){
         var titulo = $('#des_titulo_formacao');
         var descricao = $('#des_descricao_formacao');
         var id_formacao = $('#id_formacao_modal');
-        $.post('_utils/ajax_perfil.php',
+        $.post('post/up_formacao',
         {
-            acao: 'up_formacao',
             id_usuario: $('#id_usuario').val(),
             des_titulo: $(titulo).val(),
             des_descricao: $(descricao).val(),
@@ -288,9 +281,8 @@ $('#btn-addFormacao').click(function(){
         var $id_usuario = $('#id_usuario_logado').val();
         var $titulo    = $('#des_titulo_formacao').val();
         var $descr     = $('#des_descricao_formacao').val();
-        $.post('_utils/ajax_perfil.php',
+        $.post('post/add_formacao',
         {
-            acao        : 'ad_formacao',
             id_usuario  : $id_usuario,
             titulo      : $titulo,
             descr       : $descr,
@@ -341,9 +333,8 @@ function btn_deletar_servico(btn_action) {
     var id_servico = $('.id_servico', $(btn_action).parent().parent().parent().parent());
     if (confirm('Realmente deseja deletar este Serviço?')){
         $(btn_action).parent().parent().parent().parent().remove();
-        $.post('_utils/ajax_perfil.php',
+        $.post('post/rm_servico',
         {
-            acao: 'del_servico',
             id_servico: id_servico.val()
         });
     }
@@ -369,34 +360,8 @@ if(($('#id_servico_modal').val() != '')&&($('#id_servico_modal').val() != undefi
     var disponibilidade = $('#des_disponibilidade_servico');
     var id_servico = $('#id_servico_modal');
 
-
-    // $("#form-usrFoto").submit(function(e) {
-    //     if($("#usrFoto").val() !== ''){
-    //         var form;
-    //         form = new FormData();
-    //         form.append('usrFoto', event.target.files[0]); // para enviar apenas 1 arquivo
-    //         $.ajax({
-    //             url: "_utils/ajax_perfil.php", // Url do lado server que vai receber o arquivo
-    //             data: form,
-    //             processData: false,
-    //             contentType: false,
-    //             type: 'POST',
-    //             success: function (data) {
-    //                 $('.img-nav-dropdown').attr('src', 'img/profile/'+data);
-    //                 $('#usrFotoView').attr('src','img/profile/'+data);
-    //                 $('.img-nav-profile').attr('src','img/profile/'+data);
-    //             }
-    //         });
-    //     }
-    //     e.preventDefault();
-    // });
-
-
-
-
-    $.post('_utils/ajax_perfil.php',
+    $.post('post/up_servico',
     {
-        acao: 'up_servico',
         id_anuncio: $(id_servico).val(),
         id_categoria: $(categoria).val(),
         des_descricao: $(descricao).val(),
@@ -430,9 +395,8 @@ if(($('#id_servico_modal').val() != '')&&($('#id_servico_modal').val() != undefi
     var disponibilidade = $('#des_disponibilidade_servico');
     var id_usuario = $('#id_usuario');
 
-    $.post('_utils/ajax_perfil.php',
+    $.post('post/add_servico',
     {
-        acao: 'add_servico',
         id_usuario: $(id_usuario).val(),
         id_categoria: $(categoria).val(),
         des_descricao: $(descricao).val(),
@@ -471,9 +435,8 @@ if(($('#id_servico_modal').val() != '')&&($('#id_servico_modal').val() != undefi
         var id_habilidade = $('#des_habilidade_modal').val();
         var id_usuario = $('#id_usuario').val();
         
-        $.post('_utils/ajax_perfil.php',
+        $.post('post/add_habilidade',
         {
-            acao: 'add_habilidade',
             id_usuario: id_usuario,
             id_habilidade: id_habilidade
         },function(data){
@@ -485,9 +448,8 @@ if(($('#id_servico_modal').val() != '')&&($('#id_servico_modal').val() != undefi
                     
                     if (confirm('Realmente deseja deletar esta Habilidade?')){
                         $(this).parent().remove();
-                        $.post('_utils/ajax_perfil.php',
+                        $.post('post/rm_habilidade',
                         {
-                            acao: 'del_habilidade',
                             id_usuario: id_usuario,
                             id_habilidade: id_habilidade
                         });
@@ -507,9 +469,8 @@ if(($('#id_servico_modal').val() != '')&&($('#id_servico_modal').val() != undefi
         
         if (confirm('Realmente deseja deletar esta Habilidade?')){
             $(this).parent().remove();
-            $.post('_utils/ajax_perfil.php',
+            $.post('post/rm_habilidade',
             {
-                acao: 'del_habilidade',
                 id_usuario: id_usuario,
                 id_habilidade: id_habilidade
             });
@@ -530,10 +491,8 @@ if(($('#id_servico_modal').val() != '')&&($('#id_servico_modal').val() != undefi
         var apresentacao = $('#des_apresentacao_modal').val();
         $('#btn-editApresentacao').attr('disabled', 'disabled');
 
-        $.post('_utils/ajax_perfil.php',
+        $.post('post/up_apresentacao',
         {
-            acao:   'up_generico',
-            campo:  'des_apresentacao',
             valor:  apresentacao,
             id:     $('#id_usuario').val(),
         },function(data){

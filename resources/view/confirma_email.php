@@ -1,6 +1,6 @@
 <?php
 
-    use controller\{ConfirmacaoController, UsuarioController};
+    use Controller\{ConfirmacaoController, UsuarioController};
 
     if ((isset($_GET['hash']))) {
         $confirm = new ConfirmacaoController();

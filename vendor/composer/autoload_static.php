@@ -12,22 +12,6 @@ class ComposerStaticInita8f25f80d973b681ac51a7fb714b5532
     );
 
     public static $prefixLengthsPsr4 = array (
-        'r' => 
-        array (
-            'routes\\' => 7,
-        ),
-        'm' => 
-        array (
-            'model\\' => 6,
-        ),
-        'd' => 
-        array (
-            'database\\' => 9,
-        ),
-        'c' => 
-        array (
-            'controller\\' => 11,
-        ),
         'S' => 
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
@@ -44,6 +28,7 @@ class ComposerStaticInita8f25f80d973b681ac51a7fb714b5532
         'M' => 
         array (
             'Monolog\\' => 8,
+            'Models\\' => 7,
         ),
         'I' => 
         array (
@@ -55,30 +40,17 @@ class ComposerStaticInita8f25f80d973b681ac51a7fb714b5532
         'D' => 
         array (
             'Doctrine\\Common\\Inflector\\' => 26,
+            'Database\\' => 9,
         ),
         'C' => 
         array (
+            'Core\\' => 5,
+            'Controller\\' => 11,
             'Carbon\\' => 7,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'routes\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/routes',
-        ),
-        'model\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/app/model',
-        ),
-        'database\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/database',
-        ),
-        'controller\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/app/controller',
-        ),
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
@@ -111,6 +83,10 @@ class ComposerStaticInita8f25f80d973b681ac51a7fb714b5532
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
+        'Models\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/Models',
+        ),
         'Illuminate\\Support\\' => 
         array (
             0 => __DIR__ . '/..' . '/illuminate/support',
@@ -130,6 +106,18 @@ class ComposerStaticInita8f25f80d973b681ac51a7fb714b5532
         'Doctrine\\Common\\Inflector\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Common/Inflector',
+        ),
+        'Database\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/database',
+        ),
+        'Core\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/Core',
+        ),
+        'Controller\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/Controller',
         ),
         'Carbon\\' => 
         array (

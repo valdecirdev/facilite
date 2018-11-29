@@ -1,10 +1,11 @@
 <?php
 
-namespace controller;
+namespace Controller;
 
-use model\{Chat, Mensagem};
+use Models\{Chat, Mensagem};
+use Core\Controller;
 
-class ChatController
+class ChatController extends Controller
 {
 
     public function hire_service($idChat)

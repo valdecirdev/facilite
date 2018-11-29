@@ -1,16 +1,25 @@
 <?php
 
-namespace controller;
+namespace Controller;
 
-use model\Anuncio;
+use Models\{Anuncio, Usuario};
+use Core\Controller;
 
-class BuscaController
+class BuscaController extends Controller
+{
+    public function index()
     {
+        session_start();
+        if(isset($_SESSION['logged'])){
+            $logged_user = Usuario::where('id_usuario', $_SESSION['id'])->get()[0];
+        }
+        require BASEPATH."resources/view/search.php";
+    }
 
-        public function searchCount(string $q, $id, $categoria = NULL, $min_price = NULL, $max_price = NULL): int
-        {
-            $q = strip_tags($q);
-            $result = Anuncio::query()
+    public function searchCount(string $q, $id, $categoria = NULL, $min_price = NULL, $max_price = NULL): int
+    {
+        $q = strip_tags($q);
+        $result = Anuncio::query()
                     ->join('tb_categorias', 'tb_categorias.id_categoria', '=', 'tb_anuncios.id_categoria')
                     ->join('tb_usuarios', 'tb_anuncios.id_usuario', '=', 'tb_usuarios.id_usuario')
                     ->where('tb_anuncios.id_usuario', '!=', $id)

@@ -1,10 +1,11 @@
 <?php
 
-    namespace controller;
+    namespace Controller;
 
-    use model\Modalidade;
+    use Models\Modalidade;
+    use Core\Controller;
 
-    class ModalidadeController
+    class ModalidadeController extends Controller
     {
 
         public function loadAll(): array

@@ -1,10 +1,11 @@
 <?php
 
-namespace controller;
+namespace Controller;
 
-use model\Avaliacao;
+use Models\Avaliacao;
+use Core\Controller;
 
-class AvaliacaoController
+class AvaliacaoController extends Controller
 {
     //---------------------------------------------------------------------
     //  INSERT

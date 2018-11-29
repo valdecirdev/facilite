@@ -1,1 +1,0 @@
-[2018-08-17T15:13:36.454735-03:00] System.ERROR: Use of undefined constant id_usuario - assumed 'id_usuario' {"Code":8,"File":"C:\\xampp\\htdocs\\Facilite\\resources\\view\\profile.php","Line":65} []

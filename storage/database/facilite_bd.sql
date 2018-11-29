@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 31-Jul-2018 às 04:30
--- Versão do servidor: 10.1.22-MariaDB
--- PHP Version: 7.1.4
+-- Generation Time: 26-Nov-2018 às 11:28
+-- Versão do servidor: 10.1.36-MariaDB
+-- versão do PHP: 7.2.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -35,6 +35,7 @@ CREATE TABLE `tb_anuncios` (
   `des_descricao` varchar(1024) DEFAULT NULL,
   `des_preco` decimal(7,2) NOT NULL,
   `id_modalidade` int(11) NOT NULL,
+  `des_foto` varchar(100) DEFAULT NULL,
   `des_disponibilidade` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -42,16 +43,41 @@ CREATE TABLE `tb_anuncios` (
 -- Extraindo dados da tabela `tb_anuncios`
 --
 
-INSERT INTO `tb_anuncios` (`id_anuncio`, `id_usuario`, `id_categoria`, `des_descricao`, `des_preco`, `id_modalidade`, `des_disponibilidade`) VALUES
-(2, 2, 2, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc dictum, felis faucibus iaculis semper', '55.00', 1, 'Seg - Sex'),
-(3, 2, 1, 'Criacao de paginas web responsivas e web sites dinamicos completos, com visual profissional.', '35.00', 1, 'Seg - Sex'),
-(15, 1, 1, 'Criação e manutenção de sistemas e páginas web completas e personalizadas.\nCriação e manutenção de sistemas e páginas web completas e personalizadas.', '15.00', 1, 'seg - sex'),
-(30, 1, 1, 'Limpeza de escritórios e residências. Seu chão ou seu dinheiro de volta.\nCriação e manutenção de sistemas e páginas web completas e personalizadas.\nCriação e manutenção de sistemas e páginas web completas e personalizadas.', '50.00', 2, 'seg - dom'),
-(33, 6, 1, 'asdsdas', '12.00', 1, 'seg'),
-(34, 6, 1, 'dfsa fdf asdf  sdf sdf sdf sdaf a', '12.00', 1, 'ter'),
-(35, 6, 1, 'hggdhfh', '1.00', 1, 'qua'),
-(36, 6, 1, 'hgshdgh', '12.00', 1, 'qui'),
-(39, 1, 1, 'asas', '12.00', 2, 'as');
+INSERT INTO `tb_anuncios` (`id_anuncio`, `id_usuario`, `id_categoria`, `des_descricao`, `des_preco`, `id_modalidade`, `des_foto`, `des_disponibilidade`) VALUES
+(2, 2, 2, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc dictum, felis faucibus iaculis semper', '55.00', 1, NULL, 'Seg - Sex'),
+(3, 2, 1, 'Criacao de paginas web responsivas e web sites dinamicos completos, com visual profissional.', '35.00', 1, NULL, 'Seg - Sex'),
+(15, 1, 1, 'Cariação e manutenção de sistemas e páginas web completas e personalizadas, utilizando as mais novas tecnologias e padrões de desenvolvimento.', '15.00', 1, NULL, 'seg - sex'),
+(30, 1, 3, 'Limpeza de escritórios e residências ou Lavagem a seco.\n\nSeu chão limpo ou seu dinheiro de volta.', '50.00', 2, NULL, 'seg - dom');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_avaliacoes`
+--
+
+CREATE TABLE `tb_avaliacoes` (
+  `id_avaliacao` int(11) NOT NULL,
+  `id_anuncio` int(11) NOT NULL,
+  `des_comentario` text NOT NULL,
+  `des_nota` float NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `dt_comentario` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `dt_atualizacao` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `tb_avaliacoes`
+--
+
+INSERT INTO `tb_avaliacoes` (`id_avaliacao`, `id_anuncio`, `des_comentario`, `des_nota`, `id_usuario`, `dt_comentario`, `dt_atualizacao`) VALUES
+(1, 2, 'Ótimo profissional, cobra barato e presta um bom serviço.', 5, 1, '2018-11-07 12:56:15', '2018-11-07 12:56:02'),
+(2, 2, 'Muito bom, esse cara é demais!', 5, 6, '2018-11-07 13:04:49', '2018-11-07 02:00:00'),
+(3, 3, 'Teste Comentario', 3, 2, '2018-11-12 01:57:44', '2018-11-12 01:57:44'),
+(4, 3, 'Esse cara é bom', 5, 1, '2018-11-12 02:15:33', '2018-11-12 02:15:33'),
+(5, 3, 'df', 1, 1, '2018-11-12 02:16:08', '2018-11-12 02:16:08'),
+(6, 3, 'Teste', 1, 1, '2018-11-12 02:16:16', '2018-11-12 02:16:16'),
+(7, 3, 'sdds', 2, 1, '2018-11-12 02:16:46', '2018-11-12 02:16:46'),
+(8, 3, 'Comentario Novo', 5, 1, '2018-11-12 20:40:02', '2018-11-12 20:40:02');
 
 -- --------------------------------------------------------
 
@@ -84,8 +110,17 @@ CREATE TABLE `tb_chats` (
   `id_chat` int(11) NOT NULL,
   `id_anunciante` int(11) NOT NULL,
   `id_contratante` int(11) NOT NULL,
-  `des_status` varchar(20) NOT NULL DEFAULT 'Em Negociação'
+  `des_status` varchar(20) NOT NULL DEFAULT 'Em Negociação',
+  `dt_ultimaMsg` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `tb_chats`
+--
+
+INSERT INTO `tb_chats` (`id_chat`, `id_anunciante`, `id_contratante`, `des_status`, `dt_ultimaMsg`) VALUES
+(1, 2, 1, 'Contratado', '2018-08-30 22:04:07'),
+(7, 1, 6, 'Em Negociação', '2018-11-05 10:44:43');
 
 -- --------------------------------------------------------
 
@@ -5739,18 +5774,20 @@ CREATE TABLE `tb_experiencias` (
   `id_experiencia` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
   `des_titulo` varchar(100) NOT NULL,
-  `des_descricao` varchar(1024) NOT NULL
+  `des_descricao` varchar(1024) NOT NULL,
+  `des_de` date DEFAULT NULL,
+  `des_ate` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `tb_experiencias`
 --
 
-INSERT INTO `tb_experiencias` (`id_experiencia`, `id_usuario`, `des_titulo`, `des_descricao`) VALUES
-(1, 1, 'Estagiário - Adetec Lins', 'Responsavél pela seleção e controle de recursos tecnologicos, manutenção do Sistema Administrativo, criação de manutenção de websites, landing-pages, páginas de captura e anúncios.'),
-(2, 1, 'Estagiário - FATEC Lins', 'Auxiliar sob supervisa o nas atividades de: Confeccao de grades dos Docentes; Confeccao de remessas; Controle de presença dos funcionários e confecção do Livro Ponto;'),
-(3, 2, 'Desenvolvedor ABAP - Iteam', 'Programa, desenvolve e implanta sistemas em linguagem ABAP. Realiza correções em sistemas para atender as necessidades dos usuários.'),
-(13, 6, 'Fundador - Microsoft', 'Empresa transnacional americana com sede em Redmond, Washington, que desenvolve, fabrica, licencia, apoia e vende softwares de computador, produtos eletrônicos, computadores e serviços pessoais.');
+INSERT INTO `tb_experiencias` (`id_experiencia`, `id_usuario`, `des_titulo`, `des_descricao`, `des_de`, `des_ate`) VALUES
+(1, 1, 'Estagiário - Adetec Lins', 'Responsavél pela seleção e controle de recursos tecnologicos, manutenção do Sistema Administrativo, criação de manutenção de websites, landing-pages, páginas de captura e anúncios.', '2017-09-13', '2018-10-31'),
+(2, 1, 'Estagiário - FATEC Lins', 'Auxiliar sob supervisa o nas atividades de: Confeccao de grades dos Docentes; Confeccao de remessas; Controle de presença dos funcionários e confecção do Livro Ponto;', '2015-01-08', '2015-12-31'),
+(3, 2, 'Desenvolvedor ABAP - Iteam', 'Programa, desenvolve e implanta sistemas em linguagem ABAP. Realiza correções em sistemas para atender as necessidades dos usuários.', '0000-00-00', NULL),
+(4, 1, 'Programador Júnior', 'Desenvolvimento de sistemas e aplicações, determinando interface gráfica, critérios ergonômicos de navegação, montagem da estrutura de banco de dados e codificação de programas; projetar, implantar e realizam manutenção de sistemas e aplicações; seleção recursos de trabalho, tais como metodologias de desenvolvimento de sistemas, linguagem de programação e ferramentas de desenvolvimento.', '2018-11-01', NULL);
 
 -- --------------------------------------------------------
 
@@ -5771,8 +5808,7 @@ CREATE TABLE `tb_formacoes` (
 
 INSERT INTO `tb_formacoes` (`id_formacao`, `id_usuario`, `des_titulo`, `des_descricao`) VALUES
 (1, 1, 'Ensino Médio - E.E. Dom Henrique Mourão', '2013 - 2015'),
-(2, 1, 'Análise e Desenvolvimento de Sistemas - FATEC Lins', '2016 - 2018'),
-(12, 6, 'Harvard', 'Concluído');
+(2, 1, 'Análise e Desenvolvimento de Sistemas - FATEC Lins', '2016 – 2018');
 
 -- --------------------------------------------------------
 
@@ -5816,13 +5852,9 @@ CREATE TABLE `tb_habilidades_usuarios` (
 INSERT INTO `tb_habilidades_usuarios` (`id_habilidade_usuario`, `id_habilidade`, `id_usuario`) VALUES
 (2, 2, 2),
 (19, 1, 1),
-(31, 1, 6),
-(32, 3, 6),
-(33, 5, 6),
-(34, 4, 6),
-(35, 2, 1),
-(36, 4, 1),
-(37, 3, 1);
+(48, 2, 1),
+(49, 4, 1),
+(50, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -5843,11 +5875,8 @@ CREATE TABLE `tb_ligacoes` (
 
 INSERT INTO `tb_ligacoes` (`id_ligacao`, `id_usuario`, `id_contato`, `dt_ligacao`) VALUES
 (36, 2, 1, '2018-05-28 23:12:25'),
-(100, 6, 1, '2018-06-16 21:42:46'),
-(101, 6, 2, '2018-06-16 21:42:50'),
-(114, 2, 6, '2018-06-28 22:58:48'),
-(150, 1, 6, '2018-07-27 20:25:17'),
-(151, 1, 2, '2018-07-29 05:19:53');
+(38, 1, 2, '2018-09-09 16:54:03'),
+(40, 1, 6, '2018-11-04 11:03:07');
 
 -- --------------------------------------------------------
 
@@ -5858,9 +5887,43 @@ INSERT INTO `tb_ligacoes` (`id_ligacao`, `id_usuario`, `id_contato`, `dt_ligacao
 CREATE TABLE `tb_mensagens` (
   `id_mensagem` int(11) NOT NULL,
   `id_chat` int(11) NOT NULL,
+  `id_remetente` int(11) NOT NULL,
   `des_mensagem` varchar(300) NOT NULL,
-  `dt_envio` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `dt_envio` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `des_status` varchar(50) NOT NULL DEFAULT 'Enviada'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `tb_mensagens`
+--
+
+INSERT INTO `tb_mensagens` (`id_mensagem`, `id_chat`, `id_remetente`, `des_mensagem`, `dt_envio`, `des_status`) VALUES
+(10, 7, 1, 'Eai', '2018-08-31 18:16:40', 'Entregue'),
+(11, 7, 1, 'Eai', '2018-08-31 18:16:40', 'Entregue'),
+(12, 7, 1, 'agr ta do lado certo', '2018-08-31 18:17:09', 'Entregue'),
+(13, 7, 1, 'o scroll ta automatico', '2018-08-31 18:17:18', 'Entregue'),
+(14, 7, 1, 'e nao quevra mas quando n da espaço', '2018-08-31 18:17:30', 'Entregue'),
+(15, 7, 1, 'lkkjlkjlkjlkjlkjlkjlkjlkjlkjljlkjlkjlkjlkjljlkjljlkjl', '2018-08-31 18:17:35', 'Entregue'),
+(16, 7, 1, 'jlkjlkjlkjkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk', '2018-08-31 18:17:40', 'Entregue'),
+(17, 7, 6, 'tai?', '2018-08-31 18:38:51', 'Entregue'),
+(18, 7, 6, 'a', '2018-08-31 18:40:19', 'Entregue'),
+(21, 7, 6, 'teste', '2018-08-31 18:44:28', 'Entregue'),
+(22, 7, 6, 'teste', '2018-08-31 18:51:33', 'Entregue'),
+(23, 7, 6, 'outro teste', '2018-08-31 19:01:35', 'Entregue'),
+(24, 7, 6, 'teste', '2018-08-31 19:08:44', 'Entregue'),
+(25, 7, 1, 'teste', '2018-08-31 19:09:14', 'Entregue'),
+(26, 7, 1, 'teste', '2018-08-31 19:11:53', 'Entregue'),
+(27, 7, 6, 'teste', '2018-08-31 19:12:14', 'Entregue'),
+(28, 7, 1, 'oi', '2018-08-31 19:12:29', 'Entregue'),
+(29, 7, 6, 'teste', '2018-08-31 19:12:42', 'Entregue'),
+(30, 7, 6, 'ta ai?', '2018-08-31 19:15:32', 'Entregue'),
+(31, 7, 6, 'preciso falar com vc', '2018-08-31 19:15:35', 'Entregue'),
+(32, 7, 6, 'me liga', '2018-08-31 19:15:36', 'Entregue'),
+(33, 7, 6, 'cade vc?', '2018-08-31 19:15:38', 'Entregue'),
+(34, 7, 6, 'ou', '2018-08-31 19:15:39', 'Entregue'),
+(35, 7, 6, 'hey', '2018-08-31 19:15:43', 'Entregue'),
+(36, 7, 1, 'pois não?', '2018-10-31 18:22:20', 'Entregue'),
+(37, 7, 1, 'a', '2018-11-05 12:44:43', 'Entregue');
 
 -- --------------------------------------------------------
 
@@ -5903,20 +5966,43 @@ INSERT INTO `tb_paises` (`id_pais`, `des_nome`, `des_sigla`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `tb_planos`
+--
+
+CREATE TABLE `tb_planos` (
+  `id_plano` int(11) NOT NULL,
+  `des_titulo` varchar(30) COLLATE utf8_swedish_ci NOT NULL,
+  `des_descricao` varchar(150) COLLATE utf8_swedish_ci NOT NULL,
+  `des_preco` float(7,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+--
+-- Extraindo dados da tabela `tb_planos`
+--
+
+INSERT INTO `tb_planos` (`id_plano`, `des_titulo`, `des_descricao`, `des_preco`) VALUES
+(1, 'Facilite - Starter', 'Plano gratuito.', 0.00);
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `tb_usuarios`
 --
 
 CREATE TABLE `tb_usuarios` (
   `id_usuario` int(11) NOT NULL,
+  `id_plano` int(11) NOT NULL,
   `des_slug` varchar(100) NOT NULL,
   `des_email` varchar(64) NOT NULL,
   `des_senha` varchar(256) NOT NULL,
   `des_nome` varchar(256) NOT NULL,
+  `des_nome_exibicao` varchar(100) NOT NULL,
   `des_sexo` char(1) NOT NULL,
   `dt_nasc` date NOT NULL,
   `des_apresentacao` varchar(1024) NOT NULL,
   `des_cpf` varchar(15) NOT NULL,
   `des_foto` varchar(256) DEFAULT 'default.jpg',
+  `des_cep` varchar(9) DEFAULT NULL,
   `id_cidade` int(11) DEFAULT NULL,
   `des_telefone` varchar(20) DEFAULT NULL,
   `des_ocupacao` varchar(256) DEFAULT NULL,
@@ -5928,10 +6014,10 @@ CREATE TABLE `tb_usuarios` (
 -- Extraindo dados da tabela `tb_usuarios`
 --
 
-INSERT INTO `tb_usuarios` (`id_usuario`, `des_slug`, `des_email`, `des_senha`, `des_nome`, `des_sexo`, `dt_nasc`, `des_apresentacao`, `des_cpf`, `des_foto`, `id_cidade`, `des_telefone`, `des_ocupacao`, `des_status`, `dt_cadastro`) VALUES
-(1, 'valdecirjunior', 'valdecir.junior@outlook.com', '$2y$10$3RFKm4UbLG.3NSq14iLV5uh/nR90RJP4MP6gfIOdBP4tlMjK8gLfy', 'Valdecir Theodoro Da Silva Junior', 'M', '1998-09-18', 'Estagiário na Adetec Lins. Cursando 5° termo em Análise e Desenvolvimento de Sistemas na Faculdade de Tecnologia de Lins.', '464.051.038-11', 'a157cdb3230d7fdb150f9dd2541900f2.jpg', 4904, '(14) 98804-9524', 'Agente de inovação - Adetec', 'Ativo', '2018-05-13 22:33:22'),
-(2, 'leandro', 'leandro.pompelia@fatec.sp.gov.br', '$2y$10$y0932Y6Y6hrbpzU95c72E.J9p2O4znFDW8X4EkHbVVmEp/fZoXSxS', 'Leandro Pompélia', 'M', '1992-11-27', 'Desenvolvedor Abap na iteam Lins, EmpresÃ¡rio e Desenvolvedor PHP na Facilite Servicos, apaixonado por tecnologia e inovacao. Formado em Analise e Desenvolvimento de Sistemas pela Fatec Lins.', '0', '27332284_530952603943341_8716856063804757652_n.jpg', 4904, '14988258241', 'Desenvolvedor ABAP - Iteam Lins', 'Ativo', '2018-05-13 22:36:20'),
-(6, 'billgates', 'irineu@gmail.com', '$2y$10$m1vQ6xlfkyOzOBau1tyUEeSzL8WdFmHCENE/XZX7v8zSd1mQDt/Q6', 'Bill Gates', 'M', '1958-05-18', 'Presidente não-executivo da Microsoft, além de ser classificado regularmente como a pessoa mais rica do mundo, posição ocupada por ele de 1995 a 2007, 2009, e de 2014 a 2017. E um dos pioneiros na revolução do computador pessoal.', '2147483647', 'ad39f02ea84764bf7789dc267be2fa28.jpg', 5270, '1169852478', 'Fundador - Microsoft', 'Ativo', '2018-05-17 17:08:46');
+INSERT INTO `tb_usuarios` (`id_usuario`, `id_plano`, `des_slug`, `des_email`, `des_senha`, `des_nome`, `des_nome_exibicao`, `des_sexo`, `dt_nasc`, `des_apresentacao`, `des_cpf`, `des_foto`, `des_cep`, `id_cidade`, `des_telefone`, `des_ocupacao`, `des_status`, `dt_cadastro`) VALUES
+(1, 1, 'valdecirjunior', 'valdecir.junior@outlook.com', '$2y$10$3RFKm4UbLG.3NSq14iLV5uh/nR90RJP4MP6gfIOdBP4tlMjK8gLfy', 'Valdecir Theodoro Da Silva Junior', 'Valdecir Junior', 'M', '1998-09-18', 'Estudante de Análise e Desenvolvimento de Sistemas na Fatec Lins e entusiasta de novas tecnologias, com grande interesse no aprendizado e aprimoramento através dos estudos, e da aplicação dos conhecimentos adquiridos. Experiência full-stack no desenvolvimento de Portais Institucionais, Blogs, Websites e Sistemas de Gestão Exclusivos em PHP, MySQL, HTML, CSS e JS, utilizando frameworks como Vue.js, jQuery, Bootstrap, Semantic UI e Hugo.', '464.051.038-11', '0ab4a3cec97e8d6750eb971da4f6cdfb.jpg', '16402647', 5013, '(14) 98804-9524', 'Programador Júnior na Adetec', 'Ativo', '2018-05-13 22:33:22'),
+(2, 1, 'leandro', 'leandro.pompelia@fatec.sp.gov.br', '$2y$10$y0932Y6Y6hrbpzU95c72E.J9p2O4znFDW8X4EkHbVVmEp/fZoXSxS', 'Leandro Pompélia', 'Leandro Pompélia', 'M', '1992-11-27', 'Desenvolvedor Abap na iteam Lins, EmpresÃ¡rio e Desenvolvedor PHP na Facilite Servicos, apaixonado por tecnologia e inovacao. Formado em Analise e Desenvolvimento de Sistemas pela Fatec Lins.', '', '27332284_530952603943341_8716856063804757652_n.jpg', '16430000', 4904, '(14) 98825-8241', 'Desenvolvedor ABAP - Iteam Lins', 'Ativo', '2018-05-13 22:36:20'),
+(6, 0, 'rodrigoseila', 'gujugaciv@bit-degree.com', '$2y$10$BHGepSmZK4fzpyAuxT.QJuHK5YNJEKbCLSzQapL6XLToNDCZ1CJnu', 'Rodrigo Seila', 'Rodrigo', 'M', '1998-08-20', '', '', 'default.jpg', '16402647', 281, NULL, NULL, 'Ativo', '2018-08-20 18:46:39');
 
 --
 -- Indexes for dumped tables
@@ -5942,9 +6028,17 @@ INSERT INTO `tb_usuarios` (`id_usuario`, `des_slug`, `des_email`, `des_senha`, `
 --
 ALTER TABLE `tb_anuncios`
   ADD PRIMARY KEY (`id_anuncio`),
-  ADD KEY `id_usuario` (`id_usuario`),
-  ADD KEY `id_categoria` (`id_categoria`),
-  ADD KEY `id_modalidade` (`id_modalidade`);
+  ADD KEY `tb_anuncios_ibfk_1` (`id_usuario`),
+  ADD KEY `tb_anuncios_ibfk_2` (`id_categoria`),
+  ADD KEY `tb_anuncios_ibfk_3` (`id_modalidade`);
+
+--
+-- Indexes for table `tb_avaliacoes`
+--
+ALTER TABLE `tb_avaliacoes`
+  ADD PRIMARY KEY (`id_avaliacao`),
+  ADD KEY `tb_avaliacoes_ibfk_1` (`id_anuncio`),
+  ADD KEY `id_usuario` (`id_usuario`);
 
 --
 -- Indexes for table `tb_categorias`
@@ -5957,8 +6051,8 @@ ALTER TABLE `tb_categorias`
 --
 ALTER TABLE `tb_chats`
   ADD PRIMARY KEY (`id_chat`),
-  ADD KEY `id_anunciante` (`id_anunciante`),
-  ADD KEY `id_contratante` (`id_contratante`);
+  ADD KEY `tb_chats_ibfk_1` (`id_anunciante`),
+  ADD KEY `tb_chats_ibfk_2` (`id_contratante`);
 
 --
 -- Indexes for table `tb_cidades`
@@ -6006,16 +6100,16 @@ ALTER TABLE `tb_habilidades`
 --
 ALTER TABLE `tb_habilidades_usuarios`
   ADD PRIMARY KEY (`id_habilidade_usuario`),
-  ADD KEY `id_usuario_fk` (`id_usuario`),
-  ADD KEY `id_habilidade_fk` (`id_habilidade`);
+  ADD KEY `id_habilidade_fk` (`id_habilidade`),
+  ADD KEY `id_usuario_fk` (`id_usuario`);
 
 --
 -- Indexes for table `tb_ligacoes`
 --
 ALTER TABLE `tb_ligacoes`
   ADD PRIMARY KEY (`id_ligacao`),
-  ADD KEY `id_contato` (`id_contato`),
-  ADD KEY `tb_ligacoes_ibfk_1` (`id_usuario`);
+  ADD KEY `tb_ligacoes_ibfk_1` (`id_usuario`),
+  ADD KEY `tb_ligacoes_ibfk_2` (`id_contato`);
 
 --
 -- Indexes for table `tb_mensagens`
@@ -6037,13 +6131,20 @@ ALTER TABLE `tb_paises`
   ADD PRIMARY KEY (`id_pais`);
 
 --
+-- Indexes for table `tb_planos`
+--
+ALTER TABLE `tb_planos`
+  ADD PRIMARY KEY (`id_plano`);
+
+--
 -- Indexes for table `tb_usuarios`
 --
 ALTER TABLE `tb_usuarios`
   ADD PRIMARY KEY (`id_usuario`),
   ADD UNIQUE KEY `des_slug` (`des_slug`),
   ADD UNIQUE KEY `des_email` (`des_email`),
-  ADD KEY `id_cidade` (`id_cidade`);
+  ADD KEY `id_cidade` (`id_cidade`),
+  ADD KEY `id_plano` (`id_plano`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -6053,72 +6154,104 @@ ALTER TABLE `tb_usuarios`
 -- AUTO_INCREMENT for table `tb_anuncios`
 --
 ALTER TABLE `tb_anuncios`
-  MODIFY `id_anuncio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id_anuncio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT for table `tb_avaliacoes`
+--
+ALTER TABLE `tb_avaliacoes`
+  MODIFY `id_avaliacao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- AUTO_INCREMENT for table `tb_categorias`
 --
 ALTER TABLE `tb_categorias`
   MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `tb_chats`
 --
 ALTER TABLE `tb_chats`
-  MODIFY `id_chat` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_chat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 --
 -- AUTO_INCREMENT for table `tb_cidades`
 --
 ALTER TABLE `tb_cidades`
   MODIFY `id_cidade` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5565;
+
+--
+-- AUTO_INCREMENT for table `tb_confirmacao_email`
+--
+ALTER TABLE `tb_confirmacao_email`
+  MODIFY `id_confirmacao` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `tb_estados`
 --
 ALTER TABLE `tb_estados`
   MODIFY `id_estado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
 --
 -- AUTO_INCREMENT for table `tb_experiencias`
 --
 ALTER TABLE `tb_experiencias`
-  MODIFY `id_experiencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_experiencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `tb_formacoes`
 --
 ALTER TABLE `tb_formacoes`
-  MODIFY `id_formacao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_formacao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `tb_habilidades`
 --
 ALTER TABLE `tb_habilidades`
   MODIFY `id_habilidade` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `tb_habilidades_usuarios`
 --
 ALTER TABLE `tb_habilidades_usuarios`
-  MODIFY `id_habilidade_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id_habilidade_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+
 --
 -- AUTO_INCREMENT for table `tb_ligacoes`
 --
 ALTER TABLE `tb_ligacoes`
-  MODIFY `id_ligacao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
+  MODIFY `id_ligacao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+
 --
 -- AUTO_INCREMENT for table `tb_mensagens`
 --
 ALTER TABLE `tb_mensagens`
-  MODIFY `id_mensagem` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_mensagem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+
 --
 -- AUTO_INCREMENT for table `tb_modalidades`
 --
 ALTER TABLE `tb_modalidades`
   MODIFY `id_modalidade` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `tb_paises`
 --
 ALTER TABLE `tb_paises`
   MODIFY `id_pais` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `tb_planos`
+--
+ALTER TABLE `tb_planos`
+  MODIFY `id_plano` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `tb_usuarios`
 --
 ALTER TABLE `tb_usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- Constraints for dumped tables
 --
@@ -6127,16 +6260,23 @@ ALTER TABLE `tb_usuarios`
 -- Limitadores para a tabela `tb_anuncios`
 --
 ALTER TABLE `tb_anuncios`
-  ADD CONSTRAINT `tb_anuncios_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `tb_usuarios` (`id_usuario`),
-  ADD CONSTRAINT `tb_anuncios_ibfk_2` FOREIGN KEY (`id_categoria`) REFERENCES `tb_categorias` (`id_categoria`),
-  ADD CONSTRAINT `tb_anuncios_ibfk_3` FOREIGN KEY (`id_modalidade`) REFERENCES `tb_modalidades` (`id_modalidade`);
+  ADD CONSTRAINT `tb_anuncios_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `tb_usuarios` (`id_usuario`) ON DELETE CASCADE,
+  ADD CONSTRAINT `tb_anuncios_ibfk_2` FOREIGN KEY (`id_categoria`) REFERENCES `tb_categorias` (`id_categoria`) ON DELETE CASCADE,
+  ADD CONSTRAINT `tb_anuncios_ibfk_3` FOREIGN KEY (`id_modalidade`) REFERENCES `tb_modalidades` (`id_modalidade`) ON DELETE CASCADE;
+
+--
+-- Limitadores para a tabela `tb_avaliacoes`
+--
+ALTER TABLE `tb_avaliacoes`
+  ADD CONSTRAINT `tb_avaliacoes_ibfk_1` FOREIGN KEY (`id_anuncio`) REFERENCES `tb_anuncios` (`id_anuncio`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tb_avaliacoes_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `tb_usuarios` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `tb_chats`
 --
 ALTER TABLE `tb_chats`
-  ADD CONSTRAINT `tb_chats_ibfk_1` FOREIGN KEY (`id_anunciante`) REFERENCES `tb_usuarios` (`id_usuario`),
-  ADD CONSTRAINT `tb_chats_ibfk_2` FOREIGN KEY (`id_contratante`) REFERENCES `tb_usuarios` (`id_usuario`);
+  ADD CONSTRAINT `tb_chats_ibfk_1` FOREIGN KEY (`id_anunciante`) REFERENCES `tb_usuarios` (`id_usuario`) ON DELETE CASCADE,
+  ADD CONSTRAINT `tb_chats_ibfk_2` FOREIGN KEY (`id_contratante`) REFERENCES `tb_usuarios` (`id_usuario`) ON DELETE CASCADE;
 
 --
 -- Limitadores para a tabela `tb_cidades`
@@ -6148,7 +6288,7 @@ ALTER TABLE `tb_cidades`
 -- Limitadores para a tabela `tb_confirmacao_email`
 --
 ALTER TABLE `tb_confirmacao_email`
-  ADD CONSTRAINT `fk_id_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `tb_usuarios` (`id_usuario`);
+  ADD CONSTRAINT `fk_id_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `tb_usuarios` (`id_usuario`) ON DELETE CASCADE;
 
 --
 -- Limitadores para a tabela `tb_estados`
@@ -6160,33 +6300,33 @@ ALTER TABLE `tb_estados`
 -- Limitadores para a tabela `tb_experiencias`
 --
 ALTER TABLE `tb_experiencias`
-  ADD CONSTRAINT `tb_experiencias_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `tb_usuarios` (`id_usuario`);
+  ADD CONSTRAINT `tb_experiencias_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `tb_usuarios` (`id_usuario`) ON DELETE CASCADE;
 
 --
 -- Limitadores para a tabela `tb_formacoes`
 --
 ALTER TABLE `tb_formacoes`
-  ADD CONSTRAINT `tb_formacoes_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `tb_usuarios` (`id_usuario`);
+  ADD CONSTRAINT `tb_formacoes_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `tb_usuarios` (`id_usuario`) ON DELETE CASCADE;
 
 --
 -- Limitadores para a tabela `tb_habilidades_usuarios`
 --
 ALTER TABLE `tb_habilidades_usuarios`
-  ADD CONSTRAINT `id_habilidade_fk` FOREIGN KEY (`id_habilidade`) REFERENCES `tb_habilidades` (`id_habilidade`),
-  ADD CONSTRAINT `id_usuario_fk` FOREIGN KEY (`id_usuario`) REFERENCES `tb_usuarios` (`id_usuario`);
+  ADD CONSTRAINT `id_habilidade_fk` FOREIGN KEY (`id_habilidade`) REFERENCES `tb_habilidades` (`id_habilidade`) ON DELETE CASCADE,
+  ADD CONSTRAINT `id_usuario_fk` FOREIGN KEY (`id_usuario`) REFERENCES `tb_usuarios` (`id_usuario`) ON DELETE CASCADE;
 
 --
 -- Limitadores para a tabela `tb_ligacoes`
 --
 ALTER TABLE `tb_ligacoes`
-  ADD CONSTRAINT `tb_ligacoes_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `tb_usuarios` (`id_usuario`),
-  ADD CONSTRAINT `tb_ligacoes_ibfk_2` FOREIGN KEY (`id_contato`) REFERENCES `tb_usuarios` (`id_usuario`);
+  ADD CONSTRAINT `tb_ligacoes_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `tb_usuarios` (`id_usuario`) ON DELETE CASCADE,
+  ADD CONSTRAINT `tb_ligacoes_ibfk_2` FOREIGN KEY (`id_contato`) REFERENCES `tb_usuarios` (`id_usuario`) ON DELETE CASCADE;
 
 --
 -- Limitadores para a tabela `tb_mensagens`
 --
 ALTER TABLE `tb_mensagens`
-  ADD CONSTRAINT `tb_mensagens_ibfk_1` FOREIGN KEY (`id_chat`) REFERENCES `tb_chats` (`id_chat`);
+  ADD CONSTRAINT `tb_mensagens_ibfk_1` FOREIGN KEY (`id_chat`) REFERENCES `tb_chats` (`id_chat`) ON DELETE CASCADE;
 
 --
 -- Limitadores para a tabela `tb_usuarios`

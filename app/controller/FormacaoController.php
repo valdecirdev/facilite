@@ -1,26 +1,12 @@
 <?php
 
-    namespace controller;
+    namespace Controller;
 
-    use model\Formacao;
+    use Models\Formacao;
+    use Core\Controller;
 
-    class FormacaoController
+    class FormacaoController extends Controller
     {
-
-        public function loadByID(int $id): Formacao
-        {
-            $formacoes = Formacao::where('id_formacao', '=', $id)->get();
-            $formacao = $this->setData($formacoes);
-            return $formacao[0];
-        }
-
-        public function loadByUser(int $id): array
-        {
-            $formacoes = Formacao::where('id_usuario', '=', $id)->orderBy('id_formacao','desc')->get();
-            $formacao = $this->setData($formacoes);
-            return $formacao;
-        }
-
         public function insert(int $id_usuario,string $titulo,string $descr):int
         {
             $titulo = filter_var($titulo, FILTER_SANITIZE_STRING);
@@ -49,17 +35,5 @@
             Formacao::where('id_formacao', '=', $id)->delete();
         }
 
-        public function setData($infos): array
-        {
-            $formacao = array();
-            foreach ($infos as $key => $data) {
-                $formacao[$key] = new Formacao();
-                $formacao[$key]->setAttribute('id_formacao', $data['id_formacao']);
-                $formacao[$key]->setAttribute('id_usuario', $data['id_usuario']);
-                $formacao[$key]->setAttribute('des_titulo', $data['des_titulo']);
-                $formacao[$key]->setAttribute('des_descricao', $data['des_descricao']);
-            }
-            return $formacao;
-        }
         
     }

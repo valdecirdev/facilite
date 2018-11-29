@@ -1,4 +1,4 @@
-<?php include_once('_partials/header.php'); ?>
+<?php include_once('template/header.php'); ?>
 <style>
     body{
         background-color: #505050;

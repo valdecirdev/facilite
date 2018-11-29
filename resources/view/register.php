@@ -1,4 +1,4 @@
-<?php include('_partials'.DIRECTORY_SEPARATOR.'header.php'); ?>
+<?php include('template'.DIRECTORY_SEPARATOR.'header.php'); ?>
     <script>
         var logado = <?php if(isset($_SESSION['id'])){echo !is_null($_SESSION['id']);}else{echo 0;} ?>;
         if(logado){
@@ -53,7 +53,7 @@
 
 
 <?php
-    include('_partials'.DIRECTORY_SEPARATOR.'footer.php');
+    include('template'.DIRECTORY_SEPARATOR.'footer.php');
 ?>
 <script src="js/register.js"></script>
 </body>

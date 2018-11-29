@@ -19,9 +19,8 @@ var app = new Vue({
                 swal ( "Oops!" ,  "Digite o nome completo" ,  "error" );
             } else {
                 $('#registeruser').attr('disabled', 'disabled');
-                $.post('_utils/ajax_perfil.php',
+                $.post('post/register',
                 {
-                    acao        : 'register',
                     des_nome    : this.nome,
                     des_email   : this.email,
                     des_senha   : this.senha,

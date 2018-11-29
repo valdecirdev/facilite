@@ -1,12 +1,12 @@
 <?php
-    use controller\{UsuarioController, HabilidadeController, CategoriaController, ModalidadeController};
+    use Controller\{HabilidadeController, CategoriaController, ModalidadeController};
     use Carbon\Carbon;
 
-    include('_partials'.DS.'header.php');
+    include('template'.DS.'header.php');
 
 ?>
     <div id="content">
-        <input value="<?=$loggedUser->id_usuario ?? '';?>" id="id_usuario_logado" class="d-none">
+        <input value="<?=$logged_user->id_usuario ?? '';?>" id="id_usuario_logado" class="d-none">
         <section class="container-fluid" style="" id="profile-page">
 
             <div class="row">
@@ -16,7 +16,7 @@
                         <div class="col-md-12 profile-card text-center text-md-left">
                             <div class="img-profile" style="background: url('img/cover/cover.jpg');background-size: cover;">
                                 <img src="img/profile/<?=$usuario->des_foto; ?>" alt="" id="usrFotoView" >
-                                <?php if($donoPerfil){ ?>
+                                <?php if($dono_perfil){ ?>
                                     <form method="post" id="form-usrFoto" enctype="multipart/form-data" style="position:absolute">
                                         <input type="file" id="usrFoto" name="usrFoto" accept="image/jpeg" style="max-width:100%;display:none">
                                     </form>
@@ -34,8 +34,8 @@
                                 <div class="text-center">
                                     <p style="margin-top:-5px;font-size:14px;"><span id="sideOcupacao"><?=$usuario->des_ocupacao; ?></span></p>
                                     <?php if(isset($_SESSION['id'])){
-                                        if(!$donoPerfil){
-                                            $contato = $loggedUser->ligacoes->where('id_contato', $usuario->id_usuario)->count(); ?>
+                                        if(!$dono_perfil){
+                                            $contato = $logged_user->ligacoes->where('id_contato', $usuario->id_usuario)->count(); ?>
                                             <div style="margin-bottom:10px;">
                                                 <button class="d-print-none btn btn-fc-<?php if(!$contato){echo 'primary';}else{echo 'danger';} ?>" id="criar-conexao" style="border-radius:5px;font-weight:400;height:34px;font-size:13px"<?php if(!isset($_SESSION['id'])||($_SESSION['id'] == $usuario->id_usuario)){ echo 'disabled'; } ?>><i class="fas fa-user" style="margin-right:5px"></i> <span id="msg-btnContato"><?php if(!$contato){echo ' Adicionar';}else{echo ' Remover';} ?></span> </button>
                                                 <a href="messages?to=<?=$usuario->id_usuario;?>" class="btn btn-fc-primary d-print-none" style="border-radius:5px;font-weight:400;height:33px;font-size:13px;color:#fff"><i class="fas fa-comment" style="margin-right:2px"></i> Mensagem</a>
@@ -100,24 +100,24 @@
                                         <li class="nav-item ">
                                             <a aria-label="Visao geral" class="nav-link active" data-toggle="tab" href="#geral">Visão Geral</a>
                                         </li>
-                                        <?php if(count($usuario->anuncios)>0 || ($donoPerfil && $loggedUser->des_status == 'Ativo')){ ?>
+                                        <?php if(count($usuario->anuncios)>0 || ($dono_perfil && $logged_user->des_status == 'Ativo')){ ?>
                                             <li class="nav-item d-print-none">
                                                 <a aria-label="Serviços" class="nav-link" data-toggle="tab" href="#servicos">Serviços</a>
                                             </li>
                                         <?php } 
-                                        if($donoPerfil && $loggedUser->des_status == 'Ativo'){ ?>
+                                        if($dono_perfil && $logged_user->des_status == 'Ativo'){ ?>
                                             <a href="configuracoes" class="pull-right d-print-none" style="margin-top:7px;margin-left:20px">Configurações</a>
                                         <?php } ?>
                                     </ul>
 
                                     <div class="tab-content" style="padding-top:20px;">
                                         <div id="geral" class="tab-pane fade active show">
-                                            <?php if ((!$donoPerfil)||($donoPerfil && $loggedUser->des_status == 'Ativo')) { ?>
+                                            <?php if ((!$dono_perfil)||($dono_perfil && $logged_user->des_status == 'Ativo')) { ?>
 
                                                 <div class="clearfix">
                                                     <div class="col-12">
                                                         <h2 class="pull-left" style="width:auto;margin-top: 15px;margin-bottom:0;font-weight:400;font-size:18px;"><i class="far fa-address-card" style="margin-left:-5px;font-size:20px;margin-right:10px"></i> Sobre</h2>
-                                                        <?php if($donoPerfil){ ?>
+                                                        <?php if($dono_perfil){ ?>
                                                             <div class="clearfix">
                                                                 <button type="button" aria-label="Editar apresentação" class="btn btn-fc-primary btn-radius pull-right btn-sm d-print-none" style="margin-top:13px;margin-bottom:-15px;" data-toggle="modal" data-target="#editApresentacaoModal"><i class="fa fa-edit" style="margin-right:5px;"></i>Editar</button>
                                                             </div>
@@ -146,11 +146,11 @@
 
 
 
-                                                <?php if(($donoPerfil)||(count($usuario->experiencias)>0)){ ?>
+                                                <?php if(($dono_perfil)||(count($usuario->experiencias)>0)){ ?>
                                                 <div class="clearfix" style="margin-bottom:20px;">
                                                     <div class="col-12">
                                                         <p class="pull-left" style="width:auto;margin-top: 25px;margin-bottom:10px;font-weight:400;font-size:18px;"><i class="fa fa-suitcase" style="margin-left:-5px;font-size:20px;margin-right:10px"></i> Experiência</p>
-                                                        <?php if($donoPerfil){ ?>
+                                                        <?php if($dono_perfil){ ?>
                                                             <div class="clearfix">
                                                                 <button type="button" class="btn btn-fc-primary btn-radius pull-right btn-sm d-print-none" style="margin-top:28px;margin-bottom:-15px;" data-toggle="modal" data-target="#addExperienciaModal"><i class="fa fa-plus-circle" style="margin-right:5px;"></i>Adicionar</button>
                                                             </div>
@@ -189,11 +189,11 @@
                                                 </div>
                                                 <?php } ?>
 
-                                                <?php if(($donoPerfil)||(count($usuario->formacoes)>0)){ ?>
+                                                <?php if(($dono_perfil)||(count($usuario->formacoes)>0)){ ?>
                                                 <div class="clearfix">
                                                     <div class="col-12">
                                                         <p class="pull-left" style="width:auto;margin-top: 30px;margin-bottom:0px;font-weight:400;font-size:18px;"><i class="fa fa-trophy" style="margin-left:-5px;font-size:20px;margin-right:10px"></i> Formação</p>
-                                                        <?php if($donoPerfil){ ?>
+                                                        <?php if($dono_perfil){ ?>
                                                             <div class="clearfix">
                                                                 <button type="button" aria-label="Adicionar nova formação" class="btn btn-fc-primary btn-radius pull-right btn-sm d-print-none" style="margin-top:28px;margin-bottom:-15px;" data-toggle="modal" data-target="#addFormacaoModal"><i class="fa fa-plus-circle" style="margin-right:5px;"></i>Adicionar</button>
                                                             </div>
@@ -226,11 +226,11 @@
                                                 <?php } ?>
 
 
-                                                <?php if(($donoPerfil)||(count($usuario->habilidades)>0)){ ?>
+                                                <?php if(($dono_perfil)||(count($usuario->habilidades)>0)){ ?>
                                                 <div class="clearfix">
                                                     <div class="col-12">
                                                         <p class="pull-left" style="width:auto;margin-left:17px;margin-top: 30px;margin-bottom:0px;font-weight:400;font-size:18px;"><i class="fa fa-lightbulb" style="margin-left:-20px;font-size:20px;margin-right:10px"></i> Habilidades</p>
-                                                        <?php if($donoPerfil){ ?>
+                                                        <?php if($dono_perfil){ ?>
                                                             <div class="clearfix">
                                                                 <button type="button" aria-label="Adicionar nova Habilidade" class="btn btn-fc-primary btn-radius pull-right btn-sm d-print-none" style="margin-top:25px;margin-bottom:-15px;padding-left:10px;padding-right:10px" data-toggle="modal" data-target="#addHabilidadeModal"><i class="fa fa-plus-circle" style="margin-right:5px;"></i>Adicionar</button>
                                                             </div>
@@ -240,7 +240,7 @@
                                                 <div style="margin-top:0px">
                                                     <div id="habilidades-itens" class="row" style="margin-left:10px;margin-top:20px;margin-bottom:30px;">
                                                         <?php foreach ($usuario->habilidades as $key => $value) { ?>
-                                                            <span id="<?=$usuario->habilidades[$key]->id_habilidade;?>" class="skills-label"><?=$usuario->habilidades[$key]->habilidade->des_descricao;?><?php if($donoPerfil){ ?><i class="fa fa-times-circle btn-delHabilidade d-print-none" style="margin-left:10px;cursor:pointer" aria-label="Deletar habilidade"></i><?php } ?></span>
+                                                            <span id="<?=$usuario->habilidades[$key]->id_habilidade;?>" class="skills-label"><?=$usuario->habilidades[$key]->habilidade->des_descricao;?><?php if($dono_perfil){ ?><i class="fa fa-times-circle btn-delHabilidade d-print-none" style="margin-left:10px;cursor:pointer" aria-label="Deletar habilidade"></i><?php } ?></span>
                                                         <?php } ?>
                                                     </div>
                                                 </div>
@@ -256,7 +256,7 @@
                                         <div id="servicos" class="tab-pane fade">
                                             <div class="clearfix">
                                                 <p class="pull-left" style="width:auto;margin-left:12px;margin-top: 15px;margin-bottom:0px;font-weight:400;font-size:18px;"><i class="fa fa-globe" style="margin-left:-5px;font-size:20px;margin-right:10px"></i> Serviços</p>
-                                                <?php if($donoPerfil){ ?>
+                                                <?php if($dono_perfil){ ?>
                                                     <div class="pull-right">
                                                         <div class="clearfix">
                                                             <button type="button" aria-label="Adicionar novo serviço" class="btn btn-fc-primary btn-radius pull-right btn-sm d-print-none" style="margin-bottom:-15px;margin-right:15px;margin-top:10px" data-toggle="modal" data-target="#addServicoModal"><i class="fa fa-plus-circle" style="margin-right:5px;"></i>Adicionar</button>
@@ -272,7 +272,7 @@
                                                         <input type="text" class="d-none id_servico" value="<?=$usuario->anuncios[$key]->id_anuncio;?>">
                                                         <div class="row clearfix">
                                                             <p class="des_categoria_servico col-11" id="<?=$usuario->anuncios[$key]->id_categoria;?>" style="width:auto; margin-left:-5px;font-weight:400; padding-right:25px;font-size:17px;margin-bottom:0px"><a href="servico/<?=$usuario->anuncios[$key]->id_anuncio;?>"><?=$usuario->anuncios[$key]->categoria['des_descricao'];?></a></p>
-                                                            <?php if($donoPerfil){ ?>
+                                                            <?php if($dono_perfil){ ?>
                                                             <div class="btn-group col-1">
                                                                 <button type="button" class="btn btn-link dropdown-toggle" style="color:#5b5656" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                                                                 <div class="dropdown-menu dropdown-menu-right">
@@ -354,7 +354,7 @@
 
 
 
-<?php if($donoPerfil){ ?>
+<?php if($dono_perfil){ ?>
 
     <!-- Modal Editar Apresentacao -->
     <div class="modal fade" id="editApresentacaoModal" tabindex="-1" role="dialog" aria-label="editApresentacaoModalLabel" aria-hidden="true">
@@ -559,7 +559,7 @@
     </div>
 <?php } ?>
 
-<?php include('_partials'.DS.'footer.php'); ?>
+<?php include('template'.DS.'footer.php'); ?>
 <script src="js/profile.js"></script>
 <script>
     $('.open-Login').click(function(e){

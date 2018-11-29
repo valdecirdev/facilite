@@ -1,27 +1,13 @@
 <?php
 
-    namespace controller;
+    namespace Controller;
 
-    use model\Experiencia;
+    use Models\Experiencia;
+    use Core\Controller;
 
-    class ExperienciaController
+    class ExperienciaController extends Controller
     {
 
-        public function loadByID(int $id)
-        {
-            $experiencias = Experiencia::where('id_categoria', '=', $id)->get();
-            $experiencia = $this->setData($experiencias);
-            return $experiencia[0];
-        }
-
-        public function loadByUser(int $id)
-        {
-            $experiencias = Experiencia::where('id_usuario', '=', $id)->orderBy('id_experiencia','desc')->orderBy('des_de', 'asc')->get();
-            $experiencia = $this->setData($experiencias);
-            return $experiencia;
-        }
-
-        // public function insert(int $id_usuario,string $titulo,string $descr,string $desde,string $ate):int
         public function insert(int $id_usuario,string $titulo,string $descr):int
         {
             $titulo = filter_var($titulo, FILTER_SANITIZE_STRING);
@@ -52,21 +38,6 @@
         public function delete(int $id): void
         {
             Experiencia::where('id_experiencia', '=', $id)->delete();
-        }
-
-        public function setData($infos): array
-        {
-            $experiencia = array();
-            foreach ($infos as $key => $data) {
-                $experiencia[$key] = new Experiencia();
-                $experiencia[$key]->setAttribute('id_experiencia', $data['id_experiencia']);
-                $experiencia[$key]->setAttribute('id_usuario', $data['id_usuario']);
-                $experiencia[$key]->setAttribute('des_titulo', $data['des_titulo']);
-                $experiencia[$key]->setAttribute('des_descricao', $data['des_descricao']);
-                $experiencia[$key]->setAttribute('des_de', $data['des_de']);
-                $experiencia[$key]->setAttribute('des_ate', $data['des_ate']);
-            }
-            return $experiencia;
         }
         
     }

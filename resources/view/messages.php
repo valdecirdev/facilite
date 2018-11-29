@@ -1,6 +1,6 @@
 <?php
 
-use controller\{UsuarioController, ChatController, MensagemController};
+use Controller\{UsuarioController, ChatController, MensagemController};
 
 ?>
 
@@ -28,7 +28,7 @@ use controller\{UsuarioController, ChatController, MensagemController};
     <body>
     <?php
         // session_start(); 
-        include('_partials'.DS.'menu.php');
+        include('template'.DS.'menu.php');
         $chatExist = true;
 
         // if(!isset($_SESSION['id']) || $_SESSION['id'] == NULL){
@@ -138,7 +138,7 @@ use controller\{UsuarioController, ChatController, MensagemController};
     </div></div>
 
     
-<?php include('_partials'.DS.'footer.php'); ?>
+<?php include('template'.DS.'footer.php'); ?>
 <script src="js/messages.js"></script>
 </html>
     </body>

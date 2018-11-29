@@ -1,6 +1,6 @@
 <?php
 
-    use controller\{BuscaController, UsuarioController, ModalidadeController, CategoriaController};
+    use Controller\{BuscaController, UsuarioController, ModalidadeController, CategoriaController};
     
     $search = new BuscaController();
     $usuarios = new UsuarioController();
@@ -13,7 +13,7 @@
     }else{
         $pg_title = $_GET['q'].' - ';
     }
-    include('_partials'.DIRECTORY_SEPARATOR.'header.php');
+    include('template'.DIRECTORY_SEPARATOR.'header.php');
     
     
 ?>
@@ -265,4 +265,4 @@
     </div>
 
 
-<?php include('_partials'.DS.'footer.php'); ?>
+<?php include('template'.DS.'footer.php'); ?>

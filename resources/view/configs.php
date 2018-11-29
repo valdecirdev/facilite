@@ -1,11 +1,7 @@
 <?php
-
-    use controller\UsuarioController;
-
-    include('_partials'.DS.'header.php');
-
+    include('template'.DS.'header.php');
 ?>
-<script>usuario = <?php echo $loggedUser; ?>;</script>
+<script>usuario = <?php echo $logged_user; ?>;</script>
 
     <style>
         input{
@@ -14,7 +10,7 @@
         }
     </style>
     <div id="content">
-        <input type="text" value="<?php if(isset($loggedUser)){ echo $loggedUser->id_usuario;} ?>" id="id_usuario_logado" class="d-none">
+        <input type="text" value="<?php if(isset($logged_user)){ echo $logged_user->id_usuario;} ?>" id="id_usuario_logado" class="d-none">
         <section class="container-fluid" style="" id="profile-page">
 
             <div class="row">
@@ -69,7 +65,7 @@
                                                   <div class="form-row">
                                                       <div class="form-group col-md-12 row" style="padding-left:20px">
                                                           <label for="nomeUsr" class="col-12" style="margin-left:-15px">Plano</label>
-                                                          <input type="text" class="form-control col-md-9" id="planoUsr" disabled="disabled" value="<?php echo $loggedUser->plano->des_titulo.' ( R$ ' .number_format( $loggedUser->plano->des_preco, 2, ",", "."). ' )'; ?>">
+                                                          <input type="text" class="form-control col-md-9" id="planoUsr" disabled="disabled" value="<?php echo $logged_user->plano->des_titulo.' ( R$ ' .number_format( $logged_user->plano->des_preco, 2, ",", "."). ' )'; ?>">
                                                           <button type="button" class="btn btn-primary col-md-2" style="border-radius:0px" disabled>Alterar</button>
                                                       </div>
                                                   </div>
@@ -182,7 +178,7 @@
                                                                     <button type="button" class="btn btn-primary col-md-2" v-on:click="salvarCEP()" style="border-radius:0px">Salvar</button>
                                                                 </div>
                                                                 <div class="form-group col-md-12 row" style="padding-left:20px">
-                                                                    <input type="text" class="form-control col-md-9" id="cidadeUsr" disabled placeholder="Cidade:" value="<?=$loggedUser->cidade->des_nome ?? '';?>">
+                                                                    <input type="text" class="form-control col-md-9" id="cidadeUsr" disabled placeholder="Cidade:" value="<?=$logged_user->cidade->des_nome ?? '';?>">
                                                                 </div>
                                                             </div>
 
@@ -243,7 +239,7 @@
 
 
 
-<?php include('_partials'.DS.'footer.php'); ?>
+<?php include('template'.DS.'footer.php'); ?>
 <script src="js/configs.js"></script>
 <!--<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>-->
 <!--<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">-->

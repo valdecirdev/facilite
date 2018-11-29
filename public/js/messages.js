@@ -2,9 +2,8 @@ $(document).ready(function(){
 
     $('#msg_hire_btn').click(function(e){
         let id_chat = $('#id_chat');
-        $.post('_utils/ajax_messages.php',
+        $.post('post/hire_service',
         {
-            acao             : 'hire_service',
             id_chat          : id_chat.val(),
         },
         function(data){
@@ -22,9 +21,8 @@ $(document).ready(function(){
         let id_remetente = $('#id_remetente');
         let id_destinatario = $('#id_destinatario');
         let foto_destinatario = $('#foto_destinatario');
-        $.post('_utils/ajax_messages.php',
+        $.post('post/load_new_messages',
                     {
-                        acao             : 'load_new_messages',
                         remetente        : id_remetente.val(),
                         destinatario     : id_destinatario.val(),
                         id_chat          : id_chat.val(),
@@ -57,9 +55,8 @@ var app = new Vue({
             if(!this.message){
 
             }else  {
-                $.post('_utils/ajax_messages.php',
+                $.post('post/new_message',
                     {
-                        acao             : 'new_message',
                         mensagem         : this.message,
                         remetente        : id_remetente.val(),
                         id_chat          : id_chat.val(),

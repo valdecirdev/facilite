@@ -1,10 +1,11 @@
 <?php
 
-namespace controller;
+namespace Controller;
 
-use model\Confirmacao;
+use Models\Confirmacao;
+use Core\Controller;
 
-class ConfirmacaoController
+class ConfirmacaoController extends Controller
 {
 
     public function insert(Confirmacao $confirmacao): void

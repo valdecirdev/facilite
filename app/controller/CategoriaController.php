@@ -1,10 +1,11 @@
 <?php
 
-    namespace controller;
+    namespace Controller;
 
-    use model\Categoria;
+    use Models\Categoria;
+    use Core\Controller;
 
-    class CategoriaController
+    class CategoriaController extends Controller
     {
 
         public function loadByID(int $id): Categoria
