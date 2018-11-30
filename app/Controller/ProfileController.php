@@ -13,7 +13,7 @@
             $dono_perfil = FALSE;
             $usuario = Usuario::where('des_slug', $slug)->get()[0] ?? header('location:erro');
             session_start();
-            if ((isset($_SESSION['logged'])) && ($_SESSION['id'] == $usuario->id_usuario)){
+            if ((isset($_SESSION['logged'])) && ($_SESSION['id'] == $usuario->getAttribute('id_usuario'))){
                 $logged_user =$usuario;
                 $dono_perfil = TRUE;
             } else if(isset($_SESSION['id'])) {
@@ -22,8 +22,8 @@
                 $logged_user = NULL;
             }
 
-            $pg_title = $usuario->des_nome_exibicao.' - ';
-            $description = $usuario->des_apresentacao;
+            $pg_title = $usuario->getAttribute('des_nome_exibicao').' - ';
+            $description = $usuario->getAttribute('des_apresentacao');
                 
             require BASEPATH."resources/view/profile.php";
         }

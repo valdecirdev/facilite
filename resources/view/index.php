@@ -121,7 +121,7 @@
                                 <div class="col-10 footer-card">
                                     <a href="<?=$anuncio->usuario->des_slug; ?>" class="username"><h6 style="font-weight:400"><?=$anuncio->usuario->des_nome_exibicao; ?></h6></a>
                                     <span class="float-left stars" style="margin-top: -5px;">
-                                        <a style="font-size: 15px"><i class="fa fa-star"></i> 4,2</a>
+                                        <a style="font-size: 15px"><i class="fa fa-star"></i> <?=$anuncio->usuario->des_nota?></a>
                                     </span>
                                     <span class="float-right">
                                         <a href="<?php if(isset($logged_user)){ echo '/#'; } else { echo '/cadastre-se';}?>" style="margin-right:-10px !important"> <i class="fa fa-user-plus grey-text ml-3" style="color: #e6366b"></i></a>

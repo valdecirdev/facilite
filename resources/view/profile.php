@@ -78,11 +78,19 @@
                                 <hr class="d-print-none" style="margin-left:-10px;margin-right:-10px;">
                                 <div class="row text-center" style="padding:0px 25px 20px 25px">
                                     <div class="col-4">
-                                        <span style="font-size: 22px;font-weight:500;color:#3d4347">25</span>
-                                        <p style="margin-top:-5px;margin-bottom:0;color:#777;font-weight:200">Concluídos</p>
+                                        <span style="font-size: 22px;font-weight:500;color:#3d4347">
+                                        <?php
+                                            $count = 0;
+                                            foreach ($usuario->anuncios()->get() as $key => $anuncio) {
+                                                $count += count($anuncio->avaliacoes()->get());
+                                            }
+                                            echo $count;
+                                        ?></span>
+                                        
+                                        <p style="margin-top:-5px;margin-bottom:0;color:#777;font-weight:200">Avaliações</p>
                                     </div>
                                     <div class="col-4">
-                                        <span style="font-size:22px;font-weight:500;color:#3d4347">4,2</span>
+                                        <span style="font-size:22px;font-weight:500;color:#3d4347"><?=$usuario->des_nota?></span>
                                         <p style="margin-top:-5px;margin-bottom:0;color:#777;font-weight:200">Nota</p>
                                     </div>
                                     <div class="col-4">
@@ -325,7 +333,7 @@
                                                         <a href="<?=$ligacao->contato->des_slug;?>"><img src="img/profile/<?=$ligacao->contato->des_foto;?>" alt="" class="rounded-circle" height="50"></a>
                                                     </div>
                                                     <div class="col-10" style="padding-left:30px;">
-                                                        <a href="<?=$ligacao->contato->des_slug;?>" class="nome-contato"><h6 style="font-weight:400;margin-bottom:3px;margin-top:3px"><?=$ligacao->contato->des_nome_exibicao;?> -<i class="fa fa-star" style="margin-left:5px;font-size: 15px;color:rgb(255, 208, 0)"></i> 4,2</h6></a>
+                                                        <a href="<?=$ligacao->contato->des_slug;?>" class="nome-contato"><h6 style="font-weight:400;margin-bottom:3px;margin-top:3px"><?=$ligacao->contato->des_nome_exibicao;?> -<i class="fa fa-star" style="margin-left:5px;font-size: 15px;color:rgb(255, 208, 0)"></i> <?=$ligacao->contato->des_nota;?></h6></a>
                                                         <span class="pull-left stars">
                                                             <a aria-label="<?=substr($ligacao->contato->des_ocupacao, 0, 100);?>" style="font-size:14px;color:#8b8b8b"><?=substr($ligacao->contato->des_ocupacao,0,100);?></a>
                                                         </span>

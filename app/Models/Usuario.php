@@ -27,6 +27,7 @@
             'des_telefone',
             'des_ocupacao',
             'des_status',
+            'des_nota',
             'dt_cadastro'
         ];
 

@@ -25,7 +25,7 @@
                                     </p>
                                 </div>
                             </div>
-                            <?php if(count($logged_user->avaliacoes()->where('id_anuncio', $servico->id_anuncio)->get()) == 0): ?>
+                            <?php if(!isset($logged_user) || count($logged_user->avaliacoes()->where('id_anuncio', $servico->id_anuncio)->get()) == 0): ?>
                                 <div class="row">
                                     <div class="col-12" style="padding-top:35px">
                                         <hr>
@@ -95,7 +95,7 @@
                                                 <a href="/<?=$usuario->des_slug;?>"><img src="../img/profile/<?=$usuario->des_foto;?>" alt="" class="rounded-circle" height="50"></a>
                                             </div>
                                             <div class="col-10" style="padding-left:30px;">
-                                                <a href="/<?=$usuario->des_slug;?>" class="nome-contato"><h6 style="font-weight:400;margin-bottom:3px;margin-top:3px"><?=$usuario->des_nome_exibicao;?> -<i class="fa fa-star" style="margin-left:5px;font-size: 15px;color:rgb(255, 208, 0)"></i> 4,2</h6></a>
+                                                <a href="/<?=$usuario->des_slug;?>" class="nome-contato"><h6 style="font-weight:400;margin-bottom:3px;margin-top:3px"><?=$usuario->des_nome_exibicao;?> -<i class="fa fa-star" style="margin-left:5px;font-size: 15px;color:rgb(255, 208, 0)"></i> <?=$usuario->des_nota;?></h6></a>
                                                 <span class="pull-left stars">
                                                     <a style="font-size:14px;color:#8b8b8b"><?=substr($usuario->des_ocupacao,0,100);?></a>
                                                 </span>

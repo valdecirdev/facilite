@@ -159,7 +159,7 @@
                                         $anuncios = $search->search($_GET['q'], $_SESSION['id'] ?? '*',$min,$max, $ord, $cat, $min_price, $max_price);
                                         
                                     foreach ($anuncios as $key => $value) { 
-                                        $usuario = $usuarios->loadById($anuncios[$key]->id_usuario); ?>
+                                        $usuario = $anuncios[$key]->usuario;?>
                                         <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
                                             <div class="card card-body">
                                                 <div class="row" style="min-height:0px;">
@@ -209,7 +209,7 @@
                                                         <?php $nome = explode(' ', $usuario->getAttribute('des_nome')); ?>
                                                         <a href="<?php echo $usuario->getAttribute('des_slug'); ?>" class="username"><h6 style="font-weight:400"><?=$usuario->getAttribute('des_nome_exibicao'); ?></h6></a>
                                                         <span class="float-left stars" style="margin-top: -5px;">
-                                                            <a style="font-size: 15px"><i class="fa fa-star"></i> 4,2</a>
+                                                            <a style="font-size: 15px"><i class="fa fa-star"></i> <?=$usuario->getAttribute('des_nota');?></a>
                                                         </span>
                                                         <span class="float-right">
                                                                 <a href="#" class="icon-bag"> <i class="fa fa-shopping-bag grey-text ml-3"></i></a>
