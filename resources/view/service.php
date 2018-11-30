@@ -1,9 +1,4 @@
-<?php
-    
-
-    include('template'.DS.'header.php');
-
-?>
+<?=@include('template/header.php') ?>
     <div id="content">
         <input value="<?=$logged_user->id_usuario ?? '';?>" id="id_usuario_logado" class="d-none">
         <section class="container-fluid" style="" id="profile-page">
@@ -30,34 +25,36 @@
                                     </p>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-12" style="padding-top:35px">
-                                    <hr>
-                                    <!-- TODO: This is for server side, there is another version for browser defaults -->
-                                    <form action="" method="post">
-                                        <input type="text" id="id_usuario" value="<?=$logged_user->id_usuario ?? '';?>" style="display:none">
-                                        <input type="text" id="id_anuncio" value="<?=$servico->id_anuncio ?? '';?>" style="display:none">
-                                        <div class="form-group">
-                                          <label for="">Deixe um Comentário:</label>
-                                          <textarea class="form-control" name="" id="des_comentario" rows="3" style="border-radius:0px"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                          <label for="">Nota:</label>
-                                          <input type="number" class="form-control col-2" name="" id="des_nota" placeholder="" style="border-radius:0px">
-                                          <small id="helpId" class="form-text text-muted">Dê uma nota de 0 a 5</small>
-                                        </div>
-                                        <?php  if(isset($logged_user)){ ?>
-                                            <button type="button" id="btn-avaliar" class="btn btn-fc-primary col-2">Enviar</button>
-                                        <?php } else { ?>
-                                            <a href="/identifique-se" class="btn btn-fc-primary col-2">Enviar</a>
-                                        <?php } ?>
-                                    </form>
+                            <?php if(count($logged_user->avaliacoes()->where('id_anuncio', $servico->id_anuncio)->get()) == 0): ?>
+                                <div class="row">
+                                    <div class="col-12" style="padding-top:35px">
+                                        <hr>
+                                        <!-- TODO: This is for server side, there is another version for browser defaults -->
+                                        <form action="" method="post">
+                                            <input type="text" id="id_usuario" value="<?=$logged_user->id_usuario ?? '';?>" style="display:none">
+                                            <input type="text" id="id_anuncio" value="<?=$servico->id_anuncio ?? '';?>" style="display:none">
+                                            <div class="form-group">
+                                            <label for="">Deixe um Comentário:</label>
+                                            <textarea class="form-control" name="" id="des_comentario" rows="3" style="border-radius:0px"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                            <label for="">Nota:</label>
+                                            <input type="number" min="0" max="5" class="form-control col-2" name="" id="des_nota" placeholder="" style="border-radius:0px">
+                                            <small id="helpId" class="form-text text-muted">Dê uma nota de 0 a 5</small>
+                                            </div>
+                                            <?php  if(isset($logged_user)){ ?>
+                                                <button type="button" id="btn-avaliar" class="btn btn-fc-primary col-2">Enviar</button>
+                                            <?php } else { ?>
+                                                <a href="/identifique-se" class="btn btn-fc-primary col-2">Enviar</a>
+                                            <?php } ?>
+                                        </form>
+                                    </div>
                                 </div>
-                            </div>
+                            <?php endif; ?>
                             <div class="row">
                                 <div class="col-12" style="padding-top:35px">
                                     <?php 
-                                        if(!is_null($servico->avaliacoes)){
+                                        if(!is_null($servico->avaliacoes)):
                                             $avaliacoes = $servico->avaliacoes->get();
                                     ?>
                                     <hr>
@@ -79,7 +76,7 @@
                                             </div>
                                         <?php } } ?>    
                                     </div>
-                                    <?php } ?>
+                                    <?php endif; ?>
                                 </div>
                             </div>
 
@@ -120,7 +117,6 @@
     </div>
 
 
-
-<?php include('template'.DS.'footer.php'); ?>
+<?=@include('template/footer.php')?>
 <script src="../js/service.js"></script>
 </html>
