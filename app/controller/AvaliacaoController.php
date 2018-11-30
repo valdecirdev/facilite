@@ -7,9 +7,7 @@ use Core\Controller;
 
 class AvaliacaoController extends Controller
 {
-    //---------------------------------------------------------------------
-    //  INSERT
-    //---------------------------------------------------------------------
+
     public function avaliar (array $values)
     {
         $avaliacao = new Avaliacao();
@@ -19,7 +17,12 @@ class AvaliacaoController extends Controller
         $avaliacao->des_nota = $values['nota'];
         $avaliacao->save();
 
-        $anuncio = Anuncio::where('id_anuncio', $values['id_anuncio'])->get();
+        $this->alteraNota($values['id_anuncio']);
+    }
+
+    public function alteraNota($id_anuncio)
+    {
+        $anuncio = Anuncio::where('id_anuncio', $id_anuncio)->get();
         $anunciante = Usuario::where('id_usuario', $anuncio[0]->id_usuario)->get();
 
         $soma_nota = 0;
@@ -31,9 +34,8 @@ class AvaliacaoController extends Controller
                 $n_avaliacoes++;
             }
         }
-        $nota = $soma_nota/$n_avaliacoes;
+        $nota = number_format($soma_nota/$n_avaliacoes, 1, ',', '');
         Usuario::where('id_usuario', $anunciante[0]->id_usuario)->update(['des_nota' => $nota]);
     }
-
         
 }

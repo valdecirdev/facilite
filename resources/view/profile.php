@@ -90,7 +90,7 @@
                                         <p style="margin-top:-5px;margin-bottom:0;color:#777;font-weight:200">Avaliações</p>
                                     </div>
                                     <div class="col-4">
-                                        <span style="font-size:22px;font-weight:500;color:#3d4347"><?=$usuario->des_nota?></span>
+                                        <span style="font-size:22px;font-weight:500;color:#3d4347"><?=$usuario->des_nota?><span style="font-size:16px; color:#777">/5</span></span>
                                         <p style="margin-top:-5px;margin-bottom:0;color:#777;font-weight:200">Nota</p>
                                     </div>
                                     <div class="col-4">
