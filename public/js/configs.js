@@ -19,6 +19,7 @@ var app = new Vue({
             if(!this.user.des_slug){
                 swal ( "Oops!" ,  "O campo 'Nome de Usuário' não pode estar vazio!" ,  "error" );
             }else{
+                des_slug = this.user.des_slug;
                 // this.user.des_slug = this.user.des_slug.replace(",", "");
                 $.post('post/up_generico',
                 {
@@ -29,6 +30,7 @@ var app = new Vue({
                 function(data){
                     if((data == 1)||(data == true)){
                         swal ( "Sucesso!" ,  "As alterações foram salvas." ,  "success" );
+                        $(".linkSlug").attr("href", des_slug);
                     }else{
                         swal ( "Oops!" ,  "O nome de usuário já existe!" ,  "error" );
                     }

@@ -51,7 +51,7 @@
                     <div class="row">
                         <div class="col-md-12" id="visao-geral">
                             <div class="row">
-                                <div class="col-md-12 profile-card">
+                                <div class="col-md-12 profile-card" style="padding:10px">
                                     <div class="tab-content" style="margin-top:-10px;">
                                         <div id="basicos" class="tab-pane fade active show" style="padding-left:15px;">
                                             <div class="row" style="padding-right:15px;margin-left:0px">

@@ -61,8 +61,8 @@
                 <div class="dropdown-menu dropdown-menu-right" style="min-width:200px;border-radius: 8px;" aria-label="navbarDropdownMenuLink">
                     <div id="dropdown-logged-user" class="row" style="padding: 10px 10px 0 0;width:100%;margin-bottom:-12px;margin-left:0">
                         <div class="col-12 text-center">
-                            <a class="img-profile" href="/<?=$logged_user->des_slug;?>"><img class="img-nav-dropdown rounded-circle" src="/img/profile/<?=$logged_user->des_foto;?>" height="120" width="120"></a>
-                            <a href="/<?=$logged_user->des_slug; ?>"><p style="color:#8b8b8b">Perfil <span class="text-warning">40%</span> completo</p></a>
+                            <a class="img-profile linkSlug" href="/<?=$logged_user->des_slug;?>"><img class="img-nav-dropdown rounded-circle" src="/img/profile/<?=$logged_user->des_foto;?>" height="120" width="120"></a>
+                            <a class="linkSlug" href="/<?=$logged_user->des_slug; ?>"><p style="color:#8b8b8b">Perfil <span class="text-warning">40%</span> completo</p></a>
                         </div>
                     </div>
                     <div class="dropdown-divider"></div>
