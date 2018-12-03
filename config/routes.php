@@ -54,6 +54,10 @@ $router
         $profile = new Controller\ProfileController();
         return $profile->updateAvatar( $_FILES ); 
     })
+    ->post('/post/update_cover', function () {
+        $profile = new Controller\ProfileController();
+        return $profile->updateCover( $_FILES ); 
+    })
     ->post('/post/up_apresentacao', function () {
         $profile = new Controller\ProfileController();
         return $profile->updateApresentacao( $_POST['valor'], $_POST['id'] ); 

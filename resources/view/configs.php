@@ -75,7 +75,7 @@
                                                             <label for="slugUsr" class="col-12" style="margin-left:-15px">Nome de usuario</label>
                                                             <div class="input-group col-md-9" style="padding:0px">
                                                                 <div class="input-group-prepend">
-                                                                    <span class="input-group-text" id="inputGroupPrepend2" style="border-radius:0px">faciliteserv.com</span>
+                                                                    <span class="input-group-text" id="inputGroupPrepend2" style="border-radius:0px"><?=base_url()?></span>
                                                                 </div>
                                                                 <input type="text" class="form-control block-plaintext" id="slugUsr" v-model="user.des_slug">
                                                             </div>

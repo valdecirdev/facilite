@@ -15,10 +15,11 @@ var app = new Vue({
     // ---------------------------------------------------------------------------
 
         salvarUsuario: function(e){
+            this.user.des_slug = this.user.des_slug.replace(/[^a-zA-Z À-ú 0-9]/g, "");
             if(!this.user.des_slug){
                 swal ( "Oops!" ,  "O campo 'Nome de Usuário' não pode estar vazio!" ,  "error" );
             }else{
-                this.user.des_slug = this.user.des_slug.replace(",", "");
+                // this.user.des_slug = this.user.des_slug.replace(",", "");
                 $.post('post/up_generico',
                 {
                     campo   : 'des_slug',
@@ -36,9 +37,12 @@ var app = new Vue({
         },
 
         salvarNome: function(e){
+            this.user.des_nome = this.user.des_nome.replace(/[^a-zA-Z À-ú]/g, "");
             if(!this.user.des_nome){
                 swal ( "Oops!" ,  "O campo 'Nome Completo' não pode estar vazio!" ,  "error" );
-            }else{
+            } else if(this.user.des_nome.length < 6){
+                swal ( "Oops!" ,  "O campo 'Nome Completo' deve ter mais de 6 caracteres!" ,  "error" );
+            } else{
                 $.post('post/up_generico',
                 {
                     campo   : 'des_nome',
@@ -52,9 +56,12 @@ var app = new Vue({
         },
 
         salvarNomeExibicao: function(e){
-            if(!this.user.des_nome_exibicao){
+            this.user.des_nome_exibicao = this.user.des_nome_exibicao.replace(/[^a-zA-Z À-ú]/g, "");
+            if (!this.user.des_nome_exibicao) {
                 swal ( "Oops!" ,  "O campo 'Nome de Exibição' não pode estar vazio!" ,  "error" );
-            }else{
+            } else if(this.user.des_nome_exibicao.length < 6) {
+                swal ( "Oops!" ,  "O campo 'Nome de Exibição' deve ter mais de 6 caracteres!" ,  "error" );
+            } else {
                 // let res = (this.user.des_nome_exibicao.split(" "));
                 // $('#navbar-username').text(res[0]);
                 $('#navbar-username').text(this.user.des_nome_exibicao);
@@ -73,7 +80,7 @@ var app = new Vue({
         salvarEmail: function(e){
             if(!this.user.des_email){
                 swal ( "Oops!" ,  "O campo 'Email' não pode estar vazio!" ,  "error" );
-            }else{
+            } else {
                 $('#emailLogged').text(this.user.des_email);
                 $.post('post/up_email',
                 {
@@ -81,10 +88,10 @@ var app = new Vue({
                     id      : $('#id_usuario_logado').val(),
                 },
                 function(data){
-                    if (data === 0){
-                        swal ( "Oops!" ,  "Email inválido ou já cadastrado!" ,  "error" );
-                    } else {
+                    if((data == 1)||(data == true)){
                         swal ( "Sucesso!" ,  "As alterações foram salvas." ,  "success" );
+                    } else {
+                        swal ( "Oops!" ,  "Email inválido ou já cadastrado!" ,  "error" );
                     }
                 });
             }

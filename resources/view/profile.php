@@ -14,16 +14,22 @@
 
                     <div class="row">
                         <div class="col-md-12 profile-card text-center text-md-left">
-                            <div class="img-profile" style="background: url('img/cover/cover.jpg');background-size: cover;">
+                            <?php if($dono_perfil): ?>
+                                <form method="post" id="form-usrCapa" enctype="multipart/form-data" style="position:absolute">
+                                    <button type="button" id="usrCapaBtn" class="btn btn-info" style="border-radius:0px">Alterar Capa</button>
+                                    <input type="file" id="usrCapa" name="usrCapa" accept="image/jpeg" style="max-width:100%;display:none;">
+                                </form>
+                            <?php endif; ?>
+                            <div class="img-profile" id="img-capa" style="background: url('img/cover/<?=$usuario->des_capa?>');background-size: cover;">
                                 <img src="img/profile/<?=$usuario->des_foto; ?>" alt="" id="usrFotoView" >
-                                <?php if($dono_perfil){ ?>
+                                <?php if($dono_perfil): ?>
                                     <form method="post" id="form-usrFoto" enctype="multipart/form-data" style="position:absolute">
                                         <input type="file" id="usrFoto" name="usrFoto" accept="image/jpeg" style="max-width:100%;display:none">
                                     </form>
                                     <div id="fotoMouseOn" style="display:none"  data-toggle="tooltip" data-placement="right" title="Atualizar foto do perfil">
                                         <img src="img/camera.png" alt="">
                                     </div>
-                                <?php } ?>
+                                <?php endif; ?>
                             </div>
                             <div class="infos">
                                 <h5 class="text-center"><span class="profile-name"><?=$usuario->des_nome_exibicao;  ?></span> <span class="d-print-none" style="font-size:15px;font-weight:normal">

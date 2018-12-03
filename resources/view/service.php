@@ -25,7 +25,9 @@
                                     </p>
                                 </div>
                             </div>
-                            <?php if(!isset($logged_user) || count($logged_user->avaliacoes()->where('id_anuncio', $servico->id_anuncio)->get()) == 0): ?>
+                            <?php 
+                                if((!isset($logged_user) || $logged_user->id_usuario != $usuario->id_usuario)){
+                                if(count($logged_user->avaliacoes()->where('id_anuncio', $servico->id_anuncio)->get()) == 0): ?>
                                 <div class="row">
                                     <div class="col-12" style="padding-top:35px">
                                         <hr>
@@ -39,7 +41,15 @@
                                             </div>
                                             <div class="form-group">
                                             <label for="">Nota:</label>
-                                            <input type="number" min="0" max="5" class="form-control col-2" name="" id="des_nota" placeholder="" style="border-radius:0px">
+                                            <select class="form-control col-2" name="" id="des_nota" style="border-radius:0px">
+                                                <option value="0">0 - Péssimo</option>
+                                                <option value="1">1 - Ruim</option>
+                                                <option value="2">2 - Meia Boca</option>
+                                                <option value="3" selected="selected">3 - Regular</option>
+                                                <option value="4">4 - Bom</option>
+                                                <option value="5">5 - Perfeito</option>
+                                            </select>
+                                            <!-- <input type="number" min="0" max="5" class="form-control col-2" name="" id="des_nota" placeholder="" style="border-radius:0px"> -->
                                             <small id="helpId" class="form-text text-muted">Dê uma nota de 0 a 5</small>
                                             </div>
                                             <?php  if(isset($logged_user)){ ?>
@@ -50,7 +60,7 @@
                                         </form>
                                     </div>
                                 </div>
-                            <?php endif; ?>
+                            <?php endif; } ?>
                             <div class="row">
                                 <div class="col-12" style="padding-top:35px">
                                     <?php 

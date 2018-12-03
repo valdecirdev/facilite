@@ -58,14 +58,41 @@
             $foto = md5(time()).'.jpg';
 
             move_uploaded_file($avatar['usrFoto']['tmp_name'], $diretorio.$foto);
-            $this->resizeImage($diretorio.$foto);
+            $this->resizeImage($diretorio.$foto, 150, 150);
 
             Usuario::where('id_usuario', $usuario->id_usuario)->update(['des_foto' => $foto]);
             return $foto;
         }
 
+        public function updateCover($cover)
+        {
+            session_start();
+            $usuario = Usuario::where('id_usuario', $_SESSION['id'])->get()[0];
 
-        public function resizeImage(string $caminho_imagem): void
+
+            if ((!isset($cover['usrCapa'])) || (is_null($cover['usrCapa']))) {
+                $foto = $usuario->des_capa;
+                return $foto;
+            }
+            $foto = $usuario->des_capa;
+            $diretorio = dirname(__DIR__).DS.'..'.DS.'public'.DS.'img'.DS.'cover'.DS;
+            if (!is_dir($diretorio)) {
+                mkdir($diretorio);
+            }
+            if (($foto != 'cover.jpg') && (file_exists($diretorio . $foto))) {
+                unlink($diretorio . $foto);
+            }
+            $foto = md5(time()).'.jpg';
+
+            move_uploaded_file($cover['usrCapa']['tmp_name'], $diretorio.$foto);
+            $this->resizeImage($diretorio.$foto, 500, 100);
+
+            Usuario::where('id_usuario', $usuario->id_usuario)->update(['des_capa' => $foto]);
+            return $foto;
+        }
+
+
+        public function resizeImage(string $caminho_imagem, $largura, $altura): void
         {
             // Retorna o identificador da imagem
             $imagem = imagecreatefromjpeg($caminho_imagem);
@@ -73,8 +100,8 @@
             list( $largura, $altura ) = getimagesize( $caminho_imagem );
 
             // Nova largura e altura
-            $nova_largura = 150; //* $proporcao;
-            $nova_altura = 150;// * $proporcao;
+            $nova_largura = $largura; //* $proporcao;
+            $nova_altura = $altura;// * $proporcao;
 
             // Cria uma nova imagem em branco
             $nova_imagem = imagecreatetruecolor( $nova_largura, $nova_altura );

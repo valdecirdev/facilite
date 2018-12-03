@@ -19,6 +19,42 @@ $(document).ready(function () {
 //         return idade;
 //     }
 
+
+
+$("#usrCapaBtn").click(function (e) {
+    $('#usrCapa').click(); // Open dialog
+    e.preventDefault();
+});
+
+$("#usrCapa").change(function(){
+    $('#form-usrCapa').submit();        
+});
+
+
+$("#form-usrCapa").submit(function(e) {
+    if($("#usrCapa").val() !== ''){
+        var form;
+        form = new FormData();
+        form.append('usrCapa', event.target.files[0]); // para enviar apenas 1 arquivo
+        $.ajax({
+            type: 'POST',
+            url: "post/update_cover", // Url do lado server que vai receber o arquivo
+            data: form,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                $('#img-capa').css("background-image", "url(/img/cover/"+data+")");  
+            }
+        });
+    }
+    e.preventDefault();
+});
+
+
+
+
+
+
 /* -------------------------------------------------------------------------------------------------
  *      ALTERAR FOTO DE PERFIL
  * ------------------------------------------------------------------------------------------------- */

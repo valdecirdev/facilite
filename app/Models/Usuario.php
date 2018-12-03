@@ -22,6 +22,7 @@
             'des_apresentacao',
             'des_cpf',
             'des_foto',
+            'des_capa',
             'des_cep',
             'id_cidade',
             'des_telefone',

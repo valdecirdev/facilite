@@ -27,15 +27,10 @@ use Controller\{UsuarioController, ChatController, MensagemController};
     <body>
     <body>
     <?php
-        // session_start(); 
         include('template'.DS.'menu.php');
         $chatExist = true;
 
-        // if(!isset($_SESSION['id']) || $_SESSION['id'] == NULL){
-        //     header('location:home');
-        // }
         if(!isset($_GET['to']) || $_GET['to'] == 0){
-            // header('location:erro');
             $chatExist = false;
         }
         if($chatExist){
