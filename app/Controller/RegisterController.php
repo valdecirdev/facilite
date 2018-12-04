@@ -27,6 +27,13 @@
             $tmpNome = explode(' ', $register_infos['des_nome']);
             $nomeExibicao = $tmpNome[0].' '.$tmpNome[count($tmpNome)-1];
 
+            $avatar = 'default-avatar.jpg';
+            if( $register_infos['des_sexo'] == 'M' ) {
+                $avatar = 'man-avatar.jpg';
+            } else if( $register_infos['des_sexo'] == 'F' ) {
+                $avatar = 'woman-avatar.jpg';
+            }
+
             $usuario = new Usuario([
                 'id_plano'   => '1',
                 'des_email'  => strtolower($email),
@@ -36,6 +43,7 @@
                 'des_nome_exibicao' => $nomeExibicao,
                 'des_sexo'   => $register_infos['des_sexo'],
                 'dt_nasc'    => $register_infos['dt_nasc'],
+                'des_foto'   => $avatar,
                 'des_status' => "Ativo",
             ]);
             $usuario->save();

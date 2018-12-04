@@ -160,19 +160,17 @@ $("#form-usrCapa").submit(function(e) {
         var titulo = $('.des_titulo_experiencia', $(btn_action).parent().parent().parent().parent());
         var descricao = $('.des_descricao_experiencia', $(btn_action).parent().parent().parent().parent());
 
-        // var desde = $('.des_de', $(btn_action).parent().parent().parent().parent());
-        // de = $('.des_de', $(btn_action).parent().parent().parent().parent()).val().split("-");
-        // de = new Date(de[2], de[1] - 1, de[0]);
-
-        // var ate = $('.des_ate', $(btn_action).parent().parent().parent().parent());
+        var desde = $('.desde_real', $(btn_action).parent().parent().parent().parent());
+        var ate = $('.desate_real', $(btn_action).parent().parent().parent().parent());
         var id_experiencia = $('.id_experiencia', $(btn_action).parent().parent().parent().parent());
         
         $('#addExperienciaModal').modal();
         $('#id_experiencia_modal').val(id_experiencia.val());
         $('#des_titulo_experiencia').val(titulo.text());
         $('#des_descricao_experiencia').val(descricao.text());
-        // $('#des_de').val(desde.text());
-        // $('#des_ate').val(ate.text());
+
+        $('#des_de').val(desde.val());
+        $('#des_ate').val(ate.val());
     }
 
 /** @description Executa a ação do botão deletar experiencia.  
@@ -196,6 +194,8 @@ $("#form-usrCapa").submit(function(e) {
         $('#id_experiencia_modal').val('');
         $('#des_titulo_experiencia').val('');
         $('#des_descricao_experiencia').val('');
+        $('#des_de').val('');
+        $('#des_ate').val('');
     });
 
 /** @description Executa ação do botão de Adicionar Experiencia.  
@@ -206,42 +206,53 @@ $("#form-usrCapa").submit(function(e) {
             var titulo = $('#des_titulo_experiencia');
             var descricao = $('#des_descricao_experiencia');
             var id_experiencia = $('#id_experiencia_modal');
+            var des_de = $('#des_de');
+            var des_ate = $('#des_ate');
             $.post('post/up_experiencia',
             {
                 id_usuario: $('#id_usuario').val(),
                 des_titulo: $(titulo).val(),
                 des_descricao: $(descricao).val(),
-                id_experiencia: $(id_experiencia).val()
+                id_experiencia: $(id_experiencia).val(),
+                desde: $(des_de).val(),
+                ate: $(des_ate).val()
             },
             function(data){
-                $(".id_experiencia").each(function( index ) {
-                    if($(this).val() == id_experiencia.val()){
-                        var input = $( this );
-                        $('.des_titulo_experiencia',$(input).parent()).text(titulo.val());
-                        $('.des_descricao_experiencia',$(input).parent()).text(descricao.val());
-                    }
-                });
-                $('#addExperienciaModal').modal('hide');
+                location.reload();
+                // $(".id_experiencia").each(function( index ) {
+                //     if($(this).val() == id_experiencia.val()){
+                //         var input = $( this );
+                //         $('.des_titulo_experiencia',$(input).parent()).text(titulo.val());
+                //         $('.des_descricao_experiencia',$(input).parent()).text(descricao.val());
+                //     }
+                // });
+                // $('#addExperienciaModal').modal('hide');
             });
         }else{
             var $id_usuario = $('#id_usuario_logado').val();
-            var $titulo    = $('#des_titulo_experiencia').val();
-            var $descr     = $('#des_descricao_experiencia').val();
+            var $titulo     = $('#des_titulo_experiencia').val();
+            var $descr      = $('#des_descricao_experiencia').val();
+            var des_de      = $('#des_de').val();
+            var des_ate     = $('#des_ate').val();
+        
             $.post('post/add_experiencia',
             {
                 id_usuario  : $id_usuario,
                 titulo      : $titulo,
                 descr       : $descr,
+                desde       : des_de,
+                ate         : des_ate
             },
             function(data){
-                $('#experiencias-itens').prepend('<div class="col-12" style="margin-top:15px;margin-bottom:5px"><div class="clearfix"><input type="text" class="id_experiencia" value="'+data+'" style="display:none"><div class="row clearfix"><p class="des_titulo_experiencia col-11" style="width:auto; margin-left:-5px;font-weight:400; padding-right:25px;font-size:17px;margin-bottom:0px">'+$titulo+'</p><div class="btn-group col-1"><button type="button" class="btn btn-link dropdown-toggle" style="color:#5b5656" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button><div class="dropdown-menu dropdown-menu-right"><button class="btn-editExperiencia dropdown-item" type="button" style="cursor:pointer">Editar</button><button class="btn-delExperiencia text-danger dropdown-item" type="button" style="cursor:pointer">Deletar</button></div></div></div><p class="col-12 desc des_descricao_experiencia" style="margin-left:-10px;margin-right:-10px; padding-left:5px;padding-bottom:1px;padding-top:1px;font-weight:300;font-size:16px;color:#a0a5b5">'+$descr+'</p></div><hr style="margin-left:-15px;margin-right:-15px"></div>');
-                $('.btn-editExperiencia').click(function(){
-                    btn_editar_experiencia(this);
-                });
-                $('.btn-delExperiencia').click(function(){
-                    btn_deletar_experiencia(this);
-                });
-                $('#addExperienciaModal').modal('hide');
+                location.reload();
+                // $('#experiencias-itens').prepend('<div class="col-12" style="margin-top:15px;margin-bottom:5px"><div class="clearfix"><input type="text" class="id_experiencia" value="'+data+'" style="display:none"><div class="row clearfix"><p class="des_titulo_experiencia col-11" style="width:auto; margin-left:-5px;font-weight:400; padding-right:25px;font-size:17px;margin-bottom:0px">'+$titulo+'</p><div class="btn-group col-1"><button type="button" class="btn btn-link dropdown-toggle" style="color:#5b5656" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button><div class="dropdown-menu dropdown-menu-right"><button class="btn-editExperiencia dropdown-item" type="button" style="cursor:pointer">Editar</button><button class="btn-delExperiencia text-danger dropdown-item" type="button" style="cursor:pointer">Deletar</button></div></div></div><p class="col-12 desc des_descricao_experiencia" style="margin-left:-10px;margin-right:-10px; padding-left:5px;padding-bottom:1px;padding-top:1px;font-weight:300;font-size:16px;color:#a0a5b5">'+$descr+'</p></div><hr style="margin-left:-15px;margin-right:-15px"></div>');
+                // $('.btn-editExperiencia').click(function(){
+                //     btn_editar_experiencia(this);
+                // });
+                // $('.btn-delExperiencia').click(function(){
+                //     btn_deletar_experiencia(this);
+                // });
+                // $('#addExperienciaModal').modal('hide');
             })
         }
         
@@ -259,11 +270,16 @@ $("#form-usrCapa").submit(function(e) {
         var titulo = $('.des_titulo_formacao', $(btn_action).parent().parent().parent().parent());
         var descricao = $('.des_descricao_formacao', $(btn_action).parent().parent().parent().parent());
         var id_formacao = $('.id_formacao', $(btn_action).parent().parent().parent().parent());
-        
+        var desde = $('.desde_real', $(btn_action).parent().parent().parent().parent());
+        var ate = $('.desate_real', $(btn_action).parent().parent().parent().parent());
+
         $('#addFormacaoModal').modal();
         $('#id_formacao_modal').val(id_formacao.val());
         $('#des_titulo_formacao').val(titulo.text());
         $('#des_descricao_formacao').val(descricao.text());
+
+        $('#des_de_formacao').val(desde.val());
+        $('#des_ate_formacao').val(ate.val());
     }
 
  /** @description Executa a ação do botão deletar Formação.  
@@ -287,6 +303,8 @@ $("#form-usrCapa").submit(function(e) {
         $('#id_formacao_modal').val('');
         $('#des_titulo_formacao').val('');
         $('#des_descricao_formacao').val('');
+        $('#des_de_formacao').val('');
+        $('#des_ate_formacao').val('');
     });
 
 /** @description Executa ação do botão de Adicionar Formação.  
@@ -296,42 +314,53 @@ $('#btn-addFormacao').click(function(){
         var titulo = $('#des_titulo_formacao');
         var descricao = $('#des_descricao_formacao');
         var id_formacao = $('#id_formacao_modal');
+        var des_de      = $('#des_de_formacao');
+        var des_ate     = $('#des_ate_formacao');
+
         $.post('post/up_formacao',
         {
-            id_usuario: $('#id_usuario').val(),
-            des_titulo: $(titulo).val(),
-            des_descricao: $(descricao).val(),
-            id_formacao: $(id_formacao).val()
+            id_usuario      : $('#id_usuario').val(),
+            des_titulo      : $(titulo).val(),
+            des_descricao   : $(descricao).val(),
+            id_formacao     : $(id_formacao).val(),
+            desde           : $(des_de).val(),
+            ate             : $(des_ate).val()
         },
         function(data){
-            $(".id_formacao").each(function( index ) {
-                if($(this).val() == id_formacao.val()){
-                    var input = $( this );
-                    $('.des_titulo_formacao',$(input).parent()).text(titulo.val());
-                    $('.des_descricao_formacao',$(input).parent()).text(descricao.val());
-                }
-            });
-            $('#addFormacaoModal').modal('hide');
+            location.reload();
+            // $(".id_formacao").each(function( index ) {
+            //     if($(this).val() == id_formacao.val()){
+            //         var input = $( this );
+            //         $('.des_titulo_formacao',$(input).parent()).text(titulo.val());
+            //         $('.des_descricao_formacao',$(input).parent()).text(descricao.val());
+            //     }
+            // });
+            // $('#addFormacaoModal').modal('hide');
         });
-    }else{
+    } else {
         var $id_usuario = $('#id_usuario_logado').val();
-        var $titulo    = $('#des_titulo_formacao').val();
-        var $descr     = $('#des_descricao_formacao').val();
+        var $titulo     = $('#des_titulo_formacao').val();
+        var $descr      = $('#des_descricao_formacao').val();
+        var $desde       = $('#des_de_formacao').val();
+        var $ate         = $('#des_ate_formacao').val();
         $.post('post/add_formacao',
         {
             id_usuario  : $id_usuario,
             titulo      : $titulo,
             descr       : $descr,
+            desde       : $desde,
+            ate         : $ate,
         },
         function(data){
-            $('#formacoes-itens').prepend('<div class="col-12"><div class="clearfix"><input type="text" class="id_formacao" value="'+data+'" style="display:none"><div class="row clearfix"><p class="des_titulo_formacao col-11" style="width:auto;margin-left:-5px;font-weight:400;font-size:17px;margin-bottom:0px;">'+$titulo+'</p><div class="btn-group col-1"><button type="button" class="btn btn-link dropdown-toggle" style="color:#5b5656" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button><div class="dropdown-menu dropdown-menu-right"><button class="btn-editFormacao dropdown-item" type="button" style="cursor:pointer">Editar</button><button class="btn-delFormacao text-danger dropdown-item" type="button" style="cursor:pointer">Deletar</button></div></div></div><p class="desc des_descricao_formacao" id="des_apresentacao" style="margin-left:-5px;margin-right:-10px;margin-top:0px;font-weight:300;color:#a0a5b5">'+$descr+'</p></div><hr style="margin-left:-15px;margin-right:-15px"></div>');
-            $('.btn-editFormacao').click(function(){
-                btn_editar_formacao(this);
-            });
-            $('.btn-delFormacao').click(function(){
-                btn_deletar_formacao(this);
-            });
-            $('#addFormacaoModal').modal('hide');
+            location.reload();
+            // $('#formacoes-itens').prepend('<div class="col-12"><div class="clearfix"><input type="text" class="id_formacao" value="'+data+'" style="display:none"><div class="row clearfix"><p class="des_titulo_formacao col-11" style="width:auto;margin-left:-5px;font-weight:400;font-size:17px;margin-bottom:0px;">'+$titulo+'</p><div class="btn-group col-1"><button type="button" class="btn btn-link dropdown-toggle" style="color:#5b5656" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button><div class="dropdown-menu dropdown-menu-right"><button class="btn-editFormacao dropdown-item" type="button" style="cursor:pointer">Editar</button><button class="btn-delFormacao text-danger dropdown-item" type="button" style="cursor:pointer">Deletar</button></div></div></div><p class="desc des_descricao_formacao" id="des_apresentacao" style="margin-left:-5px;margin-right:-10px;margin-top:0px;font-weight:300;color:#a0a5b5">'+$descr+'</p></div><hr style="margin-left:-15px;margin-right:-15px"></div>');
+            // $('.btn-editFormacao').click(function(){
+            //     btn_editar_formacao(this);
+            // });
+            // $('.btn-delFormacao').click(function(){
+            //     btn_deletar_formacao(this);
+            // });
+            // $('#addFormacaoModal').modal('hide');
         })
     }
     

@@ -10,7 +10,9 @@
             'id_formacao',
             'id_usuario',
             'des_titulo',
-            'des_descricao'
+            'des_descricao',
+            'des_de',
+            'des_ate'
         ];
 
         protected $table = 'tb_formacoes';

@@ -85,14 +85,15 @@
             $foto = md5(time()).'.jpg';
 
             move_uploaded_file($cover['usrCapa']['tmp_name'], $diretorio.$foto);
-            $this->resizeImage($diretorio.$foto, 500, 100);
+            
+            $this->resizeImage($diretorio.$foto, 250, 150);
 
             Usuario::where('id_usuario', $usuario->id_usuario)->update(['des_capa' => $foto]);
             return $foto;
         }
 
 
-        public function resizeImage(string $caminho_imagem, $largura, $altura): void
+        public function resizeImage(string $caminho_imagem, $largura_final, $altura_final): void
         {
             // Retorna o identificador da imagem
             $imagem = imagecreatefromjpeg($caminho_imagem);
@@ -100,8 +101,8 @@
             list( $largura, $altura ) = getimagesize( $caminho_imagem );
 
             // Nova largura e altura
-            $nova_largura = $largura; //* $proporcao;
-            $nova_altura = $altura;// * $proporcao;
+            $nova_largura = $largura_final; //* $proporcao;
+            $nova_altura = $altura_final;// * $proporcao;
 
             // Cria uma nova imagem em branco
             $nova_imagem = imagecreatetruecolor( $nova_largura, $nova_altura );

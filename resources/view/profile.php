@@ -194,11 +194,13 @@
                                                                     <?php }} ?>
                                                                 </div>
                                                                 <?php 
-                                                                    // $date_de = new DateTime( $usuario->experiencias[$key]->des_de );
-                                                                    // $date_ate = new DateTime( $usuario->experiencias[$key]->des_ate );
-                                                                    // $des_ate = $usuario->experiencias[$key]->des_ate ? strftime('%b de %Y', strtotime($usuario->experiencias[$key]->des_ate)) : 'o momento';
+                                                                    $date_de = new DateTime( $usuario->experiencias[$key]->des_de );
+                                                                    $date_ate = new DateTime( $usuario->experiencias[$key]->des_ate );
+                                                                    $des_ate = $usuario->experiencias[$key]->des_ate ? strftime('%b de %Y', strtotime($usuario->experiencias[$key]->des_ate)) : 'o momento';
                                                                 ?>
-                                                                <!-- <p class="desc des_de" style="margin-left:-10px;margin-right:-10px; padding-left:5px;font-weight:300;font-size:15px;margin-top:5px">//=strftime('%b de %Y', strtotime($usuario->experiencias[$key]->des_de));?> – =$des_ate;?></p> -->
+                                                                <input type="text" class="desde_real" value="<?=$usuario->experiencias[$key]->des_de?>" style="display:none">
+                                                                <input type="text" class="desate_real" value="<?=$usuario->experiencias[$key]->des_ate?>" style="display:none">
+                                                                <p class="desc" style="margin-left:-10px;margin-right:-10px; padding-left:5px;font-weight:300;font-size:15px;margin-top:5px"><span class="des_de"><?=strftime('%b de %Y', strtotime($usuario->experiencias[$key]->des_de));?></span> – <?=$des_ate;?></p>
                                                                 <p class="col-12 desc des_descricao_experiencia" style="margin-left:-10px;margin-right:-10px; padding-left:5px;font-weight:300;font-size:16px; margin-top: -5px;"><?=$usuario->experiencias[$key]->des_descricao;?></p>
                                                             </div>
                                                             <hr style="margin-left:-5px;margin-right:-5px">
@@ -235,6 +237,9 @@
                                                                     </div>
                                                                     <?php }} ?>
                                                                 </div>
+                                                                <input type="text" class="desde_real" value="<?=$usuario->formacoes[$key]->des_de?>" style="display:none">
+                                                                <input type="text" class="desate_real" value="<?=$usuario->formacoes[$key]->des_ate?>" style="display:none">
+                                                                <p class="desc" style="margin-left:-10px;margin-right:-10px; padding-left:5px;font-weight:300;font-size:15px;margin-top:5px"><span class="des_de"><?=strftime('%b de %Y', strtotime($usuario->formacoes[$key]->des_de));?></span> – <?=strftime('%b de %Y', strtotime($usuario->formacoes[$key]->des_ate));?></p>
                                                                 <p class="desc des_descricao_formacao" style="margin-left:-5px;margin-right:-10px;margin-top:0px;font-weight:300;color:#a0a5b5"><?=$usuario->formacoes[$key]->des_descricao;?></p>
                                                             </div>
                                                             <hr style="margin-left:-5px;margin-right:-5px">
@@ -346,8 +351,9 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        <?php }
-                                    } ?>
+                                        <?php } ?>
+                                        <a href="#" class="ml-3">ver todos</a>
+                                    <?php } ?>
                                 </div>
                             </div>
                         </div>
@@ -456,14 +462,14 @@
                                 <label>Titulo:</label>
                                 <input class="form-control" type="text" name="des_titulo_experiencia" id="des_titulo_experiencia" placeholder="">
                             </div>
-                            <!-- <div class="col-6" style="margin-top:10px">
+                            <div class="col-6" style="margin-top:10px">
                                 <label>De:</label>
                                 <input class="form-control" type="date" name="des_de" id="des_de" placeholder="">
                             </div>
                             <div class="col-6" style="margin-top:10px">
                                 <label>Até:</label>
                                 <input class="form-control" type="date" name="des_ate" id="des_ate" placeholder="">
-                            </div> -->
+                            </div>
                             <div class="col-12" style="margin-top:10px">
                                 <label for="des_email">Descrição:</label>
                                 <textarea class="form-control" name="des_descricao_experiencia" id="des_descricao_experiencia" cols="30" rows="6" style="height:auto;resize: none;" spellcheck="false" placeholder=""></textarea>
@@ -497,6 +503,14 @@
                                 <div class="col-12">
                                     <label>Titulo:</label>
                                     <input class="form-control" type="text" name="des_titulo_formacao" id="des_titulo_formacao" placeholder="">
+                                </div>
+                                <div class="col-6" style="margin-top:10px">
+                                    <label>De:</label>
+                                    <input class="form-control" type="date" name="des_de" id="des_de_formacao" placeholder="">
+                                </div>
+                                <div class="col-6" style="margin-top:10px">
+                                    <label>Até:</label>
+                                    <input class="form-control" type="date" name="des_ate" id="des_ate_formacao" placeholder="">
                                 </div>
                                 <div class="col-12" style="margin-top:10px">
                                     <label for="des_email">Descrição:</label>

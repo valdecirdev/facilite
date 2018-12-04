@@ -81,7 +81,7 @@ $router
     })
     ->post('/post/add_experiencia', function () { 
         $experiencia = new Controller\ExperienciaController();
-        return $experiencia->insert( $_POST['id_usuario'], $_POST['titulo'], $_POST['descr'] ); 
+        return $experiencia->insert( $_POST ); 
     })
     ->post('/post/up_experiencia', function () { 
         $experiencia = new Controller\ExperienciaController();
@@ -99,7 +99,7 @@ $router
     })
     ->post('/post/add_formacao', function () {
         $formacao = new Controller\FormacaoController();
-        return $formacao->insert( $_POST['id_usuario'], $_POST['titulo'], $_POST['descr'] );
+        return $formacao->insert( $_POST );
     })
     
     // ROTAS DE ANUNCIO
