@@ -239,8 +239,8 @@
                                                                 </div>
                                                                 <input type="text" class="desde_real" value="<?=$usuario->formacoes[$key]->des_de?>" style="display:none">
                                                                 <input type="text" class="desate_real" value="<?=$usuario->formacoes[$key]->des_ate?>" style="display:none">
-                                                                <p class="desc" style="margin-left:-10px;margin-right:-10px; padding-left:5px;font-weight:300;font-size:15px;margin-top:5px"><span class="des_de"><?=strftime('%b de %Y', strtotime($usuario->formacoes[$key]->des_de));?></span> – <?=strftime('%b de %Y', strtotime($usuario->formacoes[$key]->des_ate));?></p>
-                                                                <p class="desc des_descricao_formacao" style="margin-left:-5px;margin-right:-10px;margin-top:0px;font-weight:300;color:#a0a5b5"><?=$usuario->formacoes[$key]->des_descricao;?></p>
+                                                                <p class="desc" style="margin-left:-10px;margin-right:-10px; padding-left:5px;font-weight:300;font-size:15px;margin-top:5px"><span class="des_de"><?=strftime('%Y', strtotime($usuario->formacoes[$key]->des_de));?></span> – <?=strftime('%Y', strtotime($usuario->formacoes[$key]->des_ate));?></p>
+                                                                <p class="desc des_descricao_formacao" style="margin-left:-5px;margin-right:-10px;margin-top:0px;font-weight:300"><?=$usuario->formacoes[$key]->des_descricao;?></p>
                                                             </div>
                                                             <hr style="margin-left:-5px;margin-right:-5px">
                                                         </div>

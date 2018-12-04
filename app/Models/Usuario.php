@@ -73,7 +73,7 @@
 
         public function formacoes()
         {
-            return $this->hasMany(Formacao::class, 'id_usuario', 'id_usuario');
+            return $this->hasMany(Formacao::class, 'id_usuario', 'id_usuario')->orderby('des_de', 'desc');
         }
 
         public function habilidades()
