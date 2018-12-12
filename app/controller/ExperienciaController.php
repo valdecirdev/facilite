@@ -19,7 +19,11 @@
             $experiencia->des_descricao = $values['descr'];
 
             $experiencia->des_de = $values['desde'];
-            $experiencia->des_ate = $values['ate'];
+            if($values['ate'] != ''){
+                $experiencia->des_ate = $values['ate'];
+            } else {
+                $experiencia->des_ate = NULL;
+            }
             $experiencia->save();
             return $experiencia->id;
         }
@@ -29,7 +33,11 @@
             $titulo = filter_var($values['des_titulo'], FILTER_SANITIZE_STRING);
             $descr  = filter_var($values['des_descricao'], FILTER_SANITIZE_STRING);
             $desde  = $values['desde'];
-            $ate    = $values['ate'];
+            if($values['ate'] != ''){
+                $experiencia->des_ate = $values['ate'];
+            } else {
+                $experiencia->des_ate = NULL;
+            }
             $id     = $values['id_experiencia'];
 
             Experiencia::where('id_experiencia', $id)

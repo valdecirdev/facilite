@@ -195,7 +195,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-12 desc-card">
-                                                        <p style="min-height:70px; margin-bottom:0px;"><?php echo substr($anuncios[$key]->getAttribute('des_descricao'), 0, 120);  if (strlen($anuncios[$key]->getAttribute('des_descricao')) > 120) {echo "...";} ?></p>
+                                                        <p style="min-height:70px; margin-bottom:0px;"><?php echo substr($anuncios[$key]->getAttribute('des_descricao'), 0, 95);  if (strlen($anuncios[$key]->getAttribute('des_descricao')) > 120) {echo "...";} ?></p>
                                                     </div>
                                                 </div>
                                                 <div class="row">

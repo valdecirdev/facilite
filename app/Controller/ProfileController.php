@@ -52,7 +52,7 @@
             if (!is_dir($diretorio)) {
                 mkdir($diretorio);
             }
-            if (($foto != 'default.jpg') && (file_exists($diretorio . $foto))) {
+            if (($foto != 'default.jpg') && ($foto != 'woman-avatar.jpg') && ($foto != 'man-avatar.jpg') && (file_exists($diretorio . $foto))) {
                 unlink($diretorio . $foto);
             }
             $foto = md5(time()).'.jpg';

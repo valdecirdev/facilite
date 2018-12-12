@@ -1,4 +1,4 @@
-<?=@include('template/header.php') ?>
+<?php include('template/header.php'); ?>
     <div id="content">
         <input value="<?=$logged_user->id_usuario ?? '';?>" id="id_usuario_logado" class="d-none">
         <section class="container-fluid" style="" id="profile-page">
@@ -25,8 +25,9 @@
                                     </p>
                                 </div>
                             </div>
-                            <?php 
-                                if((!isset($logged_user) || $logged_user->id_usuario != $usuario->id_usuario)){
+                            <input type="text" id="id_anuncio" value="<?=$servico->id_anuncio ?? '';?>" style="display:none">
+                            <?php
+                                if((isset($logged_user) || !is_null($logged_user)) && $logged_user->id_usuario != $usuario->id_usuario){
                                 if(count($logged_user->avaliacoes()->where('id_anuncio', $servico->id_anuncio)->get()) == 0): ?>
                                 <div class="row">
                                     <div class="col-12" style="padding-top:35px">
@@ -34,7 +35,6 @@
                                         <!-- TODO: This is for server side, there is another version for browser defaults -->
                                         <form action="" method="post">
                                             <input type="text" id="id_usuario" value="<?=$logged_user->id_usuario ?? '';?>" style="display:none">
-                                            <input type="text" id="id_anuncio" value="<?=$servico->id_anuncio ?? '';?>" style="display:none">
                                             <div class="form-group">
                                             <label for="">Deixe um Comentário:</label>
                                             <textarea class="form-control" name="" id="des_comentario" rows="3" style="border-radius:0px"></textarea>
@@ -49,7 +49,6 @@
                                                 <option value="4">4 - Bom</option>
                                                 <option value="5">5 - Perfeito</option>
                                             </select>
-                                            <!-- <input type="number" min="0" max="5" class="form-control col-2" name="" id="des_nota" placeholder="" style="border-radius:0px"> -->
                                             <small id="helpId" class="form-text text-muted">Dê uma nota de 0 a 5</small>
                                             </div>
                                             <?php  if(isset($logged_user)){ ?>
@@ -81,7 +80,8 @@
                                                 <div class="col-10">
                                                     <p><i class="fa fa-star" style="font-size: 15px;color:rgb(255, 208, 0)"></i> <?=$avaliacao->des_nota;?>
                                                     - <?=$avaliacao->des_comentario;?></p>
-                                                    <p style="margin-top:-10px"><a href="/<?=$avaliacao->usuario->des_slug;?>"><?=$avaliacao->usuario->des_nome_exibicao;?></a></p>
+                                                    <input id="id_avaliacao" type="text" value="<?=$avaliacao->id_avaliacao;?>" style="display:none">
+                                                    <p style="margin-top:-10px"><a href="/<?=$avaliacao->usuario->des_slug;?>"><?=$avaliacao->usuario->des_nome_exibicao;?></a> - <span id="deletar-comment" class="text-danger" style="cursor:pointer">Deletar</span></p>
                                                 </div>
                                             </div>
                                         <?php } } ?>    
@@ -89,8 +89,6 @@
                                     <?php endif; ?>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
@@ -127,6 +125,6 @@
     </div>
 
 
-<?=@include('template/footer.php')?>
+<?php include('template/footer.php')?>
 <script src="../js/service.js"></script>
 </html>

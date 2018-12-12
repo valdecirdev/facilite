@@ -572,7 +572,7 @@
                                         <?php
                                             $mod = $modalidades->loadAll();
                                             foreach ($mod as $key => $value) { ?>
-                                            <option value="<?=$cat[$key]->id_categoria;?>"><?=$mod[$key]->des_descricao;?></option>
+                                            <option value="<?=$mod[$key]->id_modalidade;?>"><?=$mod[$key]->des_descricao;?></option>
                                         <?php } ?>
                                     </select>
                                 </div>

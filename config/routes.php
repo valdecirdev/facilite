@@ -161,6 +161,12 @@ $router
     ->post('/post/avaliar_servico', function () {
         $avaliacao = new Controller\AvaliacaoController();
         return $avaliacao->avaliar($_POST); 
+    })
+    
+    // ROTAS DE SERVIÇO
+    ->post('/post/del_avaliacao', function () {
+        $servico = new Controller\AvaliacaoController();
+        return $servico->del_avaliacao( $_POST['id_avaliacao'], $_POST['id_anuncio'] );
     });
 
 

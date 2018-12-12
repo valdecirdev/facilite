@@ -25,5 +25,15 @@ $(document).ready(function () {
                 // );
             });
         });
+
+        $('#deletar-comment').click(function(){
+            $.post('../post/del_avaliacao',
+            {
+                id_avaliacao: $('#id_avaliacao').val(),
+                id_anuncio: $('#id_anuncio').val(),
+            },function(data){
+                location.reload();
+            });
+        });
     
     });
