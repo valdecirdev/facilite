@@ -42,7 +42,6 @@
                                             <div class="form-group">
                                             <label for="">Nota:</label>
                                             <select class="form-control col-2" name="" id="des_nota" style="border-radius:0px">
-                                                <option value="0">0 - Péssimo</option>
                                                 <option value="1">1 - Ruim</option>
                                                 <option value="2">2 - Meia Boca</option>
                                                 <option value="3" selected="selected">3 - Regular</option>

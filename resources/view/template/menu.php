@@ -20,7 +20,7 @@
         </div>
         <ul class="nav navbar-nav ml-auto">
 
-        <?php if((!isset($_SESSION['id'])) || (is_null($_SESSION['id']))) { ?>
+        <?php if(guest()) { ?>
             <li class="nav-item">
                 <?php
                     if((isset($_GET['returnUrl']))&&(!is_null($_GET['returnUrl']))){
@@ -50,7 +50,7 @@
                     $countNewMessages = new MensagemController();
                     $countNewMessages = $countNewMessages->newMessagesCount($_SESSION['id']);
                 ?>
-                <span class="badge badge-light" id="countNewMessages" style="margin-left:-10px;font-size:10px;color:#ccc;position:float;background-color:red;"><?=$countNewMessages;?></span>
+                <span class="badge badge-light" id="countNewMessages" style="margin-left:-10px;font-size:10px;color:#fff;position:float;background-color:#e74c3c;"><?=$countNewMessages;?></span>
                 </a>
             </li>
             <li class="nav-item dropdown">

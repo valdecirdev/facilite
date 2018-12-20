@@ -180,7 +180,7 @@
                                                     <div class="col-12 numbers-card">
                                                         <div class="row text-center">
                                                             <div style="width: 30%">
-                                                                <span style="font-size: 22px;font-weight:500;">25</span>
+                                                                <span style="font-size: 22px;font-weight:500;"><?=count($anuncios[$key]->avaliacoes)?></span>
                                                                 <p style="margin-top: -5px">Concluídos</p>
                                                             </div>
                                                             <div style="width: 40%">
@@ -189,7 +189,7 @@
                                                                 <p style="margin-top: -5px"><?php echo $anuncios[$key]->modalidade['des_descricao']; ?></p>
                                                             </div>
                                                             <div style="width: 30%">
-                                                                <span style="font-size: 22px;font-weight:500;">20</span>
+                                                                <span style="font-size: 22px;font-weight:500;"><?=count($anuncios[$key]->avaliacoes)?></span>
                                                                 <p style="margin-top: -5px">Avaliações</p>
                                                                 </div>
                                                         </div>

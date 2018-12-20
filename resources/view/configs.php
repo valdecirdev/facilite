@@ -10,7 +10,7 @@
         }
     </style>
     <div id="content">
-        <input type="text" value="<?php if(isset($logged_user)){ echo $logged_user->id_usuario;} ?>" id="id_usuario_logado" class="d-none">
+        <input type="text" value="<?php if(auth()){ echo $logged_user->id_usuario;} ?>" id="id_usuario_logado" class="d-none">
         <section class="container-fluid" style="" id="profile-page">
 
             <div class="row">

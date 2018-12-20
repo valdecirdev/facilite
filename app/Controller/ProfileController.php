@@ -10,21 +10,20 @@
 
         public function index ($slug)
         {
-            $dono_perfil = FALSE;
             $usuario = Usuario::where('des_slug', $slug)->get()[0] ?? header('location:erro');
+            
             session_start();
-            if ((isset($_SESSION['logged'])) && ($_SESSION['id'] == $usuario->getAttribute('id_usuario'))){
-                $logged_user =$usuario;
-                $dono_perfil = TRUE;
-            } else if(isset($_SESSION['id'])) {
+            $logged_user = NULL;
+            $dono_perfil = owner_session($usuario->id_usuario);
+            if ($dono_perfil) {
+                $logged_user = $usuario;
+            } else if(auth()) {
                 $logged_user = Usuario::where('id_usuario', $_SESSION['id'])->get()[0];
-            } else {
-                $logged_user = NULL;
             }
 
             $pg_title = $usuario->getAttribute('des_nome_exibicao').' - ';
             $description = $usuario->getAttribute('des_apresentacao');
-                
+
             require BASEPATH."resources/view/profile.php";
         }
 

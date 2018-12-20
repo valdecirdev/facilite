@@ -39,11 +39,11 @@
 
                                 <div class="text-center">
                                     <p style="margin-top:-5px;font-size:14px;"><span id="sideOcupacao"><?=$usuario->des_ocupacao; ?></span></p>
-                                    <?php if(isset($_SESSION['id'])){
+                                    <?php if(auth()){
                                         if(!$dono_perfil){
                                             $contato = $logged_user->ligacoes->where('id_contato', $usuario->id_usuario)->count(); ?>
                                             <div style="margin-bottom:10px;">
-                                                <button class="d-print-none btn btn-fc-<?php if(!$contato){echo 'primary';}else{echo 'danger';} ?>" id="criar-conexao" style="border-radius:5px;font-weight:400;height:34px;font-size:13px"<?php if(!isset($_SESSION['id'])||($_SESSION['id'] == $usuario->id_usuario)){ echo 'disabled'; } ?>><i class="fas fa-user" style="margin-right:5px"></i> <span id="msg-btnContato"><?php if(!$contato){echo ' Adicionar';}else{echo ' Remover';} ?></span> </button>
+                                                <button class="d-print-none btn btn-fc-<?php if(!$contato){echo 'primary';}else{echo 'danger';} ?>" id="criar-conexao" style="border-radius:5px;font-weight:400;height:34px;font-size:13px"<?php if(guest() || $dono_perfil){ echo 'disabled'; } ?>><i class="fas fa-user" style="margin-right:5px"></i> <span id="msg-btnContato"><?php if(!$contato){echo ' Adicionar';}else{echo ' Remover';} ?></span> </button>
                                                 <a href="messages?to=<?=$usuario->id_usuario;?>" class="btn btn-fc-primary d-print-none" style="border-radius:5px;font-weight:400;height:33px;font-size:13px;color:#fff"><i class="fas fa-comment" style="margin-right:2px"></i> Mensagem</a>
                                             </div>
                                         <?php } ?>
@@ -183,7 +183,7 @@
                                                                 <input type="text" class="id_experiencia d-none" value="<?=$usuario->experiencias[$key]->id_experiencia;?>">
                                                                 <div class="row clearfix">
                                                                     <p class="des_titulo_experiencia col-11" style="width:auto; margin-left:-5px;font-weight:400; font-size:17px;margin-bottom:0px"><?=$usuario->experiencias[$key]->des_titulo;?></p>
-                                                                    <?php if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->id_usuario){ ?>
+                                                                    <?php if(auth() && $dono_perfil){ ?>
                                                                     <div class="btn-group col-1">
                                                                         <button type="button" class="btn btn-link dropdown-toggle d-print-none" style="color:#5b5656" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                                                                         <div class="dropdown-menu dropdown-menu-right">
@@ -191,7 +191,7 @@
                                                                             <button aria-label="Deletar experiência" class="btn-delExperiencia text-danger dropdown-item" type="button" style="cursor:pointer">Deletar</button>
                                                                         </div>
                                                                     </div>
-                                                                    <?php }} ?>
+                                                                    <?php } ?>
                                                                 </div>
                                                                 <?php 
                                                                     $date_de = new DateTime( $usuario->experiencias[$key]->des_de );
@@ -227,7 +227,7 @@
                                                                 <input type="text" class="id_formacao" value="<?=$usuario->formacoes[$key]->id_formacao;?>" style="display:none">
                                                                 <div class="row clearfix">
                                                                     <p class="des_titulo_formacao col-11" style="width:auto;margin-left:-5px;font-weight:400;font-size:17px;margin-bottom:0px;"><?=$usuario->formacoes[$key]->des_titulo;?></p>
-                                                                    <?php if(isset($_SESSION['id'])){if($_SESSION['id'] == $usuario->id_usuario){ ?>
+                                                                    <?php if(auth() && $dono_perfil){ ?>
                                                                     <div class="btn-group col-1">
                                                                         <button type="button" class="btn btn-link dropdown-toggle d-print-none" style="color:#5b5656" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                                                                         <div class="dropdown-menu dropdown-menu-right">
@@ -235,7 +235,7 @@
                                                                             <button aria-label="Deletar formação" class="btn-delFormacao text-danger dropdown-item" type="button" style="cursor:pointer">Deletar</button>
                                                                         </div>
                                                                     </div>
-                                                                    <?php }} ?>
+                                                                    <?php } ?>
                                                                 </div>
                                                                 <input type="text" class="desde_real" value="<?=$usuario->formacoes[$key]->des_de?>" style="display:none">
                                                                 <input type="text" class="desate_real" value="<?=$usuario->formacoes[$key]->des_ate?>" style="display:none">

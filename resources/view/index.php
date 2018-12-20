@@ -71,7 +71,7 @@
         <section class="cards container">
             <div class="row">
                 <?php
-                $anuncios = $search->search('', $_SESSION['id'] ?? '*', 0, 12, NULL);
+                $anuncios = $search->search('', $_SESSION['id'] ?? '*', 0, 6, NULL);
                 foreach ($anuncios as $key => $anuncio) { ?>
                     <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
                         <div class="card card-body">

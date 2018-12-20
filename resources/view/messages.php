@@ -30,20 +30,20 @@ use Controller\{UsuarioController, ChatController, MensagemController};
         include('template'.DS.'menu.php');
         $chatExist = true;
 
-        // if(!isset($_GET['to']) || $_GET['to'] == 0){
-        //     $chatExist = false;
-        // }
-        // if($chatExist){
-        //     if($_GET['to'] == $_SESSION['id']) {
-        //         $chatExist = false;
-        //     }
-        // }
+        if(!isset($_GET['to']) || $_GET['to'] == 0){
+            $chatExist = false;
+        }
+        if($chatExist){
+            if($_GET['to'] == $_SESSION['id']) {
+                $chatExist = false;
+            }
+        }
 
         $chats = new ChatController();
         $user = new UsuarioController();
         $usuario = $user->loadById($_SESSION['id']);
 
-        // if($chatExist){
+        if($chatExist){
             $destinatario = $user->loadById($_GET['to']);
             $chat = $chats->loadByRecipient($_SESSION['id'], $_GET['to']);
             if($chat == NULL){
@@ -52,7 +52,7 @@ use Controller\{UsuarioController, ChatController, MensagemController};
                     $chat = $chats->addChat($_SESSION['id'], $_GET['to']);
                 }
             }
-        // }
+        }
 
         $chatList = $chats->loadAll($_SESSION['id']);
     ?>

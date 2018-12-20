@@ -3,25 +3,10 @@
     namespace Controller;
 
     use Models\{Cidade, Confirmacao, Estado, Pais, Usuario};
-    // use PHPMailer\PHPMailer\PHPMailer;
     use Core\Controller;
 
     class UsuarioController extends Controller
     {
-
-
-        //---------------------------------------------------------------------
-        //  LOADS
-        //---------------------------------------------------------------------
-        // public function loadBySlug(string $slug, array $campos = ['*'])
-        // {
-        //     $usuario = Usuario::where('des_slug', $slug)->select($campos)->get();
-        //     if (count($usuario)==0) {
-        //         return NULL;
-        //     }
-        //     $usuario = $this->setInfosUsuario($usuario);
-        //     return $usuario;
-        // }
 
         public function loadById(int $id, array $campos = ['*'])
         {
@@ -33,16 +18,6 @@
             return $usuario;
         }
 
-        // public function loadByEmail(string $email, array $campos = ['*'])
-        // {
-        //     $usuario = Usuario::where('des_email', $email)->select($campos)->get();
-        //     if (count($usuario)==0) {
-        //         return NULL;
-        //     }
-        //     $usuario = $this->setInfosUsuario($usuario);
-        //     return $usuario;
-        // }
-
         public static function loadCityByName(string $nome)
         {
             $result = Cidade::where('des_nome', $nome)->get();
@@ -51,24 +26,6 @@
             }
             return $result;
         }
-
-        // public function loadCity()
-        // {
-        //     $result = Cidade::all();
-        //     if (count($result)==0) {
-        //         return NULL;
-        //     }
-        //     return $result;
-        // }
-
-        // public function loadCityById(int $id)
-        // {
-        //     $result = Cidade::where('id_cidade', $id)->get();
-        //     if (count($result)==0) {
-        //         return NULL;
-        //     }
-        //     return $result[0];
-        // }
 
 
         // public function mailer($destinatario, $nome, $hash): void
