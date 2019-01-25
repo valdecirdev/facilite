@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * This file is part of the Carbon package.
+ *
+ * (c) Brian Nesbitt <brian@nesbot.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 namespace Carbon;
 
 use Closure;
@@ -29,6 +37,13 @@ class Translator extends Translation\Translator
     protected $directories = [];
 
     /**
+     * Set to true while constructing.
+     *
+     * @var bool
+     */
+    protected $initializing = false;
+
+    /**
      * Return a singleton instance of Translator.
      *
      * @param string|null $locale optional initial locale ("en" - english by default)
@@ -48,9 +63,11 @@ class Translator extends Translation\Translator
 
     public function __construct($locale, Translation\Formatter\MessageFormatterInterface $formatter = null, $cacheDir = null, $debug = false)
     {
+        $this->initializing = true;
         $this->directories = [__DIR__.'/Lang'];
         $this->addLoader('array', new Translation\Loader\ArrayLoader());
         parent::__construct($locale, $formatter, $cacheDir, $debug);
+        $this->initializing = false;
     }
 
     /**
@@ -237,6 +254,18 @@ class Translator extends Translation\Translator
     }
 
     /**
+     * Set messages of the current locale and take file first if present.
+     *
+     * @param array $messages
+     *
+     * @return $this
+     */
+    public function setTranslations($messages)
+    {
+        return $this->setMessages($this->getLocale(), $messages);
+    }
+
+    /**
      * Get messages of a locale, if none given, return all the
      * languages.
      *
@@ -303,13 +332,13 @@ class Translator extends Translation\Translator
         }
 
         // If subtag (ex: en_CA) first load the macro (ex: en) to have a fallback
-        if (strpos($locale, '_') !== false) {
-            if ($this->loadMessagesFromFile($macroLocale = preg_replace('/^([^_]+).*$/', '$1', $locale))) {
-                parent::setLocale($macroLocale);
-            }
+        if (strpos($locale, '_') !== false &&
+            $this->loadMessagesFromFile($macroLocale = preg_replace('/^([^_]+).*$/', '$1', $locale))
+        ) {
+            parent::setLocale($macroLocale);
         }
 
-        if ($this->loadMessagesFromFile($locale)) {
+        if ($this->loadMessagesFromFile($locale) || $this->initializing) {
             parent::setLocale($locale);
 
             return true;

@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -28,10 +28,10 @@ return [
     'from_now' => 'za :time',
     'after' => 'nakon :time',
     'before' => 'pre :time',
-    'year_from_now' => '{1,21,31,41,51} :count godinu|{2,3,4,22,23,24,32,33,34,42,43,44,52,53,54} :count godine|[5,Inf[ :count godina',
-    'year_ago' => '{1,21,31,41,51} :count godinu|{2,3,4,22,23,24,32,33,34,42,43,44,52,53,54} :count godine|[5,Inf[ :count godina',
-    'week_from_now' => '{1} :count nedelju|{2,3,4} :count nedelje|[5,Inf[ :count nedelja',
-    'week_ago' => '{1} :count nedelju|{2,3,4} :count nedelje|[5,Inf[ :count nedelja',
+    'year_from_now' => '{1,21,31,41,51}:count godinu|{0,2,3,4,22,23,24,32,33,34,42,43,44,52,53,54}:count godine|[0,Inf[:count godina',
+    'year_ago' => '{1,21,31,41,51}:count godinu|{0,2,3,4,22,23,24,32,33,34,42,43,44,52,53,54}:count godine|[0,Inf[:count godina',
+    'week_from_now' => '{1}:count nedelju|{0,2,3,4}:count nedelje|[0,Inf[:count nedelja',
+    'week_ago' => '{1}:count nedelju|{0,2,3,4}:count nedelje|[0,Inf[:count nedelja',
     'diff_yesterday' => 'juče',
     'diff_tomorrow' => 'sutra',
     'formats' => [
@@ -86,4 +86,5 @@ return [
     'weekdays_min' => ['ne', 'po', 'ut', 'sr', 'če', 'pe', 'su'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
+    'list' => [', ', ' i '],
 ];

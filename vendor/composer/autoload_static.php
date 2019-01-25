@@ -17,6 +17,7 @@ class ComposerStaticInita8f25f80d973b681ac51a7fb714b5532
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Contracts\\' => 18,
             'Symfony\\Component\\Translation\\' => 30,
+            'Services\\' => 9,
         ),
         'P' => 
         array (
@@ -40,7 +41,6 @@ class ComposerStaticInita8f25f80d973b681ac51a7fb714b5532
         'D' => 
         array (
             'Doctrine\\Common\\Inflector\\' => 26,
-            'Database\\' => 9,
         ),
         'C' => 
         array (
@@ -62,6 +62,10 @@ class ComposerStaticInita8f25f80d973b681ac51a7fb714b5532
         'Symfony\\Component\\Translation\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/translation',
+        ),
+        'Services\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/services',
         ),
         'Psr\\SimpleCache\\' => 
         array (
@@ -85,7 +89,7 @@ class ComposerStaticInita8f25f80d973b681ac51a7fb714b5532
         ),
         'Models\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/app/Models',
+            0 => __DIR__ . '/../..' . '/app/models',
         ),
         'Illuminate\\Support\\' => 
         array (
@@ -107,17 +111,13 @@ class ComposerStaticInita8f25f80d973b681ac51a7fb714b5532
         array (
             0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Common/Inflector',
         ),
-        'Database\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/database',
-        ),
         'Core\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/app/Core',
+            0 => __DIR__ . '/../..' . '/app/core',
         ),
         'Controller\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/app/Controller',
+            0 => __DIR__ . '/../..' . '/app/controllers',
         ),
         'Carbon\\' => 
         array (

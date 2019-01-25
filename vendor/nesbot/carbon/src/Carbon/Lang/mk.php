@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -77,4 +77,5 @@ return [
     'weekdays_min' => ['нe', 'пo', 'вт', 'ср', 'че', 'пе', 'сa'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
+    'list' => [', ', ' и '],
 ];

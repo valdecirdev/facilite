@@ -27,6 +27,7 @@ class AnuncioController extends Controller
             }
         }
         
+        // $this->view('service', $servico->categoria->des_descricao.' - ');
         require BASEPATH."resources/view/service.php";
     }
 

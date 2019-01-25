@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -63,4 +63,5 @@ return [
             )
         );
     },
+    'list' => [', ', ' and '],
 ];

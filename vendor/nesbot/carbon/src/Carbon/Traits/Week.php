@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -8,7 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Carbon\Traits;
 
 use Carbon\CarbonInterface;
@@ -67,7 +66,7 @@ trait Week
      * @param int|null $dayOfWeek first date of week from 0 (Sunday) to 6 (Saturday)
      * @param int|null $dayOfYear first day of year included in the week #1
      *
-     * @return int|static
+     * @return int|static|CarbonInterface
      */
     public function weekYear($year = null, $dayOfWeek = null, $dayOfYear = null)
     {

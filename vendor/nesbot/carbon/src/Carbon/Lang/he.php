@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -65,4 +65,5 @@ return [
     'weekdays' => ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'],
     'weekdays_short' => ['א׳', 'ב׳', 'ג׳', 'ד׳', 'ה׳', 'ו׳', 'ש׳'],
     'weekdays_min' => ['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ש'],
+    'list' => [', ', ' ו -'],
 ];

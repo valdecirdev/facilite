@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -8,8 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Carbon\Traits;
+
+use Carbon\CarbonInterface;
 
 /**
  * Trait Modifiers.
@@ -57,7 +58,7 @@ trait Modifiers
     /**
      * Modify to midday, default to self::$midDayAt
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function midDay()
     {
@@ -72,7 +73,7 @@ trait Modifiers
      *
      * @param int|null $dayOfWeek
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function next($dayOfWeek = null)
     {
@@ -89,7 +90,7 @@ trait Modifiers
      * @param bool $weekday
      * @param bool $forward
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     private function nextOrPreviousDay($weekday = true, $forward = true)
     {
@@ -107,7 +108,7 @@ trait Modifiers
     /**
      * Go forward to the next weekday.
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function nextWeekday()
     {
@@ -117,7 +118,7 @@ trait Modifiers
     /**
      * Go backward to the previous weekday.
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function previousWeekday()
     {
@@ -127,7 +128,7 @@ trait Modifiers
     /**
      * Go forward to the next weekend day.
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function nextWeekendDay()
     {
@@ -137,7 +138,7 @@ trait Modifiers
     /**
      * Go backward to the previous weekend day.
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function previousWeekendDay()
     {
@@ -152,7 +153,7 @@ trait Modifiers
      *
      * @param int|null $dayOfWeek
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function previous($dayOfWeek = null)
     {
@@ -171,7 +172,7 @@ trait Modifiers
      *
      * @param int|null $dayOfWeek
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function firstOfMonth($dayOfWeek = null)
     {
@@ -192,7 +193,7 @@ trait Modifiers
      *
      * @param int|null $dayOfWeek
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function lastOfMonth($dayOfWeek = null)
     {
@@ -233,7 +234,7 @@ trait Modifiers
      *
      * @param int|null $dayOfWeek day of the week default null
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function firstOfQuarter($dayOfWeek = null)
     {
@@ -248,7 +249,7 @@ trait Modifiers
      *
      * @param int|null $dayOfWeek day of the week default null
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function lastOfQuarter($dayOfWeek = null)
     {
@@ -284,7 +285,7 @@ trait Modifiers
      *
      * @param int|null $dayOfWeek day of the week default null
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function firstOfYear($dayOfWeek = null)
     {
@@ -299,7 +300,7 @@ trait Modifiers
      *
      * @param int|null $dayOfWeek day of the week default null
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function lastOfYear($dayOfWeek = null)
     {
@@ -325,41 +326,42 @@ trait Modifiers
     }
 
     /**
-     * Modify the current instance to the average of a given instance (default now) and the current instance.
+     * Modify the current instance to the average of a given instance (default now) and the current instance
+     * (second-precision).
      *
      * @param \Carbon\Carbon|\DateTimeInterface|null $date
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function average($date = null)
     {
-        return $this->addSeconds((int) ($this->diffInSeconds($this->resolveCarbon($date), false) / 2));
+        return $this->addRealMicroseconds((int) ($this->diffInRealMicroseconds($this->resolveCarbon($date), false) / 2));
     }
 
     /**
-     * Get the closest date from the instance.
+     * Get the closest date from the instance (second-precision).
      *
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date1
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date2
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function closest($date1, $date2)
     {
-        return $this->diffInSeconds($date1) < $this->diffInSeconds($date2) ? $date1 : $date2;
+        return $this->diffInRealMicroseconds($date1) < $this->diffInRealMicroseconds($date2) ? $date1 : $date2;
     }
 
     /**
-     * Get the farthest date from the instance.
+     * Get the farthest date from the instance (second-precision).
      *
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date1
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date2
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function farthest($date1, $date2)
     {
-        return $this->diffInSeconds($date1) > $this->diffInSeconds($date2) ? $date1 : $date2;
+        return $this->diffInRealMicroseconds($date1) > $this->diffInRealMicroseconds($date2) ? $date1 : $date2;
     }
 
     /**
@@ -367,7 +369,7 @@ trait Modifiers
      *
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function min($date = null)
     {
@@ -383,7 +385,7 @@ trait Modifiers
      *
      * @see min()
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function minimum($date = null)
     {
@@ -395,7 +397,7 @@ trait Modifiers
      *
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function max($date = null)
     {
@@ -411,7 +413,7 @@ trait Modifiers
      *
      * @see max()
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function maximum($date = null)
     {

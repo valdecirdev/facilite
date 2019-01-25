@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -11,25 +11,27 @@
 
 return [
     'year' => ':count godinu|:count godine|:count godina',
-    'y' => ':count godinu|:count godine|:count godina',
+    'y' => ':count god.|:count god.|:count god.',
     'month' => ':count mjesec|:count mjeseca|:count mjeseci',
-    'm' => ':count mjesec|:count mjeseca|:count mjeseci',
+    'm' => ':count mj.|:count mj.|:count mj.',
     'week' => ':count tjedan|:count tjedna|:count tjedana',
-    'w' => ':count tjedan|:count tjedna|:count tjedana',
+    'w' => ':count tj.|:count tj.|:count tj.',
     'day' => ':count dan|:count dana|:count dana',
-    'd' => ':count dan|:count dana|:count dana',
+    'd' => ':count d.|:count d.|:count d.',
     'hour' => ':count sat|:count sata|:count sati',
     'h' => ':count sat|:count sata|:count sati',
-    'minute' => ':count minutu|:count minute |:count minuta',
-    'min' => ':count minutu|:count minute |:count minuta',
+    'minute' => ':count minutu|:count minute|:count minuta',
+    'min' => ':count min.|:count min.|:count min.',
     'second' => ':count sekundu|:count sekunde|:count sekundi',
-    's' => ':count sekundu|:count sekunde|:count sekundi',
+    's' => ':count sek.|:count sek.|:count sek.',
     'ago' => 'prije :time',
     'from_now' => 'za :time',
     'after' => 'za :time',
     'before' => 'prije :time',
     'diff_yesterday' => 'jučer',
     'diff_tomorrow' => 'sutra',
+    'diff_before_yesterday' => 'prekjučer',
+    'diff_after_tomorrow' => 'prekosutra',
     'formats' => [
         'LT' => 'H:mm',
         'LTS' => 'H:mm:ss',
@@ -72,9 +74,11 @@ return [
     'months_standalone' => ['siječanj', 'veljača', 'ožujak', 'travanj', 'svibanj', 'lipanj', 'srpanj', 'kolovoz', 'rujan', 'listopad', 'studeni', 'prosinac'],
     'months_short' => ['sij.', 'velj.', 'ožu.', 'tra.', 'svi.', 'lip.', 'srp.', 'kol.', 'ruj.', 'lis.', 'stu.', 'pro.'],
     'months_regexp' => '/D[oD]?(\[[^\[\]]*\]|\s)+MMMM?/',
-    'weekdays' => ['nedjelja', 'ponedjeljak', 'utorak', 'srijeda', 'četvrtak', 'petak', 'subota'],
+    'weekdays' => ['nedjelju', 'ponedjeljak', 'utorak', 'srijedu', 'četvrtak', 'petak', 'subotu'],
+    'weekdays_standalone' => ['nedjelja', 'ponedjeljak', 'utorak', 'srijeda', 'četvrtak', 'petak', 'subota'],
     'weekdays_short' => ['ned.', 'pon.', 'uto.', 'sri.', 'čet.', 'pet.', 'sub.'],
     'weekdays_min' => ['ne', 'po', 'ut', 'sr', 'če', 'pe', 'su'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
+    'list' => [', ', ' i '],
 ];

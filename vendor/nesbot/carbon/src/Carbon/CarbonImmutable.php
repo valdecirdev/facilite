@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -8,7 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Carbon;
 
 use Carbon\Traits\Date;
@@ -85,24 +84,7 @@ use DateTimeImmutable;
  * @property-read string         $tzAbbrName                                                                         alias of $timezoneAbbreviatedName
  * @property-read string         $locale                                                                             locale of the current instance
  *
- * @method        string         format($format)                                                                     call \DateTime::format if mutable or \DateTimeImmutable::format else.
- *                                                                                                                   http://php.net/manual/en/datetime.format.php
- * @method        static         modify($modify)                                                                     call \DateTime::modify if mutable or \DateTimeImmutable::modify else.
- *                                                                                                                   http://php.net/manual/en/datetime.modify.php
- * @method        int            getOffset()                                                                         call \DateTime::getOffset if mutable or \DateTimeImmutable::getOffset else.
- *                                                                                                                   http://php.net/manual/en/datetime.getoffset.php
- * @method        int            getTimestamp()                                                                      call \DateTime::getTimestamp if mutable or \DateTimeImmutable::getTimestamp else.
- *                                                                                                                   http://php.net/manual/en/datetime.gettimestamp.php
- * @method        static         setTime($hour, $minute, $second = 0, $microseconds = 0)                             call \DateTime::setTime if mutable or \DateTimeImmutable::setTime else.
- *                                                                                                                   http://php.net/manual/en/datetime.settime.php
- * @method        static         setISODate($year, $week, $day = 1)                                                  call \DateTime::setISODate if mutable or \DateTimeImmutable::setISODate else.
- *                                                                                                                   http://php.net/manual/en/datetime.setisodate.php
- * @method        static         setTimestamp($unixtimestamp)                                                        call \DateTime::setTimestamp if mutable or \DateTimeImmutable::setTimestamp else.
- *                                                                                                                   http://php.net/manual/en/datetime.settimestamp.php
- * @method        \DateInterval  diff($object, $absolute = true)                                                     call \DateTime::diff if mutable or \DateTimeImmutable::diff else.
- *                                                                                                                   http://php.net/manual/en/datetime.diff.php
- * @method        bool           isUtc()                                                                             Check if the current instance has UTC timezone.
- * @method        bool           isUTC()                                                                             Check if the current instance has UTC timezone.
+ * @method        bool           isUtc()                                                                             Check if the current instance has UTC timezone. (Both isUtc and isUTC cases are valid.)
  * @method        bool           isLocal()                                                                           Check if the current instance has non-UTC timezone.
  * @method        bool           isValid()                                                                           Check if the current instance is a valid date.
  * @method        bool           isDST()                                                                             Check if the current instance is in a daylight saving time.
@@ -137,10 +119,10 @@ use DateTimeImmutable;
  * @method        bool           isCurrentSecond()                                                                   Checks if the instance is in the same second as the current moment.
  * @method        bool           isNextSecond()                                                                      Checks if the instance is in the same second as the current moment next second.
  * @method        bool           isLastSecond()                                                                      Checks if the instance is in the same second as the current moment last second.
- * @method        bool           isSameMicro(\DateTimeInterface $date = null)                                        Checks if the given date is in the same micro as the instance. If null passed, compare to now (with the same timezone).
- * @method        bool           isCurrentMicro()                                                                    Checks if the instance is in the same micro as the current moment.
- * @method        bool           isNextMicro()                                                                       Checks if the instance is in the same micro as the current moment next micro.
- * @method        bool           isLastMicro()                                                                       Checks if the instance is in the same micro as the current moment last micro.
+ * @method        bool           isSameMicro(\DateTimeInterface $date = null)                                        Checks if the given date is in the same microsecond as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool           isCurrentMicro()                                                                    Checks if the instance is in the same microsecond as the current moment.
+ * @method        bool           isNextMicro()                                                                       Checks if the instance is in the same microsecond as the current moment next microsecond.
+ * @method        bool           isLastMicro()                                                                       Checks if the instance is in the same microsecond as the current moment last microsecond.
  * @method        bool           isSameMicrosecond(\DateTimeInterface $date = null)                                  Checks if the given date is in the same microsecond as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool           isCurrentMicrosecond()                                                              Checks if the instance is in the same microsecond as the current moment.
  * @method        bool           isNextMicrosecond()                                                                 Checks if the instance is in the same microsecond as the current moment next microsecond.
@@ -187,10 +169,18 @@ use DateTimeImmutable;
  * @method        $this          second(int $value)                                                                  Set current instance second to the given value.
  * @method        $this          setSeconds(int $value)                                                              Set current instance second to the given value.
  * @method        $this          setSecond(int $value)                                                               Set current instance second to the given value.
- * @method        $this          micros(int $value)                                                                  Set current instance micro to the given value.
- * @method        $this          micro(int $value)                                                                   Set current instance micro to the given value.
- * @method        $this          setMicros(int $value)                                                               Set current instance micro to the given value.
- * @method        $this          setMicro(int $value)                                                                Set current instance micro to the given value.
+ * @method        $this          millis(int $value)                                                                  Set current instance millisecond to the given value.
+ * @method        $this          milli(int $value)                                                                   Set current instance millisecond to the given value.
+ * @method        $this          setMillis(int $value)                                                               Set current instance millisecond to the given value.
+ * @method        $this          setMilli(int $value)                                                                Set current instance millisecond to the given value.
+ * @method        $this          milliseconds(int $value)                                                            Set current instance millisecond to the given value.
+ * @method        $this          millisecond(int $value)                                                             Set current instance millisecond to the given value.
+ * @method        $this          setMilliseconds(int $value)                                                         Set current instance millisecond to the given value.
+ * @method        $this          setMillisecond(int $value)                                                          Set current instance millisecond to the given value.
+ * @method        $this          micros(int $value)                                                                  Set current instance microsecond to the given value.
+ * @method        $this          micro(int $value)                                                                   Set current instance microsecond to the given value.
+ * @method        $this          setMicros(int $value)                                                               Set current instance microsecond to the given value.
+ * @method        $this          setMicro(int $value)                                                                Set current instance microsecond to the given value.
  * @method        $this          microseconds(int $value)                                                            Set current instance microsecond to the given value.
  * @method        $this          microsecond(int $value)                                                             Set current instance microsecond to the given value.
  * @method        $this          setMicroseconds(int $value)                                                         Set current instance microsecond to the given value.
@@ -251,10 +241,18 @@ use DateTimeImmutable;
  * @method        $this          addSecond()                                                                         Add one second to the instance (using date interval).
  * @method        $this          subSeconds(int $value = 1)                                                          Sub seconds (the $value count passed in) to the instance (using date interval).
  * @method        $this          subSecond()                                                                         Sub one second to the instance (using date interval).
- * @method        $this          addMicros(int $value = 1)                                                           Add micros (the $value count passed in) to the instance (using date interval).
- * @method        $this          addMicro()                                                                          Add one micro to the instance (using date interval).
- * @method        $this          subMicros(int $value = 1)                                                           Sub micros (the $value count passed in) to the instance (using date interval).
- * @method        $this          subMicro()                                                                          Sub one micro to the instance (using date interval).
+ * @method        $this          addMillis(int $value = 1)                                                           Add milliseconds (the $value count passed in) to the instance (using date interval).
+ * @method        $this          addMilli()                                                                          Add one millisecond to the instance (using date interval).
+ * @method        $this          subMillis(int $value = 1)                                                           Sub milliseconds (the $value count passed in) to the instance (using date interval).
+ * @method        $this          subMilli()                                                                          Sub one millisecond to the instance (using date interval).
+ * @method        $this          addMilliseconds(int $value = 1)                                                     Add milliseconds (the $value count passed in) to the instance (using date interval).
+ * @method        $this          addMillisecond()                                                                    Add one millisecond to the instance (using date interval).
+ * @method        $this          subMilliseconds(int $value = 1)                                                     Sub milliseconds (the $value count passed in) to the instance (using date interval).
+ * @method        $this          subMillisecond()                                                                    Sub one millisecond to the instance (using date interval).
+ * @method        $this          addMicros(int $value = 1)                                                           Add microseconds (the $value count passed in) to the instance (using date interval).
+ * @method        $this          addMicro()                                                                          Add one microsecond to the instance (using date interval).
+ * @method        $this          subMicros(int $value = 1)                                                           Sub microseconds (the $value count passed in) to the instance (using date interval).
+ * @method        $this          subMicro()                                                                          Sub one microsecond to the instance (using date interval).
  * @method        $this          addMicroseconds(int $value = 1)                                                     Add microseconds (the $value count passed in) to the instance (using date interval).
  * @method        $this          addMicrosecond()                                                                    Add one microsecond to the instance (using date interval).
  * @method        $this          subMicroseconds(int $value = 1)                                                     Sub microseconds (the $value count passed in) to the instance (using date interval).
@@ -347,10 +345,22 @@ use DateTimeImmutable;
  * @method        $this          addWeekday()                                                                        Add one weekday to the instance (using date interval).
  * @method        $this          subWeekdays(int $value = 1)                                                         Sub weekdays (the $value count passed in) to the instance (using date interval).
  * @method        $this          subWeekday()                                                                        Sub one weekday to the instance (using date interval).
+ * @method        $this          addRealMicros(int $value = 1)                                                       Add microseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          addRealMicro()                                                                      Add one microsecond to the instance (using timestamp).
+ * @method        $this          subRealMicros(int $value = 1)                                                       Sub microseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          subRealMicro()                                                                      Sub one microsecond to the instance (using timestamp).
  * @method        $this          addRealMicroseconds(int $value = 1)                                                 Add microseconds (the $value count passed in) to the instance (using timestamp).
  * @method        $this          addRealMicrosecond()                                                                Add one microsecond to the instance (using timestamp).
  * @method        $this          subRealMicroseconds(int $value = 1)                                                 Sub microseconds (the $value count passed in) to the instance (using timestamp).
  * @method        $this          subRealMicrosecond()                                                                Sub one microsecond to the instance (using timestamp).
+ * @method        $this          addRealMillis(int $value = 1)                                                       Add milliseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          addRealMilli()                                                                      Add one millisecond to the instance (using timestamp).
+ * @method        $this          subRealMillis(int $value = 1)                                                       Sub milliseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          subRealMilli()                                                                      Sub one millisecond to the instance (using timestamp).
+ * @method        $this          addRealMilliseconds(int $value = 1)                                                 Add milliseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          addRealMillisecond()                                                                Add one millisecond to the instance (using timestamp).
+ * @method        $this          subRealMilliseconds(int $value = 1)                                                 Sub milliseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          subRealMillisecond()                                                                Sub one millisecond to the instance (using timestamp).
  * @method        $this          addRealSeconds(int $value = 1)                                                      Add seconds (the $value count passed in) to the instance (using timestamp).
  * @method        $this          addRealSecond()                                                                     Add one second to the instance (using timestamp).
  * @method        $this          subRealSeconds(int $value = 1)                                                      Sub seconds (the $value count passed in) to the instance (using timestamp).
@@ -467,22 +477,14 @@ use DateTimeImmutable;
  * @method        $this          floorMicroseconds(float $precision = 1)                                             Truncate the current instance microsecond with given precision.
  * @method        $this          ceilMicrosecond(float $precision = 1)                                               Ceil the current instance microsecond with given precision.
  * @method        $this          ceilMicroseconds(float $precision = 1)                                              Ceil the current instance microsecond with given precision.
- * @method        string         shortAbsoluteDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)        Get the difference (short format, 'Absolute' mode) in a human readable format in the current locale.
- * @method        string         shortAbsoluteDiffForHumans(int $parts = 1, \DateTimeInterface $other = null)        Get the difference (short format, 'Absolute' mode) in a human readable format in the current locale.
- * @method        string         longAbsoluteDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)         Get the difference (long format, 'Absolute' mode) in a human readable format in the current locale.
- * @method        string         longAbsoluteDiffForHumans(int $parts = 1, \DateTimeInterface $other = null)         Get the difference (long format, 'Absolute' mode) in a human readable format in the current locale.
- * @method        string         shortRelativeDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)        Get the difference (short format, 'Relative' mode) in a human readable format in the current locale.
- * @method        string         shortRelativeDiffForHumans(int $parts = 1, \DateTimeInterface $other = null)        Get the difference (short format, 'Relative' mode) in a human readable format in the current locale.
- * @method        string         longRelativeDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)         Get the difference (long format, 'Relative' mode) in a human readable format in the current locale.
- * @method        string         longRelativeDiffForHumans(int $parts = 1, \DateTimeInterface $other = null)         Get the difference (long format, 'Relative' mode) in a human readable format in the current locale.
- * @method        string         shortRelativeToNowDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)   Get the difference (short format, 'RelativeToNow' mode) in a human readable format in the current locale.
- * @method        string         shortRelativeToNowDiffForHumans(int $parts = 1, \DateTimeInterface $other = null)   Get the difference (short format, 'RelativeToNow' mode) in a human readable format in the current locale.
- * @method        string         longRelativeToNowDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)    Get the difference (long format, 'RelativeToNow' mode) in a human readable format in the current locale.
- * @method        string         longRelativeToNowDiffForHumans(int $parts = 1, \DateTimeInterface $other = null)    Get the difference (long format, 'RelativeToNow' mode) in a human readable format in the current locale.
- * @method        string         shortRelativeToOtherDiffForHumans(\DateTimeInterface $other = null, int $parts = 1) Get the difference (short format, 'RelativeToOther' mode) in a human readable format in the current locale.
- * @method        string         shortRelativeToOtherDiffForHumans(int $parts = 1, \DateTimeInterface $other = null) Get the difference (short format, 'RelativeToOther' mode) in a human readable format in the current locale.
- * @method        string         longRelativeToOtherDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)  Get the difference (long format, 'RelativeToOther' mode) in a human readable format in the current locale.
- * @method        string         longRelativeToOtherDiffForHumans(int $parts = 1, \DateTimeInterface $other = null)  Get the difference (long format, 'RelativeToOther' mode) in a human readable format in the current locale.
+ * @method        string         shortAbsoluteDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)        Get the difference (short format, 'Absolute' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        string         longAbsoluteDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)         Get the difference (long format, 'Absolute' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        string         shortRelativeDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)        Get the difference (short format, 'Relative' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        string         longRelativeDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)         Get the difference (long format, 'Relative' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        string         shortRelativeToNowDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)   Get the difference (short format, 'RelativeToNow' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        string         longRelativeToNowDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)    Get the difference (long format, 'RelativeToNow' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        string         shortRelativeToOtherDiffForHumans(\DateTimeInterface $other = null, int $parts = 1) Get the difference (short format, 'RelativeToOther' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        string         longRelativeToOtherDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)  Get the difference (long format, 'RelativeToOther' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
  *
  * </autodoc>
  */

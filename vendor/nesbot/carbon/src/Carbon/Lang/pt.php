@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -28,6 +28,15 @@ return [
     'from_now' => 'em :time',
     'after' => ':time depois',
     'before' => ':time antes',
+    'diff_now' => 'agora',
+    'diff_yesterday' => 'ontem',
+    'diff_tomorrow' => 'amanhã',
+    'diff_before_yesterday' => 'anteontem',
+    'diff_after_tomorrow' => 'depois de amanhã',
+    'period_recurrences' => 'uma vez|:count vezes',
+    'period_interval' => 'cada :interval',
+    'period_start_date' => 'de :date',
+    'period_end_date' => 'até :date',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',
@@ -60,4 +69,5 @@ return [
     'weekdays_min' => ['Do', '2ª', '3ª', '4ª', '5ª', '6ª', 'Sá'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
+    'list' => [', ', ' e '],
 ];

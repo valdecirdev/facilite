@@ -13,6 +13,6 @@
         error_reporting(E_ALL);
     }    
 
-    use Database\Database;
+    use Core\Database;
     new Database();
     

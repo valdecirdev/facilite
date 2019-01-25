@@ -3,10 +3,11 @@
 define('DS', DIRECTORY_SEPARATOR);
 define('BASEPATH', dirname(__DIR__).DS);
 
-require (BASEPATH.'bootstrap'.DS.'app.php');
+require (BASEPATH.'config'.DS.'bootstrap.php');
 
 $router = new Core\Router();
 
-require (BASEPATH.'config'.DS.'routes.php');
+require (BASEPATH.'app'.DS.'routes'.DS.'services.php');
+require (BASEPATH.'app'.DS.'routes'.DS.'routes.php');
 
 echo $router($router->method(), $router->uri());

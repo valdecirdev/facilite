@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -8,7 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Carbon\Traits;
 
 use Carbon\CarbonInterface;
@@ -35,8 +34,9 @@ trait Units
     public function addRealUnit($unit, $value = 1)
     {
         switch ($unit) {
+            // @call addRealUnit
             case 'micro':
-                // @call addRealUnit
+            // @call addRealUnit
             case 'microsecond':
                 /* @var CarbonInterface $this */
                 $diff = $this->microsecond + $value;
@@ -45,8 +45,15 @@ trait Units
                 $time += $seconds;
                 $diff -= $seconds * static::MICROSECONDS_PER_SECOND;
                 $microtime = str_pad($diff, 6, '0', STR_PAD_LEFT);
+                $tz = $this->tz;
 
-                return $this->modify("@$time.$microtime");
+                return $this->tz('UTC')->modify("@$time.$microtime")->tz($tz);
+            // @call addRealUnit
+            case 'milli':
+            // @call addRealUnit
+            case 'millisecond':
+                return $this->addRealUnit('microsecond', $value * static::MICROSECONDS_PER_MILLISECOND);
+                break;
             // @call addRealUnit
             case 'second':
                 break;
@@ -191,7 +198,7 @@ trait Units
             'quarter' => [static::MONTHS_PER_QUARTER, 'month'],
         ];
         if (isset($metaUnits[$unit])) {
-            list($factor, $unit) = $metaUnits[$unit];
+            [$factor, $unit] = $metaUnits[$unit];
             $value *= $factor;
         }
 
@@ -226,6 +233,12 @@ trait Units
         }
 
         $value = (int) $value;
+
+        if ($unit === 'milli' || $unit === 'millisecond') {
+            $unit = 'microsecond';
+            $value *= static::MICROSECONDS_PER_MILLISECOND;
+        }
+
         // Work-around for bug https://bugs.php.net/bug.php?id=75642
         if ($unit === 'micro' || $unit === 'microsecond') {
             $microseconds = $this->micro + $value;

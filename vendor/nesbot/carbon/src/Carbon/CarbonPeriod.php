@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -8,7 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Carbon;
 
 use BadMethodCallException;
@@ -368,6 +367,14 @@ class CarbonPeriod implements Iterator, Countable
     /**
      * Register a custom macro.
      *
+     * @example
+     * ```
+     * CarbonPeriod::macro('middle', function () {
+     *   return $this->getStartDate()->average($this->getEndDate());
+     * });
+     * echo CarbonPeriod::since('2011-05-12')->until('2011-06-03')->middle();
+     * ```
+     *
      * @param string          $name
      * @param object|callable $macro
      *
@@ -380,6 +387,31 @@ class CarbonPeriod implements Iterator, Countable
 
     /**
      * Register macros from a mixin object.
+     *
+     * @example
+     * ```
+     * CarbonPeriod::mixin(new class {
+     *   public function addDays() {
+     *     return function ($count = 1) {
+     *       return $this->setStartDate(
+     *         $this->getStartDate()->addDays($count)
+     *       )->setEndDate(
+     *         $this->getEndDate()->addDays($count)
+     *       );
+     *     };
+     *   }
+     *   public function subDays() {
+     *     return function ($count = 1) {
+     *       return $this->setStartDate(
+     *         $this->getStartDate()->subDays($count)
+     *       )->setEndDate(
+     *         $this->getEndDate()->subDays($count)
+     *       );
+     *     };
+     *   }
+     * });
+     * echo CarbonPeriod::create('2000-01-01', '2000-02-01')->addDays(5)->subDays(3);
+     * ```
      *
      * @param object $mixin
      *
@@ -675,7 +707,7 @@ class CarbonPeriod implements Iterator, Countable
     /**
      * Get start date of the period.
      *
-     * @return Carbon
+     * @return CarbonInterface
      */
     public function getStartDate()
     {
@@ -685,13 +717,11 @@ class CarbonPeriod implements Iterator, Countable
     /**
      * Get end date of the period.
      *
-     * @return Carbon|null
+     * @return CarbonInterface|null
      */
     public function getEndDate()
     {
-        if ($this->endDate) {
-            return $this->endDate->copy();
-        }
+        return $this->endDate ? $this->endDate->copy() : null;
     }
 
     /**
@@ -1283,15 +1313,15 @@ class CarbonPeriod implements Iterator, Countable
             : 'Y-m-d';
 
         if ($this->recurrences !== null) {
-            $parts[] = $translator->transChoice('period_recurrences', $this->recurrences, [':count' => $this->recurrences]);
+            $parts[] = $this->translate('period_recurrences', [], $this->recurrences, $translator);
         }
 
-        $parts[] = $translator->trans('period_interval', [':interval' => $this->dateInterval->forHumans()]);
+        $parts[] = $this->translate('period_interval', [':interval' => $this->dateInterval->forHumans()], null, $translator);
 
-        $parts[] = $translator->trans('period_start_date', [':date' => $this->startDate->format($format)]);
+        $parts[] = $this->translate('period_start_date', [':date' => $this->startDate->format($format)], null, $translator);
 
         if ($this->endDate !== null) {
-            $parts[] = $translator->trans('period_end_date', [':date' => $this->endDate->format($format)]);
+            $parts[] = $this->translate('period_end_date', [':date' => $this->endDate->format($format)], null, $translator);
         }
 
         $result = implode(' ', $parts);
@@ -1324,11 +1354,11 @@ class CarbonPeriod implements Iterator, Countable
 
         $result = iterator_to_array($this);
 
-        list(
+        [
             $this->key,
             $this->current,
             $this->validationResult
-        ) = $state;
+        ] = $state;
 
         return $result;
     }

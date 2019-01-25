@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -67,4 +67,5 @@ return [
     'weekdays' => ['रविवार', 'सोमवार', 'मंगलवार', 'बुधवार', 'गुरूवार', 'शुक्रवार', 'शनिवार'],
     'weekdays_short' => ['रवि', 'सोम', 'मंगल', 'बुध', 'गुरू', 'शुक्र', 'शनि'],
     'weekdays_min' => ['र', 'सो', 'मं', 'बु', 'गु', 'शु', 'श'],
+    'list' => [', ', ' और '],
 ];

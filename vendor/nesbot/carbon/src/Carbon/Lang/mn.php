@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -59,4 +59,5 @@ return [
     'hour_before' => ':count цагий',
     'minute_before' => ':count минуты',
     'second_before' => ':count секунды',
+    'list' => ', ',
 ];

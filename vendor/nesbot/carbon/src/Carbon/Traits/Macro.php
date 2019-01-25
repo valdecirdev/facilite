@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -8,7 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Carbon\Traits;
 
 /**
@@ -47,6 +46,18 @@ trait Macro
 
     /**
      * Register a custom macro.
+     *
+     * @example
+     * ```
+     * $userSettings = [
+     *   'locale' => 'pt',
+     *   'timezone' => 'America/Sao_Paulo',
+     * ];
+     * Carbon::macro('userFormat', function () use ($userSettings) {
+     *   return $this->copy()->locale($userSettings['locale'])->tz($userSettings['timezone'])->calendar();
+     * });
+     * echo Carbon::yesterday()->hours(11)->userFormat();
+     * ```
      *
      * @param string          $name
      * @param object|callable $macro
@@ -87,6 +98,28 @@ trait Macro
 
     /**
      * Mix another object into the class.
+     *
+     * @example
+     * ```
+     * Carbon::mixin(new class {
+     *   public function addMoon() {
+     *     return function () {
+     *       return $this->addDays(30);
+     *     };
+     *   }
+     *   public function subMoon() {
+     *     return function () {
+     *       return $this->subDays(30);
+     *     };
+     *   }
+     * });
+     * $fullMoon = Carbon::create('2018-12-22');
+     * $nextFullMoon = $fullMoon->addMoon();
+     * $blackMoon = Carbon::create('2019-01-06');
+     * $previousBlackMoon = $blackMoon->subMoon();
+     * echo "$nextFullMoon\n";
+     * echo "$previousBlackMoon\n";
+     * ```
      *
      * @param object $mixin
      *

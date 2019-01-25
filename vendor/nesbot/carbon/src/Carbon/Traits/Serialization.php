@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Carbon\Traits;
 
+use Carbon\CarbonInterface;
 use InvalidArgumentException;
 
 /**
@@ -42,7 +42,7 @@ trait Serialization
     /**
      * Locale to dump comes here before serialization.
      *
-     * @var string
+     * @var string|null
      */
     protected $dumpLocale = null;
 
@@ -63,7 +63,7 @@ trait Serialization
      *
      * @throws \InvalidArgumentException
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public static function fromSerialized($value)
     {
@@ -81,7 +81,7 @@ trait Serialization
      *
      * @param string|array $dump
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public static function __set_state($dump)
     {

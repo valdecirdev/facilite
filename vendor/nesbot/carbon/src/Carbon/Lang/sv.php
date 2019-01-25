@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -62,4 +62,5 @@ return [
     'weekdays_min' => ['sö', 'må', 'ti', 'on', 'to', 'fr', 'lö'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
+    'list' => [', ', ' och '],
 ];

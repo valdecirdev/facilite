@@ -11,7 +11,7 @@
         $today = new DateTime();
         $today = $today->format('Y-m-d');
         $logger = new Logger('System');
-        $logger->pushHandler(new StreamHandler(__DIR__.DS.'..'.DS.'..'.DS.'storage'.DS.'logs'.DS.'log-'.$today.'.txt', Logger::DEBUG));
+        $logger->pushHandler(new StreamHandler(BASEPATH.'logs'.DS.'log-'.$today.'.log', Logger::DEBUG));
         $logger->pushHandler(new FirePHPHandler());
 
         $context = array('Code'=>$code, 'File'=>$file, 'Line'=>$line);
