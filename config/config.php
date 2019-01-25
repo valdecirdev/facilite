@@ -13,9 +13,9 @@ $config['autoload'] = __DIR__.DS.'autoload.php';
 
 $config['composer_autoload'] = BASEPATH.'vendor'.DS.'autoload.php';
 
-$config['error_handler'] = BASEPATH.'app'.DS.'exceptions'.DS.'handler.php';
+$config['error_handler'] = BASEPATH.'app'.DS.'Exceptions'.DS.'handler.php';
 
-$config['helper_path'] = BASEPATH.'app'.DS.'helpers'.DS;
+$config['helper_path'] = BASEPATH.'app'.DS.'Helpers'.DS;
 
 $config['helper_sufix'] = '_helper.php';
 
